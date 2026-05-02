@@ -1,0 +1,262 @@
+/* 🧭 NAVBAR STYLES */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-dark {
+  padding: 1.25rem 0;
+  background-color: transparent;
+}
+
+.navbar-light {
+  padding: 1rem 0;
+  background-color: var(--bg);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
+}
+
+.nav-container {
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .nav-container {
+    padding: 0 3.5rem;
+  }
+}
+
+/* Logo */
+.nav-logo-wrapper {
+  flex: 1;
+}
+
+.nav-logo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+@media (min-width: 768px) {
+  .nav-logo {
+    font-size: 1.875rem;
+  }
+}
+
+.nav-logo-yellow {
+  color: #F2B84B;
+}
+
+.nav-logo-purple {
+  color: #ddc3f0;
+}
+
+.nav-logo-green {
+  color: var(--text);
+}
+
+/* Links */
+.nav-links {
+  display: none;
+  flex: none;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .nav-links {
+    gap: 3.5rem;
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.nav-link {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  white-space: nowrap;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+.nav-link-yellow {
+  color: #F2B84B;
+}
+
+.nav-link-purple {
+  color: #ddc3f0;
+}
+
+.nav-link-green {
+  color: var(--text);
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.nav-link-line {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transition: width 0.5s ease;
+}
+
+.nav-link:hover .nav-link-line {
+  width: 100%;
+}
+
+/* CTA */
+.nav-cta-wrapper {
+  display: none;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .nav-cta-wrapper {
+    display: flex;
+  }
+}
+
+.nav-btn {
+  padding: 0.625rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  background: transparent;
+}
+
+.nav-btn-yellow {
+  border-color: rgba(242, 184, 75, 0.35);
+  color: #F2B84B;
+}
+
+.nav-btn-purple {
+  border-color: rgba(195, 143, 233, 0.726);
+  color: #ddc3f0;
+}
+
+.nav-btn-green {
+  border-color: rgba(15, 92, 92, 0.25);
+  color: var(--text);
+}
+
+.nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Menu */
+.mobile-toggle {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+.mobile-toggle-btn {
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobile-toggle-yellow {
+  color: #F2B84B;
+}
+
+.mobile-toggle-purple {
+  color: #ddc3f0;
+}
+
+.mobile-toggle-green {
+  color: var(--text);
+}
+
+.mobile-menu-drawer {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: var(--bg);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1.25rem;
+}
+
+.mobile-nav-link {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(15, 92, 92, 0.06);
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: var(--accent);
+}
+
+.mobile-nav-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(15, 92, 92, 0.25);
+  border-radius: 9999px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.mobile-nav-btn:hover {
+  background-color: var(--text);
+  color: white;
+}

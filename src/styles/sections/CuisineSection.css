@@ -1,0 +1,609 @@
+/* 🌍 REALISTIC CUISINE SECTION STYLES */
+.cuisine-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 40px;
+  margin: 1rem 1rem 0 1rem;
+  padding-bottom: 1rem;
+  transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
+  background-color: #FAF7F0;
+}
+
+@media (min-width: 768px) {
+  .cuisine-section {
+    border-radius: 120px;
+  margin: 3rem 2.5rem 0 2.5rem;
+  }
+}
+
+.cuisine-noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  z-index: 10;
+}
+
+.cuisine-ambient-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.cuisine-header {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  padding-top: 2rem;
+  margin-bottom: 0.1rem;
+}
+
+.cuisine-main-title {
+  font-size: 2.5rem;
+  font-family: var(--font-serif);
+  color: var(--text);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .cuisine-main-title {
+    font-size: 4.5rem;
+  }
+}
+
+.cuisine-title-italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* 🍽️ Top-Down Table Perspective */
+.cuisine-table-perspective {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  padding: 10px 0;
+  perspective: 1500px;
+}
+
+@media (min-width: 1200px) {
+  .cuisine-table-perspective {
+    flex-direction: row;
+    padding: 0px 0;
+  }
+}
+
+.cuisine-table-topview {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* transform: rotateX(62deg);  Moved to Framer Motion for scroll-driven tilt */
+  transform-style: preserve-3d;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .cuisine-table-topview {
+    width: 550px;
+    height: 550px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cuisine-table-topview {
+    width: 750px;
+    height: 750px;
+    margin-bottom: 0;
+  }
+}
+
+/* 🪵 Realistic 3D Round Table Surface */
+.cuisine-table-surface-round {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  background-image: url('../../assets/wooden.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(139, 94, 60, 0.1);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.4),
+    inset 0 0 80px rgba(0, 0, 0, 0.4);
+  overflow: visible;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+  .cuisine-table-surface-round {
+    width: 580px;
+    height: 580px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cuisine-table-surface-round {
+    width: 700px;
+    height: 700px;
+  }
+}
+
+/* Polished Gloss Removed */
+.cuisine-table-surface-round::before {
+  display: none;
+}
+
+/* 🧱 The 3D Edge/Thickness of the Table - More Realistic Depth */
+.cuisine-table-surface-round::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(to bottom, #120904, #000);
+  border-radius: 90%;
+  z-index: -1;
+  transform: translateZ(-20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* 🦵 Table Central Leg Style */
+.cuisine-table-leg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 350px;
+  background: linear-gradient(to right, #0a0503 0%, #1a0f08 50%, #0a0503 100%);
+  transform: translate(-50%, 0) rotateX(-62deg) translateZ(-150px);
+  transform-origin: top center;
+  z-index: -2;
+  box-shadow: inset 5px 0 15px rgba(0,0,0,0.5);
+  display: none;
+}
+
+.cuisine-table-leg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 40px;
+  background: #000;
+  border-radius: 50%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+  display: none;
+}
+
+/* 🌑 Floor Shadow Overlay */
+.cuisine-table-shadow-floor {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 400px;
+  height: 250px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, transparent 75%);
+  transform: translate(-50%, -50%) rotateX(0deg) translateZ(-300px);
+  z-index: -10;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .cuisine-table-shadow-floor {
+    width: 650px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cuisine-table-surface-round {
+    width: 700px;
+    height: 700px;
+  }
+}
+
+.cuisine-table-texture-light {
+  display: none;
+}
+
+/* Center Logo Top View */
+.table-center-logo-top {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .table-center-logo-top {
+    width: 190px;
+    height: 190px;
+  }
+}
+
+.table-center-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply; /* Removes white background from the logo asset */
+  filter: contrast(1.1) brightness(1.1);
+  transform: scale(0.9);
+}
+
+/* 🥘 Dishes Round Grid */
+.cuisine-dishes-round-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
+.cuisine-dish-wrapper-round {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 768px) {
+  .cuisine-dish-wrapper-round {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cuisine-dish-wrapper-round {
+    width: 190px;
+    height: 190px;
+  }
+}
+
+.cuisine-dish-motion-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Using center-based positioning (translate(-50%, -50%) is applied to the wrapper) */
+.dish-round-0 { top: 18%; left: 50%; } /* Top Center */
+.dish-round-1 { top: 40%; left: 82%; } /* Upper Right */
+.dish-round-2 { top: 75%; left: 70%; } /* Lower Right */
+.dish-round-3 { top: 75%; left: 30%; } /* Lower Left */
+.dish-round-4 { top: 40%; left: 18%; } /* Upper Left */
+
+@media (min-width: 1024px) {
+  .dish-round-0 { top: 16%; left: 50%; }
+  .dish-round-1 { top: 40%; left: 84%; }
+  .dish-round-2 { top: 76%; left: 72%; }
+  .dish-round-3 { top: 76%; left: 28%; }
+  .dish-round-4 { top: 40%; left: 16%; }
+}
+
+/* 🏺 Served Angles - Settling the plates organically */
+.dish-round-0 .plate-rim-gold { transform: rotate(-12deg); }
+.dish-round-1 .plate-rim-gold { transform: rotate(12deg); }
+.dish-round-2 .plate-rim-gold { transform: rotate(5deg); }
+.dish-round-3 .plate-rim-gold { transform: rotate(0deg); }
+.dish-round-4 .plate-rim-gold { transform: rotate(-5deg); }
+
+.cuisine-dish-plate-premium {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 50%;
+  padding: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.plate-rim-gold {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+ /* border: 4px solid #d4af37;  */
+  padding: 5px;
+}
+
+.plate-inner-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.dish-img-topview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dish-shadow-top {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, transparent 70%);
+  transform: translateY(10px);
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.cuisine-dish-wrapper-round:hover .cuisine-dish-plate-premium {
+  transform: translateZ(25px) scale(1.05); /* Lift up on hover */
+  box-shadow:
+    0 35px 70px rgba(0,0,0,0.3),
+    0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.cuisine-dish-wrapper-round:hover .dish-shadow-top {
+  transform: translateY(20px) scale(0.9);
+  opacity: 0.4;
+  filter: blur(12px);
+}
+
+.active-plate {
+  transform: translateZ(40px) scale(1.08) !important; /* Higher lift for active plate */
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.3),
+    0 0 40px rgba(212, 175, 55, 0.4) !important;
+  border: 2px solid #d4af37 !important;
+}
+
+/* 📋 Premium Outside Info Panel */
+.cuisine-details-container {
+  position: relative;
+  width: 90%;
+  max-width: 360px;
+  margin: 2rem auto;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@media (min-width: 1200px) {
+  .cuisine-details-container {
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    margin: 0;
+  }
+}
+
+.cuisine-info-panel {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-radius: 32px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.info-panel-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-panel-image-section {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+
+.info-panel-image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-panel-text-section {
+  padding: 2rem;
+  position: relative;
+}
+
+/* 📏 Callout Line - Matching user reference */
+.info-panel-callout {
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  width: 60px;
+  height: 2px;
+  background: rgba(212, 175, 55, 0.4);
+  transform: translateY(-50%);
+}
+
+.info-panel-callout::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  background: #d4af37;
+  border-radius: 50%;
+  transform: translate(50%, -40%);
+  box-shadow: 0 0 10px #d4af37;
+}
+
+.info-panel-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.info-panel-tagline {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.info-panel-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .info-panel-name {
+    font-size: 2.2rem;
+  }
+}
+
+.info-panel-desc {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .info-panel-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.info-panel-stats {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: 1.25rem;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.stat-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  transition: width 1s ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .cuisine-details-container {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 90%;
+    max-width: 500px;
+    /* min-height: 100vh; */
+    margin: 2rem auto;
+  }
+
+  .info-panel-callout {
+    display: none;
+  }
+}
+
+.cuisine-footer-info {
+  position: relative;
+  z-index: 20;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.cuisine-footer-text {
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+
+/* 📱 Responsive Top-Down View */
+@media (max-width: 768px) {
+  .cuisine-header {
+    padding-top: 1rem;
+  }
+
+  .cuisine-main-title {
+    font-size: 2rem;
+  }
+
+  .dish-tooltip-premium {
+    width: 220px;
+    top: -120px;
+  }
+
+  .tooltip-name-dark { font-size: 1.2rem; }
+}
+
+/* 🔄 Infinite Orbital Rotation with Pause on Hover */
+@keyframes orbital-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbital-counter-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.cuisine-dishes-round-grid {
+  animation: orbital-rotate 60s linear infinite;
+  animation-play-state: running;
+}
+
+/* Pause rotation when the container OR any dish is hovered */
+.cuisine-dishes-round-grid:hover,
+.cuisine-dishes-round-grid.is-paused {
+  animation-play-state: paused !important;
+}
+
+.cuisine-dish-motion-wrapper {
+  /* Counter-rotate to keep plates upright */
+  animation: orbital-counter-rotate 60s linear infinite;
+  animation-play-state: running;
+}
+
+.cuisine-dishes-round-grid:hover .cuisine-dish-motion-wrapper,
+.cuisine-dishes-round-grid.is-paused .cuisine-dish-motion-wrapper {
+  animation-play-state: paused !important;
+}
