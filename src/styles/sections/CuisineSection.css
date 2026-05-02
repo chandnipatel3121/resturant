@@ -10,6 +10,7 @@
   padding-bottom: 1rem;
   transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
   background-color: #FAF7F0;
+  min-height: 100vh;
 }
 
 @media (min-width: 768px) {
@@ -24,7 +25,6 @@
   inset: 0;
   opacity: 0.05;
   pointer-events: none;
-  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
   z-index: 10;
 }
 
@@ -559,12 +559,68 @@
 
 /* 📱 Responsive Top-Down View */
 @media (max-width: 768px) {
+  .cuisine-section {
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
   .cuisine-header {
-    padding-top: 1rem;
+    padding-top: 0;
+    margin-bottom: 0;
   }
 
   .cuisine-main-title {
     font-size: 2rem;
+  }
+
+  .cuisine-footer-info {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0;
+  }
+
+  .cuisine-table-perspective {
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .cuisine-table-topview {
+    margin-bottom: 0.5rem;
+    width: 280px; /* Slightly smaller for better fit */
+    height: 280px;
+  }
+
+  .cuisine-table-surface-round {
+    width: 300px;
+    height: 300px;
+  }
+
+  .cuisine-details-container {
+    margin: 0.5rem auto;
+    max-width: 320px;
+  }
+
+  .info-panel-image-section {
+    height: 120px;
+  }
+
+  .info-panel-text-section {
+    padding: 1.25rem;
+  }
+
+  .info-panel-name {
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .info-panel-desc {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-panel-stats {
+    padding-top: 0.75rem;
   }
 
   .dish-tooltip-premium {

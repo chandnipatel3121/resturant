@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import restroLogo from "../assets/restrologo.png"
 import "../styles/sections/CuisineSection.css"
 
@@ -74,6 +74,20 @@ const CuisineSection = () => {
   const tableScale = useTransform(smoothProgress, [0, 0.3, 0.5, 1], [0.8, 0.9, 1, 0.9])
   const tableY = useTransform(smoothProgress, [0, 0.5, 1], [50, -50, -150])
   const tableOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const prevProgress = React.useRef(0)
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const direction = v > prevProgress.current ? "down" : "up"
+    prevProgress.current = v
+
+    // Force scroll to full section when entering from top
+    if (v > 0.02 && v < 0.15 && direction === "down" && window.lenis) {
+      window.lenis.scrollTo("#cuisine-section", {
+        duration: 1.5,
+        easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+      })
+    }
+  })
 
   const handleDishClick = (i) => {
     setActiveIndex(i)
@@ -89,6 +103,7 @@ const CuisineSection = () => {
 
   return (
     <section
+      id="cuisine-section"
       className="cuisine-section"
       style={{
         backgroundColor: activeCuisine.bg,
@@ -205,7 +220,7 @@ const CuisineSection = () => {
         {/* 📋 Dedicated Info Card - Shows ONLY on hover OR active selection */}
         <div className="cuisine-details-container">
           <AnimatePresence mode="wait">
-            {(hoveredIndex !== null || activeIndex !== null) && displayCuisine && (
+            {hoveredIndex !== null && displayCuisine && (
               <motion.div
                 key={displayIndex}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
