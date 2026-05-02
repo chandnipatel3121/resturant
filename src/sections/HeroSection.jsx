@@ -51,8 +51,8 @@ const HeroSection = () => {
       })
     }
 
-    // Show popup after hero scroll completely
-    if (v >= 0.99 && !hasShownPopup.current) {
+    // Show popup in between hero scenes (mid-scroll transition)
+    if (v >= 0.45 && !hasShownPopup.current) {
       setShowPopup(true)
       hasShownPopup.current = true
     }

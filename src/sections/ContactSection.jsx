@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from "framer-motion"
 import InfographicMap from "../components/InfographicMap"
 import "../styles/sections/ContactSection.css"
 
@@ -8,13 +8,29 @@ const ContactSection = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end 0.4"],
   })
 
-  // Smooth the scroll progress for a more cinematic feel
+  const prevProgress = useRef(0)
+
+  // 📸 Programmatic Cinematic Snap
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const direction = v > prevProgress.current ? "down" : "up"
+    prevProgress.current = v
+
+    // Trigger cinematic snap when entering the section
+    if (v > 0.05 && v < 0.2 && direction === "down" && window.lenis) {
+      window.lenis.scrollTo("#contact-section", {
+        duration: 2.0, // Balanced snap duration
+        easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+      })
+    }
+  })
+
+  // Balanced "Medium" spring speed
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
-    damping: 20,
+    stiffness: 35,
+    damping: 32,
     restDelta: 0.001
   })
 
@@ -26,7 +42,7 @@ const ContactSection = () => {
   }
 
   return (
-    <section id="contact" ref={containerRef} className="contact-section">
+    <section id="contact-section" ref={containerRef} className="contact-section">
 
       {/* LEFT PANEL - INFOGRAPHIC MAP (2D) */}
       <div className="contact-map-panel">

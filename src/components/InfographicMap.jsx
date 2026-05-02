@@ -1,116 +1,110 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { motion, useTransform } from "framer-motion"
 
-const LowPolyMap = ({ scrollProgress }) => {
-  // Low Poly Theme Colors
+const InfographicMap = ({ scrollProgress }) => {
+  // Clear Professional Palette
   const COLORS = {
-    bg: "#f3f4f6",
-    road: "#374151",      // Dark grey road
-    grass: "#a3e635",     // Vibrant low poly green
-    desert: "#fbbf24",    // Low poly orange/sand
-    snow: "#f0f9ff",      // Snowy blue/white
-    accent: "#ef4444",    // Red car
-    building: "#ffffff"
+    bg: "#f8fafc",
+    road: "#334155",      
+    roadLight: "#cbd5e1",
+    accent: "#E0A94B",
+    pin: "#ef4444",
+    park: "#dcfce7",
+    building: "#f1f5f9"
   }
 
-  // Winding Vertical Path (Isometric feel)
-  const pathD = "M 100 700 L 250 650 L 150 550 L 400 450 L 300 350 L 500 250 L 400 150 L 550 50"
+  // ✅ PRECISE TOPOLOGY (Traced for maximum realism)
+  const pathD = "M 80 550 L 300 420 L 550 250 Q 580 230 600 300 L 620 450 L 640 550 Q 650 590 720 600"
   
-  const pathLength = useTransform(scrollProgress, [0, 1], [0, 1])
+  // Refined timing: Car reaches Restro precisely at the end of the scroll
+  const carDistance = useTransform(scrollProgress, [0, 0.95], ["0%", "100%"])
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-[#f3f4f6] flex items-center justify-center p-4">
-      <svg
-        viewBox="0 0 600 800"
-        className="w-full h-full drop-shadow-2xl"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Background Biomes (Low Poly Shapes) */}
-        <path d="M 0 600 L 300 800 L 600 600 Z" fill={COLORS.snow} opacity="0.4" />
-        <path d="M 100 400 L 400 600 L 600 400 L 300 200 Z" fill={COLORS.grass} opacity="0.3" />
-        <path d="M 0 100 L 300 300 L 600 0 Z" fill={COLORS.desert} opacity="0.3" />
-
-        {/* The Winding Road (Base) */}
-        <path
-          d={pathD}
-          stroke={COLORS.road}
-          strokeWidth="24"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* Dashed White Lines */}
-        <path
-          d={pathD}
-          stroke="#ffffff"
-          strokeWidth="2"
-          strokeDasharray="10 15"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity="0.8"
-        />
-
-        {/* Animated Active Progress Line (Optional, for visual feedback) */}
-        <motion.path
-          d={pathD}
-          stroke="#60a5fa"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{ pathLength }}
-          opacity="0.4"
-        />
-
-        {/* Low Poly Props (Trees/Buildings) */}
-        <g transform="translate(180, 680) skewX(-15)">
-          <rect width="30" height="20" fill={COLORS.building} rx="2" />
-          <path d="M 0 0 L 15 -15 L 30 0 Z" fill="#ef4444" />
-        </g>
-        <g transform="translate(420, 420) skewX(-15)">
-          <circle cx="0" cy="0" r="10" fill={COLORS.grass} />
-          <rect x="-2" y="0" width="4" height="15" fill="#713f12" />
-        </g>
-        <g transform="translate(320, 320) skewX(-15)">
-          <rect width="40" height="40" fill={COLORS.building} rx="2" />
-          <rect x="5" y="5" width="30" height="10" fill="#bae6fd" />
+    <div className="w-full h-full flex items-center justify-center bg-white overflow-hidden p-8 font-sans">
+      <svg viewBox="0 0 900 750" className="w-full h-full max-w-6xl">
+        
+        {/* --- 1. CITY GRID --- */}
+        <g opacity="0.1" stroke={COLORS.roadLight} strokeWidth="4" fill="none">
+          <path d="M 150 0 L 150 750" />
+          <path d="M 300 0 L 300 750" />
+          <path d="M 0 500 L 900 500" />
+          <path d="M 400 0 L 0 400" />
         </g>
 
-        {/* THE CAR (2D Animated following road) */}
-        <motion.g
-          style={{ 
-            offsetPath: `path("${pathD}")`,
-            offsetDistance: useTransform(scrollProgress, [0, 1], ["0%", "100%"]),
-            offsetRotate: "auto"
-          }}
-        >
-          {/* Car Body */}
-          <rect x="-15" y="-10" width="30" height="20" rx="4" fill={COLORS.accent} />
-          <rect x="2" y="-7" width="10" height="14" rx="2" fill="#ffffff" opacity="0.7" />
-          {/* Headlights */}
-          <circle cx="14" cy="-6" r="2" fill="white" />
-          <circle cx="14" cy="6" r="2" fill="white" />
-          {/* Shadow */}
-          <ellipse cx="0" cy="15" rx="15" ry="5" fill="black" opacity="0.1" />
-        </motion.g>
+        {/* --- 2. THE MAIN ROUTE --- */}
+        <path d={pathD} stroke="rgba(0,0,0,0.05)" strokeWidth="52" fill="none" strokeLinecap="round" transform="translate(0, 10)" />
+        <path d={pathD} stroke={COLORS.road} strokeWidth="46" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={pathD} stroke="#fff" strokeWidth="1" strokeDasharray="10 15" fill="none" opacity="0.2" />
 
-        {/* Destination Pin (Restro) */}
-        <g transform="translate(550, 50)">
-          <motion.g
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, delay: 0.8 }}
-          >
-            <path
-              d="M 0 0 C -15 -30, -15 -45, 0 -45 S 15 -30, 0 0"
-              fill="#0F5C5C"
-            />
-            <circle cx="0" cy="-30" r="8" fill="white" />
-            <text x="25" y="-25" fill="#0F5C5C" fontFamily="Playfair Display" fontWeight="bold" fontSize="24">Restro</text>
+        {/* --- 3. LANDMARKS & LABELS --- */}
+
+        {/* START: OCYENT PIZZA */}
+        <g transform="translate(60, 500)">
+          <rect x="-20" y="-20" width="40" height="40" fill={COLORS.building} stroke="#cbd5e1" rx="4" />
+          <text y="35" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#64748b">OCYENT PIZZA</text>
+        </g>
+
+        {/* ROAD LABEL 1: BHUJ HIGHWAY (On Road) */}
+        <text transform="rotate(-30, 200, 480)" x="130" y="480" fontSize="9" fill="#94a3b8" fontWeight="900" letterSpacing="3" opacity="0.6">BHUJ HIGHWAY</text>
+
+        {/* LANDMARK: Domino's Pizza */}
+        <g transform="translate(320, 360)">
+          <rect x="-15" y="-15" width="30" height="30" fill="#fee2e2" stroke="#fecaca" rx="2" />
+          <text x="20" y="-15" textAnchor="start" fontSize="9" fill="#ef4444" fontWeight="bold">Domino's</text>
+        </g>
+
+        {/* JUNCTION: JUBILEE CIRCLE */}
+        <g transform="translate(560, 200)">
+          <circle r="40" fill="#fff" stroke="#cbd5e1" strokeWidth="1" />
+          <text textAnchor="middle" y="5" fontSize="10" fontWeight="900" fill="#475569">JUBILEE CIRCLE</text>
+        </g>
+
+        {/* ROAD LABEL 2: MUNDRA ROAD (On Road) */}
+        <text transform="rotate(80, 620, 380)" x="635" y="380" fontSize="9" fill="#94a3b8" fontWeight="900" letterSpacing="3" opacity="0.6">MUNDRA ROAD</text>
+
+        {/* LANDMARK: MMPJ HOSPITAL (Pushed to OTHER SIDE - West) */}
+        <g transform="translate(540, 420)">
+          <rect x="-25" y="-35" width="50" height="70" fill={COLORS.building} stroke="#cbd5e1" rx="2" />
+          <text x="-35" y="0" textAnchor="end" fontSize="10" fontWeight="bold" fill="#64748b">MMPJ Hospital</text>
+        </g>
+
+        {/* JUNCTION: AEROPLANE CIRCLE (AT CORNER) */}
+        <g transform="translate(640, 550)">
+          <circle r="22" fill="#fff" stroke="#cbd5e1" />
+          <circle r="12" fill="#f1f5f9" stroke="#cbd5e1" opacity="0.5" />
+          <text textAnchor="middle" y="35" fontSize="8" fontWeight="bold" fill="#94a3b8">AEROPLANE CIRCLE</text>
+        </g>
+
+        {/* DESTINATION: SHREEJI ARCADE (RESTRO) */}
+        <g transform="translate(730, 620)">
+          <motion.circle r="45" fill={COLORS.accent} opacity="0.1" animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 2.5, repeat: Infinity }} />
+          <rect x="-35" y="-20" width="70" height="40" fill="#fff" stroke={COLORS.accent} strokeWidth="2" rx="4" />
+          <text textAnchor="middle" y="5" fontSize="16" fontWeight="900" fill={COLORS.accent}>RESTRO</text>
+          <text y="35" textAnchor="middle" fontSize="9" fill="#64748b" fontWeight="bold">SHREEJI ARCADE</text>
+          
+          <motion.g animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+            <path d="M 0 -45 L -12 -75 A 12 12 0 1 1 12 -75 L 0 -45 Z" fill={COLORS.pin} stroke="#fff" strokeWidth="2" />
+            <circle cx="0" cy="-75" r="5" fill="#fff" />
           </motion.g>
         </g>
+
+        {/* --- 4. ANIMATED NAVIGATION VEHICLE --- */}
+        <motion.g
+          style={{
+            offsetPath: `path("${pathD}")`,
+            offsetDistance: carDistance,
+            offsetRotate: "auto",
+            transition: { ease: "easeInOut" }
+          }}
+        >
+          <ellipse cx="0" cy="12" rx="16" ry="6" fill="black" opacity="0.1" />
+          <rect x="-16" y="-8" width="32" height="16" rx="4" fill={COLORS.pin} />
+          <rect x="6" y="-6" width="8" height="12" rx="2" fill="#fff" opacity="0.4" />
+        </motion.g>
+
       </svg>
     </div>
   )
 }
 
-export default LowPolyMap
+export default InfographicMap
