@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
 import Popup from "../components/Popup"
-import videoSrc from "../assets/videogif.gif"
+import videoSrc from "../assets/herovideo1.mp4"
 import img1 from "../assets/resturent3.jpg"
 import "../styles/sections/HeroSection.css"
 
@@ -161,14 +161,17 @@ const HeroSection = () => {
             className="absolute inset-0 flex items-center justify-center overflow-hidden"
           >
             <motion.div style={{ scale: imgScale }} className="absolute inset-0">
-              <img
+              <video
                 src={videoSrc}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover"
                 style={{
                   opacity: 0.85,
                   filter: "contrast(1.1) brightness(1.1) saturate(1.1)"
                 }}
-                alt="Chef cooking with fire"
               />
             </motion.div>
           </motion.div>

@@ -143,7 +143,7 @@
 }
 
 .animate-float {
-  animation: float 2s ease- some infinite;
+  animation: float 2s ease infinite;
 }
 
 /* Responsive adjustments */
@@ -158,4 +158,34 @@
     padding: 0.85rem 2rem;
     width: 100%;
   }
+}
+
+/* 🎬 Cinematic GIF Background Styles */
+.hero-bg-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #000;
+  overflow: hidden;
+}
+
+.hero-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  filter: brightness(0.7) contrast(1.2);
+  animation: cinematic-breath 15s ease-in-out infinite alternate;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+
+@keyframes cinematic-breath {
+  0% { transform: scale(1) translateX(0); }
+  100% { transform: scale(1.1) translateX(-2%); }
 }
