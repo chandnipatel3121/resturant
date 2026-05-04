@@ -26,7 +26,7 @@ html {
   scrollbar-width: none;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 0;
   font-size: 16px;
 }
 
@@ -72,6 +72,13 @@ p {
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--muted);
+}
+
+/* SECTION DEFAULTS */
+section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
 }
 
 /* UTILITIES */

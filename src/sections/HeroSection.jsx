@@ -19,6 +19,7 @@ const HeroSection = () => {
   const ref = useRef(null)
   const prevV = useRef(0)
   const hasShownPopup = useRef(false)
+  const randomPopupTrigger = useRef(Math.random() * 0.4 + 0.3) // Random between 0.3 and 0.7
   const { setPastHero, setNavTheme } = useNav()
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] })
@@ -44,15 +45,16 @@ const HeroSection = () => {
     }
 
     // Forced scroll to next section when near the end and scrolling down
-    if (v > 0.92 && direction === 'down' && window.lenis) {
+    const threshold = window.innerWidth < 768 ? 0.95 : 0.92
+    if (v > threshold && direction === 'down' && window.lenis) {
       window.lenis.scrollTo("#dish-showcase", {
-        duration: 1.2,
+        duration: 1.5,
         easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
       })
     }
 
-    // Show popup in between hero scenes (mid-scroll transition)
-    if (v >= 0.45 && !hasShownPopup.current) {
+    // Show popup exactly when Scene 1 is going up and Scene 2 is coming in (at 0.5 progress)
+    if (v >= 0.5 && !hasShownPopup.current) {
       setShowPopup(true)
       hasShownPopup.current = true
     }
@@ -196,16 +198,20 @@ const HeroSection = () => {
 
           {/* RESTAURANT NAME */}
           <motion.div
-            style={{ opacity: nameOpacity, y: nameRevealY }}
-            className="absolute top-[50%] translate-y-[28vh] flex flex-col items-center z-30"
+            style={{
+              opacity: nameOpacity,
+              y: nameRevealY,
+              translateY: window.innerWidth < 768 ? "22vh" : "28vh"
+            }}
+            className="absolute top-[50%] flex flex-col items-center z-30"
           >
             <h1 className="font-serif leading-[0.9] text-[#0F5C5C] select-none text-center mb-5">
-              <span className="block text-[clamp(3rem,8vw,6rem)]">Restro</span>
+              <span className="block text-[clamp(2.5rem,8vw,5rem)]">Restro</span>
             </h1>
-            <p className="text-[10px] uppercase tracking-[0.6em] text-[#7A688A] font-medium">
+            <p className="text-[9px] uppercase tracking-[0.5em] text-[#7A688A] font-medium">
               Est. 2012 &nbsp;·&nbsp; Fine Dining
             </p>
-            <div className="mt-6 w-20 h-[1px] bg-gradient-to-r from-transparent via-[#E0A94B] to-transparent" />
+            <div className="mt-4 w-16 h-[1px] bg-gradient-to-r from-transparent via-[#E0A94B] to-transparent" />
           </motion.div>
         </motion.div>
       </div>

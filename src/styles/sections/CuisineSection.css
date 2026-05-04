@@ -1,22 +1,23 @@
-/* 🌍 REALISTIC CUISINE SECTION STYLES */
+/* ðŸŒ REALISTIC CUISINE SECTION STYLES */
 .cuisine-section {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between; /* Evenly distribute header, content, footer */
   overflow: hidden;
-  border-radius: 40px;
-  margin: 1rem 1rem 0 1rem;
-  padding-bottom: 1rem;
+  margin: 0;
+  padding: 4rem 1rem 2rem 1rem;
   transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
   background-color: #FAF7F0;
   min-height: 100vh;
+  width: 100%;
 }
 
 @media (min-width: 768px) {
   .cuisine-section {
-    border-radius: 120px;
-  margin: 3rem 2.5rem 0 2.5rem;
+    margin: 0;
+    padding: 6rem 2.5rem 3rem 2.5rem;
   }
 }
 
@@ -36,12 +37,36 @@
   opacity: 0.6;
 }
 
+.cuisine-bg-image-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cuisine-bg-image-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(20%) brightness(1.0) contrast(1.1);
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 768px) {
+  .cuisine-bg-image-layer {
+    opacity: 0.1 !important; /* Lower opacity for mobile to prevent distraction */
+    background-position: center 20%; /* Focus on the top part of the image for vertical screens */
+  }
+}
+
 .cuisine-header {
   position: relative;
   z-index: 20;
   text-align: center;
-  padding-top: 2rem;
-  margin-bottom: 0.1rem;
+  padding-top: 0;
+  margin-bottom: 0;
 }
 
 .cuisine-main-title {
@@ -63,7 +88,7 @@
   font-weight: 300;
 }
 
-/* 🍽️ Top-Down Table Perspective */
+/* ðŸ½ï¸ Top-Down Table Perspective */
 .cuisine-table-perspective {
   position: relative;
   width: 100%;
@@ -71,16 +96,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 0;
-  padding: 20px 0;
+  flex-grow: 1; /* Take up available space */
+  margin: 1rem 0;
+  padding: 0;
   perspective: 1400px;
-}
-
-@media (min-width: 1200px) {
-  .cuisine-table-perspective {
-    flex-direction: row;
-    padding: 0px 0;
-  }
 }
 
 .cuisine-table-topview {
@@ -110,7 +129,7 @@
   }
 }
 
-/* 🪵 Realistic 3D Round Table Surface */
+/* ðŸªµ Realistic 3D Round Table Surface */
 .cuisine-table-surface-round {
   position: relative;
   width: 340px;
@@ -150,7 +169,7 @@
   display: none;
 }
 
-/* 🧱 The 3D Edge/Thickness of the Table - More Realistic Depth */
+/* ðŸ§± The 3D Edge/Thickness of the Table - More Realistic Depth */
 .cuisine-table-surface-round::after {
   content: '';
   position: absolute;
@@ -162,7 +181,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* 🦵 Table Central Leg Style */
+/* ðŸ¦µ Table Central Leg Style */
 .cuisine-table-leg {
   position: absolute;
   top: 50%;
@@ -191,7 +210,7 @@
   display: none;
 }
 
-/* 🌑 Floor Shadow Overlay */
+/* ðŸŒ‘ Floor Shadow Overlay */
 .cuisine-table-shadow-floor {
   position: absolute;
   top: 55%;
@@ -226,8 +245,8 @@
 /* Center Logo Top View */
 .table-center-logo-top {
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,8 +257,8 @@
 
 @media (min-width: 768px) {
   .table-center-logo-top {
-    width: 190px;
-    height: 190px;
+    width: 195px;
+    height: 195px;
   }
 }
 
@@ -252,7 +271,7 @@
   transform: scale(0.9);
 }
 
-/* 🥘 Dishes Round Grid */
+/* ðŸ¥˜ Dishes Round Grid */
 .cuisine-dishes-round-grid {
   position: absolute;
   width: 100%;
@@ -308,7 +327,7 @@
   .dish-round-4 { top: 40%; left: 16%; }
 }
 
-/* 🏺 Served Angles - Settling the plates organically */
+/* ðŸº Served Angles - Settling the plates organically */
 .dish-round-0 .plate-rim-gold { transform: rotate(-12deg); }
 .dish-round-1 .plate-rim-gold { transform: rotate(12deg); }
 .dish-round-2 .plate-rim-gold { transform: rotate(5deg); }
@@ -380,173 +399,78 @@
   border: 2px solid #d4af37 !important;
 }
 
-/* 📋 Premium Outside Info Panel */
+/* ðŸ“‹ Premium Vertical Info Card  */
 .cuisine-details-container {
   position: relative;
   width: 90%;
-  max-width: 360px;
-  margin: 2rem auto;
+  max-width: 280px;
+  margin: 3rem auto;
   z-index: 100;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 @media (min-width: 1200px) {
   .cuisine-details-container {
     position: absolute;
-    top: 15%;
-    right: 5%;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
     margin: 0;
   }
 }
 
 .cuisine-info-panel {
-  background: #ffffff;
-  color: #1a1a1a;
-  border-radius: 32px;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.12);
+  background: #3B5369;
+  color: #ffffff;
+  border-radius: 40px; /* Very rounded as per image */
+  box-shadow: 0 40px 100px rgba(0,0,0,0.2);
   position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.info-panel-layout {
-  display: flex;
-  flex-direction: column;
+  padding: 120px 25px 40px; /* Increased top padding to fix title overlap */
+  text-align: center;
+  transition: all 0.4s ease;
 }
 
 .info-panel-image-section {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  position: relative;
+  position: absolute;
+  top: -60px; /* Overlap top */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 40%;
+  overflow: visible; /* Allow shadow to spread */
+  z-index: 10;
 }
 
 .info-panel-image-section img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.info-panel-text-section {
-  padding: 2rem;
-  position: relative;
-}
-
-/* 📏 Callout Line - Matching user reference */
-.info-panel-callout {
-  position: absolute;
-  top: 50%;
-  left: -60px;
-  width: 60px;
-  height: 2px;
-  background: rgba(212, 175, 55, 0.4);
-  transform: translateY(-50%);
-}
-
-.info-panel-callout::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 8px;
-  height: 8px;
-  background: #d4af37;
   border-radius: 50%;
-  transform: translate(50%, -40%);
-  box-shadow: 0 0 10px #d4af37;
-}
-
-.info-panel-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-}
-
-.info-panel-tagline {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 0.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  background: white; /* Plate background */
+  padding: 5px;
 }
 
 .info-panel-name {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.1;
-}
-
-@media (min-width: 768px) {
-  .info-panel-name {
-    font-size: 2.2rem;
-  }
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
 }
 
 .info-panel-desc {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-  .info-panel-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-}
-
-.info-panel-stats {
-  border-top: 1px solid rgba(0,0,0,0.08);
-  padding-top: 1.25rem;
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: #666;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.stat-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(0,0,0,0.05);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.stat-fill {
-  height: 100%;
-  transition: width 1s ease-in-out;
-}
-
-@media (max-width: 1200px) {
-  .cuisine-details-container {
-    position: relative;
-    top: 0;
-    right: 0;
-    width: 90%;
-    max-width: 500px;
-    /* min-height: 100vh; */
-    margin: 2rem auto;
-  }
-
-  .info-panel-callout {
-    display: none;
-  }
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  margin-bottom: 0;
 }
 
 .cuisine-footer-info {
   position: relative;
   z-index: 20;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
   text-align: center;
 }
 
@@ -557,7 +481,7 @@
   letter-spacing: 0.05em;
 }
 
-/* 📱 Responsive Top-Down View */
+/* ðŸ“± Responsive Top-Down View */
 @media (max-width: 768px) {
   .cuisine-section {
     justify-content: center;
@@ -585,9 +509,9 @@
   }
 
   .cuisine-table-topview {
-    margin-bottom: 0.5rem;
-    width: 280px; /* Slightly smaller for better fit */
-    height: 280px;
+    margin: 0;
+    width: 250px; /* Slightly smaller for better fit in 100vh */
+    height: 250px;
   }
 
   .cuisine-table-surface-round {
@@ -631,7 +555,7 @@
   .tooltip-name-dark { font-size: 1.2rem; }
 }
 
-/* 🔄 Infinite Orbital Rotation with Pause on Hover */
+/* ðŸ”„ Infinite Orbital Rotation with Pause on Hover */
 @keyframes orbital-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -662,4 +586,23 @@
 .cuisine-dishes-round-grid:hover .cuisine-dish-motion-wrapper,
 .cuisine-dishes-round-grid.is-paused .cuisine-dish-motion-wrapper {
   animation-play-state: paused !important;
+}
+
+/* 🌘 Dark Active State for Cuisine Section */
+.cuisine-section.is-active {
+  background-color: #000000 !important;
+}
+
+.cuisine-section.is-active .cuisine-main-title {
+  color: #ffffff !important;
+}
+
+.cuisine-section.is-active .cuisine-bg-image-layer {
+  mix-blend-mode: screen !important; /* Blends light parts into black */
+  filter: grayscale(40%) brightness(0.6) contrast(1.2) !important;
+  opacity: 0.3 !important;
+}
+
+.cuisine-section.is-active .cuisine-footer-text {
+  color: #ffffff !important;
 }

@@ -5,7 +5,7 @@ const InfographicMap = ({ scrollProgress }) => {
   // Clear Professional Palette
   const COLORS = {
     bg: "#f8fafc",
-    road: "#334155",      
+    road: "#334155",
     roadLight: "#cbd5e1",
     accent: "#E0A94B",
     pin: "#ef4444",
@@ -15,14 +15,14 @@ const InfographicMap = ({ scrollProgress }) => {
 
   // ✅ PRECISE TOPOLOGY (Traced for maximum realism)
   const pathD = "M 80 550 L 300 420 L 550 250 Q 580 230 600 300 L 620 450 L 640 550 Q 650 590 720 600"
-  
+
   // Refined timing: Car reaches Restro precisely at the end of the scroll
   const carDistance = useTransform(scrollProgress, [0, 0.95], ["0%", "100%"])
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-white overflow-hidden p-8 font-sans">
       <svg viewBox="0 0 900 750" className="w-full h-full max-w-6xl">
-        
+
         {/* --- 1. CITY GRID --- */}
         <g opacity="0.1" stroke={COLORS.roadLight} strokeWidth="4" fill="none">
           <path d="M 150 0 L 150 750" />
@@ -81,7 +81,7 @@ const InfographicMap = ({ scrollProgress }) => {
           <rect x="-35" y="-20" width="70" height="40" fill="#fff" stroke={COLORS.accent} strokeWidth="2" rx="4" />
           <text textAnchor="middle" y="5" fontSize="16" fontWeight="900" fill={COLORS.accent}>RESTRO</text>
           <text y="35" textAnchor="middle" fontSize="9" fill="#64748b" fontWeight="bold">SHREEJI ARCADE</text>
-          
+
           <motion.g animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity }}>
             <path d="M 0 -45 L -12 -75 A 12 12 0 1 1 12 -75 L 0 -45 Z" fill={COLORS.pin} stroke="#fff" strokeWidth="2" />
             <circle cx="0" cy="-75" r="5" fill="#fff" />

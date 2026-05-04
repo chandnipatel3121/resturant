@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import restroLogo from "../assets/restrologo.png"
+import gujImg from "../assets/thali.jpg"
+import punImg from "../assets/punjabi.jpg"
+import southImg from "../assets/southindian.jpg"
+import chinImg from "../assets/chinese.jpg"
+import italImg from "../assets/italic.jpg"
+
+import gujBg from "../assets/gujcuisine.png"
+import punBg from "../assets/puncuisine.png"
+import southBg from "../assets/southcuisine.png"
+import chinBg from "../assets/chiniescuisine.png"
+import italBg from "../assets/italiancuisine.png"
+
 import "../styles/sections/CuisineSection.css"
 
 const CUISINES = [
@@ -8,8 +20,9 @@ const CUISINES = [
     name: "Gujarati",
     tagline: "Sweet, subtle & traditional",
     description: "A harmonious blend of sweet and savory notes, featuring the iconic Dhokla, Thepla, and a variety of seasonal vegetable preparations served with love.",
-    img: "./src/assets/thali.jpg",
-    bg: "#FAF7F0",
+    img: gujImg,
+    bgImage: gujBg,
+    bg: "#000000",
     border: "#D4A373",
     glow: "rgba(212, 163, 115, 0.2)"
   },
@@ -17,8 +30,9 @@ const CUISINES = [
     name: "Punjabi",
     tagline: "Rich, bold & buttery flavors",
     description: "Indulge in the robust heartiness of North India. Creamy Dal Makhani, buttery Naans, and the legendary Tandoori specialties that define culinary excellence.",
-    img: "/src/assets/punjabi.jpg",
-    bg: "#FDF2E9",
+    img: punImg,
+    bgImage: punBg,
+    bg: "#000000",
     border: "#BC6C25",
     glow: "rgba(188, 108, 37, 0.2)"
   },
@@ -26,8 +40,9 @@ const CUISINES = [
     name: "South Indian",
     tagline: "Light, fermented & aromatic",
     description: "A celebration of coastal flavors. Crispy Dosas, fluffy Idlis, and tangy Sambars prepared with fresh coconut, curry leaves, and secret spice blends.",
-    img: "./src/assets/southindian.jpg",
-    bg: "#EBF5F3",
+    img: southImg,
+    bgImage: southBg,
+    bg: "#000000",
     border: "#2D6A4F",
     glow: "rgba(45, 106, 79, 0.2)"
   },
@@ -35,8 +50,9 @@ const CUISINES = [
     name: "Chinese",
     tagline: "Spicy, tangy & sizzling",
     description: "A fusion of fire and flavor. Wok-tossed delicacies featuring perfectly balanced sauces, crunchy vegetables, and the irresistible kick of Szechuan peppers.",
-    img: "./src/assets/chinese.jpg",
-    bg: "#F9EDED",
+    img: chinImg,
+    bgImage: chinBg,
+    bg: "#000000",
     border: "#9B2226",
     glow: "rgba(155, 34, 38, 0.2)"
   },
@@ -44,8 +60,9 @@ const CUISINES = [
     name: "Italian",
     tagline: "Classic, cheesy & elegant",
     description: "The soul of the Mediterranean. Hand-rolled pastas, artisanal pizzas, and rich risottos crafted with the finest herbs, cheeses, and sun-ripened tomatoes.",
-    img: "./src/assets/italic.jpg",
-    bg: "#F2F0F5",
+    img: italImg,
+    bgImage: italBg,
+    bg: "#000000",
     border: "#5E548E",
     glow: "rgba(94, 84, 142, 0.2)"
   }
@@ -96,7 +113,7 @@ const CuisineSection = () => {
     setTimeout(() => setIsPaused(false), 8000)
   }
 
-  const activeCuisine = activeIndex !== null ? CUISINES[activeIndex] : CUISINES[0]
+  const activeCuisine = activeIndex !== null ? CUISINES[activeIndex] : null
   const displayIndex = hoveredIndex !== null ? hoveredIndex : activeIndex
   const displayCuisine = displayIndex !== null ? CUISINES[displayIndex] : null
   const isCurrentlyPaused = hoveredIndex !== null || isPaused
@@ -104,17 +121,34 @@ const CuisineSection = () => {
   return (
     <section
       id="cuisine-section"
-      className="cuisine-section"
+      className={`cuisine-section ${activeCuisine ? 'is-active' : ''}`}
       style={{
-        backgroundColor: activeCuisine.bg,
+        backgroundColor: activeCuisine ? activeCuisine.bg : "var(--bg)",
       }}
     >
+      <div className="cuisine-bg-image-wrapper">
+        <AnimatePresence mode="wait">
+          {displayIndex !== null && displayCuisine && (
+            <motion.div
+              key={displayIndex}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 0.25, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="cuisine-bg-image-layer"
+              style={{ backgroundImage: `url(${CUISINES[displayIndex || 0].bgImage})` }}
+            />
+          )}
+        </AnimatePresence>
+      </div>
       <div className="cuisine-noise-overlay" />
 
       <motion.div
         className="cuisine-ambient-glow"
         animate={{
-          background: `radial-gradient(circle at 50% 50%, ${activeCuisine.glow}, transparent 70%)`
+          background: activeCuisine
+            ? `radial-gradient(circle at 50% 50%, ${activeCuisine.glow}, transparent 70%)`
+            : 'radial-gradient(circle at 50% 50%, transparent, transparent)'
         }}
         transition={{ duration: 1 }}
       />
@@ -126,7 +160,7 @@ const CuisineSection = () => {
           viewport={{ once: true }}
           className="cuisine-main-title"
         >
-          Signature <span className="cuisine-title-italic" style={{ color: activeCuisine.border }}>Experiences</span>
+          Signature <span className="cuisine-title-italic" style={{ color: activeCuisine ? activeCuisine.border : 'inherit' }}>Experiences</span>
         </motion.h2>
       </div>
       <div className="cuisine-footer-info">
@@ -220,7 +254,7 @@ const CuisineSection = () => {
         {/* 📋 Dedicated Info Card - Shows ONLY on hover OR active selection */}
         <div className="cuisine-details-container">
           <AnimatePresence mode="wait">
-            {hoveredIndex !== null && displayCuisine && (
+            {displayIndex !== null && displayCuisine && (
               <motion.div
                 key={displayIndex}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -229,28 +263,11 @@ const CuisineSection = () => {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="cuisine-info-panel"
               >
-                <div className="info-panel-layout">
-                  <div className="info-panel-image-section">
-                    <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} />
-                  </div>
-                  <div className="info-panel-text-section">
-                    <div className="info-panel-accent" style={{ backgroundColor: CUISINES[displayIndex].border }} />
-                    <span className="info-panel-tagline" style={{ color: CUISINES[displayIndex].border }}>
-                      {CUISINES[displayIndex].tagline}
-                    </span>
-                    <h3 className="info-panel-name">{CUISINES[displayIndex].name}</h3>
-                    <p className="info-panel-desc">{CUISINES[displayIndex].description}</p>
-
-                    <div className="info-panel-stats">
-                      <div className="stat-item">
-                        <span className="stat-label">Authenticity</span>
-                        <div className="stat-bar">
-                          <div className="stat-fill" style={{ width: '95%', backgroundColor: CUISINES[displayIndex].border }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="info-panel-image-section">
+                  <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} />
                 </div>
+                <h3 className="info-panel-name">{CUISINES[displayIndex].name}</h3>
+                <p className="info-panel-desc">{CUISINES[displayIndex].description}</p>
               </motion.div>
             )}
           </AnimatePresence>

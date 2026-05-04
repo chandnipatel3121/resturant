@@ -1,0 +1,98 @@
+/* 📋 Premium Vertical Info Card (Based on Reference) */
+.cuisine-details-container {
+  position: relative;
+  width: 90%;
+  max-width: 280px;
+  margin: 3rem auto;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+@media (min-width: 1200px) {
+  .cuisine-details-container {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+}
+
+.cuisine-info-panel {
+  background: #3B5369; /* Dark blue from image */
+  color: #ffffff;
+  border-radius: 40px; /* Very rounded as per image */
+  box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+  position: relative;
+  padding: 80px 25px 40px; /* Top padding for overlapping image */
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.info-panel-image-section {
+  position: absolute;
+  top: -60px; /* Overlap top */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: visible; /* Allow shadow to spread */
+  z-index: 10;
+}
+
+.info-panel-image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  background: white; /* Plate background */
+  padding: 5px;
+}
+
+.info-panel-name {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.info-panel-desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+/* ➕ Circular Plus Button */
+.info-panel-plus-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 54px;
+  height: 54px;
+  background: #ffffff;
+  color: #3B5369;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 300;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.info-panel-plus-btn:hover {
+  transform: scale(1.1) rotate(90deg);
+  background: #f0f0f0;
+}
+
+/* Hide old accent and stats to match new design */
+.info-panel-accent, .info-panel-tagline, .info-panel-stats {
+  display: none;
+}

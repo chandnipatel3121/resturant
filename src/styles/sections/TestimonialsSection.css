@@ -16,16 +16,26 @@
 
 .testimonials-ghost-text {
   position: absolute;
-  top: 0.5rem;
-  left: -4%;
-  font-size: 22vw;
+  top: -6rem;
+  left: 2%;
+  font-size: 20vw;
   font-family: var(--font-serif);
   font-style: italic;
   line-height: none;
   color: rgba(15, 92, 92);
-  opacity: 0.06;
+  opacity:0.09;
+  text-transform: uppercase;
   pointer-events: none;
   user-select: none;
+}
+
+@media (max-width: 768px) {
+  .testimonials-ghost-text {
+    top: -2.5rem;
+    left: -5%;
+    font-size: 40vw;
+    opacity: 0.07;
+  }
 }
 
 .testimonials-header {
