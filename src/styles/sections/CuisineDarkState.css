@@ -10,8 +10,8 @@
 
 .cuisine-section.is-active .cuisine-bg-image-layer {
   mix-blend-mode: screen !important; /* Blends light parts into black */
-  filter: grayscale(40%) brightness(0.6) contrast(1.2) !important;
-  opacity: 0.3 !important;
+  filter: grayscale(40%) brightness(0.5) contrast(1.5) !important;
+  opacity: 1 !important;
 }
 
 .cuisine-section.is-active .cuisine-footer-text {

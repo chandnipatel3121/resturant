@@ -19,50 +19,60 @@ const CUISINES = [
   {
     name: "Gujarati",
     tagline: "Sweet, subtle & traditional",
+    specialty: "Authentic spices sourced from Rajkot, prepared using age-old family recipes for a truly soulful experience.",
     description: "A harmonious blend of sweet and savory notes, featuring the iconic Dhokla, Thepla, and a variety of seasonal vegetable preparations served with love.",
     img: gujImg,
     bgImage: gujBg,
     bg: "#000000",
+    cardBg: "#4a3c2c",
     border: "#D4A373",
     glow: "rgba(212, 163, 115, 0.2)"
   },
   {
     name: "Punjabi",
     tagline: "Rich, bold & buttery flavors",
+    specialty: "Tandoor-fired to perfection with a secret blend of 12 hand-ground spices and premium farmhouse butter.",
     description: "Indulge in the robust heartiness of North India. Creamy Dal Makhani, buttery Naans, and the legendary Tandoori specialties that define culinary excellence.",
     img: punImg,
     bgImage: punBg,
     bg: "#000000",
+    cardBg: "#3d2a1c",
     border: "#BC6C25",
     glow: "rgba(188, 108, 37, 0.2)"
   },
   {
     name: "South Indian",
     tagline: "Light, fermented & aromatic",
+    specialty: "Stone-ground fermented batter and cold-pressed coconut oil are the heart of our coastal preparations.",
     description: "A celebration of coastal flavors. Crispy Dosas, fluffy Idlis, and tangy Sambars prepared with fresh coconut, curry leaves, and secret spice blends.",
     img: southImg,
     bgImage: southBg,
     bg: "#000000",
+    cardBg: "#1a3d2e",
     border: "#2D6A4F",
     glow: "rgba(45, 106, 79, 0.2)"
   },
   {
     name: "Chinese",
     tagline: "Spicy, tangy & sizzling",
+    specialty: "High-heat wok artistry combined with artisanal soy sauces and freshly picked Szechuan peppers.",
     description: "A fusion of fire and flavor. Wok-tossed delicacies featuring perfectly balanced sauces, crunchy vegetables, and the irresistible kick of Szechuan peppers.",
     img: chinImg,
     bgImage: chinBg,
     bg: "#000000",
+    cardBg: "#3d0a0b",
     border: "#9B2226",
     glow: "rgba(155, 34, 38, 0.2)"
   },
   {
     name: "Italian",
     tagline: "Classic, cheesy & elegant",
+    specialty: "House-made pasta flour imported from Italy and sun-ripened tomatoes for an authentic Mediterranean soul.",
     description: "The soul of the Mediterranean. Hand-rolled pastas, artisanal pizzas, and rich risottos crafted with the finest herbs, cheeses, and sun-ripened tomatoes.",
     img: italImg,
     bgImage: italBg,
     bg: "#000000",
+    cardBg: "#2d2642",
     border: "#5E548E",
     glow: "rgba(94, 84, 142, 0.2)"
   }
@@ -114,14 +124,14 @@ const CuisineSection = () => {
   }
 
   const activeCuisine = activeIndex !== null ? CUISINES[activeIndex] : null
-  const displayIndex = hoveredIndex !== null ? hoveredIndex : activeIndex
+  const displayIndex = hoveredIndex // Strictly hover-based
   const displayCuisine = displayIndex !== null ? CUISINES[displayIndex] : null
   const isCurrentlyPaused = hoveredIndex !== null || isPaused
 
   return (
     <section
       id="cuisine-section"
-      className={`cuisine-section ${activeCuisine ? 'is-active' : ''}`}
+      className={`cuisine-section ${hoveredIndex !== null ? 'is-hovered' : ''}`}
       style={{
         backgroundColor: activeCuisine ? activeCuisine.bg : "var(--bg)",
       }}
@@ -132,7 +142,7 @@ const CuisineSection = () => {
             <motion.div
               key={displayIndex}
               initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 0.25, scale: 1 }}
+              animate={{ opacity: 0.4, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="cuisine-bg-image-layer"
@@ -262,12 +272,20 @@ const CuisineSection = () => {
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="cuisine-info-panel"
+                style={{ backgroundColor: CUISINES[displayIndex].cardBg }}
               >
                 <div className="info-panel-image-section">
                   <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} />
                 </div>
                 <h3 className="info-panel-name">{CUISINES[displayIndex].name}</h3>
                 <p className="info-panel-desc">{CUISINES[displayIndex].description}</p>
+
+                <div className="info-panel-separator" />
+
+                <div className="info-panel-details">
+                  <span className="details-label">Chef's Specialty</span>
+                  <p className="details-text">{CUISINES[displayIndex].specialty}</p>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

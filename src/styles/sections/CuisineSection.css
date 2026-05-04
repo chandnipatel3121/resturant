@@ -1,4 +1,4 @@
-/* ðŸŒ REALISTIC CUISINE SECTION STYLES */
+/* 🌍 REALISTIC CUISINE SECTION STYLES */
 .cuisine-section {
   position: relative;
   display: flex;
@@ -9,7 +9,7 @@
   margin: 0;
   padding: 4rem 1rem 2rem 1rem;
   transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
-  background-color: #FAF7F0;
+  background-color: var(--bg);
   min-height: 100vh;
   width: 100%;
 }
@@ -27,6 +27,20 @@
   opacity: 0.05;
   pointer-events: none;
   z-index: 10;
+}
+
+.cuisine-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.cuisine-section.is-hovered .cuisine-vignette {
+  opacity: 1;
 }
 
 .cuisine-ambient-glow {
@@ -51,7 +65,12 @@
   background-size: cover;
   background-position: center;
   filter: grayscale(20%) brightness(1.0) contrast(1.1);
-  mix-blend-mode: multiply;
+  mix-blend-mode: multiply; /* Default for light background */
+  transition: filter 0.8s ease;
+}
+
+.cuisine-section.is-hovered .cuisine-bg-image-layer {
+  filter: grayscale(20%) brightness(0.7) contrast(1.2); /* Brighter on hover */
 }
 
 @media (max-width: 768px) {
@@ -88,7 +107,7 @@
   font-weight: 300;
 }
 
-/* ðŸ½ï¸ Top-Down Table Perspective */
+/* 🍽️ Top-Down Table Perspective */
 .cuisine-table-perspective {
   position: relative;
   width: 100%;
@@ -129,7 +148,7 @@
   }
 }
 
-/* ðŸªµ Realistic 3D Round Table Surface */
+/* 🪵 Realistic 3D Round Table Surface */
 .cuisine-table-surface-round {
   position: relative;
   width: 340px;
@@ -169,7 +188,7 @@
   display: none;
 }
 
-/* ðŸ§± The 3D Edge/Thickness of the Table - More Realistic Depth */
+/* 🧱 The 3D Edge/Thickness of the Table - More Realistic Depth */
 .cuisine-table-surface-round::after {
   content: '';
   position: absolute;
@@ -181,7 +200,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* ðŸ¦µ Table Central Leg Style */
+/* 🦵 Table Central Leg Style */
 .cuisine-table-leg {
   position: absolute;
   top: 50%;
@@ -210,7 +229,7 @@
   display: none;
 }
 
-/* ðŸŒ‘ Floor Shadow Overlay */
+/* 🌑 Floor Shadow Overlay */
 .cuisine-table-shadow-floor {
   position: absolute;
   top: 55%;
@@ -271,7 +290,7 @@
   transform: scale(0.9);
 }
 
-/* ðŸ¥˜ Dishes Round Grid */
+/* 🥗 Dishes Round Grid */
 .cuisine-dishes-round-grid {
   position: absolute;
   width: 100%;
@@ -327,7 +346,7 @@
   .dish-round-4 { top: 40%; left: 16%; }
 }
 
-/* ðŸº Served Angles - Settling the plates organically */
+/* 🍛 Served Angles - Settling the plates organically */
 .dish-round-0 .plate-rim-gold { transform: rotate(-12deg); }
 .dish-round-1 .plate-rim-gold { transform: rotate(12deg); }
 .dish-round-2 .plate-rim-gold { transform: rotate(5deg); }
@@ -399,11 +418,11 @@
   border: 2px solid #d4af37 !important;
 }
 
-/* ðŸ“‹ Premium Vertical Info Card  */
+/* 📋 Premium Vertical Info Card  */
 .cuisine-details-container {
   position: relative;
   width: 90%;
-  max-width: 280px;
+  max-width: 340px; /* Increased size */
   margin: 3rem auto;
   z-index: 100;
   pointer-events: auto;
@@ -413,32 +432,32 @@
   .cuisine-details-container {
     position: absolute;
     top: 50%;
-    right: 8%;
+    right: 5%;
     transform: translateY(-50%);
     margin: 0;
   }
 }
 
 .cuisine-info-panel {
-  background: #3B5369;
   color: #ffffff;
-  border-radius: 40px; /* Very rounded as per image */
-  box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+  border-radius: 40px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3);
   position: relative;
-  padding: 120px 25px 40px; /* Increased top padding to fix title overlap */
+  padding: 130px 35px 50px; /* Increased padding */
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-panel-image-section {
   position: absolute;
-  top: -60px; /* Overlap top */
+  top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 160px;
+  width: 200px; /* Increased image size */
+  height: 200px;
   border-radius: 40%;
-  overflow: visible; /* Allow shadow to spread */
+  overflow: visible;
   z-index: 10;
 }
 
@@ -446,25 +465,54 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  background: white; /* Plate background */
+  border-radius: 40%;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  background: white;
   padding: 5px;
 }
 
 .info-panel-name {
   font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-size: 2.2rem; /* Bigger title */
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .info-panel-desc {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-  margin-bottom: 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.info-panel-separator {
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 auto 1.5rem;
+}
+
+.info-panel-details {
+  text-align: center;
+}
+
+.details-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.details-text {
+  font-size: 0.95rem;
+  color: #ffffff;
+  line-height: 1.5;
+  font-style: italic;
+  font-weight: 300;
 }
 
 .cuisine-footer-info {
@@ -477,11 +525,12 @@
 .cuisine-footer-text {
   font-size: 1.1rem;
   color: var(--text);
-  opacity: 0.6;
+  font-weight: 600;
+  opacity: 1;
   letter-spacing: 0.05em;
 }
 
-/* ðŸ“± Responsive Top-Down View */
+/* 📱 Responsive Top-Down View */
 @media (max-width: 768px) {
   .cuisine-section {
     justify-content: center;
@@ -555,7 +604,7 @@
   .tooltip-name-dark { font-size: 1.2rem; }
 }
 
-/* ðŸ”„ Infinite Orbital Rotation with Pause on Hover */
+/* 🔄 Infinite Orbital Rotation with Pause on Hover */
 @keyframes orbital-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -589,20 +638,20 @@
 }
 
 /* 🌘 Dark Active State for Cuisine Section */
-.cuisine-section.is-active {
+.cuisine-section.is-hovered {
   background-color: #000000 !important;
 }
 
-.cuisine-section.is-active .cuisine-main-title {
+.cuisine-section.is-hovered .cuisine-main-title {
   color: #ffffff !important;
 }
 
-.cuisine-section.is-active .cuisine-bg-image-layer {
+.cuisine-section.is-hovered .cuisine-bg-image-layer {
   mix-blend-mode: screen !important; /* Blends light parts into black */
   filter: grayscale(40%) brightness(0.6) contrast(1.2) !important;
   opacity: 0.3 !important;
 }
 
-.cuisine-section.is-active .cuisine-footer-text {
+.cuisine-section.is-hovered .cuisine-footer-text {
   color: #ffffff !important;
 }
