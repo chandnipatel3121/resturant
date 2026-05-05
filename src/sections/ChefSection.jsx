@@ -42,7 +42,7 @@ const ChefSection = () => {
   })
 
   return (
-    <section ref={containerRef} className="chef-section">
+    <section id="chef-section" ref={containerRef} className="chef-section">
       <div className="chef-container">
         <div className="chef-flex-container">
 

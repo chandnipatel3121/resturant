@@ -1,0 +1,28 @@
+.arrow-svg {
+  width: 320px;
+  height: 160px;
+  overflow: visible;
+}
+
+/* main loop line */
+.arrow-path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* arrow head */
+.arrow-head {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+/* Sketch/Rough variation */
+.rough {
+  stroke-width: 2.5;
+  opacity: 0.7;
+}

@@ -125,7 +125,7 @@ const ChefMascot = () => {
             onClick={handleClick}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="relative w-[55px] h-[55px] rounded-full bg-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-105 transition"
+            className="relative w-15 h-15 rounded-full bg-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-105 transition"
           >
             {/* Glow */}
             <div className="absolute inset-0 rounded-full bg-[#EAD7B7] blur-xl opacity-30 -z-10" />
@@ -134,10 +134,10 @@ const ChefMascot = () => {
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 flex flex-col items-center"
+              className="absolute -top-15 flex flex-col items-center"
             >
-              <div className="w-7 h-7 rounded-full bg-white shadow-md flex items-center justify-center border border-[#0F5C5C]/10">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F5C5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+              <div className="w-13 h-13 rounded-full bg-white shadow-md flex items-center justify-center border border-[#0F5C5C]/10">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F5C5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
               </div>

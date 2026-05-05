@@ -7,7 +7,7 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    height: 220vh; /* Reduced height on mobile for faster progression */
+    height: 260vh; /* Optimized for step-by-step scroll feel on mobile */
   }
 }
 

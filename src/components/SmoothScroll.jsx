@@ -25,16 +25,16 @@ const SmoothScroll = ({ children }) => {
 
     const handleSnap = () => {
       if (isSnapping) return
-      
+
       const sections = document.querySelectorAll('section[id]')
       if (sections.length === 0) return
 
       const scrollPos = window.scrollY
       const viewportHeight = window.innerHeight
-      
+
       // Find the currently visible section or the one we are moving towards
       let targetSection = null
-      
+
       if (lastScrollDirection > 0) {
         // Scrolling Down: find the first section whose top is below the current scroll pos
         for (let section of sections) {
@@ -68,9 +68,9 @@ const SmoothScroll = ({ children }) => {
 
     lenis.on('scroll', ({ direction, velocity }) => {
       lastScrollDirection = direction
-      
+
       if (snapTimeout) clearTimeout(snapTimeout)
-      
+
       // If the scroll is intentional (significant velocity) or has stopped
       if (!isSnapping && Math.abs(velocity) > 0.1) {
         snapTimeout = setTimeout(handleSnap, 60) // Much faster trigger (60ms)

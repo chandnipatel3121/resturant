@@ -64,7 +64,7 @@ const Card = ({ item }) => (
 
 const TestimonialsSection = () => {
   return (
-    <section className="testimonials-section">
+    <section id="testimonials-section" className="testimonials-section">
       <div aria-hidden className="testimonials-ghost-text">
         Reviews
       </div>

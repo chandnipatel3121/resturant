@@ -289,6 +289,12 @@
   filter: contrast(1.1) brightness(1.1);
   transform: scale(0.9);
 }
+.cuisine-dish-motion-wrapper,
+.cuisine-bg-image-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
 /* 🥗 Dishes Round Grid */
 .cuisine-dishes-round-grid {

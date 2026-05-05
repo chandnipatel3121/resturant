@@ -95,6 +95,12 @@ const CuisineSection = () => {
     damping: 30,
     restDelta: 0.001
   })
+  useEffect(() => {
+    CUISINES.forEach(c => {
+      const img = new Image()
+      img.src = c.bgImage
+    })
+  }, [])
 
   // 🎭 Dynamic 3D Transforms based on scroll
   const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], [40, 25, 15])
@@ -115,7 +121,18 @@ const CuisineSection = () => {
       })
     }
   })
+  const hoverTimeout = React.useRef(null)
 
+  const handleEnter = (i) => {
+    clearTimeout(hoverTimeout.current)
+    setHoveredIndex(i)
+  }
+
+  const handleLeave = () => {
+    hoverTimeout.current = setTimeout(() => {
+      setHoveredIndex(null)
+    }, 80)
+  }
   const handleDishClick = (i) => {
     setActiveIndex(i)
     setIsPaused(true)
@@ -137,19 +154,18 @@ const CuisineSection = () => {
       }}
     >
       <div className="cuisine-bg-image-wrapper">
-        <AnimatePresence mode="wait">
-          {displayIndex !== null && displayCuisine && (
-            <motion.div
-              key={displayIndex}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 0.4, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="cuisine-bg-image-layer"
-              style={{ backgroundImage: `url(${CUISINES[displayIndex || 0].bgImage})` }}
-            />
-          )}
-        </AnimatePresence>
+        <motion.div
+          className="cuisine-bg-image-layer"
+          animate={{
+            opacity: displayIndex !== null ? 0.4 : 0
+          }}
+          transition={{ duration: 0.6 }}
+          style={{
+            backgroundImage: displayCuisine
+              ? `url(${displayCuisine.bgImage})`
+              : "none"
+          }}
+        />
       </div>
       <div className="cuisine-noise-overlay" />
 
@@ -207,8 +223,8 @@ const CuisineSection = () => {
                 <div key={i} className={`cuisine-dish-wrapper-round dish-round-${i}`}>
                   <motion.div
                     className="cuisine-dish-motion-wrapper"
-                    onMouseEnter={() => setHoveredIndex(i)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    onPointerEnter={() => handleEnter(i)}
+                    onPointerLeave={handleLeave}
                     onClick={() => handleDishClick(i)}
                     animate={{
                       y: activeIndex === i ? -25 : 0,
@@ -263,32 +279,30 @@ const CuisineSection = () => {
 
         {/* 📋 Dedicated Info Card - Shows ONLY on hover OR active selection */}
         <div className="cuisine-details-container">
-          <AnimatePresence mode="wait">
-            {displayIndex !== null && displayCuisine && (
-              <motion.div
-                key={displayIndex}
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="cuisine-info-panel"
-                style={{ backgroundColor: CUISINES[displayIndex].cardBg }}
-              >
-                <div className="info-panel-image-section">
-                  <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} />
-                </div>
-                <h3 className="info-panel-name">{CUISINES[displayIndex].name}</h3>
-                <p className="info-panel-desc">{CUISINES[displayIndex].description}</p>
+          {displayIndex !== null && displayCuisine && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="cuisine-info-panel"
+              style={{ backgroundColor: CUISINES[displayIndex].cardBg }}
+            >
+              <div className="info-panel-image-section">
+                <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} />
+              </div>
+              <h3 className="info-panel-name">{CUISINES[displayIndex].name}</h3>
+              <p className="info-panel-desc">{CUISINES[displayIndex].description}</p>
 
-                <div className="info-panel-separator" />
+              <div className="info-panel-separator" />
 
-                <div className="info-panel-details">
-                  <span className="details-label">Chef's Specialty</span>
-                  <p className="details-text">{CUISINES[displayIndex].specialty}</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              <div className="info-panel-details">
+                <span className="details-label">Chef's Specialty</span>
+                <p className="details-text">{CUISINES[displayIndex].specialty}</p>
+              </div>
+            </motion.div>
+          )}
+
         </div>
       </div>
     </section>

@@ -1,10 +1,60 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../styles/sections/Popup.css";
-import cookingIsolated from "../assets/cooking_isolated.png";
 
+// Assets
+import foodGif from "../assets/food.gif";
 
 const Popup = ({ isOpen, onClose }) => {
+    const [stage, setStage] = React.useState('dish'); // 'dish' | 'card'
+
+    React.useEffect(() => {
+        if (isOpen) {
+            setStage('dish');
+            const t1 = setTimeout(() => setStage('card'), 300); // Increased time for GIF to play
+            return () => clearTimeout(t1);
+        }
+    }, [isOpen]);
+
+    const containerVariants = {
+        initial: { scale: 0.1, opacity: 0, y: 0 },
+        animate: {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                damping: 20,
+                stiffness: 120,
+                duration: 0.8
+            }
+        },
+        exit: {
+            scale: 0.5,
+            opacity: 0,
+            y: 50,
+            transition: { duration: 0.3 }
+        }
+    };
+
+    const clocheVariants = {
+        dish: {
+            scale: 1.2,
+            x: "-50%",
+            y: "-50%",
+            top: "50%",
+            filter: "drop-shadow(0 20px 40px rgba(224, 169, 75, 0.4))"
+        },
+        card: {
+            scale: 0.8,
+            x: "-50%",
+            y: "-50%",
+            top: "0%",
+            filter: "drop-shadow(0 10px 20px rgba(224, 169, 75, 0.2))",
+            transition: { type: "spring", damping: 15, stiffness: 100 }
+        }
+    };
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -16,106 +66,83 @@ const Popup = ({ isOpen, onClose }) => {
                     onClick={onClose}
                 >
                     <motion.div
-                        className="popup-ad-card"
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.5, opacity: 0 }}
-                        transition={{ 
-                            type: "spring", 
-                            damping: 20, 
-                            stiffness: 150 
-                        }}
+                        className={`popup-ad-card ${stage === 'card' ? 'stage-card-premium' : 'stage-dish'}`}
+                        variants={containerVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* ✨ Decorative Floating Elements */}
+                        {/* 🍽️ The Master Dish - food.gif Animation */}
                         <motion.div
-                            className="popup-particle p1"
-                            animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                        />
-                        <motion.div
-                            className="popup-particle p2"
-                            animate={{ y: [0, 20, 0], opacity: [0.2, 0.5, 0.2] }}
-                            transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                        />
-                        <motion.div
-                            className="popup-particle p3"
-                            animate={{ x: [0, 15, 0], opacity: [0.1, 0.4, 0.1] }}
-                            transition={{ duration: 6, repeat: Infinity, delay: 0.5 }}
-                        />
+                            className="cloche-v2-container"
+                            variants={clocheVariants}
+                            animate={stage}
+                        >
+                            <img src={foodGif} alt="Food Animation" className="cloche-v2-img gif-main" />
 
-                        {/* ❌ Close Symbol */}
-                        <button className="popup-ad-close" onClick={onClose}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </button>
+                            {/* ♨️ Constant Steam Swirls */}
+                            {stage === 'dish' && (
+                                <div className="steam-v2-layer">
+                                    {[...Array(3)].map((_, i) => (
+                                        <motion.div
+                                            key={i}
+                                            className="steam-v2-vane"
+                                            animate={{
+                                                y: [0, -60],
+                                                opacity: [0, 0.5, 0],
+                                                scale: [1, 2],
+                                                x: [0, i % 2 === 0 ? 10 : -10]
+                                            }}
+                                            transition={{
+                                                duration: 2.5,
+                                                repeat: Infinity,
+                                                delay: i * 0.7
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </motion.div>
 
-                        <div className="popup-ad-layout">
-                            {/* 🎞️ Isolated High-End Header */}
-                            <div className="popup-ad-image-isolated">
+                        {/* 🃏 Card Content - Expands from center */}
+                        <AnimatePresence>
+                            {stage === 'card' && (
                                 <motion.div
-                                    className="popup-img-container"
-                                    animate={{
-                                        y: [0, -15, 0],
-                                        rotate: [0, 2, 0]
-                                    }}
-                                    transition={{
-                                        duration: 5,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
+                                    className="card-liquid-body"
+                                    initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                    transition={{ duration: 0.5, ease: "easeOut" }}
                                 >
-                                    <img
-                                        src={cookingIsolated}
-                                        alt="Chef's Creation"
-                                        className="popup-isolated-img"
-                                    />
-                                    {/* ☁️ Dynamic Shadow */}
-                                    <motion.div
-                                        className="popup-img-shadow"
-                                        animate={{
-                                            scale: [1, 0.8, 1],
-                                            opacity: [0.2, 0.1, 0.2]
-                                        }}
-                                        transition={{
-                                            duration: 5,
-                                            repeat: Infinity,
-                                            ease: "easeInOut"
-                                        }}
-                                    />
+                                    <div className="card-inner-content-v2">
+                                        <motion.div
+                                            className="seasonal-badge"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.6 }}
+                                        >
+                                            LIMITED EDITION
+                                        </motion.div>
+                                        <h2 className="transaction-title">MAY BLOSSOM FESTIVAL</h2>
+                                        <div className="gold-divider" />
+                                        <p className="transaction-desc">
+                                            Celebrate the Spring harvest with our exclusive<br />
+                                            <strong>Chef's Signature Tasting Menu</strong><br />
+                                            featuring White Asparagus & Spring Truffles.
+                                        </p>
+
+                                    </div>
+
+                                    <button className="formation-close" onClick={onClose}>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
                                 </motion.div>
-                                <div className="popup-ad-badge">RESTRO</div>
-                            </div>
-
-                            {/* 🖋️ Ad Content Section */}
-                            <div className="popup-ad-content">
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                >
-                                    A Culinary <br /> Masterpiece <span className="text-accent">Awaits</span>
-                                </motion.h2>
-
-                                <motion.div
-                                    className="popup-line-accent"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: "60px" }}
-                                    transition={{ delay: 0.5, duration: 1 }}
-                                />
-
-                                <motion.p
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.6, duration: 1 }}
-                                >
-                                    Experience the intersection of art and flavor.
-                                    Join us for an evening of sensory delight.
-                                </motion.p>
-                            </div>
-                        </div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
                 </motion.div>
             )}

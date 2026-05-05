@@ -46,7 +46,7 @@ const AboutSection = () => {
   const statsY = useTransform(smooth, [0, 1], [40, -20])
 
   return (
-    <section ref={ref} className="about-section">
+    <section id="about-section" ref={ref} className="about-section">
       {/* ghost text */}
       <motion.div
         style={{ y: bgTextY }}

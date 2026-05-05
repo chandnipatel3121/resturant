@@ -18,13 +18,7 @@ const ContactSection = () => {
     const direction = v > prevProgress.current ? "down" : "up"
     prevProgress.current = v
 
-    // Trigger cinematic snap when entering the section
-    if (v > 0.05 && v < 0.2 && direction === "down" && window.lenis) {
-      window.lenis.scrollTo("#contact-section", {
-        duration: 2.0, // Balanced snap duration
-        easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-      })
-    }
+    // Global snap handled by SmoothScroll.jsx
   })
 
   // Balanced "Medium" spring speed

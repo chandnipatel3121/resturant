@@ -6,7 +6,7 @@ import "../styles/components/Navbar.css"
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { navTheme } = useNav()
+  const { navTheme, pastHero } = useNav()
   const navigate = useNavigate()
 
   const navLinks = [
@@ -16,7 +16,7 @@ const Navbar = () => {
     { label: "Contact", path: "/contact" },
   ]
 
-  const isLight = navTheme === 'green'
+  const isLight = pastHero && navTheme === 'green'
 
   return (
     <>

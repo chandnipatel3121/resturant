@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
 import Popup from "../components/Popup"
 import videoSrc from "../assets/herovideo1.mp4"
+import mobileVideoSrc from "../assets/mobilehero.mp4"
 import img1 from "../assets/resturent3.jpg"
 import "../styles/sections/HeroSection.css"
 
@@ -20,35 +21,53 @@ const HeroSection = () => {
   const prevV = useRef(0)
   const hasShownPopup = useRef(false)
   const randomPopupTrigger = useRef(Math.random() * 0.4 + 0.3) // Random between 0.3 and 0.7
-  const { setPastHero, setNavTheme } = useNav()
+  const { setPastHero, navTheme, setNavTheme } = useNav()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] })
 
-  const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 30, mass: 0.2 })
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: isMobile ? 100 : 80,
+    damping: isMobile ? 35 : 30,
+    mass: isMobile ? 0.15 : 0.2
+  })
 
-  const morphProgress = useSpring(0, { stiffness: 100, damping: 20, mass: 0.2 })
+  const morphProgress = useTransform(
+    smooth,
+    isMobile ? [0, 0.18] : [0, 0.2],
+    [0, 1]
+  )
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     const direction = v > prevV.current ? 'down' : 'up'
     prevV.current = v
 
-    morphProgress.set(v > 0.01 ? 1 : 0)
-    setPastHero(v >= 0.05)
+    // morphProgress.set(v > 0.01 ? 1 : 0) // Removed binary switch
+    setPastHero(v >= 0.92)
 
-    // Navbar Color Control
-    if (v < 0.45) {
-      setNavTheme('yellow')
-    } else if (v < 0.95) {
-      setNavTheme('purple')
+    // Navbar Color Control aligned with background changes
+    if (v < 0.15) {
+      setNavTheme('yellow') // Gold on dark video background (Start)
+    } else if (v < 0.5) {
+      setNavTheme('green') // Dark teal on light background (Scene 1 morph)
+    } else if (v < 0.92) {
+      setNavTheme('purple') // Light purple on dark background (Scene 2)
     } else {
-      setNavTheme('green')
+      setNavTheme('green') // Dark teal on next section
     }
 
-    // Forced scroll to next section when near the end and scrolling down
-    const threshold = window.innerWidth < 768 ? 0.95 : 0.92
+    // Forced scroll to next section
+    const threshold = isMobile ? 0.9 : 0.92
     if (v > threshold && direction === 'down' && window.lenis) {
       window.lenis.scrollTo("#dish-showcase", {
-        duration: 1.5,
+        duration: isMobile ? 1.2 : 1.5,
         easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
       })
     }
@@ -88,7 +107,7 @@ const HeroSection = () => {
   })
 
   const utensilsOpacity = useTransform(morphProgress, [0.2, 0.8], [0, 1])
-  const nameOpacity = useTransform(morphProgress, [0.85, 1], [0, 1])
+  const nameOpacity = useTransform(morphProgress, [0.3, 0.8], [0, 1])
   const nameRevealY = useTransform(morphProgress, [0.85, 1], [20, 0])
   const isTransforming = useTransform(
     morphProgress,
@@ -98,29 +117,36 @@ const HeroSection = () => {
   // Scene 1 stays fixed, then fully exits
   const groupY = useTransform(
     smooth,
-    [0, 0.4, 0.5],
+    isMobile
+      ? [0, 0.42, 0.58] // Snappier swap for mobile
+      : [0, 0.45, 0.65],
     ["0vh", "0vh", "-100vh"]
   )
 
-  // Scene 2 appears AFTER scene 1 is gone
+  // Scene 2 appears as Scene 1 is leaving (direct transition)
   const s2Opacity = useTransform(
     smooth,
-    [0.5, 0.6],
+    isMobile
+      ? [0.42, 0.58]
+      : [0.45, 0.65],
     [0, 1]
   )
 
   const s2Y = useTransform(
     smooth,
-    [0.5, 0.6],
+    isMobile ? [0.42, 0.58] : [0.45, 0.65],
     [60, 0]
   )
   return (
     <section id="hero-section" ref={ref} className="hero-section">
+      {/* Subtle top overlay for navbar readability during video */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/40 to-transparent z-[999] pointer-events-none" />
+
       <div className="hero-sticky-container">
         {/* SCENE 2: Tagline Slide */}
         <motion.div style={{ opacity: s2Opacity }} className="absolute inset-0 z-10">
-          <div className="absolute inset-0 bg-[#0d0d0d]/65 z-20" />
           <img src={img1} className="w-full h-full object-cover" alt="" />
+          <div className="absolute inset-0 bg-black/70 z-20" />
 
           <motion.div
             style={{ y: s2Y }}
@@ -162,7 +188,8 @@ const HeroSection = () => {
           >
             <motion.div style={{ scale: imgScale }} className="absolute inset-0">
               <video
-                src={videoSrc}
+                key={isMobile ? "mobile" : "desktop"}
+                src={isMobile ? mobileVideoSrc : videoSrc}
                 autoPlay
                 loop
                 muted
@@ -204,14 +231,14 @@ const HeroSection = () => {
             style={{
               opacity: nameOpacity,
               y: nameRevealY,
-              translateY: window.innerWidth < 768 ? "22vh" : "28vh"
+              translateY: isMobile ? "18vh" : "28vh"
             }}
             className="absolute top-[50%] flex flex-col items-center z-30"
           >
-            <h1 className="font-serif leading-[0.9] text-[#0F5C5C] select-none text-center mb-5">
+            <h1 className={`font-serif leading-[0.9] select-none text-center mb-5 transition-colors duration-500 ${navTheme === 'yellow' ? 'text-[#E0A94B]' : 'text-[#0F5C5C]'}`}>
               <span className="block text-[clamp(2.5rem,8vw,5rem)]">Restro</span>
             </h1>
-            <p className="text-[9px] uppercase tracking-[0.5em] text-[#7A688A] font-medium">
+            <p className={`text-[9px] uppercase tracking-[0.5em] font-medium ${navTheme === 'yellow' ? 'text-white/60' : 'text-[#7A688A]'}`}>
               Est. 2012 &nbsp;·&nbsp; Fine Dining
             </p>
             <div className="mt-4 w-16 h-[1px] bg-gradient-to-r from-transparent via-[#E0A94B] to-transparent" />
