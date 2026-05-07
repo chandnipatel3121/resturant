@@ -4,6 +4,7 @@ import {
   useScroll,
   useTransform,
   useSpring,
+  useMotionValueEvent,
 } from "framer-motion"
 import img1 from "../assets/dining.jpg"
 import img2 from "../assets/dish1.jpg"
@@ -44,6 +45,29 @@ const AboutSection = () => {
   const img2Y = useTransform(smooth, [0, 1], [60, -60])
   const img2Rotate = useTransform(smooth, [0, 1], [-4, 4])
   const statsY = useTransform(smooth, [0, 1], [40, -20])
+
+  const prevV = useRef(0)
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const direction = v > prevV.current ? 'down' : 'up'
+    const prev = prevV.current
+    prevV.current = v
+
+    // Snap down when entering from top
+    if (direction === 'down' && prev < 0.15 && v >= 0.15 && window.lenis) {
+      window.lenis.scrollTo("#about-section", {
+        duration: 1.5,
+        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+      })
+    }
+
+    // Snap up when entering from bottom
+    if (direction === 'up' && prev > 0.85 && v <= 0.85 && window.lenis) {
+      window.lenis.scrollTo("#about-section", {
+        duration: 1.5,
+        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+      })
+    }
+  })
 
   return (
     <section id="about-section" ref={ref} className="about-section">

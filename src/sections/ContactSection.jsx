@@ -16,9 +16,24 @@ const ContactSection = () => {
   // 📸 Programmatic Cinematic Snap
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     const direction = v > prevProgress.current ? "down" : "up"
+    const prev = prevProgress.current
     prevProgress.current = v
 
-    // Global snap handled by SmoothScroll.jsx
+    // Snap down when entering from top
+    if (direction === 'down' && prev < 0.15 && v >= 0.15 && window.lenis) {
+      window.lenis.scrollTo("#contact-section", {
+        duration: 1.5,
+        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+      })
+    }
+
+    // Snap up when entering from bottom
+    if (direction === 'up' && prev > 0.85 && v <= 0.85 && window.lenis) {
+      window.lenis.scrollTo("#contact-section", {
+        duration: 1.5,
+        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+      })
+    }
   })
 
   // Balanced "Medium" spring speed

@@ -11,12 +11,12 @@
 
 .testimonials-ghost-text {
   position: absolute;
-  top: -6rem;
-  left: 2%;
+  top: 3.5%;
+  left: -2%;
   font-size: 20vw;
   font-family: var(--font-serif);
   font-style: italic;
-  line-height: none;
+  line-height: 1;
   color: rgba(15, 92, 92);
   opacity:0.09;
   text-transform: uppercase;
@@ -26,7 +26,7 @@
 
 @media (max-width: 768px) {
   .testimonials-ghost-text {
-    top: -2.5rem;
+    top: 4%;
     left: -5%;
     font-size: 40vw;
     opacity: 0.07;

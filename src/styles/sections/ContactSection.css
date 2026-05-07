@@ -3,7 +3,7 @@
 .contact-section {
   position: relative;
   width: 100%;
-  min-height: 60vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #f4f7f7; /* Soft matte background */
@@ -13,7 +13,7 @@
 @media (min-width: 1024px) {
   .contact-section {
     flex-direction: row;
-    height: 90vh;
+    height: 100vh;
     min-height: 700px;
   }
 }
@@ -191,4 +191,53 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 1023px) {
+  .contact-section {
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .contact-info-panel {
+    order: 1;
+    padding: 2.5rem 1.5rem 1rem 1.5rem;
+    flex-grow: 0;
+    justify-content: flex-start;
+  }
+
+  .contact-map-panel {
+    order: 2;
+    height: auto;
+    min-height: 380px;
+    flex-grow: 1;
+    padding: 0.5rem 1.5rem 2.5rem 1.5rem;
+  }
+
+  .contact-brand-title {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-details-list {
+    gap: 1.2rem;
+  }
+
+  .contact-item-value {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .contact-actions {
+    margin-top: 1.5rem;
+  }
+
+  .luxury-btn {
+    padding: 0.8rem 2rem;
+    font-size: 0.8rem;
+  }
 }

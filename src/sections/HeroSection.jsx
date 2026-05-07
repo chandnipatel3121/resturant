@@ -67,6 +67,7 @@ const HeroSection = () => {
     const threshold = isMobile ? 0.9 : 0.92
     if (v > threshold && direction === 'down' && window.lenis) {
       window.lenis.scrollTo("#dish-showcase", {
+        offset: isMobile ? -100 : -120,
         duration: isMobile ? 1.2 : 1.5,
         easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
       })
