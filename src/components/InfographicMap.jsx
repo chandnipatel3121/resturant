@@ -44,17 +44,78 @@ const InfographicMap = () => {
             <marker id="arrow-sketch" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M 2 2 L 8 5 L 2 8 M 3 1 L 9 5 L 3 9" fill="none" stroke="#111b47" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
+
+            {/* Realistic Car Defs */}
+            <filter id="car-shadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="3" dy="5" stdDeviation="4" floodColor="#000" floodOpacity="0.4" />
+            </filter>
+            <filter id="glow-white" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-red" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="-2" dy="0" stdDeviation="2" floodColor="#ff0000" floodOpacity="0.8" />
+            </filter>
+            <linearGradient id="car-body" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#7a0101" />
+              <stop offset="20%" stopColor="#d60b0b" />
+              <stop offset="50%" stopColor="#ff3b3b" />
+              <stop offset="80%" stopColor="#d60b0b" />
+              <stop offset="100%" stopColor="#7a0101" />
+            </linearGradient>
+            <linearGradient id="car-glass" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0d141c" />
+              <stop offset="50%" stopColor="#2c3e50" />
+              <stop offset="100%" stopColor="#0d141c" />
+            </linearGradient>
+
+            <g id="realistic-car-svg">
+              <g filter="url(#car-shadow)" transform="translate(-50, -25)">
+                {/* Wheels */}
+                <rect x="15" y="0" width="20" height="10" rx="3" fill="#111" />
+                <rect x="70" y="0" width="18" height="10" rx="3" fill="#111" />
+                <rect x="15" y="40" width="20" height="10" rx="3" fill="#111" />
+                <rect x="70" y="40" width="18" height="10" rx="3" fill="#111" />
+
+                {/* Main Body */}
+                <path d="M 95 15 C 102 15, 102 35, 95 35 C 80 40, 40 42, 20 40 C 0 40, 0 10, 20 10 C 40 8, 80 10, 95 15 Z" fill="url(#car-body)" />
+
+                {/* Side Mirrors */}
+                <path d="M 55 11 L 62 7 L 62 13 Z" fill="#b30000" />
+                <path d="M 55 39 L 62 43 L 62 37 Z" fill="#b30000" />
+
+                {/* Windshield */}
+                <path d="M 68 15 Q 85 25, 68 35 L 56 38 Q 70 25, 56 12 Z" fill="url(#car-glass)" />
+
+                {/* Back Window */}
+                <path d="M 30 15 Q 15 25, 30 35 L 36 38 Q 22 25, 36 12 Z" fill="url(#car-glass)" />
+
+                {/* Roof */}
+                <path d="M 54 13 Q 66 25, 54 37 L 38 37 Q 26 25, 38 13 Z" fill="#a60000" />
+
+                {/* Headlights */}
+                <ellipse cx="94" cy="14" rx="2" ry="4" fill="#fff" filter="url(#glow-white)" />
+                <ellipse cx="94" cy="36" rx="2" ry="4" fill="#fff" filter="url(#glow-white)" />
+
+                {/* Taillights */}
+                <ellipse cx="14" cy="12" rx="2" ry="5" fill="#ff0000" filter="url(#glow-red)" />
+                <ellipse cx="14" cy="38" rx="2" ry="5" fill="#ff0000" filter="url(#glow-red)" />
+                
+                {/* Hood details / lines */}
+                <path d="M 68 15 L 94 14 M 68 35 L 94 36" stroke="#000" strokeWidth="0.5" opacity="0.3" fill="none" />
+              </g>
+            </g>
           </defs>
 
           {/* Paths Group */}
-          <g>
+          <g key="paths-v5">
             {/* 1. ZUDIO: Smooth Arc (Reversed) */}
             <g transform="translate(500, 500) rotate(-135)">
-              <motion.path d="M 460 0 Q 250 100 115 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
+              <motion.path d="M 460 0 C 380 250, 240 0, 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 460 0 Q 250 100 115 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 460 0 C 380 250, 240 0, 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
@@ -64,25 +125,35 @@ const InfographicMap = () => {
 
             {/* 2. JUBELI CIRCLE: Smooth Arc (Reversed) */}
             <g transform="translate(500, 500) rotate(-90)">
-              <motion.path d="M 410 0 Q 250 -100 125 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
+              <motion.path d="M 410 0 C 320 -250, 240 0, 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 0.7, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 410 0 Q 250 -100 125 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 410 0 C 320 -250, 240 0, 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
                 transition={{ duration: 1.5, delay: 0.7, ease: "easeOut" }}
               />
+              {/* Realistic SVG 3D Car moving along the path */}
+              <motion.g
+                style={{ offsetPath: "path('M 410 0 C 320 -250, 240 0, 180 0')", offsetRotate: "auto" }}
+                initial={{ offsetDistance: "0%", opacity: 0 }}
+                whileInView={{ offsetDistance: "100%", opacity: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 4, delay: 2.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
+              >
+                <use href="#realistic-car-svg" transform="scale(0.5)" />
+              </motion.g>
             </g>
 
             {/* 3. BHANUSHALI NAGAR: Wavy Line (Reversed) */}
             <g transform="translate(500, 500) rotate(-30)">
-              <motion.path d="M 390 0 C 360 -30, 380 -60, 320 0 C 250 60, 180 -60, 125 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
+              <motion.path d="M 390 0 C 360 -30, 380 -60, 320 0 C 250 60, 220 0, 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 0.9, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 390 0 C 360 -30, 380 -60, 320 0 C 250 60, 180 -60, 125 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 390 0 C 360 -30, 380 -60, 320 0 C 250 60, 220 0, 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
@@ -90,13 +161,13 @@ const InfographicMap = () => {
               />
             </g>
 
-            {/* 4. GK: Single Perfect Loop (Reversed) */}
+            {/* 4. GK: Organic Single Loop (Reversed) */}
             <g transform="translate(500, 500) rotate(49)">
-              <motion.path d="M 480 0 L 260 0 C 210 0, 210 -50, 235 -50 C 260 -50, 260 0, 210 0 L 125 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
+              <motion.path d="M 480 0 C 400 50, 330 -30, 280 -20 C 230 -10, 200 -70, 240 -70 C 280 -70, 280 0, 240 10 C 200 20, 200 0, 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 1.1, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 480 0 L 260 0 C 210 0, 210 -50, 235 -50 C 260 -50, 260 0, 210 0 L 125 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 480 0 C 400 50, 330 -30, 280 -20 C 230 -10, 200 -70, 240 -70 C 280 -70, 280 0, 240 10 C 200 20, 200 0, 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
@@ -104,13 +175,13 @@ const InfographicMap = () => {
               />
             </g>
 
-            {/* 5. KSKVKU: Two Perfect Loops (Reversed) */}
+            {/* 5. KSKVKU: Organic Double Loop (Reversed) */}
             <g transform="translate(500, 500) rotate(132)">
-              <motion.path d="M 480 0 L 340 0 C 290 0, 290 -50, 315 -50 C 340 -50, 340 0, 290 0 C 240 0, 240 -50, 265 -50 C 290 -50, 290 0, 240 0 L 125 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
+              <motion.path d="M 480 0 C 420 50, 370 -20, 320 -10 C 270 0, 280 -60, 310 -60 C 340 -60, 340 0, 310 10 C 280 20, 290 -20, 240 -10 C 190 0, 200 -60, 230 -60 C 260 -60, 260 0, 230 10 C 200 20, 200 0, 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 1.3, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 480 0 L 340 0 C 290 0, 290 -50, 315 -50 C 340 -50, 340 0, 290 0 C 240 0, 240 -50, 265 -50 C 290 -50, 290 0, 240 0 L 125 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 480 0 C 420 50, 370 -20, 320 -10 C 270 0, 280 -60, 310 -60 C 340 -60, 340 0, 310 10 C 280 20, 290 -20, 240 -10 C 190 0, 200 -60, 230 -60 C 260 -60, 260 0, 230 10 C 200 20, 200 0, 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
@@ -120,11 +191,11 @@ const InfographicMap = () => {
 
             {/* 6. Pramukh Swami: Sharp Zig-Zag (Reversed) */}
             <g transform="translate(500, 500) rotate(-173)">
-              <motion.path d="M 350 0 L 230 -30 L 125 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round"
+              <motion.path d="M 350 0 L 230 -30 Q 200 0 180 0" fill="none" stroke="#111b47" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round"
                 initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: false }} transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }} />
               <motion.polygon
                 points="-12,-7 4,0 -12,7" fill="#111b47"
-                style={{ offsetPath: "path('M 350 0 L 230 -30 L 125 0')", offsetRotate: "auto" }}
+                style={{ offsetPath: "path('M 350 0 L 230 -30 Q 200 0 180 0')", offsetRotate: "auto" }}
                 initial={{ offsetDistance: "0%", opacity: 0 }}
                 whileInView={{ offsetDistance: "100%", opacity: 1 }}
                 viewport={{ once: false }}
@@ -141,7 +212,7 @@ const InfographicMap = () => {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: false }}
                 transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
-                className="w-[220px] h-[220px] rounded-full bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] flex items-center justify-center p-5 border border-[#eae6db] relative"
+                className="w-[260px] h-[260px] rounded-full bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] flex items-center justify-center p-5 border border-[#eae6db] relative"
               >
                 {/* Pulsing rings for awwwards style effect */}
                 <div className="absolute inset-0 rounded-full border border-[#121a36]/10 animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
@@ -170,8 +241,8 @@ const InfographicMap = () => {
 
             <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>KSKVKU</motion.text>
 
-            <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Pramukh</motion.text>
-            <motion.text x="70" y="455" fontSize="22" transform="rotate(-8, 70, 455)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Swami NAGAR</motion.text>
+            <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Pramukh</motion.text>
+            <motion.text x="70" y="455" fontSize="22" transform="rotate(-8, 70, 455)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Swami NAGAR</motion.text>
           </g>
         </svg>
       </div>

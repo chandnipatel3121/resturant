@@ -201,11 +201,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow: visible;
   }
 
   .contact-info-panel {
     order: 1;
-    padding: 2.5rem 1.5rem 1rem 1.5rem;
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
     flex-grow: 0;
     justify-content: flex-start;
   }
@@ -213,9 +214,17 @@
   .contact-map-panel {
     order: 2;
     height: auto;
-    min-height: 380px;
     flex-grow: 1;
-    padding: 0.5rem 1.5rem 2.5rem 1.5rem;
+    padding: 0 1.5rem 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-container-wrapper {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Forces the map to be perfectly square and fully visible */
   }
 
   .contact-brand-title {

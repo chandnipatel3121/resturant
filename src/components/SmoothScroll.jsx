@@ -4,6 +4,8 @@ import "lenis/dist/lenis.css"
 
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -11,20 +13,21 @@ const SmoothScroll = ({ children }) => {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
+      smoothTouch: false, // Let native CSS handle continuous touch scrolling on mobile
       touchMultiplier: 1.2,
       infinite: false,
     })
 
     window.lenis = lenis
 
-    // 🎯 Snapping Logic
+    // 🎯 Magnetic Snapping Logic (Desktop Only)
     let isSnapping = false
     let snapTimeout = null
     let lastScrollDirection = 0
 
     const handleSnap = () => {
-      if (isSnapping) return
+      // Completely disable snapping on mobile for continuous scrolling
+      if (isSnapping || window.matchMedia('(max-width: 768px)').matches) return
 
       const sections = document.querySelectorAll('section[id]')
       if (sections.length === 0) return
@@ -32,32 +35,22 @@ const SmoothScroll = ({ children }) => {
       const scrollPos = window.scrollY
       const viewportHeight = window.innerHeight
 
-      // Find the currently visible section or the one we are moving towards
       let targetSection = null
+      let minDistance = Infinity
 
-      if (lastScrollDirection > 0) {
-        // Scrolling Down: find the first section whose top is below the current scroll pos
-        for (let section of sections) {
-          if (section.offsetTop > scrollPos + 10) {
-            targetSection = section
-            break
-          }
-        }
-      } else if (lastScrollDirection < 0) {
-        // Scrolling Up: find the first section whose top is above the current scroll pos
-        const reversedSections = Array.from(sections).reverse()
-        for (let section of reversedSections) {
-          if (section.offsetTop < scrollPos - 10) {
-            targetSection = section
-            break
-          }
+      for (let section of sections) {
+        const distance = Math.abs(scrollPos - section.offsetTop)
+        
+        if (distance < viewportHeight * 0.4 && distance < minDistance && distance > 5) {
+          minDistance = distance
+          targetSection = section
         }
       }
 
       if (targetSection) {
         isSnapping = true
         lenis.scrollTo(targetSection, {
-          duration: 1.4,
+          duration: 1.0,
           easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
           onComplete: () => {
             isSnapping = false
@@ -67,13 +60,15 @@ const SmoothScroll = ({ children }) => {
     }
 
     lenis.on('scroll', ({ direction, velocity }) => {
+      // Do not trigger snapping on mobile
+      if (window.matchMedia('(max-width: 768px)').matches) return;
+
       lastScrollDirection = direction
 
       if (snapTimeout) clearTimeout(snapTimeout)
 
-      // If the scroll is intentional (significant velocity) or has stopped
-      if (!isSnapping && Math.abs(velocity) > 0.1) {
-        snapTimeout = setTimeout(handleSnap, 60) // Much faster trigger (60ms)
+      if (!isSnapping && Math.abs(velocity) > 0.05) {
+        snapTimeout = setTimeout(handleSnap, 150)
       }
     })
 

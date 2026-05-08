@@ -455,11 +455,37 @@ backface-visibility: hidden;
   }
 }
 
+/* Mobile Close Button Style */
+.mobile-close-btn {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.mobile-close-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
 @media (max-width: 1199px) {
   .cuisine-section {
     padding: 80px 20px;
     height: auto;
     min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .cuisine-menu-container,
@@ -469,13 +495,14 @@ backface-visibility: hidden;
   }
 
   .cuisine-table-perspective {
-    margin: 40px 0;
+    margin: 5px 0 0px 0;
     height: auto;
-    gap: 3rem;
+    gap: 1rem;
   }
 
   .cuisine-menu-container {
     order: -1;
+    margin-top: 0;
   }
 
   .cuisine-table-topview {
@@ -484,6 +511,97 @@ backface-visibility: hidden;
 
   .cuisine-info-container {
     order: 1;
+  }
+
+  /* MODAL OVERLAY FOR MOBILE/TABLET via React Portal */
+  .cuisine-info-container-mobile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: flex-start; /* Changed from center to allow top scrolling */
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+    pointer-events: auto; /* Clickable background to close */
+    overflow-y: auto; /* Enable scrolling for tall cards */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cuisine-info-container-mobile-modal .cuisine-card-wrapper {
+    max-width: 90%;
+    width: 400px;
+    margin: auto; /* Centers when small, allows scrolling when tall */
+    pointer-events: auto;
+  }
+
+  .cuisine-info-container-mobile-modal .cuisine-glass-card {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    min-height: auto;
+    margin-top: 50px; /* Space for the top overlapping image */
+    padding-bottom: 20px;
+  }
+
+  .cuisine-info-container-mobile-modal .mobile-close-btn {
+    display: flex;
+  }
+
+  /* Adjust internal card layout to prevent text overlap */
+  .cuisine-info-container-mobile-modal .glass-card-image-wrapper {
+    position: absolute;
+    top: -60px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 120px !important;
+    height: 120px !important;
+    z-index: 40;
+  }
+
+  .cuisine-info-container-mobile-modal .floating-icon {
+    bottom: -10px;
+    right: 0px;
+  }
+
+  .cuisine-info-container-mobile-modal .glass-card-header,
+  .cuisine-info-container-mobile-modal .glass-card-body,
+  .cuisine-info-container-mobile-modal .chef-specialty-panel {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-left: 0 !important;
+  }
+
+  .cuisine-info-container-mobile-modal .glass-card-header {
+    margin-top: 65px; /* clear the image */
+    text-align: center;
+  }
+
+  .cuisine-info-container-mobile-modal .glass-card-body {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cuisine-info-container-mobile-modal .glass-card-text-content {
+    padding-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .cuisine-info-container-mobile-modal .card-pagination {
+    flex-direction: row;
+    padding-right: 0;
+    gap: 15px;
+  }
+
+  .cuisine-info-container-mobile-modal .chef-specialty-panel {
+    margin-bottom: 80px; /* clear the bottom wave */
   }
 }
 

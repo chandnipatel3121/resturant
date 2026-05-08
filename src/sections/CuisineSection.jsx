@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import restroLogo from "../assets/restrologo.png"
 import gujImg from "../assets/thali.jpg"
@@ -14,6 +15,100 @@ import chinBg from "../assets/chiniescuisine.png"
 import italBg from "../assets/italiancuisine.png"
 
 import "../styles/sections/CuisineSection.css"
+
+const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
+  if (!cuisine) return null
+
+  return (
+    <motion.div
+      className="cuisine-card-wrapper"
+      initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="cuisine-glass-card" style={{
+        '--theme-color': cuisine.border,
+        '--card-bg': cuisine.cardBg,
+        '--card-bg-alt': cuisine.cardBgAlt,
+        '--card-text': cuisine.textColor
+      }}>
+        <div className="glass-card-border" />
+        <div className="floral-pattern top-right" />
+        <div className="floral-pattern bottom-left" />
+
+        {isMobile && <button className="mobile-close-btn" onClick={onClose}>✕</button>}
+
+        <div className="top-center-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+
+        <div className="glass-card-image-wrapper">
+          <img src={cuisine.img} alt={cuisine.name} className="glass-card-img" />
+          <div className="floating-icon">
+            <div className="specialty-icon-wrapper">
+               <span className="stars" style={{ fontSize: '10px' }}>✦</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-card-content">
+          <header className="glass-card-header">
+            <div className="glass-subheader">
+              <span className="luxury-divider-small" />
+              {cuisine.tagline}
+              <span className="luxury-divider-small" />
+            </div>
+            <h2 className="glass-card-title">{cuisine.name}</h2>
+            <div className="luxury-divider-star">✦</div>
+          </header>
+
+          <div className="glass-card-body">
+            <div className="glass-card-text-content">
+              <p className="glass-card-desc">{cuisine.description}</p>
+            </div>
+            <div className="card-pagination">
+              <div className="page-dot active" />
+              <div className="page-dot" />
+              <div className="page-dot" />
+              <div className="page-dot" />
+              <div className="page-dot" />
+            </div>
+          </div>
+
+          <div className="chef-specialty-panel">
+            <div className="specialty-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 13.87A4 4 0 0 1 7.41 6.54H7.5a4 4 0 0 1 7.41 6.54" />
+                <path d="M12 12V21" />
+                <path d="M9 21H15" />
+              </svg>
+              <span className="stars">★★★</span>
+            </div>
+            <div className="specialty-content">
+              <span className="specialty-label">CHEF'S SPECIALTY</span>
+              <p className="specialty-text">{cuisine.specialty}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-wave-bottom">
+          <svg className="wave-svg" viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path d="M0,150 L0,100 C150,150 350,20 500,100 L500,150 Z" fill={cuisine.border} />
+          </svg>
+          <div className="wave-branding">
+            <div className="wave-brand-text">
+              <span className="brand-name">RESTRO</span>
+              <span className="brand-sub">FINE DINING</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 const CUISINES = [
   {
@@ -142,7 +237,15 @@ const CuisineSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const [activeIndex, setActiveIndex] = useState(null)
   const [isPaused, setIsPaused] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const containerRef = React.useRef(null)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 1199)
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -431,98 +534,34 @@ const CuisineSection = () => {
         </div>
 
         {/* 📋 Right Side - Cuisine Details */}
-        <div className="cuisine-info-container" onClick={(e) => e.stopPropagation()}>
-          <AnimatePresence>
-            {displayIndex !== null && displayCuisine && (
-              <motion.div
-                key="info-panel"
-                initial={{ opacity: 0, x: 40, scale: 0.98 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 40, scale: 0.98 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="cuisine-card-wrapper"
-                style={{
-                  '--theme-color': CUISINES[displayIndex].border,
-                  '--theme-glow': CUISINES[displayIndex].glow,
-                  '--card-bg': CUISINES[displayIndex].cardBg,
-                  '--card-bg-alt': CUISINES[displayIndex].cardBgAlt,
-                  '--card-text': CUISINES[displayIndex].textColor,
-                }}
-              >
-                {/* Offset Left Panel — hidden */}
-
-                <div className="cuisine-glass-card">
-                  {/* Floral Pattern Top Right */}
-                  <div className="floral-pattern top-right"></div>
-
-                  {/* Top Center Icon */}
-                  <div className="top-center-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z" />
-                    </svg>
-                  </div>
-
-                  <div className="glass-card-content">
-                    {/* Left Overlapping Image */}
-                    <div className="glass-card-image-wrapper">
-                      <img src={CUISINES[displayIndex].img} alt={CUISINES[displayIndex].name} className="glass-card-img" />
-                      <div className="floating-icon">
-                        <img src={restroLogo} alt="Restro" className="floating-icon-logo" />
-                      </div>
-                    </div>
-
-                    <div className="glass-card-header">
-
-                      <h3 className="glass-card-title">{CUISINES[displayIndex].name}</h3>
-                    </div>
-
-                    <div className="glass-card-body">
-                      <div className="glass-card-text-content">
-                        <p className="glass-card-desc">{CUISINES[displayIndex].description}</p>
-                      </div>
-                      <div className="card-pagination">
-                        {[0, 1, 2, 3, 4].map(idx => (
-                          <span key={idx} className={`page-dot ${idx === displayIndex ? 'active' : ''}`}></span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="chef-specialty-panel">
-                      <div className="specialty-icon-wrapper">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
-                          <line x1="6" y1="17" x2="18" y2="17" />
-                        </svg>
-                        <div className="stars">★★★</div>
-                      </div>
-                      <div className="specialty-content">
-                        <span className="specialty-label">CHEF'S SPECIALTY</span>
-                        <p className="specialty-text">{CUISINES[displayIndex].specialty}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="glass-wave-bottom">
-                    <svg className="wave-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
-                      <path fill="var(--theme-color)" d="M0 30 V 10 Q 25 0 50 15 T 100 10 V 30 Z" />
-                      <path fill="none" stroke="#D4AF37" strokeWidth="0.2" d="M0 10 Q 25 0 50 15 T 100 10" />
-                    </svg>
-                    <div className="wave-branding">
-                      <div className="wave-brand-text">
-                        <span className="brand-name">RESTRO</span>
-                        <span className="brand-sub">FINE DINING</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="glass-card-border"></div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        {isMobile ? (
+          displayIndex !== null && displayCuisine && createPortal(
+            <div className="cuisine-info-container-mobile-modal" onClick={() => { setActiveIndex(null); setIsPaused(false); }}>
+              <AnimatePresence>
+                <InternalCuisineCard
+                  cuisine={CUISINES[displayIndex]}
+                  isMobile={true}
+                  onClose={() => { setActiveIndex(null); setIsPaused(false); }}
+                />
+              </AnimatePresence>
+            </div>,
+            document.body
+          )
+        ) : (
+          <div className="cuisine-info-container" onClick={(e) => e.stopPropagation()}>
+            <AnimatePresence mode="wait">
+              {displayIndex !== null && displayCuisine && (
+                <InternalCuisineCard
+                  key={displayIndex}
+                  cuisine={CUISINES[displayIndex]}
+                  isMobile={false}
+                />
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
-    </section >
+    </section>
   )
 }
 
