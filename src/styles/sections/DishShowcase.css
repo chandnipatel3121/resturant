@@ -2,8 +2,8 @@
 .dish-showcase {
   width: 100%;
   background-color: var(--bg);
-  border-radius: 40px;
-  margin-top: -40px;
+  border-radius: 0;
+  margin-top: 0;
   position: relative;
   z-index: 100;
   padding-top: 4rem;
@@ -13,17 +13,16 @@
   justify-content: center;
   overflow: visible;
   box-shadow:
-   0 -40px 100px rgba(0,0,0,0.06),
-   inset 0 20px 40px rgba(255,255,255,0.4);
+   0 10px 100px rgba(0,0,0,0.04);
 }
 
 
 @media (min-width: 768px) {
   .dish-showcase {
-    border-radius: 120px 120px 0 0;
-    margin-top: -130px;
-    padding-top: 5rem;
-    min-height: calc(100vh - 120px);
+    border-radius: 0;
+    margin-top: 0;
+    padding-top: 6rem;
+    min-height: 100vh;
   }
 }
 

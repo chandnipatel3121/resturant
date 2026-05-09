@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
-import restroLogo from "../assets/restrologo.png"
+import anandoLogo from "../assets/anandofood.jpg"
 import gujImg from "../assets/thali.jpg"
 import punImg from "../assets/punjabi.jpg"
 import southImg from "../assets/southindian.jpg"
@@ -49,7 +49,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
           <img src={cuisine.img} alt={cuisine.name} className="glass-card-img" />
           <div className="floating-icon">
             <div className="specialty-icon-wrapper">
-               <span className="stars" style={{ fontSize: '10px' }}>✦</span>
+              <span className="stars" style={{ fontSize: '10px' }}>✦</span>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
           </svg>
           <div className="wave-branding">
             <div className="wave-brand-text">
-              <span className="brand-name">RESTRO</span>
+              <span className="brand-name">ANANDO FOOD</span>
               <span className="brand-sub">FINE DINING</span>
             </div>
           </div>
@@ -401,7 +401,7 @@ const CuisineSection = () => {
             <div className="cuisine-table-leg" />
 
             <div className="table-center-logo-top">
-              <img src={restroLogo} alt="Restro" className="table-center-img" />
+              <img src={anandoLogo} alt="Anando Food" className="table-center-img" />
             </div>
 
             <motion.div

@@ -34,7 +34,7 @@ const Navbar = () => {
               to="/"
               className={`nav-logo nav-logo-${navTheme}`}
             >
-              Restro
+              Anando Food
             </Link>
           </div>
 

@@ -85,7 +85,7 @@ const DishShowcase = () => {
 
       <div className="dish-header">
         <h2 className="dish-title">
-          <span className="dish-title-part">Restro's</span>
+          <span className="dish-title-part">Anando's</span>
           <span className="dish-title-part">Creations</span>
         </h2>
       </div>

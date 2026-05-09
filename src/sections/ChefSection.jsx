@@ -89,7 +89,7 @@ const ChefSection = () => {
             >
               The Hands<br />
               <span className="chef-title-italic">
-                of Restro
+                of Anando Food
               </span>
             </motion.h2>
 
@@ -99,7 +99,7 @@ const ChefSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="chef-desc"
             >
-              At Restro, every dish begins with a vision.
+              At Anando Food, every dish begins with a vision.
               Our chef transforms simple ingredients into experiences.
             </motion.p>
           </div>

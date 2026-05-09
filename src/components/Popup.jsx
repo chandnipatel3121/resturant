@@ -16,6 +16,7 @@ const Popup = ({ isOpen, onClose }) => {
         }
     }, [isOpen]);
 
+
     const containerVariants = {
         initial: { scale: 0.1, opacity: 0, y: 0 },
         animate: {

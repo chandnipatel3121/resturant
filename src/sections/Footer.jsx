@@ -8,7 +8,7 @@ const Footer = () => {
 
         {/* Brand & Contact */}
         <div className="footer-brand">
-          <h2 className="footer-logo">RESTRO</h2>
+          <h2 className="footer-logo">ANANDO FOOD</h2>
           <a
             href="https://www.google.com/maps?q=Shreeji+Arcade+Aeroplane+Circle+Bhuj+Gujarat"
             target="_blank"
@@ -19,7 +19,7 @@ const Footer = () => {
             Bhuj, Gujarat 370001
           </a>
           <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=support@revatix.in&su=Inquiry%20from%20Restro&body=Hello%20Restro%20Team,"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=support@revatix.in&su=Inquiry%20from%20Anando%20Food&body=Hello%20Anando%20Food%20Team,"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-email"

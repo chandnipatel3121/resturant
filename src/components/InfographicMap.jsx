@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import "@fontsource/kalam" // Handwritten font
-import restroLogo from "../assets/restrologo.png"
+import restroLogo from "../assets/anandofood.jpg"
 import "../styles/sections/arrows.css"
 
 const InfographicMap = () => {
@@ -218,7 +218,7 @@ const InfographicMap = () => {
                 <div className="absolute inset-0 rounded-full border border-[#121a36]/10 animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
                 <div className="absolute -inset-4 rounded-full border border-[#121a36]/5 animate-pulse"></div>
 
-                <img src={restroLogo} alt="Restaurant Logo" className="w-full h-full object-contain relative z-10" />
+                <img src={restroLogo} alt="Anando Food Logo" className="w-full h-full object-contain relative z-10" />
               </motion.div>
             </div>
           </foreignObject>

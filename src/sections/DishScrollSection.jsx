@@ -14,7 +14,7 @@ export const DISHES = [
   { name: "Pav Bhaji", tagline: "Street soul, chef's touch", img: pavbhaji },
   { name: "Dragon Platter", tagline: "Fire-kissed, boldly crafted", img: dragonp },
   { name: "Chef's Special Desert", tagline: "Pure indulgence on your palate", img: desert },
-  { name: "Restro Special Mix Veg", tagline: "A symphony of textures and tastes", img: beetroot },
+  { name: "Anando Special Mix Veg", tagline: "A symphony of textures and tastes", img: beetroot },
 ]
 
 const STRIP = [...DISHES, ...DISHES, ...DISHES]
