@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { motion, useMotionValueEvent, useScroll } from "framer-motion"
+import { motion, useMotionValueEvent } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
 import "../styles/components/Navbar.css"
@@ -34,7 +34,7 @@ const Navbar = () => {
               to="/"
               className={`nav-logo nav-logo-${navTheme}`}
             >
-              Anando Food
+              Anando Foods
             </Link>
           </div>
 

@@ -1,0 +1,138 @@
+/* 🎭 ANANDO FOODS SCROLL TRANSITION */
+.scroll-transition-overlay {
+  position: absolute;
+  top: -25vh;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  pointer-events: none;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  background: transparent;
+}
+
+/* Central Branding */
+.transition-content-wrapper {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2vh;
+  width: 90%;
+  max-width: 600px;
+}
+
+.anando-tagline {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(0.7rem, 1.2vw, 1.2rem);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  opacity: 0.9;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.anando-logo-box {
+  position: relative;
+  padding: clamp(10px, 1.5vh, 20px) clamp(20px, 4vw, 50px);
+  background: #006837;
+  border: clamp(2px, 0.4vw, 5px) solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.anando-logo-box::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid white;
+}
+
+.anando-logo-text {
+  font-family: var(--font-sans);
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  font-weight: 900;
+  color: white;
+  text-transform: lowercase;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Parallax Layers */
+.typo-layer {
+  position: absolute;
+  width: 300%;
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.9;
+  letter-spacing: 0.2em;
+  will-change: transform;
+}
+
+.typo-layer-top {
+  top: 5%;
+  font-size: clamp(3rem, 6vw, 6vw);
+  color: #ebc51f;
+  filter: blur(0.5px);
+}
+
+.typo-layer-bottom {
+  bottom: 5%;
+  font-size: clamp(3rem, 6vw, 6vw);
+  color: #004b32;
+  filter: blur(0.5px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .typo-layer {
+    width: 400%;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-transition-overlay {
+    top: -20vh;
+    height: 40vh;
+  }
+  .anando-logo-box {
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.4);
+  }
+  .typo-layer {
+    width: 500%;
+    opacity: 0.6; /* Lower opacity on mobile for better legibility */
+  }
+  .typo-layer-top, .typo-layer-bottom {
+    font-size: 10vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .anando-logo-box {
+    padding: 8px 15px;
+    border-width: 2px;
+  }
+  .anando-tagline {
+    letter-spacing: 0.15em;
+  }
+  .typo-layer-top, .typo-layer-bottom {
+    font-size: 12vw;
+  }
+}

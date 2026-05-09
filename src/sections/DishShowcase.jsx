@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import React, { useState, useEffect, useCallback, useRef } from "react"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { DISHES } from "./DishScrollSection"
+import ScrollTransition from "../components/ScrollTransition"
 import "../styles/sections/DishShowcase.css"
 
 const AUTO_MS = 3800
@@ -16,6 +17,13 @@ const Ring = ({ size, border, speed, dir = 1, className = "" }) => (
 )
 
 const DishShowcase = () => {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+
+
   const [active, setActive] = useState(DISHES.length)
   const [isJumping, setIsJumping] = useState(false)
   const [slotSize, setSlotSize] = useState(520)
@@ -58,7 +66,12 @@ const DishShowcase = () => {
   }, [go])
 
   return (
-    <section id="dish-showcase" className="dish-showcase">
+    <motion.section
+      id="dish-showcase"
+      ref={ref}
+      className="dish-showcase"
+    >
+      <ScrollTransition />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -179,7 +192,7 @@ const DishShowcase = () => {
           </svg>
         </button>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

@@ -158,6 +158,26 @@
     padding: 0.85rem 2rem;
     width: 100%;
   }
+
+  .video-desktop {
+    display: none !important;
+  }
+  .video-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .video-mobile {
+    display: none !important;
+  }
+  .video-desktop {
+    display: block !important;
+  }
+}
+
+.video-container {
+  will-change: clip-path;
 }
 
 /* 🎬 Cinematic GIF Background Styles */
