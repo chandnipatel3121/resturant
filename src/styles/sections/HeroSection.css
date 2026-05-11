@@ -158,26 +158,6 @@
     padding: 0.85rem 2rem;
     width: 100%;
   }
-
-  .video-desktop {
-    display: none !important;
-  }
-  .video-mobile {
-    display: block !important;
-  }
-}
-
-@media (min-width: 769px) {
-  .video-mobile {
-    display: none !important;
-  }
-  .video-desktop {
-    display: block !important;
-  }
-}
-
-.video-container {
-  will-change: clip-path;
 }
 
 /* 🎬 Cinematic GIF Background Styles */
@@ -195,7 +175,8 @@
   object-fit: cover;
   opacity: 0.8;
   filter: brightness(0.7) contrast(1.2);
-  animation: cinematic-breath 15s ease-in-out infinite alternate;
+  transform: scale(1.05);
+  /* animation: cinematic-breath 15s ease-in-out infinite alternate; */
 }
 
 .hero-bg-overlay {
@@ -205,7 +186,10 @@
   z-index: 1;
 }
 
-@keyframes cinematic-breath {
+/* @keyframes cinematic-breath {
   0% { transform: scale(1) translateX(0); }
   100% { transform: scale(1.1) translateX(-2%); }
+} */
+.hero-sticky-container {
+  isolation: isolate;
 }

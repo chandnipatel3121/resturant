@@ -77,7 +77,7 @@ const AboutSection = () => {
         className="about-ghost-text"
         aria-hidden
       >
-        Anando Food
+        Anando Foods
       </motion.div>
 
       {/* main grid */}
@@ -101,7 +101,7 @@ const AboutSection = () => {
                 <SplitReveal text="The Essence" className="text-[#0F5C5C]" delay={0} />
               </span>
               <span className="block mt-1">
-                <SplitReveal text="of Anando Food" className="italic text-[#E0A94B] font-light" delay={0.15} />
+                <SplitReveal text="of Anando Foods" className="italic text-[#E0A94B] font-light" delay={0.15} />
               </span>
             </h2>
 

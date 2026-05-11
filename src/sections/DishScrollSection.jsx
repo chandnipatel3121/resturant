@@ -14,7 +14,7 @@ export const DISHES = [
   { name: "Pav Bhaji", tagline: "Street soul, chef's touch", img: pavbhaji },
   { name: "Dragon Platter", tagline: "Fire-kissed, boldly crafted", img: dragonp },
   { name: "Chef's Special Desert", tagline: "Pure indulgence on your palate", img: desert },
-  { name: "Anando Special Mix Veg", tagline: "A symphony of textures and tastes", img: beetroot },
+  { name: "Beetroot and Carrot Halwa", tagline: "A symphony of textures and tastes", img: beetroot },
 ]
 
 const STRIP = [...DISHES, ...DISHES, ...DISHES]
@@ -61,7 +61,7 @@ const DishScrollSection = () => {
 
                 {/* DISH */}
                 <div className="relative w-[400px] h-[400px] rounded-full overflow-hidden
-                  shadow-[0_25px_70px_rgba(0,0,0,0.3)]
+
                   transition-all duration-500
                   group-hover:scale-[1.05]
                   group-hover:shadow-[0_35px_90px_rgba(0,0,0,0.4),0_0_30px_rgba(224,169,75,0.25)]"
@@ -74,7 +74,7 @@ const DishScrollSection = () => {
                   />
 
                   {/* shine */}
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.25)_0%,transparent_60%)]" />
+                  {/* <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.25)_0%,transparent_60%)]" /> */}
                 </div>
 
                 {/* TEXT */}

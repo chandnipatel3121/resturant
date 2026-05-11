@@ -25,85 +25,85 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
       initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="cuisine-glass-card" style={{
         '--theme-color': cuisine.border,
         '--card-bg': cuisine.cardBg,
-        '--card-bg-alt': cuisine.cardBgAlt,
         '--card-text': cuisine.textColor
       }}>
-        <div className="glass-card-border" />
-        <div className="floral-pattern top-right" />
-        <div className="floral-pattern bottom-left" />
+        {/* Optical Effects Layers */}
+        <div className="glass-reflection-top" />
+        <div className="glass-inner-glow" />
+        <div className="glass-card-border-glow" />
 
         {isMobile && <button className="mobile-close-btn" onClick={onClose}>✕</button>}
 
-        <div className="top-center-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
-        </div>
-
-        <div className="glass-card-image-wrapper">
-          <img src={cuisine.img} alt={cuisine.name} className="glass-card-img" />
-          <div className="floating-icon">
-            <div className="specialty-icon-wrapper">
-              <span className="stars" style={{ fontSize: '10px' }}>✦</span>
-            </div>
-          </div>
-        </div>
-
         <div className="glass-card-content">
           <header className="glass-card-header">
-            <div className="glass-subheader">
-              <span className="luxury-divider-small" />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="glass-subheader"
+            >
+              <span className="luxury-divider-accent" />
               {cuisine.tagline}
-              <span className="luxury-divider-small" />
+              <span className="luxury-divider-accent" />
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="glass-card-title"
+            >
+              {cuisine.name}
+            </motion.h2>
+
+            <div className="luxury-ornament">
+              <span className="ornament-line" />
+              <span className="ornament-star">✦</span>
+              <span className="ornament-line" />
             </div>
-            <h2 className="glass-card-title">{cuisine.name}</h2>
-            <div className="luxury-divider-star">✦</div>
           </header>
 
           <div className="glass-card-body">
-            <div className="glass-card-text-content">
-              <p className="glass-card-desc">{cuisine.description}</p>
-            </div>
-            <div className="card-pagination">
-              <div className="page-dot active" />
-              <div className="page-dot" />
-              <div className="page-dot" />
-              <div className="page-dot" />
-              <div className="page-dot" />
-            </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="glass-card-desc-large"
+            >
+              {cuisine.description}
+            </motion.p>
           </div>
 
-          <div className="chef-specialty-panel">
-            <div className="specialty-icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 13.87A4 4 0 0 1 7.41 6.54H7.5a4 4 0 0 1 7.41 6.54" />
-                <path d="M12 12V21" />
-                <path d="M9 21H15" />
-              </svg>
-              <span className="stars">★★★</span>
-            </div>
-            <div className="specialty-content">
-              <span className="specialty-label">CHEF'S SPECIALTY</span>
-              <p className="specialty-text">{cuisine.specialty}</p>
+          <div className="glass-card-footer-branding">
+            <div className="pagination-minimal">
+              <div className="pagination-line active" />
+              <div className="pagination-line" />
+              <div className="pagination-line" />
             </div>
           </div>
         </div>
 
         <div className="glass-wave-bottom">
-          <svg className="wave-svg" viewBox="0 0 500 150" preserveAspectRatio="none">
-            <path d="M0,150 L0,100 C150,150 350,20 500,100 L500,150 Z" fill={cuisine.border} />
-          </svg>
-          <div className="wave-branding">
-            <div className="wave-brand-text">
-              <span className="brand-name">ANANDO FOOD</span>
-              <span className="brand-sub">FINE DINING</span>
+          <div className="wave-branding-futuristic">
+            <div className="brand-logo-symbol">
+              <svg viewBox="0 0 100 100">
+                <path d="M50 5 L95 25 L95 75 L50 95 L5 75 L5 25 Z" fill="none" stroke="currentColor" strokeWidth="2" />
+                <path d="M50 20 L80 35 L80 65 L50 80 L20 65 L20 35 Z" fill="currentColor" opacity="0.3" />
+              </svg>
+            </div>
+            <div className="brand-text-stack">
+              <span className="brand-name-main">ANANDO FOODS</span>
+              <span className="brand-tag-sub">Fine Dining Excellence</span>
             </div>
           </div>
+          {/* Subtle wave pattern */}
+          <svg className="wave-pattern-svg" viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path d="M0,150 L0,100 C150,150 350,20 500,100 L500,150 Z" fill={cuisine.border} opacity="0.15" />
+          </svg>
         </div>
       </div>
     </motion.div>
@@ -112,7 +112,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
 
 const CUISINES = [
   {
-    name: "Gujarati Thali",
+    name: "Gujarati",
     tagline: "Sweet, subtle & traditional",
     specialty: "Authentic spices sourced from Rajkot, prepared using age-old family recipes for a truly soulful experience.",
     description: "A harmonious blend of sweet and savory notes, featuring the iconic Dhokla, Thepla, and a variety of seasonal vegetable preparations served with love.",
@@ -136,7 +136,7 @@ const CUISINES = [
     ]
   },
   {
-    name: "Punjabi Dish",
+    name: "Punjabi",
     tagline: "Rich, bold & buttery flavors",
     specialty: "Tandoor-fired to perfection with a secret blend of 12 hand-ground spices and premium farmhouse butter.",
     description: "Indulge in the robust heartiness of North India. Creamy Dal Makhani, buttery Naans, and the legendary Tandoori specialties that define culinary excellence.",
@@ -268,7 +268,7 @@ const CuisineSection = () => {
   // 🎭 Dynamic 3D Transforms based on scroll
   const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], [18, 10, 0])
   const tableScale = useTransform(smoothProgress, [0, 0.3, 0.5, 1], [0.8, 0.9, 1, 0.9])
-  const tableY = useTransform(smoothProgress, [0, 0.5, 1], [50, -50, -150])
+  const tableY = useTransform(smoothProgress, [0, 0.5, 1], isMobile ? [0, -15, -30] : [50, -50, -150])
   const tableOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   const prevProgress = React.useRef(0)
 
@@ -401,7 +401,7 @@ const CuisineSection = () => {
             <div className="cuisine-table-leg" />
 
             <div className="table-center-logo-top">
-              <img src={anandoLogo} alt="Anando Food" className="table-center-img" />
+              <img src={anandoLogo} alt="Anando Foods" className="table-center-img" />
             </div>
 
             <motion.div
@@ -467,70 +467,62 @@ const CuisineSection = () => {
           <div className="cuisine-table-shadow-floor" />
         </motion.div>
 
-        {/* 📋 Left Side - Default Floating Menu */}
+        {/* 📋 Left Side - Synchronized Cuisine Menu */}
         <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>
-          <AnimatePresence>
-            {displayIndex === null && (
-              <motion.div
-                key="floating-narrative"
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={{
-                  hidden: { opacity: 0, x: -50 },
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                    transition: { staggerChildren: 0.1 }
-                  }
-                }}
-                className="cuisine-floating-narrative"
-              >
+          <div className="cuisine-floating-narrative">
+            <div className="narrative-items">
+              {CUISINES.map((cuisine, idx) => (
+                <motion.div
+                  key={idx}
+                  className={`narrative-item ${displayIndex === idx ? 'is-active' : ''}`}
+                  onMouseEnter={() => handleEnter(idx)}
+                  onMouseLeave={handleLeave}
+                  onClick={(e) => handleDishClick(e, idx)}
+                  variants={{
+                    hidden: { opacity: 0, x: -30 },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: {
+                        duration: 0.8,
+                        ease: "easeOut",
+                        delay: idx * 0.1
+                      }
+                    }
+                  }}
+                  animate={displayIndex === idx ? { x: 10 } : { x: 0 }}
+                >
+                  <div className="narrative-item-index">
+                    <span className="index-line" style={{
+                      backgroundColor: displayIndex === idx ? cuisine.border : 'var(--accent)',
+                      height: displayIndex === idx ? '30px' : '20px'
+                    }} />
+                    <span className="index-num">0{idx + 1}</span>
+                  </div>
+                  <div className="narrative-item-content">
+                    <h4 className="narrative-item-name" style={{
+                      color: displayIndex === idx ? cuisine.border : 'inherit',
+                      letterSpacing: displayIndex === idx ? '0.15em' : '0.05em'
+                    }}>
+                      {cuisine.name}
+                    </h4>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-
-                <div className="narrative-items">
-                  {(displayCuisine ? displayCuisine.items : FEATURED_ITEMS).map((item, idx) => (
-                    <motion.div
-                      key={idx}
-                      className={`narrative-item item-pos-${idx}`}
-                      variants={{
-                        hidden: { opacity: 0, x: -30 },
-                        visible: {
-                          opacity: 1,
-                          x: 0,
-                          transition: {
-                            duration: 0.8,
-                            ease: "easeOut",
-                            delay: idx * 0.1
-                          }
-                        }
-                      }}
-                    >
-                      <div className="narrative-item-index">
-                        <span className="index-line" />
-                        <span className="index-num">0{idx + 1}</span>
-                      </div>
-                      <div className="narrative-item-content">
-                        <h4 className="narrative-item-name">{item.name}</h4>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <svg className="narrative-decor-svg" viewBox="0 0 200 200">
-                  <motion.path
-                    d="M 20,100 Q 50,20 100,100 T 180,100"
-                    fill="none"
-                    stroke="var(--accent)"
-                    strokeWidth="0.5"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 0.2 }}
-                    transition={{ duration: 2, delay: 0.5 }}
-                  />
-                </svg>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            <svg className="narrative-decor-svg" viewBox="0 0 200 200">
+              <motion.path
+                d="M 20,100 Q 50,20 100,100 T 180,100"
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth="0.5"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.2 }}
+                transition={{ duration: 2, delay: 0.5 }}
+              />
+            </svg>
+          </div>
         </div>
 
         {/* 📋 Right Side - Cuisine Details */}

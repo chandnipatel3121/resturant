@@ -1,198 +1,178 @@
-import React, { useState, useEffect, useCallback, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { DISHES } from "./DishScrollSection"
-import ScrollTransition from "../components/ScrollTransition"
+import FloatingIngredients from "../components/FloatingIngredients"
 import "../styles/sections/DishShowcase.css"
 
-const AUTO_MS = 3800
-const TRIPLE_DISHES = [...DISHES, ...DISHES, ...DISHES]
-
-const Ring = ({ size, border, speed, dir = 1, className = "" }) => (
-  <motion.div
-    className={`absolute rounded-full pointer-events-none ${className}`}
-    style={{ width: size, height: size, border }}
-    animate={{ rotate: dir === 1 ? 360 : -360 }}
-    transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-  />
-)
+const DISH_THEMES = [
+  { bg: "#aef3f3ff", accent: "#023636ff", light: "rgba(15,92,92,0.1)" },
+  { bg: "#fff4d9ff", accent: "#023636ff", light: "rgba(224,169,75,0.1)" },
+  { bg: "#ffe0e0ff", accent: "#023636ff", light: "rgba(239,68,68,0.1)" },
+  { bg: "#e2f2e2ff", accent: "#023636ff", light: "rgba(16,185,129,0.1)" },
+  { bg: "#f2d9f2ff", accent: "#023636ff", light: "rgba(217,70,239,0.1)" },
+  { bg: "#e0f7d1ff", accent: "#023636ff", light: "rgba(132,204,22,0.1)" },
+]
 
 const DishShowcase = () => {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  })
-
-
-  const [active, setActive] = useState(DISHES.length)
-  const [isJumping, setIsJumping] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [slotSize, setSlotSize] = useState(520)
+
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
-      setSlotSize(window.innerWidth < 768 ? window.innerWidth * 0.85 : 520)
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setSlotSize(width < 768 ? width * 0.9 : 520)
     }
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  const go = useCallback((step) => {
-    setActive((prev) => prev + step)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % DISHES.length)
+    }, 5000)
+    return () => clearInterval(timer)
   }, [])
 
-  useEffect(() => {
-    if (active >= DISHES.length * 2) {
-      const timer = setTimeout(() => {
-        setIsJumping(true)
-        setActive(DISHES.length)
-        setTimeout(() => setIsJumping(false), 50)
-      }, 800)
-      return () => clearTimeout(timer)
-    }
-    if (active < DISHES.length) {
-      const timer = setTimeout(() => {
-        setIsJumping(true)
-        setActive(DISHES.length * 2 - 1)
-        setTimeout(() => setIsJumping(false), 50)
-      }, 800)
-      return () => clearTimeout(timer)
-    }
-  }, [active])
-
-  useEffect(() => {
-    const id = setInterval(() => go(1), AUTO_MS)
-    return () => clearInterval(id)
-  }, [go])
+  const currentTheme = DISH_THEMES[activeIndex]
 
   return (
-    <motion.section
+    <section
       id="dish-showcase"
-      ref={ref}
-      className="dish-showcase"
+      className="relative w-full h-screen flex flex-col items-center justify-start overflow-hidden pt-20"
     >
-      <ScrollTransition />
+      <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active % DISHES.length}
-          className="dish-bg-glow"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          style={{
-            background: `radial-gradient(ellipse 55% 42% at 50% 38%,
-              rgba(224,169,75,0.11) 0%,
-              rgba(15,92,92,0.06) 60%,
-              transparent 100%)`
-          }}
-        />
-      </AnimatePresence>
 
-      <div className="dish-rings-container">
-        <Ring size={420} border="1px solid rgba(15,92,92,0.07)" speed={38} />
-        <Ring size={320} border="1px solid rgba(224,169,75,0.10)" speed={26} dir={-1} />
-        <Ring size={240} border="1px solid rgba(15,92,92,0.05)" speed={18} />
-      </div>
-
-      <div className="dish-header">
-        <h2 className="dish-title">
-          <span className="dish-title-part">Anando's</span>
-          <span className="dish-title-part">Creations</span>
-        </h2>
-      </div>
-
-      <div className="dish-carousel-container">
-        <motion.div
-          className="dish-carousel-track"
-          animate={{ x: -active * slotSize }}
-          transition={isJumping ? { duration: 0 } : { duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-          style={{ willChange: "transform" }}
+      <div className="relative z-20 text-center w-full px-6">
+        {/* <motion.span
+          key={`label-${activeIndex}`}
+          initial={{ opacity: 0, letterSpacing: "0.1em" }}
+          animate={{ opacity: 1, letterSpacing: "0.4em" }}
+          className="text-xs md:text-sm font-bold uppercase block mt-16 pt-2"
+          style={{ color: currentTheme.accent }}
         >
-          {TRIPLE_DISHES.map((dish, i) => {
-            const distance = i - active
-            const isCenter = distance === 0
-            const isVisible = Math.abs(distance) <= 1
+          Signature Selection
+        </motion.span> */}
 
-            return (
-              <motion.div
-                key={i}
-                className="dish-item"
-                style={{
-                  left: "50%",
-                  x: "-50%",
-                  marginLeft: i * slotSize,
-                }}
-                animate={{
-                  y: isCenter ? 0 : 20,
-                  opacity: isCenter ? 1 : isVisible ? 0.7 : 0,
-                  scale: isCenter ? 1 : 0.7,
-                  zIndex: isCenter ? 10 : 5,
-                }}
-              >
-                <AnimatePresence>
-                  {isCenter && (
-                    <motion.div
-                      key="glow"
-                      className="dish-glow-effect"
-                      initial={{ opacity: 0 }}
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    />
-                  )}
-                </AnimatePresence>
-
-                <motion.div
-                  className="dish-image-wrapper"
-                  whileHover={isCenter ? { scale: 1.05 } : {}}
-                >
-                  <img
-                    src={dish.img}
-                    alt={dish.name}
-                    className="dish-image"
-                    draggable={false}
-                  />
-                </motion.div>
-
-                <AnimatePresence mode="wait">
-                  {isCenter && (
-                    <motion.div
-                      key={dish.name}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      className="dish-info"
-                    >
-                      <h3 className="dish-name">
-                        {dish.name}
-                      </h3>
-                      <p className="dish-tagline">
-                        {dish.tagline}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )
-          })}
-        </motion.div>
+        <div className="h-[40vh] flex flex-col justify-center items-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="max-w-4xl"
+            >
+              <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-serif mb-2 transition-colors duration-500" style={{ color: currentTheme.accent }}>
+                {DISHES[activeIndex].name}
+              </h2>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
-      <div className="dish-controls">
-        <button onClick={() => go(-1)} className="dish-nav-btn">
-          <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 40 40" fill="none">
-            <path d="M25 8 L13 20 L25 32" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      {/* The Rotation Wheel at Bottom */}
+      <div className="absolute bottom-[-10%] w-full h-[50vh] flex items-center justify-center">
+        {DISHES.map((dish, i) => {
+          let distance = i - activeIndex
+          if (distance > DISHES.length / 2) distance -= DISHES.length
+          if (distance < -DISHES.length / 2) distance += DISHES.length
+
+          const isVisible = Math.abs(distance) <= 2
+
+          return (
+            <DishItem
+              key={i}
+              dish={dish}
+              distance={distance}
+              isVisible={isVisible}
+              slotSize={slotSize}
+              accentColor={currentTheme.accent}
+              isActive={distance === 0}
+              isMobile={isMobile}
+            />
+          )
+        })}
+      </div>
+
+      {/* Vertical Navigation Buttons on the Right */}
+      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-50">
+        <button
+          onClick={() => setActiveIndex(prev => (prev - 1 + DISHES.length) % DISHES.length)}
+          className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
+          style={{ color: currentTheme.accent }}
+        >
+          <svg className="w-6 h-6 rotate-90" viewBox="0 0 40 40" fill="none">
+            <path d="M25 8 L13 20 L25 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         </button>
-        <button onClick={() => go(1)} className="dish-nav-btn">
-          <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 40 40" fill="none">
-            <path d="M15 8 L27 20 L15 32" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <div className="h-20 w-px bg-white/10 mx-auto" />
+        <button
+          onClick={() => setActiveIndex(prev => (prev + 1) % DISHES.length)}
+          className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
+          style={{ color: currentTheme.accent }}
+        >
+          <svg className="w-6 h-6 rotate-90" viewBox="0 0 40 40" fill="none">
+            <path d="M15 8 L27 20 L15 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         </button>
       </div>
-    </motion.section>
+    </section>
+  )
+}
+
+const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile }) => {
+  // Large circle path for a smooth bottom arc
+  const angle = distance * (isMobile ? 55 : 65)
+  const radius = isMobile ? slotSize * 0.85 : slotSize * 1.5
+
+  const rad = (angle - 90) * (Math.PI / 180)
+
+  const xPos = radius * Math.cos(rad)
+  const yPos = radius * Math.sin(rad) + radius * (isMobile ? 0.6 : 0.8)
+
+  return (
+    <motion.div
+      className="absolute flex flex-col items-center pointer-events-none"
+      initial={false}
+      animate={{
+        x: xPos,
+        y: yPos - 50,
+        scale: isActive ? (isMobile ? 1.3 : 1.5) : 0.4,
+        opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
+        zIndex: isActive ? 50 : 20 - Math.abs(distance),
+      }}
+      transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
+      style={{
+        width: slotSize * 0.6,
+      }}
+    >
+      {/* Plate / Image Shadow */}
+      <motion.div
+        animate={{
+          scale: isActive ? [1, 1.05, 1] : 1,
+        }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="relative rounded-full"
+        style={{
+          width: slotSize * 0.5,
+          height: slotSize * 0.5,
+          transition: "border 0.5s ease"
+        }}
+      >
+        <img
+          src={dish.img}
+          alt={dish.name}
+          className={`w-full h-full object-cover rounded-full ${isActive ? 'brightness-[1.1] contrast-[1.05]' : 'brightness-[0.9]'}`}
+          draggable={false}
+        />
+      </motion.div>
+    </motion.div>
   )
 }
 

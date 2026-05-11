@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import "@fontsource/kalam" // Handwritten font
-import restroLogo from "../assets/anandofood.jpg"
+import anandoLogo from "../assets/anandofood.jpg"
 import "../styles/sections/arrows.css"
 
 const InfographicMap = () => {
@@ -100,7 +100,7 @@ const InfographicMap = () => {
                 {/* Taillights */}
                 <ellipse cx="14" cy="12" rx="2" ry="5" fill="#ff0000" filter="url(#glow-red)" />
                 <ellipse cx="14" cy="38" rx="2" ry="5" fill="#ff0000" filter="url(#glow-red)" />
-                
+
                 {/* Hood details / lines */}
                 <path d="M 68 15 L 94 14 M 68 35 L 94 36" stroke="#000" strokeWidth="0.5" opacity="0.3" fill="none" />
               </g>
@@ -218,31 +218,56 @@ const InfographicMap = () => {
                 <div className="absolute inset-0 rounded-full border border-[#121a36]/10 animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
                 <div className="absolute -inset-4 rounded-full border border-[#121a36]/5 animate-pulse"></div>
 
-                <img src={restroLogo} alt="Anando Food Logo" className="w-full h-full object-contain relative z-10" />
+                <img src={anandoLogo} alt="Anando Foods Logo" className="w-full h-full object-contain relative z-10" />
               </motion.div>
             </div>
           </foreignObject>
 
           {/* Precision Text Labels matched to website brand color and reference positions */}
+          {/* Precision Text Labels matched to website brand color and reference positions */}
           <g
             fontFamily="'Kalam', cursive"
-            fontSize="28"
             fill="#111b47"
             className="select-none"
           >
-            <motion.text x="140" y="140" transform="rotate(-15, 140, 140)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.4 }}>ZUDIO</motion.text>
+            {/* Horizontal Distance Markers - Placed "front side" near arrows */}
+            <g fontSize="22" opacity="0.9">
+              <motion.text x="180" y="200" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 1.6 }}>1.2 KM</motion.text>
+              <motion.text x="430" y="180" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 1.8 }}>0.8 KM</motion.text>
+              <motion.text x="780" y="380" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.0 }}>2.1 KM</motion.text>
+              <motion.text x="780" y="860" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.2 }}>3.5 KM</motion.text>
+              <motion.text x="250" y="860" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.4 }}>4.8 KM</motion.text>
+              <motion.text x="160" y="500" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.6 }}>1.5 KM</motion.text>
+            </g>
 
-            <motion.text x="500" y="40" textAnchor="middle" transform="rotate(-5, 500, 40)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.6 }}>JUBELI CIRCLE</motion.text>
+            {/* Standard Labels */}
+            <g fontSize="28">
+              <motion.text x="140" y="140" transform="rotate(-15, 140, 140)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.4 }}>
+                ZUDIO
+              </motion.text>
 
-            <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>BHANUSHALI</motion.text>
-            <motion.text x="880" y="305" textAnchor="middle" fontSize="22" transform="rotate(8, 880, 305)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>NAGAR</motion.text>
+              <motion.text x="500" y="40" textAnchor="middle" transform="rotate(-5, 500, 40)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.6 }}>
+                JUBELI CIRCLE
+              </motion.text>
 
-            <motion.text x="850" y="900" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>GK</motion.text>
+              <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>BHANUSHALI</motion.text>
+              <motion.text x="880" y="305" textAnchor="middle" fontSize="22" transform="rotate(8, 880, 305)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>
+                NAGAR
+              </motion.text>
 
-            <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>KSKVKU</motion.text>
+              <motion.text x="850" y="900" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>
+                GK
+              </motion.text>
 
-            <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Pramukh</motion.text>
-            <motion.text x="70" y="455" fontSize="22" transform="rotate(-8, 70, 455)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Swami NAGAR</motion.text>
+              <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>
+                KSKVKU
+              </motion.text>
+
+              <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Pramukh</motion.text>
+              <motion.text x="70" y="455" fontSize="22" transform="rotate(-8, 70, 455)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>
+                Swami NAGAR
+              </motion.text>
+            </g>
           </g>
         </svg>
       </div>

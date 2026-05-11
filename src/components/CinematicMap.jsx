@@ -155,8 +155,8 @@ const MapScene = ({ scrollProgress }) => {
             <cylinderGeometry args={[0.8, 0.8, 0.2, 32]} />
             <meshStandardMaterial color={COLORS.pin} metalness={0.5} roughness={0.2} />
           </mesh>
-          <Text position={[0, 2.5, 0.12]} fontSize={0.35} color="white" bold>
-            ANANDO FOOD
+          <Text position={[0, 2.5, 0.12]} fontSize={0.5} color="white" bold>
+            ANANDO FOODS
           </Text>
         </Float>
         <mesh rotation-x={-Math.PI / 2} position={[0, 0.05, 0]}>

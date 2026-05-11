@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "./styles/base.css";
+
+/* Project-specific global overrides can go here */

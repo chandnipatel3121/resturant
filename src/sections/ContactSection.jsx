@@ -72,7 +72,7 @@ const ContactSection = () => {
         >
           <div className="contact-header">
             <h2 className="contact-brand-title">
-              Visit  <span>Anando Food</span>
+              Visit  <span>Anando Foods</span>
             </h2>
           </div>
 
