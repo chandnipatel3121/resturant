@@ -1,9 +1,9 @@
 import React, { useRef, useMemo } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { 
-  OrthographicCamera, 
-  ContactShadows, 
-  Environment, 
+import {
+  OrthographicCamera,
+  ContactShadows,
+  Environment,
   Float,
   Text,
   Center
@@ -22,7 +22,7 @@ const COLORS = {
 
 const Building = ({ position, scale, scrollProgress }) => {
   const meshRef = useRef()
-  
+
   useFrame(() => {
     if (!meshRef.current) return
     const p = scrollProgress ? scrollProgress.get() : 0
@@ -33,7 +33,7 @@ const Building = ({ position, scale, scrollProgress }) => {
   })
 
   return (
-    <mesh ref={meshRef} position={[position[0], scale/2, position[2]]} castShadow receiveShadow>
+    <mesh ref={meshRef} position={[position[0], scale / 2, position[2]]} castShadow receiveShadow>
       <boxGeometry args={[1.4, scale, 1.4]} />
       <meshStandardMaterial color={COLORS.building} roughness={0.3} />
     </mesh>
@@ -43,16 +43,16 @@ const Building = ({ position, scale, scrollProgress }) => {
 const AnimatedRoute = ({ path, scrollProgress }) => {
   const lineRef = useRef()
   const carRef = useRef()
-  
+
   useFrame(() => {
     if (!carRef.current || !lineRef.current) return
     const rawProgress = scrollProgress ? scrollProgress.get() : 0
     const progress = Math.max(0.001, Math.min(rawProgress * 1.5, 0.999))
-    
+
     // Update car position
     const pos = path.getPointAt(progress)
     carRef.current.position.set(pos.x, 0.15, pos.z)
-    
+
     const nextPos = path.getPointAt(Math.min(progress + 0.01, 0.999))
     carRef.current.lookAt(nextPos.x, 0.15, nextPos.z)
 
@@ -88,7 +88,7 @@ const AnimatedRoute = ({ path, scrollProgress }) => {
 
 const MapScene = ({ scrollProgress }) => {
   const { camera } = useThree()
-  
+
   const buildings = useMemo(() => {
     const b = []
     const gridSize = 15
@@ -123,15 +123,15 @@ const MapScene = ({ scrollProgress }) => {
   return (
     <>
       <color attach="background" args={[COLORS.land]} />
-      
+
       <ambientLight intensity={1.5} />
-      <directionalLight 
-        position={[20, 50, 20]} 
-        intensity={2} 
-        castShadow 
+      <directionalLight
+        position={[20, 50, 20]}
+        intensity={2}
+        castShadow
         shadow-mapSize={[1024, 1024]}
       />
-      
+
       <Environment preset="city" />
 
       {/* Floor */}
@@ -155,8 +155,8 @@ const MapScene = ({ scrollProgress }) => {
             <cylinderGeometry args={[0.8, 0.8, 0.2, 32]} />
             <meshStandardMaterial color={COLORS.pin} metalness={0.5} roughness={0.2} />
           </mesh>
-          <Text position={[0, 2.5, 0.12]} fontSize={0.5} color="white" bold>
-            ANANDO FOODS
+          <Text position={[0, 2.5, 0.12]} fontSize={0.35} color="white" bold>
+            ANANDO FOOD
           </Text>
         </Float>
         <mesh rotation-x={-Math.PI / 2} position={[0, 0.05, 0]}>
@@ -166,13 +166,13 @@ const MapScene = ({ scrollProgress }) => {
       </group>
 
       <ContactShadows opacity={0.2} scale={40} blur={2.5} far={10} />
-      
-      <OrthographicCamera 
-        makeDefault 
-        position={[40, 40, 40]} 
-        zoom={30} 
-        near={-100} 
-        far={1000} 
+
+      <OrthographicCamera
+        makeDefault
+        position={[40, 40, 40]}
+        zoom={30}
+        near={-100}
+        far={1000}
       />
     </>
   )
