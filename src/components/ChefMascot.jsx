@@ -132,11 +132,12 @@ const ChefMascot = () => {
 
             {/* 🔼 SVG ARROW WITH ROUND BG */}
             <motion.div
+              // onClick={handleClick}
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-15 flex flex-col items-center"
+              className="absolute -top-15 flex flex-col items-center cursor-pointer z-50"
             >
-              <div className="w-13 h-13 rounded-full bg-white shadow-md flex items-center justify-center border border-[#0F5C5C]/10">
+              <div className="w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center border border-[#0F5C5C]/10">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F5C5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 15l-6-6-6 6" />
                 </svg>

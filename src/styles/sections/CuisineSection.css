@@ -340,11 +340,12 @@
 
 
 /* Using center-based positioning (translate(-50%, -50%) is applied to the wrapper) */
-.dish-round-0 { top: 18%; left: 50%; } /* Top Center */
-.dish-round-1 { top: 40%; left: 82%; } /* Upper Right */
-.dish-round-2 { top: 75%; left: 70%; } /* Lower Right */
-.dish-round-3 { top: 75%; left: 30%; } /* Lower Left */
-.dish-round-4 { top: 40%; left: 18%; } /* Upper Left */
+/* 🍛 Optimized positions for Mobile - tighter radius to prevent clipping */
+.dish-round-0 { top: 15%; left: 50%; }
+.dish-round-1 { top: 38%; left: 78%; }
+.dish-round-2 { top: 72%; left: 68%; }
+.dish-round-3 { top: 72%; left: 32%; }
+.dish-round-4 { top: 38%; left: 22%; }
 
 @media (min-width: 1024px) {
   .dish-round-0 { top: 16%; left: 50%; }
@@ -620,7 +621,12 @@ backface-visibility: hidden;
   gap: 1.5rem;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1; /* Slightly dimmed by default */
+}
+
+.narrative-item:hover {
   opacity: 1;
+  transform: translateX(5px);
 }
 
 .narrative-item.is-active {
@@ -629,8 +635,11 @@ backface-visibility: hidden;
 }
 
 .cuisine-section.is-hovered .narrative-item:not(.is-active) {
-  opacity: 0.15;
-  filter: blur(1px);
+  opacity: 0.6; /* Increased for better visibility */
+}
+
+.cuisine-section.is-hovered .narrative-item:not(.is-active) .narrative-item-name {
+  color: rgba(255, 255, 255, 0.6); /* Use light color against dark bg */
 }
 
 .narrative-item-name {
@@ -642,28 +651,33 @@ backface-visibility: hidden;
   letter-spacing: 0.05em;
   font-weight: 600;
   transition: all 0.5s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Ensure readability */
 }
 
 .is-active .narrative-item-name {
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  opacity: 1;
 }
 
 .narrative-item-index {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Horizontal layout */
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  min-width: 65px; /* Fixed width for alignment */
 }
 
 .index-line {
   width: 1px;
-  height: 20px;
+  height: 24px;
   background: var(--accent);
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.6;
 }
 
 .is-active .index-line {
-  height: 40px;
+  height: 32px;
+  opacity: 1;
   box-shadow: 0 0 15px var(--accent);
 }
 

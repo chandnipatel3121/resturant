@@ -169,9 +169,9 @@ const CUISINES = [
     bg: "#000000",
     cardBg: "#b7e4c7",       /* Vibrant coconut green */
     cardBgAlt: "#d8f3dc",   /* Light minty highlight */
-    border: "#1B5E35",      /* Deep forest green */
-    glow: "rgba(27, 94, 53, 0.3)",
-    textColor: "#0a2e1a",   /* Dark jungle green */
+    border: "#22ea75e3",      /* Deep forest green */
+    glow: "rgba(83, 224, 137, 0.75)",
+    textColor: "#53e695ff",   /* Dark jungle green */
     items: [
       { name: "Masala Dosa", desc: "Crispy rice crepe with potato", price: "220" },
       { name: "Appam with Stew", desc: "Fermented lacey pancakes", price: "350" },
@@ -193,9 +193,9 @@ const CUISINES = [
     bg: "#000000",
     cardBg: "#ffb3b3",       /* Vivid chili red */
     cardBgAlt: "#ffd6d6",   /* Light rose highlight */
-    border: "#7a0000",      /* Deep crimson */
-    glow: "rgba(122, 0, 0, 0.3)",
-    textColor: "#3a0000",   /* Dark blood red */
+    border: "#ff6767ff",      /* Deep crimson */
+    glow: "rgba(255, 119, 119, 0.81)",
+    textColor: "#fa8282ff",   /* Dark blood red */
     items: [
       { name: "Dim Sum Basket", desc: "Hand-rolled steamed parcels", price: "420" },
       { name: "Kung Pao Paneer", desc: "Spicy stir-fry with peanuts", price: "450" },
@@ -217,9 +217,9 @@ const CUISINES = [
     bg: "#000000",
     cardBg: "#6b8dffff",       /* Rich lavender violet */
     cardBgAlt: "#a6b4f0ff",   /* Soft periwinkle highlight */
-    border: "#081e38ff",      /* Deep royal purple */
-    glow: "rgba(0, 4, 47, 0.3)",
-    textColor: "#0f1f4aff",   /* Dark indigo */
+    border: "#a4baffff",      /* Deep royal purple */
+    glow: "rgba(85, 98, 240, 0.82)",
+    textColor: "#446ee2ff",   /* Dark indigo */
     items: [
       { name: "Truffle Tortellini", desc: "Handmade pasta, sage butter", price: "580" },
       { name: "Burrata Salad", desc: "Fresh burrata, heirloom tomatoes", price: "480" },
@@ -493,11 +493,10 @@ const CuisineSection = () => {
                   animate={displayIndex === idx ? { x: 10 } : { x: 0 }}
                 >
                   <div className="narrative-item-index">
+                    <span className="index-num">0{idx + 1}</span>
                     <span className="index-line" style={{
                       backgroundColor: displayIndex === idx ? cuisine.border : 'var(--accent)',
-                      height: displayIndex === idx ? '30px' : '20px'
                     }} />
-                    <span className="index-num">0{idx + 1}</span>
                   </div>
                   <div className="narrative-item-content">
                     <h4 className="narrative-item-name" style={{

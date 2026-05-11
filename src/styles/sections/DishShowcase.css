@@ -3,6 +3,13 @@
   width: 100%;
   position: relative;
   z-index: 10;
+  padding-top: 100px; /* Prevent overlap */
+}
+
+@media (max-width: 1024px) {
+  .dish-showcase {
+    padding-top: 140px;
+  }
 }
 
 .dish-item {

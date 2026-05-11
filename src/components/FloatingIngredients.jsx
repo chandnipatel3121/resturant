@@ -24,7 +24,7 @@ const INGREDIENT_GROUPS = {
   5: [carrot, beetroot],           // Halwa (Mix Veg)
 }
 
-const FloatingIngredients = ({ activeIndex, bgColor }) => {
+const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
   const currentGroup = INGREDIENT_GROUPS[activeIndex] || [coriander]
 
   // Generate scattered positions across the whole background, avoiding the center
@@ -49,18 +49,24 @@ const FloatingIngredients = ({ activeIndex, bgColor }) => {
       { x: [65, 85], y: [55, 75] },  // Extra Filler 2
     ]
 
+    const scaleFactor = isMobile ? 0.5 : 1
+
     return zones.map((zone, i) => ({
       id: i,
       x: zone.x[0] + Math.random() * (zone.x[1] - zone.x[0]),
       y: zone.y[0] + Math.random() * (zone.y[1] - zone.y[0]),
-      size: 150 + Math.random() * 100, // Even smaller to ensure NO overlap
-      duration: 30 + Math.random() * 20,
+      size: (150 + Math.random() * 80) * scaleFactor,
+      duration: 35 + Math.random() * 25,
       delay: Math.random() * -30,
       rotate: Math.random() * 360,
       floatX: (Math.random() - 0.5) * 60,
       floatY: (Math.random() - 0.5) * 60,
+      // Random starting positions for the 'fly-in' effect
+      entryX: (Math.random() - 0.5) * 1000,
+      entryY: (Math.random() - 0.5) * 1000,
+      entryRotate: (Math.random() - 0.5) * 720,
     }))
-  }, [])
+  }, [isMobile])
 
   return (
     <div
@@ -111,15 +117,36 @@ const FloatingIngredients = ({ activeIndex, bgColor }) => {
                 <motion.img
                   key={`${ingredientImg}-${item.id}`}
                   src={ingredientImg}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ 
+                    opacity: 0, 
+                    scale: 0.3, 
+                    x: item.entryX, 
+                    y: item.entryY, 
+                    rotate: item.entryRotate 
+                  }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1, 
+                    x: 0, 
+                    y: 0, 
+                    rotate: 0 
+                  }}
+                  exit={{ 
+                    opacity: 0, 
+                    scale: 0.5, 
+                    x: -item.entryX / 2, 
+                    y: -item.entryY / 2, 
+                    transition: { duration: 0.8 } 
+                  }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 40,
+                    damping: 12,
+                    mass: 1,
+                    opacity: { duration: 0.6 }
+                  }}
                   alt="ingredient"
                   className="w-full h-full object-contain"
-                // style={{
-                //   filter: "url(#remove-white-clean)",
-                // }}
                 />
               </AnimatePresence>
             </motion.div>

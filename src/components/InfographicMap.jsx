@@ -105,6 +105,57 @@ const InfographicMap = () => {
                 <path d="M 68 15 L 94 14 M 68 35 L 94 36" stroke="#000" strokeWidth="0.5" opacity="0.3" fill="none" />
               </g>
             </g>
+
+            <g id="bike-svg">
+              <g transform="translate(-40,-20)">
+                {/* Wheels */}
+                <circle cx="15" cy="30" r="10" fill="#111" />
+                <circle cx="65" cy="30" r="10" fill="#111" />
+
+                {/* Frame */}
+                <path
+                  d="M15 30 L35 15 L50 30 L65 30 L45 15 L35 15"
+                  stroke="#111b47"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Seat */}
+                <rect x="30" y="10" width="12" height="4" rx="2" fill="#E63946" />
+
+                {/* Handle */}
+                <path d="M48 12 L58 5" stroke="#111b47" strokeWidth="3" strokeLinecap="round" />
+              </g>
+            </g>
+            <g id="auto-svg">
+              <g transform="translate(-45,-25)">
+                {/* Wheels */}
+                <circle cx="18" cy="40" r="8" fill="#111" />
+                <circle cx="68" cy="40" r="8" fill="#111" />
+
+                {/* Body */}
+                <path
+                  d="M10 35 L10 18 Q10 5 25 5 L55 5 Q72 5 72 20 L72 35 Z"
+                  fill="#F4C430"
+                  stroke="#111b47"
+                  strokeWidth="3"
+                />
+
+                {/* Roof */}
+                <path
+                  d="M20 5 L58 5 L50 -5 L28 -5 Z"
+                  fill="#111"
+                />
+
+                {/* Window */}
+                <rect x="24" y="12" width="24" height="12" rx="3" fill="#BDE0FE" />
+
+                {/* Front */}
+                <rect x="58" y="18" width="10" height="10" fill="#FFD166" />
+              </g>
+            </g>
           </defs>
 
           {/* Paths Group */}
@@ -121,6 +172,27 @@ const InfographicMap = () => {
                 viewport={{ once: false }}
                 transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
               />
+              <motion.g
+                style={{
+                  offsetPath: "path('M 460 0 C 380 250, 240 0, 180 0')",
+                  offsetRotate: "auto"
+                }}
+                initial={{ offsetDistance: "0%", opacity: 0 }}
+                whileInView={{ offsetDistance: "100%", opacity: 1 }}
+                viewport={{ once: false }}
+                transition={{
+                  duration: 5,
+                  delay: 2,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatDelay: 1
+                }}
+              >
+                <use
+                  href="#bike-svg"
+                  transform="translate(-10,-10) scale(0.55)"
+                />
+              </motion.g>
             </g>
 
             {/* 2. JUBELI CIRCLE: Smooth Arc (Reversed) */}
@@ -173,6 +245,41 @@ const InfographicMap = () => {
                 viewport={{ once: false }}
                 transition={{ duration: 1.5, delay: 1.1, ease: "easeOut" }}
               />
+              <motion.g
+                style={{
+                  offsetPath:
+                    "path('M 480 0 C 400 50, 330 -30, 280 -20 C 230 -10, 200 -70, 240 -70 C 280 -70, 280 0, 240 10 C 200 20, 200 0, 180 0')",
+                  offsetRotate: "auto",
+                  transformBox: "fill-box",
+                  transformOrigin: "center"
+                }}
+                initial={{
+                  offsetDistance: "0%",
+                  opacity: 0
+                }}
+                whileInView={{
+                  offsetDistance: "100%",
+                  opacity: 1
+                }}
+                viewport={{ once: false }}
+                transition={{
+                  offsetDistance: {
+                    duration: 8,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "linear",
+                    delay: 2
+                  },
+                  opacity: {
+                    duration: 0.4
+                  }
+                }}
+              >
+                <use
+                  href="#bike-svg"
+                  transform="translate(-18,-18) scale(0.5)"
+                />
+              </motion.g>
             </g>
 
             {/* 5. KSKVKU: Organic Double Loop (Reversed) */}
@@ -223,7 +330,7 @@ const InfographicMap = () => {
             </div>
           </foreignObject>
 
-          {/* Precision Text Labels matched to website brand color and reference positions */}
+
           {/* Precision Text Labels matched to website brand color and reference positions */}
           <g
             fontFamily="'Kalam', cursive"
@@ -250,22 +357,22 @@ const InfographicMap = () => {
                 JUBELI CIRCLE
               </motion.text>
 
-              <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>BHANUSHALI</motion.text>
+              <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>RELIENCE</motion.text>
               <motion.text x="880" y="305" textAnchor="middle" fontSize="22" transform="rotate(8, 880, 305)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>
-                NAGAR
+
               </motion.text>
 
               <motion.text x="850" y="900" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>
-                GK
-              </motion.text>
-
-              <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>
                 KSKVKU
               </motion.text>
 
-              <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>Pramukh</motion.text>
+              <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>
+                MIRJAPAR
+              </motion.text>
+
+              <motion.text x="70" y="420" transform="rotate(-8, 70, 420)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>HILL</motion.text>
               <motion.text x="70" y="455" fontSize="22" transform="rotate(-8, 70, 455)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.4 }}>
-                Swami NAGAR
+                GARDERN
               </motion.text>
             </g>
           </g>

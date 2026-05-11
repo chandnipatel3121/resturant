@@ -44,7 +44,7 @@ const DishShowcase = () => {
       id="dish-showcase"
       className="relative w-full h-screen flex flex-col items-center justify-start overflow-hidden pt-20"
     >
-      <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} />
+      <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} isMobile={isMobile} />
 
 
       <div className="relative z-20 text-center w-full px-6">
