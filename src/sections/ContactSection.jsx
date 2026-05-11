@@ -45,7 +45,7 @@ const ContactSection = () => {
 
   const handleMapClick = () => {
     window.open(
-      "https://www.google.com/maps?q=Shreeji+Arcade+Aeroplane+Circle+Bhuj+Gujarat",
+      "https://maps.app.goo.gl/1YvjPsXDrtBtUSy87",
       "_blank"
     )
   }
@@ -84,8 +84,8 @@ const ContactSection = () => {
             >
               <div className="contact-item-label">LOCATION</div>
               <div className="contact-item-value">
-                Shreeji Arcade, Aeroplane Circle, <br />
-                Bhuj, Gujarat 370001
+                Bapa Sitaram Madhuli, Shivkrupa Nagar,<br />
+                Bhuj, Mirjapar Part, Gujarat 370040
               </div>
             </motion.div>
 
@@ -107,8 +107,8 @@ const ContactSection = () => {
               className="contact-item"
             >
               <div className="contact-item-label">GET IN TOUCH</div>
-              <div className="contact-item-value">+91 98765 43210</div>
-              <div className="contact-item-value">support@revatix.in</div>
+              <div className="contact-item-value">+91 9998226826</div>
+              <div className="contact-item-value">anandofoods.com</div>
             </motion.div>
           </div>
 

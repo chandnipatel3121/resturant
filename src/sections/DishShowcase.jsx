@@ -48,15 +48,6 @@ const DishShowcase = () => {
 
 
       <div className="relative z-20 text-center w-full px-6">
-        {/* <motion.span
-          key={`label-${activeIndex}`}
-          initial={{ opacity: 0, letterSpacing: "0.1em" }}
-          animate={{ opacity: 1, letterSpacing: "0.4em" }}
-          className="text-xs md:text-sm font-bold uppercase block mt-16 pt-2"
-          style={{ color: currentTheme.accent }}
-        >
-          Signature Selection
-        </motion.span> */}
 
         <div className="h-[40vh] flex flex-col justify-center items-center">
           <AnimatePresence mode="wait">
@@ -77,7 +68,7 @@ const DishShowcase = () => {
       </div>
 
       {/* The Rotation Wheel at Bottom */}
-      <div className="absolute bottom-[-10%] w-full h-[50vh] flex items-center justify-center">
+      <div className="absolute bottom-[-18%] md:bottom-[-22%] w-full h-[72vh] flex items-center justify-center overflow-visible">
         {DISHES.map((dish, i) => {
           let distance = i - activeIndex
           if (distance > DISHES.length / 2) distance -= DISHES.length
@@ -128,14 +119,19 @@ const DishShowcase = () => {
 
 const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile }) => {
   // Large circle path for a smooth bottom arc
-  const angle = distance * (isMobile ? 55 : 65)
-  const radius = isMobile ? slotSize * 0.85 : slotSize * 1.5
+  const angle = distance * (isMobile ? 38 : 42)
+
+  const radius = isMobile
+    ? slotSize * 1.35
+    : slotSize * 1.75
 
   const rad = (angle - 90) * (Math.PI / 180)
 
   const xPos = radius * Math.cos(rad)
-  const yPos = radius * Math.sin(rad) + radius * (isMobile ? 0.6 : 0.8)
 
+  const yPos =
+    radius * Math.sin(rad) +
+    radius * 1.15
   return (
     <motion.div
       className="absolute flex flex-col items-center pointer-events-none"
@@ -143,7 +139,7 @@ const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, 
       animate={{
         x: xPos,
         y: yPos - 50,
-        scale: isActive ? (isMobile ? 1.3 : 1.5) : 0.4,
+        scale: isActive ? (isMobile ? 1.55 : 1.9) : 0.55,
         opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
         zIndex: isActive ? 50 : 20 - Math.abs(distance),
       }}
@@ -158,17 +154,23 @@ const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, 
           scale: isActive ? [1, 1.05, 1] : 1,
         }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="relative rounded-full"
+        className="relative"
         style={{
-          width: slotSize * 0.5,
-          height: slotSize * 0.5,
-          transition: "border 0.5s ease"
+          width: slotSize * 0.72,
+          height: slotSize * 0.72,
+          transition: "border 0.5s ease",
+          filter: isActive
+            ? "drop-shadow(0 40px 45px rgba(0,0,0,0.28))"
+            : "drop-shadow(0 15px 25px rgba(0,0,0,0.18))"
         }}
       >
         <img
           src={dish.img}
           alt={dish.name}
-          className={`w-full h-full object-cover rounded-full ${isActive ? 'brightness-[1.1] contrast-[1.05]' : 'brightness-[0.9]'}`}
+          className={`w-full h-full object-contain ${isActive
+            ? "brightness-[1.1] contrast-[1.05]"
+            : "brightness-[0.9]"
+            }`}
           draggable={false}
         />
       </motion.div>
