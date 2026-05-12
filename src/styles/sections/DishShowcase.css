@@ -35,15 +35,45 @@
 }
 
 .dish-name {
-  line-height: 1.1;
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  font-family: var(--font-serif);
+  line-height: 1;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.dish-shadow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180%;
+  height: 180%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,0,0,0.25) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(40px);
 }
 
 .dish-tagline {
   letter-spacing: 0.1em;
   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   opacity: 0.8;
+}
+
+@keyframes slowRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.slow-rotate {
+  animation: slowRotate 80s linear infinite;
+}
+
+.paused {
+  animation-play-state: paused !important;
 }
 
 @media (max-width: 768px) {

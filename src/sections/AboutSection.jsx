@@ -145,12 +145,12 @@ const AboutSection = () => {
               className="about-img-main group"
             >
               <motion.img
-                style={{ y: img1Y, scale: 1.12 }}
+                style={{ y: img1Y }}
                 src={img1}
                 alt="Dining experience"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-[#0F5C5C]/0 group-hover:bg-[#0F5C5C]/20 transition-all duration-700" />
+              <div className="absolute inset-0 bg-[#0F5C5C]/15 group-hover:bg-[#0F5C5C]/0 transition-all duration-700" />
             </motion.div>
 
             {/* FLOATING SMALL IMAGE */}
@@ -160,7 +160,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, margin: "-60px" }}
               transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ scale: 1.05, rotate: 0 }}
+              whileHover={{ scale: 1.08, rotate: 2, y: -20 }}
               className="about-img-secondary"
             >
               <img

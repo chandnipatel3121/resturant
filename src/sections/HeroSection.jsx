@@ -151,18 +151,25 @@ const HeroSection = () => {
 
           <motion.div
             style={{ y: s2Y }}
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center gap-10 px-6"
+            className="hero-scene2-content"
           >
-            <p className="hero-tagline">A Culinary Journey</p>
-            <h2 className="hero-title">
-              <span className="hero-title-main">Every Bite</span>
-              <span className="hero-title-main">Tells&nbsp;
-                <span className="hero-title-italic">a Story</span>
-              </span>
-            </h2>
-            <p className="hero-description">
-              Where every ingredient is a chapter, every plate a masterpiece.
-            </p>
+            <div className="premium-tagline-group">
+              <div className="tagline-row">
+                <span className="tagline-badge">INSPIRED BY</span>
+              </div>
+              <div className="tagline-row">
+                <h2 className="tagline-display">TRADITION</h2>
+              </div>
+              <div className="tagline-row">
+                <span className="tagline-badge">DEFINED BY</span>
+              </div>
+              <div className="tagline-row">
+                <h2 className="tagline-display">TASTE</h2>
+              </div>
+              <div className="tagline-row">
+                <p className="tagline-legacy">LEGACY OF OVER 50 YEARS</p>
+              </div>
+            </div>
 
             <div className="hero-btn-group">
               <button onClick={() => navigate("/menu")} className="btn-primary">

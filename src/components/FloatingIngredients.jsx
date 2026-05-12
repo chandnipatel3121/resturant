@@ -41,9 +41,9 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
       { x: [60, 80], y: [5, 20] },   // Top Right Mid
       { x: [20, 40], y: [80, 95] },  // Bottom Left Mid
       { x: [60, 80], y: [80, 95] },  // Bottom Right Mid
-      { x: [10, 30], y: [45, 65] },  // Mid Left Filling
-      { x: [70, 90], y: [25, 45] },  // Mid Right Filling
-      { x: [40, 60], y: [10, 25] },  // Top Center Filling
+      { x: [0, 10], y: [45, 65] },   // Extreme Left Edge
+      { x: [90, 100], y: [25, 45] },  // Extreme Right Edge
+      // { x: [40, 60], y: [10, 25] },  // Top Center Filling (Removed to clear title area)
       { x: [40, 60], y: [75, 90] },  // Bottom Center Filling
       { x: [15, 35], y: [25, 45] },  // Extra Filler 1
       { x: [65, 85], y: [55, 75] },  // Extra Filler 2
@@ -65,6 +65,8 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
       entryX: (Math.random() - 0.5) * 1000,
       entryY: (Math.random() - 0.5) * 1000,
       entryRotate: (Math.random() - 0.5) * 720,
+      blur: i % 5 === 0 ? "blur(2px)" : "blur(0px)",
+      opacity: 0.6 + Math.random() * 0.3,
     }))
   }, [isMobile])
 
@@ -100,6 +102,8 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
                 top: `${item.y}%`,
                 width: item.size,
                 height: item.size,
+                filter: item.blur,
+                opacity: item.opacity,
               }}
               animate={{
                 x: [0, item.floatX, 0],
@@ -117,28 +121,28 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
                 <motion.img
                   key={`${ingredientImg}-${item.id}`}
                   src={ingredientImg}
-                  initial={{ 
-                    opacity: 0, 
-                    scale: 0.3, 
-                    x: item.entryX, 
-                    y: item.entryY, 
-                    rotate: item.entryRotate 
+                  initial={{
+                    opacity: 0,
+                    scale: 0.3,
+                    x: item.entryX,
+                    y: item.entryY,
+                    rotate: item.entryRotate
                   }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1, 
-                    x: 0, 
-                    y: 0, 
-                    rotate: 0 
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    rotate: 0
                   }}
-                  exit={{ 
-                    opacity: 0, 
-                    scale: 0.5, 
-                    x: -item.entryX / 2, 
-                    y: -item.entryY / 2, 
-                    transition: { duration: 0.8 } 
+                  exit={{
+                    opacity: 0,
+                    scale: 0.5,
+                    x: -item.entryX / 2,
+                    y: -item.entryY / 2,
+                    transition: { duration: 0.8 }
                   }}
-                  transition={{ 
+                  transition={{
                     type: "spring",
                     stiffness: 40,
                     damping: 12,

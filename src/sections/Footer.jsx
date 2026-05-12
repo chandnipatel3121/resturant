@@ -10,13 +10,13 @@ const Footer = () => {
         <div className="footer-brand">
           <h2 className="footer-logo">ANANDO FOODS</h2>
           <a
-            href="https://www.google.com/maps?q=Shreeji+Arcade+Aeroplane+Circle+Bhuj+Gujarat"
+            href="https://maps.app.goo.gl/1YvjPsXDrtBtUSy87"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-address"
           >
-            102, 1st Floor, Shreeji Arcade, Aeroplane Circle, Opp. Reliance Petrol Pump, Aiya Nagar, <br />
-            Bhuj, Gujarat 370001
+            Bapa Sitaram Madhuli, Shivkrupa Nagar,<br />
+            Bhuj, Mirjapar Part, Gujarat 370040
           </a>
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=support@revatix.in&su=Inquiry%20from%20Anando%20Foods&body=Hello%20Anando%20Foods%20Team,"
@@ -32,7 +32,7 @@ const Footer = () => {
         <div className="footer-nav">
           <div className="footer-column">
             <p className="footer-col-title">Explore</p>
-            {["Menu", "Experience", "Chef", "Reservations"].map((link) => (
+            {["Menu", "Gallery", "Chef", "Contact"].map((link) => (
               <a key={link} href="#" className="footer-link">
                 {link}
               </a>

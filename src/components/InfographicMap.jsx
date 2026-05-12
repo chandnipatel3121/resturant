@@ -342,7 +342,7 @@ const InfographicMap = () => {
               <motion.text x="180" y="200" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 1.6 }}>1.2 KM</motion.text>
               <motion.text x="430" y="180" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 1.8 }}>0.8 KM</motion.text>
               <motion.text x="780" y="380" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.0 }}>2.1 KM</motion.text>
-              <motion.text x="780" y="860" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.2 }}>3.5 KM</motion.text>
+              <motion.text x="780" y="830" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.2 }}>3.5 KM</motion.text>
               <motion.text x="250" y="860" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.4 }}>4.8 KM</motion.text>
               <motion.text x="160" y="500" initial={{ opacity: 0 }} whileInView={{ opacity: 0.9 }} transition={{ delay: 2.6 }}>1.5 KM</motion.text>
             </g>
@@ -362,8 +362,8 @@ const InfographicMap = () => {
 
               </motion.text>
 
-              <motion.text x="850" y="900" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>
-                KSKVKU
+              <motion.text x="820" y="880" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>
+                COMMERS COLLAGE
               </motion.text>
 
               <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import anandoLogo from "../assets/anandofood.jpg"
-import gujImg from "../assets/thali.jpg"
+import gujImg from "../assets/thali1.jpg"
 import punImg from "../assets/punjabi.jpg"
 import southImg from "../assets/southindian.jpg"
 import chinImg from "../assets/chinese.jpg"
@@ -14,6 +14,7 @@ import southBg from "../assets/southcuisine.png"
 import chinBg from "../assets/chiniescuisine.png"
 import italBg from "../assets/italiancuisine.png"
 
+import CuisineGlobe from "../components/CuisineGlobe"
 import "../styles/sections/CuisineSection.css"
 
 const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
@@ -119,11 +120,11 @@ const CUISINES = [
     img: gujImg,
     bgImage: gujBg,
     bg: "#000000",
-    cardBg: "#f5deb3",       /* Warm wheat tone */
-    cardBgAlt: "#ffe8b8",   /* Lighter amber highlight */
-    border: "#C07A1A",      /* Deep golden amber */
-    glow: "rgba(192, 122, 26, 0.3)",
-    textColor: "#5c3a00",   /* Dark warm brown */
+    cardBg: "#f5deb3",
+    cardBgAlt: "#ffe8b8",
+    border: "#E0A94B",      /* Brighter Gold */
+    glow: "rgba(224, 169, 75, 0.4)",
+    textColor: "#2a1b00",   /* Darker Brown for contrast */
     items: [
       { name: "Undhiyu", desc: "Slow-cooked seasonal veggies", price: "450" },
       { name: "Khandvi Rolls", desc: "Gram flour, tempered spices", price: "250" },
@@ -143,11 +144,11 @@ const CUISINES = [
     img: punImg,
     bgImage: punBg,
     bg: "#000000",
-    cardBg: "#ffcf9e",       /* Warm saffron-orange */
-    cardBgAlt: "#ffe4c4",   /* Lighter bisque */
-    border: "#A84200",      /* Deep tandoor rust */
-    glow: "rgba(168, 66, 0, 0.3)",
-    textColor: "#4a1800",   /* Deep mahogany */
+    cardBg: "#ffcf9e",
+    cardBgAlt: "#ffe4c4",
+    border: "#FF7D29",      /* Brighter Orange */
+    glow: "rgba(255, 125, 41, 0.4)",
+    textColor: "#3d1400",   /* Darker Mahogany */
     items: [
       { name: "Dal Makhani", desc: "24-hour slow-cooked black lentils", price: "380" },
       { name: "Butter Chicken", desc: "Tandoori chicken in tomato gravy", price: "550" },
@@ -167,11 +168,11 @@ const CUISINES = [
     img: southImg,
     bgImage: southBg,
     bg: "#000000",
-    cardBg: "#b7e4c7",       /* Vibrant coconut green */
-    cardBgAlt: "#d8f3dc",   /* Light minty highlight */
-    border: "#22ea75e3",      /* Deep forest green */
-    glow: "rgba(83, 224, 137, 0.75)",
-    textColor: "#53e695ff",   /* Dark jungle green */
+    cardBg: "#b7e4c7",
+    cardBgAlt: "#d8f3dc",
+    border: "#2ECC71",      /* Brighter Green */
+    glow: "rgba(46, 204, 113, 0.5)",
+    textColor: "#0d2b1a",   /* Real Dark Green */
     items: [
       { name: "Masala Dosa", desc: "Crispy rice crepe with potato", price: "220" },
       { name: "Appam with Stew", desc: "Fermented lacey pancakes", price: "350" },
@@ -191,11 +192,11 @@ const CUISINES = [
     img: chinImg,
     bgImage: chinBg,
     bg: "#000000",
-    cardBg: "#ffb3b3",       /* Vivid chili red */
-    cardBgAlt: "#ffd6d6",   /* Light rose highlight */
-    border: "#ff6767ff",      /* Deep crimson */
-    glow: "rgba(255, 119, 119, 0.81)",
-    textColor: "#fa8282ff",   /* Dark blood red */
+    cardBg: "#ffb3b3",
+    cardBgAlt: "#ffd6d6",
+    border: "#FF4D4D",      /* Brighter Red */
+    glow: "rgba(255, 77, 77, 0.5)",
+    textColor: "#3d0000",   /* Darker Red */
     items: [
       { name: "Dim Sum Basket", desc: "Hand-rolled steamed parcels", price: "420" },
       { name: "Kung Pao Paneer", desc: "Spicy stir-fry with peanuts", price: "450" },
@@ -215,11 +216,11 @@ const CUISINES = [
     img: italImg,
     bgImage: italBg,
     bg: "#000000",
-    cardBg: "#6b8dffff",       /* Rich lavender violet */
-    cardBgAlt: "#a6b4f0ff",   /* Soft periwinkle highlight */
-    border: "#a4baffff",      /* Deep royal purple */
-    glow: "rgba(85, 98, 240, 0.82)",
-    textColor: "#446ee2ff",   /* Dark indigo */
+    cardBg: "#6b8dff",
+    cardBgAlt: "#a6b4f0",
+    border: "#4D79FF",      /* Brighter Blue */
+    glow: "rgba(77, 121, 255, 0.5)",
+    textColor: "#001b66",   /* Darker Blue */
     items: [
       { name: "Truffle Tortellini", desc: "Handmade pasta, sage butter", price: "580" },
       { name: "Burrata Salad", desc: "Fresh burrata, heirloom tomatoes", price: "480" },
@@ -294,7 +295,7 @@ const CuisineSection = () => {
   const handleLeave = () => {
     hoverTimeout.current = setTimeout(() => {
       setHoveredIndex(null)
-    }, 80)
+    }, 40)
   }
   const handleDishClick = (e, i) => {
     e.stopPropagation()
@@ -467,6 +468,32 @@ const CuisineSection = () => {
           <div className="cuisine-table-shadow-floor" />
         </motion.div>
 
+        {/* 🌍 Interactive Cuisine Globe - Mounted but hidden when not hovering to prevent lag */}
+        {!isMobile && (
+          <motion.div
+            className="cuisine-globe-wrapper"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{
+              opacity: hoveredIndex !== null ? 1 : 0,
+              scale: hoveredIndex !== null ? 1 : 0.9,
+              pointerEvents: "none"
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            {/* We pass a default value if hoveredIndex is null to keep the component happy */}
+            <CuisineGlobe
+              selectedCuisine={displayIndex !== null
+                ? (CUISINES[displayIndex].name === "South Indian" ? "SouthIndian" : CUISINES[displayIndex].name)
+                : "Gujarati"
+              }
+              themeColor={displayCuisine?.border}
+              isPaused={isCurrentlyPaused}
+              width={220}
+              height={220}
+            />
+          </motion.div>
+        )}
+
         {/* 📋 Left Side - Synchronized Cuisine Menu */}
         <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>
           <div className="cuisine-floating-narrative">
@@ -493,14 +520,19 @@ const CuisineSection = () => {
                   animate={displayIndex === idx ? { x: 10 } : { x: 0 }}
                 >
                   <div className="narrative-item-index">
-                    <span className="index-num">0{idx + 1}</span>
+                    <span className="index-num" style={{
+                      color: displayIndex === idx ? '#fff' : 'var(--accent)',
+                      textShadow: displayIndex === idx ? `0 0 10px ${cuisine.border}` : 'none'
+                    }}>0{idx + 1}</span>
                     <span className="index-line" style={{
                       backgroundColor: displayIndex === idx ? cuisine.border : 'var(--accent)',
+                      boxShadow: displayIndex === idx ? `0 0 15px ${cuisine.border}` : 'none'
                     }} />
                   </div>
                   <div className="narrative-item-content">
                     <h4 className="narrative-item-name" style={{
-                      color: displayIndex === idx ? cuisine.border : 'inherit',
+                      color: displayIndex === idx ? '#fff' : 'inherit',
+                      textShadow: displayIndex === idx ? `0 0 10px ${cuisine.border}, 0 0 20px ${cuisine.border}` : 'none',
                       letterSpacing: displayIndex === idx ? '0.15em' : '0.05em'
                     }}>
                       {cuisine.name}

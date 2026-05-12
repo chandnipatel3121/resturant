@@ -655,7 +655,6 @@ backface-visibility: hidden;
 }
 
 .is-active .narrative-item-name {
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   opacity: 1;
 }
 
@@ -1099,4 +1098,31 @@ backface-visibility: hidden;
 
 .cuisine-section.is-hovered .cuisine-footer-text {
   color: #ffffff !important;
+}
+/* 🌍 Interactive Cuisine Globe Positioning */
+.cuisine-globe-wrapper {
+  position: absolute;
+  top: 3%;
+  right: 22%;
+  width: 200px;
+  height: 200px;
+  z-index: 150; /* Ensure it is on top of other elements */
+  pointer-events: none; /* Crucial: ensures it doesn't block hover on dishes */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 1400px) {
+  .cuisine-globe-wrapper {
+    right: 22%;
+    top: 22%;
+  }
+}
+
+@media (max-width: 1199px) {
+  .cuisine-globe-wrapper {
+    display: none;
+  }
 }

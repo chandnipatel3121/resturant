@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   return (
-    <Router basename="/anandoFoods">
+    <Router basename="/">
       <NavProvider>
         <SmoothScroll>
           <Navbar />

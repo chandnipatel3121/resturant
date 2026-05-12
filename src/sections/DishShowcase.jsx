@@ -5,17 +5,18 @@ import FloatingIngredients from "../components/FloatingIngredients"
 import "../styles/sections/DishShowcase.css"
 
 const DISH_THEMES = [
-  { bg: "#aef3f3ff", accent: "#023636ff", light: "rgba(15,92,92,0.1)" },
-  { bg: "#fff4d9ff", accent: "#023636ff", light: "rgba(224,169,75,0.1)" },
-  { bg: "#ffe0e0ff", accent: "#023636ff", light: "rgba(239,68,68,0.1)" },
-  { bg: "#e2f2e2ff", accent: "#023636ff", light: "rgba(16,185,129,0.1)" },
-  { bg: "#f2d9f2ff", accent: "#023636ff", light: "rgba(217,70,239,0.1)" },
-  { bg: "#e0f7d1ff", accent: "#023636ff", light: "rgba(132,204,22,0.1)" },
+  { bg: "#c8f3f3ff", accent: "#0f5c5c", light: "rgba(15,92,92,0.1)" },
+  { bg: "#fff4d9ff", accent: "#b7791f", light: "rgba(224,169,75,0.1)" },
+  { bg: "#ffe0e0ff", accent: "#c53030", light: "rgba(239,68,68,0.1)" },
+  { bg: "#e2f2e2ff", accent: "#047857", light: "rgba(16,185,129,0.1)" },
+  { bg: "#f2d9f2ff", accent: "#9333ea", light: "rgba(217,70,239,0.1)" },
+  { bg: "#e0f7d1ff", accent: "#4d7c0f", light: "rgba(132,204,22,0.1)" },
 ]
 
 const DishShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [slotSize, setSlotSize] = useState(520)
+  const [isHovered, setIsHovered] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -31,44 +32,59 @@ const DishShowcase = () => {
   }, [])
 
   useEffect(() => {
+    if (isHovered) return
     const timer = setInterval(() => {
       setActiveIndex(prev => (prev + 1) % DISHES.length)
-    }, 5000)
+    }, 8000)
     return () => clearInterval(timer)
-  }, [])
+  }, [isHovered])
 
   const currentTheme = DISH_THEMES[activeIndex]
 
   return (
     <section
       id="dish-showcase"
-      className="relative w-full h-screen flex flex-col items-center justify-start overflow-hidden pt-20"
+      className="relative w-full h-screen flex flex-col items-center justify-start overflow-hidden pt-10 md:pt-20 scroll-snap-start"
     >
       <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} isMobile={isMobile} />
 
 
-      <div className="relative z-20 text-center w-full px-6">
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.h2
+            key={activeIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="dish-name text-[clamp(2.5rem,10vw,7rem)] text-center transition-colors duration-500 scale-y-[1.8] md:scale-y-[2.4] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute top-[35%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[240px]"
+            style={{
+              color: currentTheme.accent,
+            }}
+          >
+            {DISHES[activeIndex].name}
+          </motion.h2>
+        </AnimatePresence>
+      </div>
 
-        <div className="h-[40vh] flex flex-col justify-center items-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="max-w-4xl"
-            >
-              <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-serif mb-2 transition-colors duration-500" style={{ color: currentTheme.accent }}>
-                {DISHES[activeIndex].name}
-              </h2>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      {/* Tagline - floating above the dish */}
+      <div className="relative z-30 text-center w-full mt-[18vh] md:mt-[28vh] px-4">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={activeIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.7, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="dish-tagline text-xl font-medium tracking-[0.2em] uppercase"
+            style={{ color: currentTheme.accent }}
+          >
+            {DISHES[activeIndex].tagline}
+          </motion.p>
+        </AnimatePresence>
       </div>
 
       {/* The Rotation Wheel at Bottom */}
-      <div className="absolute bottom-[-18%] md:bottom-[-22%] w-full h-[72vh] flex items-center justify-center overflow-visible">
+      <div className="absolute bottom-[-28%] md:bottom-[-35%] w-full h-[72vh] flex items-center justify-center overflow-visible">
         {DISHES.map((dish, i) => {
           let distance = i - activeIndex
           if (distance > DISHES.length / 2) distance -= DISHES.length
@@ -86,29 +102,31 @@ const DishShowcase = () => {
               accentColor={currentTheme.accent}
               isActive={distance === 0}
               isMobile={isMobile}
+              isHovered={isHovered && distance === 0}
+              onHoverChange={setIsHovered}
             />
           )
         })}
       </div>
 
       {/* Vertical Navigation Buttons on the Right */}
-      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-50">
+      <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4 md:gap-8 z-50">
         <button
           onClick={() => setActiveIndex(prev => (prev - 1 + DISHES.length) % DISHES.length)}
-          className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
+          className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
           style={{ color: currentTheme.accent }}
         >
-          <svg className="w-6 h-6 rotate-90" viewBox="0 0 40 40" fill="none">
+          <svg className="w-5 h-5 md:w-6 md:h-6 rotate-90" viewBox="0 0 40 40" fill="none">
             <path d="M25 8 L13 20 L25 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         </button>
-        <div className="h-20 w-px bg-white/10 mx-auto" />
+        <div className="h-10 md:h-20 w-px bg-white/10 mx-auto" />
         <button
           onClick={() => setActiveIndex(prev => (prev + 1) % DISHES.length)}
-          className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
+          className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
           style={{ color: currentTheme.accent }}
         >
-          <svg className="w-6 h-6 rotate-90" viewBox="0 0 40 40" fill="none">
+          <svg className="w-5 h-5 md:w-6 md:h-6 rotate-90" viewBox="0 0 40 40" fill="none">
             <path d="M15 8 L27 20 L15 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         </button>
@@ -117,7 +135,7 @@ const DishShowcase = () => {
   )
 }
 
-const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile }) => {
+const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile, isHovered, onHoverChange }) => {
   // Large circle path for a smooth bottom arc
   const angle = distance * (isMobile ? 38 : 42)
 
@@ -134,45 +152,62 @@ const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, 
     radius * 1.15
   return (
     <motion.div
-      className="absolute flex flex-col items-center pointer-events-none"
+      className="absolute flex flex-col items-center pointer-events-auto cursor-pointer"
+      onMouseEnter={() => isActive && onHoverChange(true)}
+      onMouseLeave={() => isActive && onHoverChange(false)}
       initial={false}
       animate={{
         x: xPos,
-        y: yPos - 50,
-        scale: isActive ? (isMobile ? 1.55 : 1.9) : 0.55,
+        y: yPos - (isMobile ? 20 : 50),
+        scale: isActive ? (isMobile ? 1.6 : 2.4) : 0.5,
         opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
         zIndex: isActive ? 50 : 20 - Math.abs(distance),
       }}
-      transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
+      transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       style={{
         width: slotSize * 0.6,
       }}
     >
       {/* Plate / Image Shadow */}
       <motion.div
-        animate={{
-          scale: isActive ? [1, 1.05, 1] : 1,
+        animate={isActive ? {
+          rotate: isHovered ? 0 : [-4, 4, -4],
+          y: isHovered ? -15 : [0, -15, 0],
+          scale: isHovered ? 1.03 : [1, 1.03, 1],
+        } : {}}
+        transition={{
+          rotate: { repeat: Infinity, duration: 12, ease: "easeInOut" },
+          y: { repeat: Infinity, duration: 8, ease: "easeInOut" },
+          scale: { repeat: Infinity, duration: 6, ease: "easeInOut" },
         }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="relative"
         style={{
-          width: slotSize * 0.72,
-          height: slotSize * 0.72,
-          transition: "border 0.5s ease",
-          filter: isActive
-            ? "drop-shadow(0 40px 45px rgba(0,0,0,0.28))"
-            : "drop-shadow(0 15px 25px rgba(0,0,0,0.18))"
+          width: slotSize * (isMobile ? 0.75 : 0.85),
+          height: slotSize * (isMobile ? 0.75 : 0.85),
         }}
       >
-        <img
-          src={dish.img}
-          alt={dish.name}
-          className={`w-full h-full object-contain ${isActive
-            ? "brightness-[1.1] contrast-[1.05]"
-            : "brightness-[0.9]"
-            }`}
-          draggable={false}
-        />
+        {/* Subtle ground shadow */}
+        {isActive && <div className="dish-shadow" />}
+
+        {/* The very slow rotation */}
+        <div 
+          className={`w-full h-full ${isActive ? 'slow-rotate' : ''} ${isHovered ? 'paused' : ''}`}
+          style={{
+            filter: isActive
+              ? "drop-shadow(0 40px 50px rgba(0,0,0,0.3))"
+              : "drop-shadow(0 15px 25px rgba(0,0,0,0.15))"
+          }}
+        >
+          <img
+            src={dish.img}
+            alt={dish.name}
+            className={`w-full h-full object-contain transition-all duration-700 ${isActive
+              ? "brightness-[1.15] contrast-[1.1] scale-110"
+              : "brightness-[0.8] grayscale-[0.2]"
+              }`}
+            draggable={false}
+          />
+        </div>
       </motion.div>
     </motion.div>
   )

@@ -26,8 +26,8 @@ const SmoothScroll = ({ children }) => {
     let lastScrollDirection = 0
 
     const handleSnap = () => {
-      // Completely disable snapping on mobile for continuous scrolling
-      if (isSnapping || window.matchMedia('(max-width: 768px)').matches) return
+      // Enable snapping on all devices for 'forced scroll' experience
+      if (isSnapping) return
 
       const sections = document.querySelectorAll('section[id]')
       if (sections.length === 0) return
@@ -40,7 +40,7 @@ const SmoothScroll = ({ children }) => {
 
       for (let section of sections) {
         const distance = Math.abs(scrollPos - section.offsetTop)
-        
+
         if (distance < viewportHeight * 0.4 && distance < minDistance && distance > 5) {
           minDistance = distance
           targetSection = section
@@ -60,8 +60,7 @@ const SmoothScroll = ({ children }) => {
     }
 
     lenis.on('scroll', ({ direction, velocity }) => {
-      // Do not trigger snapping on mobile
-      if (window.matchMedia('(max-width: 768px)').matches) return;
+      // Trigger snapping on all devices
 
       lastScrollDirection = direction
 
