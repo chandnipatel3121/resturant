@@ -239,10 +239,18 @@ const CuisineSection = () => {
   const [activeIndex, setActiveIndex] = useState(null)
   const [isPaused, setIsPaused] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isShort, setIsShort] = useState(false)
+  const [isSideBySide, setIsSideBySide] = useState(false)
   const containerRef = React.useRef(null)
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1199)
+    const handleResize = () => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      setIsMobile(w <= 1199)
+      setIsShort(h < 700)
+      setIsSideBySide(w >= 1000 && h < 700)
+    }
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
@@ -268,8 +276,16 @@ const CuisineSection = () => {
 
   // 🎭 Dynamic 3D Transforms based on scroll
   const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], [18, 10, 0])
-  const tableScale = useTransform(smoothProgress, [0, 0.3, 0.5, 1], [0.8, 0.9, 1, 0.9])
-  const tableY = useTransform(smoothProgress, [0, 0.5, 1], isMobile ? [0, -15, -30] : [50, -50, -150])
+  const tableScale = useTransform(
+    smoothProgress, 
+    [0, 0.3, 0.5, 1], 
+    isShort ? [0.65, 0.75, 0.85, 0.75] : [0.8, 0.9, 1, 0.9]
+  )
+  const tableY = useTransform(
+    smoothProgress, 
+    [0, 0.5, 1], 
+    isSideBySide ? [0, 0, 0] : (isMobile ? [0, -15, -30] : (isShort ? [20, -30, -80] : [50, -50, -150]))
+  )
   const tableOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   const prevProgress = React.useRef(0)
 
@@ -468,30 +484,31 @@ const CuisineSection = () => {
           <div className="cuisine-table-shadow-floor" />
         </motion.div>
 
-        {/* 🌍 Interactive Cuisine Globe - Mounted but hidden when not hovering to prevent lag */}
+        {/* 🌍 Interactive Cuisine Globe - Only mounted when needed to save resources */}
         {!isMobile && (
-          <motion.div
-            className="cuisine-globe-wrapper"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{
-              opacity: hoveredIndex !== null ? 1 : 0,
-              scale: hoveredIndex !== null ? 1 : 0.9,
-              pointerEvents: "none"
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            {/* We pass a default value if hoveredIndex is null to keep the component happy */}
-            <CuisineGlobe
-              selectedCuisine={displayIndex !== null
-                ? (CUISINES[displayIndex].name === "South Indian" ? "SouthIndian" : CUISINES[displayIndex].name)
-                : "Gujarati"
-              }
-              themeColor={displayCuisine?.border}
-              isPaused={isCurrentlyPaused}
-              width={220}
-              height={220}
-            />
-          </motion.div>
+          <div className="cuisine-globe-wrapper" style={{ pointerEvents: "none" }}>
+            <AnimatePresence>
+              {(hoveredIndex !== null || activeIndex !== null) && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <CuisineGlobe
+                    selectedCuisine={displayIndex !== null
+                      ? (CUISINES[displayIndex].name === "South Indian" ? "SouthIndian" : CUISINES[displayIndex].name)
+                      : "Gujarati"
+                    }
+                    themeColor={displayCuisine?.border}
+                    isPaused={isCurrentlyPaused}
+                    width={220}
+                    height={220}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         )}
 
         {/* 📋 Left Side - Synchronized Cuisine Menu */}

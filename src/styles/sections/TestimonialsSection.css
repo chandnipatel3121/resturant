@@ -255,3 +255,21 @@
   color: var(--text);
   font-weight: 600;
 }
+
+/* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
+@media (max-height: 700px) {
+  .testimonials-section {
+    padding-top: 5rem;
+    min-height: 110vh;
+  }
+  .testimonials-header {
+    margin-bottom: 1rem;
+  }
+  .testimonials-marquee {
+    padding: 1rem 0;
+  }
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+}
+

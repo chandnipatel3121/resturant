@@ -24,7 +24,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="footer-email"
           >
-            support@revatix.in
+            anandofoods.com
           </a>
         </div>
 

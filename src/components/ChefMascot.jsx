@@ -36,7 +36,15 @@ const ChefMascot = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [cycles, setCycles] = useState(0);
 
-  const [showMascot, setShowMascot] = useState(false); // 👈 NEW
+  const [showMascot, setShowMascot] = useState(false);
+  const [isShort, setIsShort] = useState(false);
+
+  useEffect(() => {
+    const checkHeight = () => setIsShort(window.innerHeight < 700);
+    checkHeight();
+    window.addEventListener("resize", checkHeight);
+    return () => window.removeEventListener("resize", checkHeight);
+  }, []);
 
   const currentMessage = messages[messageIndex];
   const displayedText = useTypingEffect(currentMessage, isVisible);
@@ -89,7 +97,11 @@ const ChefMascot = () => {
   }, [messageIndex, cycles, showMascot]);
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.lenis) {
+      window.lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -97,10 +109,10 @@ const ChefMascot = () => {
       {showMascot && (
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          animate={{ opacity: 1, y: 0, scale: isShort ? 0.7 : 1 }}
           exit={{ opacity: 0, y: 40, scale: 0.9 }}
           transition={{ duration: 0.4 }}
-          className="fixed bottom-6 right-6 z-[100] flex items-center gap-3"
+          className="fixed bottom-6 right-6 z-[100] flex items-center gap-3 origin-bottom-right"
         >
           {/* 💬 MESSAGE */}
           <AnimatePresence>

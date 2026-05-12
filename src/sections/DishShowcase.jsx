@@ -23,8 +23,17 @@ const DishShowcase = () => {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
+      const height = window.innerHeight
       setIsMobile(width < 768)
-      setSlotSize(width < 768 ? width * 0.9 : 520)
+      
+      // Responsive slot size based on both dimensions
+      let baseSize = 520
+      if (height < 700) baseSize = height * 0.7 // Scale down for short viewports
+      if (width < 768) {
+        setSlotSize(width * 0.9)
+      } else {
+        setSlotSize(baseSize)
+      }
     }
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -57,7 +66,7 @@ const DishShowcase = () => {
             animate={{ opacity: 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="dish-name text-[clamp(2.5rem,10vw,7rem)] text-center transition-colors duration-500 scale-y-[1.8] md:scale-y-[2.4] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute top-[35%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[240px]"
+            className="dish-name text-[clamp(2.5rem,8vw,6rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2.2] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute top-[35%] md:top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[min(240px,28vh)]"
             style={{
               color: currentTheme.accent,
             }}
@@ -67,21 +76,6 @@ const DishShowcase = () => {
         </AnimatePresence>
       </div>
 
-      {/* Tagline - floating above the dish */}
-      <div className="relative z-30 text-center w-full mt-[18vh] md:mt-[28vh] px-4">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={activeIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 0.7, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="dish-tagline text-xl font-medium tracking-[0.2em] uppercase"
-            style={{ color: currentTheme.accent }}
-          >
-            {DISHES[activeIndex].tagline}
-          </motion.p>
-        </AnimatePresence>
-      </div>
 
       {/* The Rotation Wheel at Bottom */}
       <div className="absolute bottom-[-28%] md:bottom-[-35%] w-full h-[72vh] flex items-center justify-center overflow-visible">

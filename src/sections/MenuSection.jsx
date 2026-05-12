@@ -18,7 +18,7 @@ import "../styles/sections/MenuSection.css"
 
 const categories = [
   { name: "All", icon: "🍽️" },
-  { name: "Burgers", icon: "🍔" },
+  { name: "Cuisine", icon: "🍔" },
   { name: "Main Course", icon: "🍛" },
   { name: "Starter", icon: "🍟" },
   { name: "Dessert", icon: "🍦" },
@@ -26,7 +26,7 @@ const categories = [
 ]
 
 const diets = ["All", "Veg", "Non-Veg"]
-const mealTimes = ["All", "Breakfast", "Lunch", "Dinner"]
+const mealTimes = ["Breakfast", "Lunch", "Dinner"]
 
 export default function MenuSection() {
   const [activeCategory, setActiveCategory] = useState("All")
@@ -43,8 +43,8 @@ export default function MenuSection() {
       const matchDiet = activeDiet === "All" || item.diet === activeDiet
       const matchMealTime = activeMealTime === "All" || item.mealTime.includes(activeMealTime)
       const matchSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.description.toLowerCase().includes(searchQuery.toLowerCase())
-      
+        item.description.toLowerCase().includes(searchQuery.toLowerCase())
+
       return matchCategory && matchDiet && matchMealTime && matchSearch
     })
   }, [activeCategory, activeDiet, activeMealTime, searchQuery])
@@ -70,7 +70,7 @@ export default function MenuSection() {
   return (
     <div className="menu-kiosk-container">
       <div className="kiosk-layout">
-        
+
         {/* LEFT SIDEBAR: CATEGORIES */}
         <aside className="kiosk-sidebar">
           <div className="sidebar-scroll">
@@ -97,13 +97,13 @@ export default function MenuSection() {
             <div className="header-left">
               <h1>{activeCategory === "All" ? "Our Menu" : activeCategory}</h1>
             </div>
-            
+
             <div className="header-right">
               <div className="search-wrapper">
                 <Search size={20} className="search-icon" />
-                <input 
-                  type="text" 
-                  placeholder="Search" 
+                <input
+                  type="text"
+                  placeholder="Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -163,7 +163,7 @@ export default function MenuSection() {
                 ))}
               </motion.div>
             </AnimatePresence>
-            
+
             {filteredItems.length === 0 && (
               <div className="empty-state">
                 <Search size={48} opacity={0.1} />
@@ -178,14 +178,14 @@ export default function MenuSection() {
       {/* DISH DETAILS MODAL (Simplified to match reference) */}
       <AnimatePresence>
         {selectedDish && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="details-overlay-minimal"
             onClick={() => setSelectedDish(null)}
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -200,7 +200,7 @@ export default function MenuSection() {
                   <span className="modal-price">₹{selectedDish.price.toFixed(2)}</span>
                 </div>
               </div>
-              <button className="modal-close" onClick={() => setSelectedDish(null)}><X size={20}/></button>
+              <button className="modal-close" onClick={() => setSelectedDish(null)}><X size={20} /></button>
             </motion.div>
           </motion.div>
         )}

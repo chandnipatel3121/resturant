@@ -262,3 +262,26 @@
   background-color: var(--text);
   color: white;
 }
+
+/* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
+@media (max-height: 700px) {
+  .navbar-dark, .navbar-light {
+    padding: 0.5rem 0;
+  }
+  .nav-container {
+    padding: 0 1.5rem;
+  }
+  .nav-logo {
+    font-size: 1.3rem !important;
+  }
+  .nav-links {
+    gap: 1.2rem;
+  }
+  .nav-link {
+    font-size: 11px;
+  }
+  .nav-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 10px;
+  }
+}

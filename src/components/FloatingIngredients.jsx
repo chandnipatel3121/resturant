@@ -31,12 +31,12 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
   const fixedItems = useMemo(() => {
     // 12 specific zones to ensure 'all side cover' without clustering
     const zones = [
-      { x: [2, 12], y: [2, 15] },    // Far Top Left
-      { x: [88, 98], y: [2, 15] },   // Far Top Right
+      { x: [2, 12], y: [2, 10] },    // Far Top Left
+      { x: [88, 98], y: [2, 10] },   // Far Top Right
       { x: [2, 12], y: [85, 98] },   // Far Bottom Left
       { x: [88, 98], y: [85, 98] },  // Far Bottom Right
-      { x: [2, 10], y: [40, 60] },   // Edge Mid Left
-      { x: [90, 98], y: [40, 60] },  // Edge Mid Right
+      // { x: [2, 10], y: [40, 60] },   // Edge Mid Left
+      // { x: [90, 98], y: [40, 60] },  // Edge Mid Right
       { x: [20, 40], y: [5, 20] },   // Top Left Mid
       { x: [60, 80], y: [5, 20] },   // Top Right Mid
       { x: [20, 40], y: [80, 95] },  // Bottom Left Mid

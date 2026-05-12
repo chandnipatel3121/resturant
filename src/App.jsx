@@ -9,6 +9,7 @@ import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
+import ScrollToTop from "./components/ScrollToTop"
 
 
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <Router basename="/">
+      <ScrollToTop />
       <NavProvider>
         <SmoothScroll>
           <Navbar />

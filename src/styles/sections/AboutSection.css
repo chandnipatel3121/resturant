@@ -257,3 +257,21 @@
     height: 7rem;
   }
 }
+
+/* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
+@media (max-height: 700px) {
+  .about-section {
+    padding-top: 5rem;
+    min-height: 110vh;
+  }
+  .about-image-collage {
+    height: 350px;
+  }
+  .about-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+  .about-ghost-text {
+    top: 5%;
+    font-size: 15vw;
+  }
+}

@@ -229,3 +229,23 @@
   0%, 100% { opacity: 1; }
   50% { opacity: .5; }
 }
+
+
+/* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
+@media (max-height: 700px) {
+  .chef-section {
+    padding-top: 5rem;
+    min-height: 110vh;
+  }
+  .chef-image-content {
+    height: 380px;
+  }
+  .chef-title {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    margin-bottom: 1rem;
+  }
+  .chef-desc {
+    margin-bottom: 1.5rem;
+  }
+}
+
