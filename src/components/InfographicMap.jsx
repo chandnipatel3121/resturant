@@ -325,7 +325,7 @@ const InfographicMap = () => {
                 <div className="absolute inset-0 rounded-full border border-[#121a36]/10 animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
                 <div className="absolute -inset-4 rounded-full border border-[#121a36]/5 animate-pulse"></div>
 
-                <img src={anandoLogo} alt="Anando Foods Logo" className="w-full h-full object-contain relative z-10" />
+                <img src={anandoLogo} alt="anandofoods Logo" className="w-full h-full object-contain relative z-10" />
               </motion.div>
             </div>
           </foreignObject>

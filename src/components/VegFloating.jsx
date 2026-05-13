@@ -15,12 +15,12 @@ const Badge = ({ color, innerColor, label }) => {
 
             {/* box */}
             <div
-                className="relative w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white/80 backdrop-blur-md
+                className="relative w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/80 backdrop-blur-md
         border shadow-md flex items-center justify-center"
                 style={{ borderColor: color + "55" }}
             >
                 <div
-                    className="w-3 h-3 md:w-4 md:h-4 border-2 flex items-center justify-center"
+                    className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 border-2 flex items-center justify-center"
                     style={{ borderColor: color }}
                 >
                     <div
@@ -41,10 +41,10 @@ const Badge = ({ color, innerColor, label }) => {
 const VegFloating = () => {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1 }}
-            className="fixed bottom-6 left-6 z-[999] flex flex-row md:flex-col gap-4 md:gap-6 pointer-events-none"
+            className="fixed bottom-6 left-6 z-[999] flex flex-row md:flex-col gap-3 md:gap-4 pointer-events-none"
         >
             <Badge color="#16a34a" innerColor="#16a34a" />
             <Badge color="#dc2626" innerColor="#dc2626" />

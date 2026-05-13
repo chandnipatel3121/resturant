@@ -46,29 +46,6 @@ const AboutSection = () => {
   const img2Rotate = useTransform(smooth, [0, 1], [-4, 4])
   const statsY = useTransform(smooth, [0, 1], [40, -20])
 
-  const prevV = useRef(0)
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const direction = v > prevV.current ? 'down' : 'up'
-    const prev = prevV.current
-    prevV.current = v
-
-    // Snap down when entering from top
-    if (direction === 'down' && prev < 0.15 && v >= 0.15 && window.lenis) {
-      window.lenis.scrollTo("#about-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-
-    // Snap up when entering from bottom
-    if (direction === 'up' && prev > 0.85 && v <= 0.85 && window.lenis) {
-      window.lenis.scrollTo("#about-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-  })
-
   return (
     <section id="about-section" ref={ref} className="about-section">
       {/* ghost text */}
@@ -77,7 +54,7 @@ const AboutSection = () => {
         className="about-ghost-text"
         aria-hidden
       >
-        Anando Foods
+        anandofoods
       </motion.div>
 
       {/* main grid */}
@@ -101,7 +78,7 @@ const AboutSection = () => {
                 <SplitReveal text="The Essence" className="text-[#0F5C5C]" delay={0} />
               </span>
               <span className="block mt-1">
-                <SplitReveal text="of Anando Foods" className="italic text-[#E0A94B] font-light" delay={0.15} />
+                <SplitReveal text="of anandofoods" className="italic text-[#E0A94B] font-light" delay={0.15} />
               </span>
             </h2>
 

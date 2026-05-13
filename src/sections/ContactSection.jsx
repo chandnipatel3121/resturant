@@ -13,29 +13,6 @@ const ContactSection = () => {
 
   const prevProgress = useRef(0)
 
-  // 📸 Programmatic Cinematic Snap
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const direction = v > prevProgress.current ? "down" : "up"
-    const prev = prevProgress.current
-    prevProgress.current = v
-
-    // Snap down when entering from top
-    if (direction === 'down' && prev < 0.15 && v >= 0.15 && window.lenis) {
-      window.lenis.scrollTo("#contact-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-
-    // Snap up when entering from bottom
-    if (direction === 'up' && prev > 0.85 && v <= 0.85 && window.lenis) {
-      window.lenis.scrollTo("#contact-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-  })
-
   // Balanced "Medium" spring speed
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 35,
@@ -72,7 +49,7 @@ const ContactSection = () => {
         >
           <div className="contact-header">
             <h2 className="contact-brand-title">
-              Visit  <span>Anando Foods</span>
+              Visit  <span>anandofoods</span>
             </h2>
           </div>
 

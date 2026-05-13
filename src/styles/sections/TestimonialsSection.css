@@ -2,11 +2,13 @@
 .testimonials-section {
   position: relative;
   background-color: var(--bg);
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow-x: hidden;
+  scroll-snap-align: start;
 }
 
 .testimonials-ghost-text {

@@ -63,15 +63,8 @@ const HeroSection = () => {
       setNavTheme('green') // Dark teal on next section
     }
 
-    // Forced scroll to next section
     const threshold = isMobile ? 0.9 : 0.92
-    if (v > threshold && direction === 'down' && window.lenis) {
-      window.lenis.scrollTo("#dish-showcase", {
-        offset: 0,
-        duration: isMobile ? 1.2 : 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
+    // Removed manual snap to next section
 
     // Show popup exactly when Scene 1 is going up and Scene 2 is coming in (at 0.5 progress)
     if (v >= 0.5 && !hasShownPopup.current) {
@@ -244,7 +237,7 @@ const HeroSection = () => {
             className="absolute top-[50%] flex flex-col items-center z-30"
           >
             <h1 className={`font-serif leading-[0.9] select-none text-center mb-5 transition-colors duration-500 ${navTheme === 'yellow' ? 'text-[#E0A94B]' : 'text-[#0F5C5C]'}`}>
-              <span className="block text-[clamp(2.5rem,8vw,5rem)]">Anando Foods</span>
+              <span className="block text-[clamp(2.5rem,8vw,5rem)]">anandofoods</span>
             </h1>
             <p className={`text-[9px] uppercase tracking-[0.5em] font-medium ${navTheme === 'yellow' ? 'text-white/60' : 'text-[#7A688A]'}`}>
               Est. 2012 &nbsp;·&nbsp; Fine Dining

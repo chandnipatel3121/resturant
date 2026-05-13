@@ -24,32 +24,34 @@ const INGREDIENT_GROUPS = {
   5: [carrot, beetroot],           // Halwa (Mix Veg)
 }
 
-const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
+const FloatingIngredients = ({ activeIndex, bgColor, isMobile, isShort }) => {
   const currentGroup = INGREDIENT_GROUPS[activeIndex] || [coriander]
 
   // Generate scattered positions across the whole background, avoiding the center
   const fixedItems = useMemo(() => {
     // 12 specific zones to ensure 'all side cover' without clustering
     const zones = [
-      { x: [2, 12], y: [2, 10] },    // Far Top Left
-      { x: [88, 98], y: [2, 10] },   // Far Top Right
-      { x: [2, 12], y: [85, 98] },   // Far Bottom Left
-      { x: [88, 98], y: [85, 98] },  // Far Bottom Right
-      // { x: [2, 10], y: [40, 60] },   // Edge Mid Left
-      // { x: [90, 98], y: [40, 60] },  // Edge Mid Right
-      { x: [20, 40], y: [5, 20] },   // Top Left Mid
-      { x: [60, 80], y: [5, 20] },   // Top Right Mid
-      { x: [20, 40], y: [80, 95] },  // Bottom Left Mid
-      { x: [60, 80], y: [80, 95] },  // Bottom Right Mid
-      { x: [0, 10], y: [45, 65] },   // Extreme Left Edge
-      { x: [90, 100], y: [25, 45] },  // Extreme Right Edge
-      // { x: [40, 60], y: [10, 25] },  // Top Center Filling (Removed to clear title area)
-      { x: [40, 60], y: [75, 90] },  // Bottom Center Filling
-      { x: [15, 35], y: [25, 45] },  // Extra Filler 1
-      { x: [65, 85], y: [55, 75] },  // Extra Filler 2
+      // 🔲 Corner Zones
+      { x: [2, 12], y: [2, 10] },      // Far Top Left
+      { x: [88, 98], y: [2, 10] },     // Far Top Right
+      { x: [2, 12], y: [85, 98] },     // Far Bottom Left
+      { x: [88, 98], y: [85, 98] },    // Far Bottom Right
+
+      // ↔️ Side Mid Zones
+      { x: [0, 10], y: [25, 65] },     // Extreme Left Edge
+      { x: [90, 100], y: [15, 45] },   // Extreme Right Edge
+
+      // 🔻 Bottom Zones
+      { x: [20, 40], y: [80, 95] },    // Bottom Left Mid
+      { x: [60, 80], y: [80, 95] },    // Bottom Right Mid
+      { x: [40, 60], y: [75, 90] },    // Bottom Center
+
+      // ↙️ ↘️ Side Fillers
+      { x: [15, 35], y: [25, 45] },    // Left Mid Filler
+      { x: [65, 85], y: [35, 75] },    // Right Mid Filler
     ]
 
-    const scaleFactor = isMobile ? 0.5 : 1
+    const scaleFactor = isMobile ? 0.5 : (isShort ? 0.75 : 1)
 
     return zones.map((zone, i) => ({
       id: i,
@@ -68,7 +70,7 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile }) => {
       blur: i % 5 === 0 ? "blur(2px)" : "blur(0px)",
       opacity: 0.6 + Math.random() * 0.3,
     }))
-  }, [isMobile])
+  }, [isMobile, isShort])
 
   return (
     <div

@@ -12,6 +12,15 @@
   }
 }
 
+@media (max-height: 720px) {
+  .dish-showcase {
+    padding-top: 60px;
+  }
+  .dish-name {
+    opacity: 0.9 !important;
+  }
+}
+
 .dish-item {
   position: absolute;
   display: flex;
@@ -69,7 +78,7 @@
 }
 
 .slow-rotate {
-  animation: slowRotate 80s linear infinite;
+  animation: slowRotate 30s linear infinite;
 }
 
 .paused {

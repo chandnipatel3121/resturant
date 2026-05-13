@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Search,
@@ -14,18 +14,19 @@ import {
   Trash2,
 } from "lucide-react"
 import menuData from "../data/menuData"
+import DishCard from "../components/DishCard"
 import "../styles/sections/MenuSection.css"
 
 const categories = [
-  { name: "All", icon: "🍽️" },
-  { name: "Cuisine", icon: "🍔" },
-  { name: "Main Course", icon: "🍛" },
-  { name: "Starter", icon: "🍟" },
-  { name: "Dessert", icon: "🍦" },
-  { name: "Drinks", icon: "🥤" },
+  { name: "All", icon: "🍽️", color: "#b0b2ffff" },
+  { name: "Starter", icon: "🍟", color: "#f59e0b" },
+  { name: "Main Course", icon: "🍛", color: "#10b981" },
+  { name: "Dessert", icon: "🍦", color: "#ec4899" },
+  { name: "Beverages", icon: "🥤", color: "#3b82f6" },
+  { name: "Drinks", icon: "🍹", color: "#8b5cf6" },
 ]
 
-const diets = ["All", "Veg", "Non-Veg"]
+const diets = ["All", "Veg", "Non-Veg", "Vegan"]
 const mealTimes = ["Breakfast", "Lunch", "Dinner"]
 
 export default function MenuSection() {
@@ -80,6 +81,7 @@ export default function MenuSection() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(cat.name)}
                 className={`sidebar-item ${activeCategory === cat.name ? "active" : ""}`}
+                style={{ "--accent-color": cat.color }}
               >
                 <div className="sidebar-icon-box">
                   <span className="sidebar-emoji">{cat.icon}</span>
@@ -92,77 +94,75 @@ export default function MenuSection() {
         </aside>
 
         <main className="kiosk-main">
-          {/* HEADER: TITLE & SEARCH */}
-          <header className="kiosk-header">
-            <div className="header-left">
-              <h1>{activeCategory === "All" ? "Our Menu" : activeCategory}</h1>
-            </div>
-
-            <div className="header-right">
-              <div className="search-wrapper">
-                <Search size={20} className="search-icon" />
+          {/* STICKY HEADER & ADVANCED FILTERS */}
+          <div className="kiosk-sticky-header">
+            <header className="kiosk-header">
+              <div className="search-container-modern">
+                <Search size={20} className="search-icon-inside" />
                 <input
                   type="text"
-                  placeholder="Search"
+                  placeholder="What are you craving today?"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-            </div>
-          </header>
+              
+              <div className="header-brand-box">
+                <img src="https://img.freepik.com/premium-vector/restaurant-luxury-logo-design-template-with-gold-color_10060-15.jpg" alt="Logo" />
+              </div>
+            </header>
 
-          {/* TOP FILTERS (Sub-tabs) */}
-          <div className="kiosk-sub-filters">
-            <div className="filter-group">
-              {diets.map((diet) => (
-                <button
-                  key={diet}
-                  onClick={() => setActiveDiet(diet)}
-                  className={`sub-tab ${activeDiet === diet ? "active" : ""}`}
-                >
-                  {diet}
-                </button>
-              ))}
-            </div>
-            <div className="filter-group">
-              {mealTimes.map((meal) => (
-                <button
-                  key={meal}
-                  onClick={() => setActiveMealTime(meal)}
-                  className={`sub-tab ${activeMealTime === meal ? "active" : ""}`}
-                >
-                  {meal}
-                </button>
-              ))}
+            <div className="filters-container-modern">
+              {/* PART 1: DIET PREFERENCE */}
+              <div className="filter-segment-group">
+                <span className="segment-label">Preference</span>
+                <div className="segmented-control">
+                  {diets.map((diet) => (
+                    <button
+                      key={diet}
+                      onClick={() => setActiveDiet(diet)}
+                      className={`segment-btn ${activeDiet === diet ? "active" : ""}`}
+                    >
+                      {diet}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* PART 2: MEAL TIME */}
+              <div className="filter-segment-group">
+                <span className="segment-label">Schedule</span>
+                <div className="segmented-control">
+                  {mealTimes.map((meal) => (
+                    <button
+                      key={meal}
+                      onClick={() => setActiveMealTime(meal)}
+                      className={`segment-btn ${activeMealTime === meal ? "active" : ""}`}
+                    >
+                      {meal}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+
 
           {/* DISH GRID */}
           <section className="kiosk-grid-container">
             <AnimatePresence mode="popLayout">
               <motion.div className="dish-grid" layout>
                 {filteredItems.map((dish) => (
-                  <motion.div
+                  <DishCard
                     key={dish.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="dish-card"
-                    onClick={() => openDetails(dish)}
-                  >
-                    <div className="card-image-box">
-                      <img src={dish.image} alt={dish.title} />
-                    </div>
-                    <div className="card-info">
-                      <h4>{dish.title}</h4>
-                      <div className="card-bottom">
-                        <span className="price">₹{dish.price.toFixed(2)}</span>
-                      </div>
-                    </div>
-                  </motion.div>
+                    dish={dish}
+                    onOpenDetails={openDetails}
+                    onAddToCart={addToCart}
+                  />
                 ))}
               </motion.div>
             </AnimatePresence>
+
 
             {filteredItems.length === 0 && (
               <div className="empty-state">

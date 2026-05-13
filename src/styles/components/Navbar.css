@@ -9,27 +9,21 @@
 }
 
 .navbar-dark {
-  padding: 1.25rem 0;
+  padding: clamp(0.5rem, 1.5vh, 1rem) 0;
   background-color: transparent;
 }
 
 .navbar-light {
-  padding: 1rem 0;
+  padding: clamp(0.4rem, 1vh, 0.8rem) 0;
   background-color: var(--bg);
   border-bottom: 1px solid rgba(15, 92, 92, 0.08);
 }
 
 .nav-container {
   width: 100%;
-  padding: 0 2rem;
+  padding: 0 var(--container-px);
   display: flex;
   align-items: center;
-}
-
-@media (min-width: 768px) {
-  .nav-container {
-    padding: 0 3.5rem;
-  }
 }
 
 /* Logo */
@@ -38,17 +32,11 @@
 }
 
 .nav-logo {
-  font-size: 1.125rem;
+  font-size: clamp(1.125rem, 3vw, 1.875rem);
   font-weight: 700;
   letter-spacing: -0.01em;
   text-decoration: none;
   transition: color 0.5s ease;
-}
-
-@media (min-width: 768px) {
-  .nav-logo {
-    font-size: 1.875rem;
-  }
 }
 
 .nav-logo-yellow {
@@ -68,20 +56,12 @@
   display: none;
   flex: none;
   align-items: center;
-  gap: 2.5rem;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
-@media (min-width: 1024px) {
-  .nav-links {
-    gap: 3.5rem;
-    display: flex;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
   .nav-links {
     display: flex;
-    gap: 2rem;
   }
 }
 

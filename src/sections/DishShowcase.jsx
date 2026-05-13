@@ -19,16 +19,22 @@ const DishShowcase = () => {
   const [isHovered, setIsHovered] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
+  const [isShort, setIsShort] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
       const height = window.innerHeight
       setIsMobile(width < 768)
+      setIsShort(height < 720)
       
       // Responsive slot size based on both dimensions
-      let baseSize = 520
-      if (height < 700) baseSize = height * 0.7 // Scale down for short viewports
+      let baseSize = 460 // Reduced default
+      if (height < 720) {
+        // Significantly scale down for short viewports
+        baseSize = height * (height < 500 ? 0.35 : 0.45)
+      }
+      
       if (width < 768) {
         setSlotSize(width * 0.9)
       } else {
@@ -53,9 +59,9 @@ const DishShowcase = () => {
   return (
     <section
       id="dish-showcase"
-      className="relative w-full h-screen flex flex-col items-center justify-start overflow-hidden pt-10 md:pt-20 scroll-snap-start"
+      className="dish-showcase relative w-full h-screen flex flex-col items-center justify-start overflow-hidden scroll-snap-start"
     >
-      <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} isMobile={isMobile} />
+      <FloatingIngredients activeIndex={activeIndex} bgColor={currentTheme.bg} isMobile={isMobile} isShort={isShort} />
 
 
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -63,10 +69,10 @@ const DishShowcase = () => {
           <motion.h2
             key={activeIndex}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
+            animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="dish-name text-[clamp(2.5rem,8vw,6rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2.2] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute top-[35%] md:top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[min(240px,28vh)]"
+            className={`dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[22%] md:top-[28%] md:-translate-y-[min(100px,15vh)]' : 'top-[25%] md:top-[32%] md:-translate-y-[min(180px,22vh)]'}`}
             style={{
               color: currentTheme.accent,
             }}
@@ -78,7 +84,7 @@ const DishShowcase = () => {
 
 
       {/* The Rotation Wheel at Bottom */}
-      <div className="absolute bottom-[-28%] md:bottom-[-35%] w-full h-[72vh] flex items-center justify-center overflow-visible">
+      <div className={`absolute ${isShort ? 'bottom-[-30%]' : 'bottom-[-28%] md:bottom-[-35%]'} w-full h-[72vh] flex items-center justify-center overflow-visible`}>
         {DISHES.map((dish, i) => {
           let distance = i - activeIndex
           if (distance > DISHES.length / 2) distance -= DISHES.length
@@ -96,6 +102,7 @@ const DishShowcase = () => {
               accentColor={currentTheme.accent}
               isActive={distance === 0}
               isMobile={isMobile}
+              isShort={isShort}
               isHovered={isHovered && distance === 0}
               onHoverChange={setIsHovered}
             />
@@ -129,7 +136,7 @@ const DishShowcase = () => {
   )
 }
 
-const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile, isHovered, onHoverChange }) => {
+const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile, isShort, isHovered, onHoverChange }) => {
   // Large circle path for a smooth bottom arc
   const angle = distance * (isMobile ? 38 : 42)
 
@@ -152,8 +159,8 @@ const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, 
       initial={false}
       animate={{
         x: xPos,
-        y: yPos - (isMobile ? 20 : 50),
-        scale: isActive ? (isMobile ? 1.6 : 2.4) : 0.5,
+        y: yPos - (isMobile ? 20 : (isShort ? 45 : 50)),
+        scale: isActive ? (isMobile ? 1.6 : (isShort ? 2.3 : 2.0)) : 0.5,
         opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
         zIndex: isActive ? 50 : 20 - Math.abs(distance),
       }}

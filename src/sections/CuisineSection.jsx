@@ -14,7 +14,6 @@ import southBg from "../assets/southcuisine.png"
 import chinBg from "../assets/chiniescuisine.png"
 import italBg from "../assets/italiancuisine.png"
 
-import CuisineGlobe from "../components/CuisineGlobe"
 import "../styles/sections/CuisineSection.css"
 
 const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
@@ -97,7 +96,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
               </svg>
             </div>
             <div className="brand-text-stack">
-              <span className="brand-name-main">ANANDO FOODS</span>
+              <span className="brand-name-main">anandofoods</span>
               <span className="brand-tag-sub">Fine Dining Excellence</span>
             </div>
           </div>
@@ -247,9 +246,9 @@ const CuisineSection = () => {
     const handleResize = () => {
       const w = window.innerWidth
       const h = window.innerHeight
-      setIsMobile(w <= 1199)
-      setIsShort(h < 700)
-      setIsSideBySide(w >= 1000 && h < 700)
+      setIsMobile(w <= 1023)
+      setIsShort(h < 850) // Includes 768px
+      setIsSideBySide(w >= 1024 && h < 650) // Only for very short viewports like 585px
     }
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -277,30 +276,17 @@ const CuisineSection = () => {
   // 🎭 Dynamic 3D Transforms based on scroll
   const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], [18, 10, 0])
   const tableScale = useTransform(
-    smoothProgress, 
-    [0, 0.3, 0.5, 1], 
-    isShort ? [0.65, 0.75, 0.85, 0.75] : [0.8, 0.9, 1, 0.9]
+    smoothProgress,
+    [0, 0.3, 0.5, 1],
+    isShort ? [0.45, 0.55, 0.65, 0.55] : [0.8, 0.9, 1, 0.9]
   )
   const tableY = useTransform(
-    smoothProgress, 
-    [0, 0.5, 1], 
-    isSideBySide ? [0, 0, 0] : (isMobile ? [0, -15, -30] : (isShort ? [20, -30, -80] : [50, -50, -150]))
+    smoothProgress,
+    [0, 0.5, 1],
+    isSideBySide ? [0, 0, 0] : (isMobile ? [0, -15, -30] : (isShort ? [0, -20, -50] : [50, -50, -150]))
   )
   const tableOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const prevProgress = React.useRef(0)
 
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const direction = v > prevProgress.current ? "down" : "up"
-    prevProgress.current = v
-
-    // Force scroll to full section when entering from top
-    if (v > 0.02 && v < 0.15 && direction === "down" && window.lenis) {
-      window.lenis.scrollTo("#cuisine-section", {
-        duration: 1.5,
-        easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-      })
-    }
-  })
   const hoverTimeout = React.useRef(null)
 
   const handleEnter = (i) => {
@@ -418,7 +404,7 @@ const CuisineSection = () => {
             <div className="cuisine-table-leg" />
 
             <div className="table-center-logo-top">
-              <img src={anandoLogo} alt="Anando Foods" className="table-center-img" />
+              <img src={anandoLogo} alt="anandofoods" className="table-center-img" />
             </div>
 
             <motion.div
@@ -484,32 +470,6 @@ const CuisineSection = () => {
           <div className="cuisine-table-shadow-floor" />
         </motion.div>
 
-        {/* 🌍 Interactive Cuisine Globe - Only mounted when needed to save resources */}
-        {!isMobile && (
-          <div className="cuisine-globe-wrapper" style={{ pointerEvents: "none" }}>
-            <AnimatePresence>
-              {(hoveredIndex !== null || activeIndex !== null) && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <CuisineGlobe
-                    selectedCuisine={displayIndex !== null
-                      ? (CUISINES[displayIndex].name === "South Indian" ? "SouthIndian" : CUISINES[displayIndex].name)
-                      : "Gujarati"
-                    }
-                    themeColor={displayCuisine?.border}
-                    isPaused={isCurrentlyPaused}
-                    width={220}
-                    height={220}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
 
         {/* 📋 Left Side - Synchronized Cuisine Menu */}
         <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>

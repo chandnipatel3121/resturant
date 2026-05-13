@@ -34,7 +34,7 @@ const ScrollTransition = () => {
     >
       {/* 1. Moving Line Top (Hero Section Area) */}
       <motion.div className="typo-layer typo-layer-top" style={{ x: x1 }}>
-        ANANDO FOODS PREMIUM ANANDO FOODS PREMIUM ANANDO FOODS PREMIUM
+        anandofoods PREMIUM anandofoods PREMIUM anandofoods PREMIUM
       </motion.div>
 
       {/* 2. Central Logo Container */}
@@ -44,14 +44,14 @@ const ScrollTransition = () => {
       >
         <div className="anando-tagline">SINCE 1974</div>
         <div className="anando-logo-box">
-          <span className="anando-logo-text">anando foods</span>
+          <span className="anando-logo-text">anandofoods</span>
         </div>
         <div className="anando-tagline">DELIVERING HAPPINESS</div>
       </motion.div>
 
       {/* 3. Moving Line Bottom (Dish Section Area) */}
       <motion.div className="typo-layer typo-layer-bottom" style={{ x: x2 }}>
-        ANANDO FOODS TRADITION ANANDO FOODS TRADITION ANANDO FOODS TRADITION
+        anandofoods TRADITION anandofoods TRADITION anandofoods TRADITION
       </motion.div>
     </motion.div >
   )

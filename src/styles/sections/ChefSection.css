@@ -1,45 +1,34 @@
 /* 👨‍🍳 CHEF SECTION STYLES */
 .chef-section {
   position: relative;
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--bg);
   overflow: hidden;
-  padding: 5rem 0;
-}
-
-@media (min-width: 1024px) {
-  .chef-section {
-    padding: 0;
-  }
+  padding: 0;
+  scroll-snap-align: start;
 }
 
 .chef-container {
   max-width: 85rem;
   width: 100%;
   margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .chef-container {
-    padding: 0 4rem;
-  }
+  padding: 0 var(--container-px);
 }
 
 .chef-flex-container {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: clamp(2.5rem, 8vw, 5vw);
   align-items: center;
 }
 
 @media (min-width: 1024px) {
   .chef-flex-container {
     flex-direction: row;
-    gap: 5vw;
     align-items: center;
   }
 }
@@ -85,14 +74,8 @@
   font-family: var(--font-serif);
   color: var(--muted);
   line-height: 1.05;
-  margin-bottom: 2rem;
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-}
-
-@media (min-width: 1024px) {
-  .chef-title {
-    font-size: clamp(4rem, 6vw, 5.5rem);
-  }
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  font-size: var(--fs-h2);
 }
 
 .chef-title-italic {
@@ -115,20 +98,13 @@
 .chef-image-content {
   width: 100%;
   position: relative;
-  height: 450px;
-  max-width: 600px;
-}
-
-@media (min-width: 768px) {
-  .chef-image-content {
-    height: 550px;
-  }
+  height: clamp(380px, 70vh, 75vh);
+  max-width: clamp(350px, 100%, 650px);
 }
 
 @media (min-width: 1024px) {
   .chef-image-content {
     width: 55%;
-    height: 75vh;
     max-width: none;
   }
 }

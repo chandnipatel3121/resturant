@@ -4,14 +4,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Evenly distribute header, content, footer */
+  justify-content: space-between;
   overflow: hidden;
   margin: 0;
   padding: 4rem 1rem 2rem 1rem;
   transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
   background-color: var(--bg);
+  height: 100vh;
   min-height: 100vh;
   width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 @media (min-width: 768px) {
@@ -142,8 +145,8 @@
 
 @media (min-width: 1024px) {
   .cuisine-table-topview {
-    width: 750px;
-    height: 750px;
+    width: clamp(500px, 45vw, 750px);
+    height: clamp(500px, 45vw, 750px);
     margin-bottom: 0;
   }
 }
@@ -432,17 +435,21 @@ backface-visibility: hidden;
 .cuisine-info-container {
   position: relative;
   width: 100%;
-  max-width: 340px; /* Further reduced to prevent overlap */
+  max-width: clamp(280px, 22vw, 340px);
   margin: 2rem auto;
   z-index: 100;
   pointer-events: none;
 }
 
-@media (min-width: 1200px) {
+/* ==========================================================================
+   💻 DEVICE CATEGORY 1: MAIN DESKTOP (1441px+)
+   Default styles apply here (1920x1080)
+   ========================================================================== */
+@media (min-width: 1441px) {
   .cuisine-menu-container {
     position: absolute;
     top: 50%;
-    left: 3%; /* Closer to edge */
+    left: 4%;
     transform: translateY(-50%);
     margin: 0;
   }
@@ -450,7 +457,7 @@ backface-visibility: hidden;
   .cuisine-info-container {
     position: absolute;
     top: 50%;
-    right: 3%; /* Closer to edge */
+    right: 4%;
     transform: translateY(-50%);
     margin: 0;
   }
@@ -480,31 +487,58 @@ backface-visibility: hidden;
   background: rgba(0, 0, 0, 0.8);
 }
 
-@media (max-width: 1199px) {
+/* ==========================================================================
+   📱 DEVICE CATEGORY 4: TABLET / IPAD (768px - 1023px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
   .cuisine-section {
-    padding: 50px 15px 30px 15px;
+    padding: 80px 20px !important;
     height: auto;
     min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: visible;
-    justify-content: flex-start;
-    gap: 1.5rem;
   }
 
   .cuisine-menu-container,
   .cuisine-info-container {
     max-width: 500px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 30px;
   }
 
   .cuisine-table-perspective {
-    margin: 0;
-    height: auto;
-    gap: 0.5rem;
-    flex-grow: 0;
-    min-height: 250px;
+    margin: 20px 0;
+    transform: scale(0.8);
   }
+
+}
+
+/* ==========================================================================
+   📱 DEVICE CATEGORY 5: MOBILE (Below 768px) - e.g. 390x844
+   ========================================================================== */
+@media (max-width: 767px) {
+  .cuisine-section {
+    padding: 60px 15px !important;
+    height: auto;
+  }
+
+  .cuisine-main-title { font-size: 1.8rem; }
+
+  .cuisine-table-perspective {
+    min-height: 250px;
+    transform: scale(0.7);
+  }
+
+  .cuisine-menu-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .narrative-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .narrative-item-name { font-size: 0.9rem; }
 
   .cuisine-menu-container {
     order: -1;
@@ -1102,26 +1136,67 @@ backface-visibility: hidden;
 /* 🌍 Interactive Cuisine Globe Positioning */
 .cuisine-globe-wrapper {
   position: absolute;
-  top: 3%;
-  right: 22%;
-  width: 200px;
-  height: 200px;
-  z-index: 150; /* Ensure it is on top of other elements */
-  pointer-events: none; /* Crucial: ensures it doesn't block hover on dishes */
+  top: 18%;
+  right: 28%; /* Positioned between table and card */
+  width: 160px;
+  height: 160px;
+  z-index: 200;
+  pointer-events: none;
+  display: flex;
+  position: relative;
+  height: 100px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
 }
 
-@media (max-width: 1400px) {
-  .cuisine-globe-wrapper {
-    right: 22%;
-    top: 22%;
+/* ==========================================================================
+   💻 DEVICE CATEGORY 2: LAPTOP (1201px - 1440px) - e.g. 1366x768
+   ========================================================================== */
+@media (min-width: 1201px) and (max-width: 1440px) {
+  .cuisine-section {
+    padding: 6rem 3.5rem 3rem 3.5rem !important;
   }
+
+  .cuisine-table-perspective {
+    transform: translateY(-2%) scale(0.8) !important;
+    width: 100% !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .cuisine-menu-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 4% !important;
+    transform: translateY(-50%) !important;
+    max-width: 280px !important;
+  }
+
+  .cuisine-info-container {
+    position: absolute !important;
+    top: 50% !important;
+    right: 4% !important;
+    transform: translateY(-50%) !important;
+    max-width: 360px !important;
+  }
+
+  .cuisine-globe-wrapper {
+    position: absolute !important;
+    top: 15% !important;
+    right: 32% !important;
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .glass-card-title { font-size: 2.8rem !important; }
+  .glass-card-desc-large { font-size: 1rem !important; }
+  .glass-wave-bottom { height: 70px !important; }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1023px) {
   .cuisine-globe-wrapper {
     display: none;
   }
@@ -1130,17 +1205,18 @@ backface-visibility: hidden;
 /* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
 @media (max-height: 700px) and (min-width: 1024px) {
   .cuisine-section {
-    padding: 0;
-    display: block !important;
-    height: 100vh;
-    min-height: 100vh;
-    position: relative !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
     overflow: hidden;
   }
 
   .cuisine-header {
     position: absolute !important;
-    top: 1.5rem !important;
+    top: 5rem !important; /* Moved down to clear navbar */
     left: 0 !important;
     width: 100% !important;
     text-align: center !important;
@@ -1148,104 +1224,121 @@ backface-visibility: hidden;
   }
 
   .cuisine-main-title {
-    font-size: 1.8rem;
-    margin-bottom: 0;
+    font-size: 1.8rem !important; /* Slightly larger */
+    margin-bottom: 0 !important;
   }
 
-  /* 📋 MENU LIST FAR LEFT */
+  .cuisine-footer-info {
+    position: absolute !important;
+    bottom: 0.5rem !important;
+    left: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    z-index: 100;
+    margin: 0 !important;
+  }
+
+  .cuisine-footer-text {
+    font-size: 0.75rem !important;
+  }
+
+  /* 📋 MENU LIST LEFT - Slightly tighter */
   .cuisine-menu-container {
     position: absolute !important;
     top: 50% !important;
-    left: 2rem !important; /* Restore fixed left margin */
+    left: 2.5rem !important;
     transform: translateY(-50%) !important;
     width: auto !important;
-    min-width: 250px !important;
+    min-width: 220px !important;
     margin: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    z-index: 500 !important; /* Bring to front */
+    z-index: 500 !important;
     pointer-events: auto !important;
   }
 
   .narrative-items {
-    align-items: flex-start !important;
-    gap: 1.2rem !important;
-    text-align: left !important;
+    gap: 0.8rem !important;
   }
 
   .narrative-item {
-    display: flex !important;
-    align-items: center !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
+    gap: 1rem !important;
   }
 
   .narrative-item-index {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.8rem !important;
-    min-width: 80px !important;
+    min-width: 60px !important;
+    gap: 0.5rem !important;
   }
 
   .index-line {
-    width: 30px !important; /* Make line horizontal and visible */
-    height: 1px !important;
-    background: var(--accent) !important;
+    width: 20px !important;
   }
 
   .narrative-item-name {
     font-size: 1.2rem !important;
     letter-spacing: 0.1em !important;
-    margin: 0 !important;
-    white-space: nowrap;
   }
 
-  /* 📋 INFO CARD (DESCRIPTION) - MOVED TO BOTTOM LEFT */
+  /* 📋 INFO CARD (DESCRIPTION) - RECENTERED / BETTER POSITIONED */
   .cuisine-info-container {
     position: absolute !important;
-    bottom: 1.5rem !important;
-    left: 2rem !important;
-    width: 300px !important;
+    top: 50% !important;
+    right: 2.5rem !important;
+    transform: translateY(-50%) !important;
+    width: 320px !important;
     margin: 0 !important;
-    transform: none !important;
-    z-index: 10 !important;
+    z-index: 500 !important;
+    pointer-events: auto !important;
   }
 
-  /* 📋 TABLE FAR RIGHT */
+  .cuisine-glass-card {
+    min-height: auto !important;
+    padding: 15px 20px !important;
+    border-radius: 25px !important;
+    background: rgba(10, 10, 10, 0.7) !important;
+    backdrop-filter: blur(20px) !important;
+  }
+
+  .glass-card-header {
+    margin-bottom: 15px !important;
+  }
+
+  .glass-card-title {
+    font-size: 1.8rem !important;
+    color: #fff !important;
+  }
+
+  .glass-card-desc-large {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
+  }
+
+  .glass-card-footer-branding {
+    margin-top: 15px !important;
+  }
+
+  .brand-name-main {
+    color: #fff !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* 📋 TABLE CENTERED BUT SCALED */
   .cuisine-table-perspective {
-    position: absolute !important;
-    top: 50% !important;
-    right: -100px !important; /* Push further right */
-    transform: translateY(-50%) scale(0.85) !important;
-    width: 600px !important;
-    margin: 0 !important;
+    position: relative !important;
+    top: 2rem !important; /* Nudge down */
+    right: 0 !important;
+    transform: scale(0.8) !important; /* Increased from 0.75 */
+    width: 100% !important;
+    margin: 0 auto !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 5 !important;
   }
 
-  /* 🍽️ CUISINE GLOBE (RIGHT SIDE) */
-  .cuisine-globe-wrapper {
-    position: absolute !important;
-    top: 50% !important;
-    right: 25% !important; /* Positioned between text and table */
-    transform: translateY(-50%) !important;
-    z-index: 40 !important;
-    pointer-events: none !important;
-  }
-
-  .narrative-item-name {
-    font-size: 1.1rem !important;
-    letter-spacing: 0.1em !important;
-    margin: 0 !important;
-  }
-
   .cuisine-table-topview {
-    width: 480px !important;
-    height: 480px !important;
+    width: 450px !important;
+    height: 450px !important;
   }
 
   .cuisine-table-surface-round {
@@ -1254,23 +1347,19 @@ backface-visibility: hidden;
   }
 
   .cuisine-dish-wrapper-round {
-    width: 130px !important;
-    height: 130px !important;
+    width: 120px !important;
+    height: 120px !important;
   }
 
-  .cuisine-glass-card {
-    min-height: auto !important;
-    padding: 10px 15px !important;
-    border-radius: 20px !important;
-    background: rgba(15, 92, 92, 0.5) !important;
-  }
-
-  .glass-card-title {
-    font-size: 1.4rem !important;
-  }
-
-  .glass-card-desc-large {
-    font-size: 0.8rem !important;
-    line-height: 1.3 !important;
+  /* 🌍 GLOBE POSITIONING */
+  .cuisine-globe-wrapper {
+    position: absolute !important;
+    top: 22% !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(0.6) !important;
+    width: 120px !important;
+    height: 120px !important;
+    z-index: 60 !important;
+    pointer-events: none !important;
   }
 }

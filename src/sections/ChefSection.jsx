@@ -41,29 +41,6 @@ const ChefSection = () => {
     mass: 0.8
   })
 
-  const prevV = useRef(0)
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const direction = v > prevV.current ? 'down' : 'up'
-    const prev = prevV.current
-    prevV.current = v
-
-    // Snap down when entering from top
-    if (direction === 'down' && prev < 0.15 && v >= 0.15 && window.lenis) {
-      window.lenis.scrollTo("#chef-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-
-    // Snap up when entering from bottom
-    if (direction === 'up' && prev > 0.85 && v <= 0.85 && window.lenis) {
-      window.lenis.scrollTo("#chef-section", {
-        duration: 1.5,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-      })
-    }
-  })
-
   return (
     <section id="chef-section" ref={containerRef} className="chef-section">
       <div className="chef-container">
@@ -89,7 +66,7 @@ const ChefSection = () => {
             >
               The Hands<br />
               <span className="chef-title-italic">
-                of Anando Foods
+                of anandofoods
               </span>
             </motion.h2>
 
@@ -99,7 +76,7 @@ const ChefSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="chef-desc"
             >
-              At Anando Foods, every dish begins with a vision.
+              At anandofoods, every dish begins with a vision.
               Our chef transforms simple ingredients into experiences.
             </motion.p>
           </div>

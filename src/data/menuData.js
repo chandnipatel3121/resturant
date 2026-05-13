@@ -9,6 +9,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1600891964092-4316c288032e",
+    spiceLevel: 2,
+    prepTime: 15,
+    serves: 1,
   },
   {
     id: 2,
@@ -20,6 +23,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1521389508051-d7ffb5dc8c28",
+    spiceLevel: 1,
+    prepTime: 20,
+    serves: 1,
   },
   {
     id: 3,
@@ -31,6 +37,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Breakfast", "Lunch"],
     image: "https://images.unsplash.com/photo-1546793665-c74683f339c1",
+    spiceLevel: 0,
+    prepTime: 10,
+    serves: 2,
   },
   {
     id: 4,
@@ -42,6 +51,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c",
+    spiceLevel: 0,
+    prepTime: 12,
+    serves: 1,
   },
   {
     id: 5,
@@ -53,6 +65,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1548365328-9f547fb0953d",
+    spiceLevel: 1,
+    prepTime: 18,
+    serves: 1,
   },
   {
     id: 6,
@@ -64,6 +79,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1505253758473-96b7015fcd40",
+    spiceLevel: 0,
+    prepTime: 8,
+    serves: 1,
   },
   {
     id: 7,
@@ -75,6 +93,9 @@ const menuData = [
     diet: "Non-Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0",
+    spiceLevel: 3,
+    prepTime: 22,
+    serves: 1,
   },
   {
     id: 8,
@@ -86,6 +107,9 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Lunch", "Dinner"],
     image: "https://images.unsplash.com/photo-1563245332-6925469a47aa",
+    spiceLevel: 1,
+    prepTime: 15,
+    serves: 2,
   },
   {
     id: 9,
@@ -97,7 +121,11 @@ const menuData = [
     diet: "Veg",
     mealTime: ["Breakfast"],
     image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93",
+    spiceLevel: 0,
+    prepTime: 12,
+    serves: 2,
   }
 ]
 
 export default menuData
+

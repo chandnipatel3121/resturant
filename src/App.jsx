@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Footer from "./sections/Footer"
 import SmoothScroll from "./components/SmoothScroll"
@@ -11,17 +11,12 @@ import About from "./pages/About"
 import Contact from "./pages/Contact"
 import ScrollToTop from "./components/ScrollToTop"
 
-
-
-function App() {
-  // 🔄 Force scroll to top on refresh
-  useEffect(() => {
-    window.history.scrollRestoration = 'manual'
-    window.scrollTo(0, 0)
-  }, [])
+function AppContent() {
+  const location = useLocation()
+  const isMenuPage = location.pathname === "/menu"
 
   return (
-    <Router basename="/">
+    <>
       <ScrollToTop />
       <NavProvider>
         <SmoothScroll>
@@ -34,11 +29,26 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
-          <Footer />
+          {!isMenuPage && <Footer />}
         </SmoothScroll>
       </NavProvider>
+    </>
+  )
+}
+
+function App() {
+  // 🔄 Force scroll to top on refresh
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual'
+    window.scrollTo(0, 0)
+  }, [])
+
+  return (
+    <Router basename="/">
+      <AppContent />
     </Router>
   )
 }
 
 export default App
+
