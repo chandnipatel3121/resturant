@@ -27,14 +27,14 @@ const DishShowcase = () => {
       const height = window.innerHeight
       setIsMobile(width < 768)
       setIsShort(height < 720)
-      
+
       // Responsive slot size based on both dimensions
       let baseSize = 460 // Reduced default
       if (height < 720) {
         // Significantly scale down for short viewports
         baseSize = height * (height < 500 ? 0.35 : 0.45)
       }
-      
+
       if (width < 768) {
         setSlotSize(width * 0.9)
       } else {
@@ -66,19 +66,24 @@ const DishShowcase = () => {
 
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <AnimatePresence mode="wait">
-          <motion.h2
+          <motion.div
             key={activeIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className={`dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-center max-w-[90vw] md:max-w-[60vw] leading-[1] absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[22%] md:top-[28%] md:-translate-y-[min(100px,15vh)]' : 'top-[25%] md:top-[32%] md:-translate-y-[min(180px,22vh)]'}`}
-            style={{
-              color: currentTheme.accent,
-            }}
+            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[22%] md:top-[28%] md:-translate-y-[min(100px,15vh)]' : 'top-[25%] md:top-[32%] md:-translate-y-[min(180px,22vh)]'}`}
+            style={{ color: currentTheme.accent }}
           >
-            {DISHES[activeIndex].name}
-          </motion.h2>
+            <h2 className="dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-bottom max-w-[90vw] md:max-w-[60vw] leading-[1]">
+              {DISHES[activeIndex].name}
+            </h2>
+            <div className="absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4vh, 60px))" }}>
+              <p className="font-serif text-[15px] md:text-[18px] font-light tracking-wide leading-relaxed drop-shadow-md opacity-90">
+                {DISHES[activeIndex].description}
+              </p>
+            </div>
+          </motion.div>
         </AnimatePresence>
       </div>
 
@@ -191,7 +196,7 @@ const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, 
         {isActive && <div className="dish-shadow" />}
 
         {/* The very slow rotation */}
-        <div 
+        <div
           className={`w-full h-full ${isActive ? 'slow-rotate' : ''} ${isHovered ? 'paused' : ''}`}
           style={{
             filter: isActive

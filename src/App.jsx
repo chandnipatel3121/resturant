@@ -13,7 +13,7 @@ import ScrollToTop from "./components/ScrollToTop"
 
 function AppContent() {
   const location = useLocation()
-  const isMenuPage = location.pathname === "/menu"
+  const isHomePage = location.pathname === "/"
 
   return (
     <>
@@ -28,8 +28,8 @@ function AppContent() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
+            {isHomePage && <Footer />}
           </main>
-          {!isMenuPage && <Footer />}
         </SmoothScroll>
       </NavProvider>
     </>
@@ -51,4 +51,3 @@ function App() {
 }
 
 export default App
-

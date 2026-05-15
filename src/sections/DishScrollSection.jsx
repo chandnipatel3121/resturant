@@ -9,12 +9,12 @@ import desert from "../assets/desert.jpg"
 import beetroot from "../assets/beetroot.jpg"
 
 export const DISHES = [
-  { name: "Grand Thali", tagline: "A universe on one plate", img: thali },
-  { name: "Shahi Paneer", tagline: "Royal indulgence, every spoonful", img: shahipaneer },
-  { name: "Pav Bhaji", tagline: "Street soul, chef's touch", img: pavbhaji },
-  { name: "Dragon Platter", tagline: "Fire-kissed, boldly crafted", img: dragonp },
-  { name: "Chef's Special Desert", tagline: "Pure indulgence on your palate", img: desert },
-  { name: "Mix Fruit Halwa", tagline: "A symphony of textures and tastes", img: beetroot },
+  { name: "Grand Thali", tagline: "A universe on one plate", description: "Indulge in the exquisite delight of our Grand Thali. Picture a golden platter, cradling a symphony of vibrant, authentic curries, glistening under the warm lights. As you take your first bite, your taste buds awaken to a burst of rich and traditional bliss, as the spices release their natural ambrosia.", img: thali },
+  { name: "Shahi Paneer", tagline: "Royal indulgence, every spoonful", description: "Experience the royal heritage of our signature Shahi Paneer. Soft, melt-in-the-mouth cottage cheese cubes simmered gracefully in a rich, creamy tomato and cashew gravy, delicately infused with aromatic Indian spices to create a truly majestic culinary journey.", img: shahipaneer },
+  { name: "Pav Bhaji", tagline: "Street soul, chef's touch", description: "Savor the vibrant streets of Mumbai with our elevated Pav Bhaji. A masterful blend of fresh, buttery mashed vegetables slow-cooked to perfection with signature spices, served alongside warm, butter-toasted artisan bread that melts seamlessly on your palate.", img: pavbhaji },
+  { name: "Dragon Platter", tagline: "Fire-kissed, boldly crafted", description: "Awaken your senses with the bold, fiery zest of our Dragon Platter. An exotic assortment of perfectly wok-tossed delights, coated in our secret tangy glaze and garnished with fresh scallions, delivering an unforgettable crunch and a burst of umami in every single bite.", img: dragonp },
+  { name: "Chef's Special Desert", tagline: "Pure indulgence on your palate", description: "Conclude your dining experience with our Chef's Special Dessert. A delicate symphony of velvety textures and sweet nuances, meticulously crafted to balance richness and lightness, ensuring a divine finale that lingers gracefully long after the last spoonful.", img: desert },
+  { name: "Mix Fruit Halwa", tagline: "A symphony of textures and tastes", description: "Immerse yourself in the comforting warmth of our Mix Fruit Halwa. A rich, buttery confection crafted from the finest seasonal fruits, slow-roasted to a perfect golden hue and generously studded with premium roasted nuts, offering a taste of pure homemade bliss.", img: beetroot },
 ]
 
 const STRIP = [...DISHES, ...DISHES, ...DISHES]
