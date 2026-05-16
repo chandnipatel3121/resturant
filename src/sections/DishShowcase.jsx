@@ -16,6 +16,7 @@ const DISH_THEMES = [
 const DishShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [slotSize, setSlotSize] = useState(520)
+  const [radius, setRadius] = useState(500)
   const [isHovered, setIsHovered] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false)
@@ -29,17 +30,15 @@ const DishShowcase = () => {
       setIsShort(height < 720)
 
       // Responsive slot size based on both dimensions
-      let baseSize = 460 // Reduced default
-      if (height < 720) {
-        // Significantly scale down for short viewports
-        baseSize = height * (height < 500 ? 0.35 : 0.45)
-      }
+      const size = height < 720
+        ? Math.min(width * 0.15, 120)
+        : width < 768 ? 160 : 380;
+      setSlotSize(size)
 
-      if (width < 768) {
-        setSlotSize(width * 0.9)
-      } else {
-        setSlotSize(baseSize)
-      }
+      const r = width < 768
+        ? Math.min(width * 0.3, 150)
+        : height < 720 ? Math.min(width * 0.35, 350) : Math.min(width * 0.45, 550);
+      setRadius(r)
     }
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -72,7 +71,7 @@ const DishShowcase = () => {
             animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[22%] md:top-[28%] md:-translate-y-[min(100px,15vh)]' : 'top-[25%] md:top-[32%] md:-translate-y-[min(180px,22vh)]'}`}
+            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12vh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18vh)]'}`}
             style={{ color: currentTheme.accent }}
           >
             <h2 className="dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-bottom max-w-[90vw] md:max-w-[60vw] leading-[1]">
@@ -104,6 +103,7 @@ const DishShowcase = () => {
               distance={distance}
               isVisible={isVisible}
               slotSize={slotSize}
+              radius={radius}
               accentColor={currentTheme.accent}
               isActive={distance === 0}
               isMobile={isMobile}
@@ -141,13 +141,11 @@ const DishShowcase = () => {
   )
 }
 
-const DishItem = ({ dish, distance, isVisible, slotSize, accentColor, isActive, isMobile, isShort, isHovered, onHoverChange }) => {
+const DishItem = ({ dish, distance, isVisible, slotSize, radius, accentColor, isActive, isMobile, isShort, isHovered, onHoverChange }) => {
   // Large circle path for a smooth bottom arc
   const angle = distance * (isMobile ? 38 : 42)
 
-  const radius = isMobile
-    ? slotSize * 1.35
-    : slotSize * 1.75
+  // Using the radius passed from parent for consistency
 
   const rad = (angle - 90) * (Math.PI / 180)
 

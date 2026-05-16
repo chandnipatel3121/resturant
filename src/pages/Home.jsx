@@ -1,6 +1,7 @@
 import React from "react"
 import HeroSection from "../sections/HeroSection"
 import DishShowcase from "../sections/DishShowcase"
+import ScrollTransition from "../components/ScrollTransition"
 import AboutSection from "../sections/AboutSection"
 import ChefSection from "../sections/ChefSection"
 import TestimonialsSection from "../sections/TestimonialsSection"
@@ -12,6 +13,7 @@ import ContactSection from "../sections/ContactSection"
 const Home = () => (
   <>
     <HeroSection />
+    <ScrollTransition />
     <DishShowcase />
     <AboutSection />
     <ChefSection />

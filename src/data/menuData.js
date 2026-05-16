@@ -3,6 +3,7 @@ const menuData = [
     id: 1,
     title: "Grilled Paneer Steak",
     description: "Charred paneer with herbs & creamy sauce",
+    shortDescription: "Juicy charred paneer with aromatic herbs.",
     price: 320,
     cuisine: "Indian",
     course: "Main Course",
@@ -12,11 +13,16 @@ const menuData = [
     spiceLevel: 2,
     prepTime: 15,
     serves: 1,
+    origin: "Punjab, India",
+    ingredients: ["Paneer", "Herbs", "Cream"],
+    cardBg: "#4a6e4a", // Vibrant Forest Green
+    availability: "In Stock"
   },
   {
     id: 2,
     title: "Truffle Pasta",
     description: "Rich creamy pasta infused with truffle aroma",
+    shortDescription: "Creamy pasta with exotic truffle flavor.",
     price: 450,
     cuisine: "Italian",
     course: "Main Course",
@@ -26,11 +32,16 @@ const menuData = [
     spiceLevel: 1,
     prepTime: 20,
     serves: 1,
+    origin: "Tuscany, Italy",
+    ingredients: ["Truffle", "Parmesan", "Pasta"],
+    cardBg: "#4a506e", // Vibrant Navy
+    availability: "In Stock"
   },
   {
     id: 3,
     title: "Fresh Garden Salad",
     description: "Crisp greens with citrus dressing",
+    shortDescription: "Freshly picked greens with a zingy twist.",
     price: 220,
     cuisine: "Continental",
     course: "Starter",
@@ -40,11 +51,16 @@ const menuData = [
     spiceLevel: 0,
     prepTime: 10,
     serves: 2,
+    origin: "Provence, France",
+    ingredients: ["Lettuce", "Citrus", "Olives"],
+    cardBg: "#6e6e4a", // Vibrant Olive
+    availability: "In Stock"
   },
   {
     id: 4,
     title: "Chocolate Lava Cake",
     description: "Warm chocolate core with vanilla scoop",
+    shortDescription: "Decadent melting chocolate heart.",
     price: 280,
     cuisine: "Continental",
     course: "Dessert",
@@ -54,11 +70,16 @@ const menuData = [
     spiceLevel: 0,
     prepTime: 12,
     serves: 1,
+    origin: "Paris, France",
+    ingredients: ["Dark Chocolate", "Vanilla", "Cocoa"],
+    cardBg: "#6e4a4a", // Vibrant Maroon
+    availability: "Limited"
   },
   {
     id: 5,
     title: "Classic Margherita",
     description: "Wood-fired pizza with fresh basil",
+    shortDescription: "Traditional Neapolitan basil & cheese pizza.",
     price: 350,
     cuisine: "Italian",
     course: "Main Course",
@@ -68,11 +89,16 @@ const menuData = [
     spiceLevel: 1,
     prepTime: 18,
     serves: 1,
+    origin: "Naples, Italy",
+    ingredients: ["Mozzarella", "Basil", "Tomato"],
+    cardBg: "#6e5a4a", // Vibrant Clay
+    availability: "In Stock"
   },
   {
     id: 6,
     title: "Berry Cheesecake",
     description: "Creamy cheesecake with berry glaze",
+    shortDescription: "Smooth cheesecake topped with wild berries.",
     price: 300,
     cuisine: "Continental",
     course: "Dessert",
@@ -82,11 +108,16 @@ const menuData = [
     spiceLevel: 0,
     prepTime: 8,
     serves: 1,
+    origin: "New York, USA",
+    ingredients: ["Cream Cheese", "Berries", "Graham"],
+    cardBg: "#6e4a5d", // Vibrant Plum
+    availability: "In Stock"
   },
   {
     id: 7,
     title: "Chicken Tikka",
     description: "Spicy grilled chicken with mint chutney",
+    shortDescription: "Tender grilled chicken with bold spices.",
     price: 380,
     cuisine: "Indian",
     course: "Starter",
@@ -96,11 +127,16 @@ const menuData = [
     spiceLevel: 3,
     prepTime: 22,
     serves: 1,
+    origin: "Delhi, India",
+    ingredients: ["Chicken", "Yogurt", "Masala"],
+    cardBg: "#7d4a3a", // Vibrant Terracotta
+    availability: "In Stock"
   },
   {
     id: 8,
     title: "Dim Sums",
     description: "Steamed vegetable dumplings",
+    shortDescription: "Authentic steamed parcels of flavor.",
     price: 240,
     cuisine: "Chinese",
     course: "Starter",
@@ -110,11 +146,16 @@ const menuData = [
     spiceLevel: 1,
     prepTime: 15,
     serves: 2,
+    origin: "Guangdong, China",
+    ingredients: ["Cabbage", "Ginger", "Rice"],
+    cardBg: "#4a6e5d", // Vibrant Teal
+    availability: "In Stock"
   },
   {
     id: 9,
     title: "Pancakes with Syrup",
     description: "Fluffy pancakes with maple syrup",
+    shortDescription: "Classic morning breakfast delight.",
     price: 180,
     cuisine: "Continental",
     course: "Main Course",
@@ -124,11 +165,16 @@ const menuData = [
     spiceLevel: 0,
     prepTime: 12,
     serves: 2,
+    origin: "London, UK",
+    ingredients: ["Flour", "Maple", "Butter"],
+    cardBg: "#6e664a", // Vibrant Bronze
+    availability: "Breakfast Only"
   },
   {
     id: 10,
     title: "Sushi Platter",
     description: "Premium selection of fresh salmon & tuna rolls",
+    shortDescription: "Hand-rolled sushi with finest fish.",
     price: 850,
     cuisine: "Japanese",
     course: "Main Course",
@@ -138,11 +184,16 @@ const menuData = [
     spiceLevel: 0,
     prepTime: 25,
     serves: 2,
+    origin: "Tokyo, Japan",
+    ingredients: ["Salmon", "Tuna", "Rice"],
+    cardBg: "#4a4a6e", // Vibrant Midnight
+    availability: "In Stock"
   },
   {
     id: 11,
     title: "Spicy Tacos",
     description: "Crunchy corn shells with seasoned beef & salsa",
+    shortDescription: "Zesty Mexican street food classic.",
     price: 340,
     cuisine: "Mexican",
     course: "Main Course",
@@ -152,11 +203,16 @@ const menuData = [
     spiceLevel: 3,
     prepTime: 15,
     serves: 2,
+    origin: "Jalisco, Mexico",
+    ingredients: ["Beef", "Corn", "Salsa"],
+    cardBg: "#7d3a3a", // Vibrant Crimson
+    availability: "In Stock"
   },
   {
     id: 12,
     title: "Pad Thai Noodles",
     description: "Classic stir-fried rice noodles with peanuts & lime",
+    shortDescription: "Authentic Thai street noodles.",
     price: 420,
     cuisine: "Thai",
     course: "Main Course",
@@ -166,11 +222,16 @@ const menuData = [
     spiceLevel: 2,
     prepTime: 18,
     serves: 1,
+    origin: "Bangkok, Thailand",
+    ingredients: ["Rice Noodles", "Peanuts", "Lime"],
+    cardBg: "#6e504a", // Vibrant Umber
+    availability: "In Stock"
   },
   {
     id: 13,
     title: "Mediterranean Mezze",
     description: "Hummus, falafel, and pita bread selection",
+    shortDescription: "Traditional Middle Eastern appetizer tray.",
     price: 480,
     cuisine: "Mediterranean",
     course: "Starter",
@@ -180,11 +241,16 @@ const menuData = [
     spiceLevel: 1,
     prepTime: 15,
     serves: 2,
+    origin: "Beirut, Lebanon",
+    ingredients: ["Chickpeas", "Tahini", "Pita"],
+    cardBg: "#4a5a6e", // Vibrant Slate
+    availability: "In Stock"
   },
   {
     id: 14,
     title: "French Ratatouille",
     description: "Slow-cooked seasonal vegetable stew with herbs",
+    shortDescription: "Rustic Provencal vegetable medley.",
     price: 520,
     cuisine: "French",
     course: "Main Course",
@@ -194,11 +260,16 @@ const menuData = [
     spiceLevel: 1,
     prepTime: 35,
     serves: 1,
+    origin: "Nice, France",
+    ingredients: ["Eggplant", "Zucchini", "Peppers"],
+    cardBg: "#6e4a4a", // Vibrant Wine
+    availability: "In Stock"
   },
   {
     id: 15,
     title: "Miso Ramen",
     description: "Rich miso broth with silk noodles and soft egg",
+    shortDescription: "Hearty Japanese noodle soup.",
     price: 580,
     cuisine: "Japanese",
     course: "Main Course",
@@ -208,8 +279,11 @@ const menuData = [
     spiceLevel: 2,
     prepTime: 20,
     serves: 1,
+    origin: "Hokkaido, Japan",
+    ingredients: ["Miso", "Pork", "Ramen"],
+    cardBg: "#6e6e4a", // Vibrant Earth
+    availability: "In Stock"
   }
 ]
 
 export default menuData
-

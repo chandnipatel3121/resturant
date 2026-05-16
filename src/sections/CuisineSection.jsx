@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
+import { Plus } from "lucide-react"
 import anandoLogo from "../assets/anandofood.jpg"
 import gujImg from "../assets/thali1.jpg"
 import punImg from "../assets/punjabi.jpg"
@@ -13,6 +14,12 @@ import punBg from "../assets/puncuisine.png"
 import southBg from "../assets/southcuisine.png"
 import chinBg from "../assets/chiniescuisine.png"
 import italBg from "../assets/italiancuisine.png"
+
+import gujMap from "../assets/map_gujarati.png"
+import punMap from "../assets/map_punjabi.png"
+import southMap from "../assets/map_southindian.png"
+import chinMap from "../assets/map_chinese.png"
+import italMap from "../assets/map_italian.png"
 
 import "../styles/sections/CuisineSection.css"
 
@@ -87,12 +94,12 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
           </div>
         </div>
 
-        <div className="glass-wave-bottom">
+        <div className="glass-card-footer">
           <div className="wave-branding-futuristic">
             <div className="brand-logo-symbol">
               <svg viewBox="0 0 100 100">
                 <path d="M50 5 L95 25 L95 75 L50 95 L5 75 L5 25 Z" fill="none" stroke="currentColor" strokeWidth="2" />
-                <path d="M50 20 L80 35 L80 65 L50 80 L20 65 L20 35 Z" fill="currentColor" opacity="0.3" />
+                <circle cx="50" cy="50" r="15" fill="currentColor" opacity="0.4" />
               </svg>
             </div>
             <div className="brand-text-stack">
@@ -100,10 +107,8 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
               <span className="brand-tag-sub">Fine Dining Excellence</span>
             </div>
           </div>
-          {/* Subtle wave pattern */}
-          <svg className="wave-pattern-svg" viewBox="0 0 500 150" preserveAspectRatio="none">
-            <path d="M0,150 L0,100 C150,150 350,20 500,100 L500,150 Z" fill={cuisine.border} opacity="0.15" />
-          </svg>
+          {/* Elegant geometric pattern instead of messy wave */}
+          <div className="footer-geometric-accent" style={{ background: cuisine.border }} />
         </div>
       </div>
     </motion.div>
@@ -119,11 +124,13 @@ const CUISINES = [
     img: gujImg,
     bgImage: gujBg,
     bg: "#000000",
-    cardBg: "#f5deb3",
-    cardBgAlt: "#ffe8b8",
-    border: "#E0A94B",      /* Brighter Gold */
+    cardBg: "rgba(224, 169, 75, 0.15)",
+    cardBgAlt: "rgba(224, 169, 75, 0.2)",
+    border: "#E0A94B",
+    border: "#d97706",
     glow: "rgba(224, 169, 75, 0.4)",
-    textColor: "#2a1b00",   /* Darker Brown for contrast */
+    textColor: "#ffffff",
+    map: gujMap,
     items: [
       { name: "Undhiyu", desc: "Slow-cooked seasonal veggies", price: "450" },
       { name: "Khandvi Rolls", desc: "Gram flour, tempered spices", price: "250" },
@@ -143,11 +150,12 @@ const CUISINES = [
     img: punImg,
     bgImage: punBg,
     bg: "#000000",
-    cardBg: "#ffcf9e",
-    cardBgAlt: "#ffe4c4",
-    border: "#FF7D29",      /* Brighter Orange */
+    cardBg: "rgba(255, 125, 41, 0.15)",
+    cardBgAlt: "rgba(255, 125, 41, 0.2)",
+    border: "#FF7D29",
     glow: "rgba(255, 125, 41, 0.4)",
-    textColor: "#3d1400",   /* Darker Mahogany */
+    textColor: "#ffffff",
+    map: punMap,
     items: [
       { name: "Dal Makhani", desc: "24-hour slow-cooked black lentils", price: "380" },
       { name: "Butter Chicken", desc: "Tandoori chicken in tomato gravy", price: "550" },
@@ -167,11 +175,12 @@ const CUISINES = [
     img: southImg,
     bgImage: southBg,
     bg: "#000000",
-    cardBg: "#b7e4c7",
-    cardBgAlt: "#d8f3dc",
-    border: "#2ECC71",      /* Brighter Green */
+    cardBg: "rgba(46, 204, 113, 0.15)",
+    cardBgAlt: "rgba(46, 204, 113, 0.2)",
+    border: "#2ECC71",
     glow: "rgba(46, 204, 113, 0.5)",
-    textColor: "#0d2b1a",   /* Real Dark Green */
+    textColor: "#ffffff",
+    map: southMap,
     items: [
       { name: "Masala Dosa", desc: "Crispy rice crepe with potato", price: "220" },
       { name: "Appam with Stew", desc: "Fermented lacey pancakes", price: "350" },
@@ -191,11 +200,12 @@ const CUISINES = [
     img: chinImg,
     bgImage: chinBg,
     bg: "#000000",
-    cardBg: "#ffb3b3",
-    cardBgAlt: "#ffd6d6",
-    border: "#FF4D4D",      /* Brighter Red */
+    cardBg: "rgba(255, 77, 77, 0.15)",
+    cardBgAlt: "rgba(255, 77, 77, 0.2)",
+    border: "#FF4D4D",
     glow: "rgba(255, 77, 77, 0.5)",
-    textColor: "#3d0000",   /* Darker Red */
+    textColor: "#ffffff",
+    map: chinMap,
     items: [
       { name: "Dim Sum Basket", desc: "Hand-rolled steamed parcels", price: "420" },
       { name: "Kung Pao Paneer", desc: "Spicy stir-fry with peanuts", price: "450" },
@@ -215,11 +225,12 @@ const CUISINES = [
     img: italImg,
     bgImage: italBg,
     bg: "#000000",
-    cardBg: "#6b8dff",
-    cardBgAlt: "#a6b4f0",
-    border: "#4D79FF",      /* Brighter Blue */
+    cardBg: "rgba(77, 121, 255, 0.15)",
+    cardBgAlt: "rgba(77, 121, 255, 0.2)",
+    border: "#4D79FF",
     glow: "rgba(77, 121, 255, 0.5)",
-    textColor: "#001b66",   /* Darker Blue */
+    textColor: "#ffffff",
+    map: italMap,
     items: [
       { name: "Truffle Tortellini", desc: "Handmade pasta, sage butter", price: "580" },
       { name: "Burrata Salad", desc: "Fresh burrata, heirloom tomatoes", price: "480" },
@@ -331,7 +342,8 @@ const CuisineSection = () => {
   return (
     <section
       id="cuisine-section"
-      className={`cuisine-section ${displayIndex !== null ? 'is-hovered' : ''}`}
+      className={`cuisine-section relative ${displayIndex !== null ? 'is-hovered' : ''}`}
+      ref={containerRef}
       style={{
         backgroundColor: activeCuisine ? activeCuisine.bg : "var(--bg)",
       }}
@@ -387,7 +399,7 @@ const CuisineSection = () => {
         <p className="cuisine-footer-text"> a cuisine to explore our authentic flavors</p>
       </div>
 
-      <div className="cuisine-table-perspective" ref={containerRef}>
+      <div className="cuisine-table-perspective">
         <motion.div
           className="cuisine-table-topview"
           style={{
@@ -471,9 +483,13 @@ const CuisineSection = () => {
         </motion.div>
 
 
-        {/* 📋 Left Side - Synchronized Cuisine Menu */}
         <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>
           <div className="cuisine-floating-narrative">
+            {/* Leaf Spine - Inspired by 1st image */}
+            {/* Leaf Spine Background Line */}
+            <div className="narrative-spine-background">
+              <div className="spine-line-continuous" />
+            </div>
             <div className="narrative-items">
               {CUISINES.map((cuisine, idx) => (
                 <motion.div
@@ -494,26 +510,37 @@ const CuisineSection = () => {
                       }
                     }
                   }}
-                  animate={displayIndex === idx ? { x: 10 } : { x: 0 }}
+                  animate={displayIndex === idx ? { x: 12, scale: 1.02 } : { x: 0, scale: 1 }}
                 >
-                  <div className="narrative-item-index">
-                    <span className="index-num" style={{
-                      color: displayIndex === idx ? '#fff' : 'var(--accent)',
-                      textShadow: displayIndex === idx ? `0 0 10px ${cuisine.border}` : 'none'
-                    }}>0{idx + 1}</span>
-                    <span className="index-line" style={{
-                      backgroundColor: displayIndex === idx ? cuisine.border : 'var(--accent)',
-                      boxShadow: displayIndex === idx ? `0 0 15px ${cuisine.border}` : 'none'
-                    }} />
+                  <div className="narrative-leaf-cluster">
+                    <svg viewBox="0 0 40 40">
+                      <path d="M20 40 Q15 30 20 20 Q25 30 20 40" fill="currentColor" opacity="0.4" />
+                      <path d="M20 30 Q10 25 5 15 Q10 20 20 30" fill="currentColor" opacity="0.3" />
+                      <path d="M20 30 Q30 25 35 15 Q30 20 20 30" fill="currentColor" opacity="0.3" />
+                    </svg>
                   </div>
-                  <div className="narrative-item-content">
-                    <h4 className="narrative-item-name" style={{
+                  <div className="narrative-menu-style">
+                    <div className="narrative-item-main">
+                      <h4 className="narrative-item-name" style={{
+                        color: displayIndex === idx ? '#fff' : 'inherit',
+                      }}>
+                        {cuisine.name}
+                      </h4>
+                      <div className="narrative-leader-line" style={{
+                        borderColor: displayIndex === idx ? cuisine.border : 'rgba(255,255,255,0.1)'
+                      }} />
+                      <div className="narrative-item-index-price" style={{
+                        color: displayIndex === idx ? cuisine.border : 'var(--accent)'
+                      }}>
+                        <span className="price-symbol">✦</span>{idx + 1}
+                      </div>
+                    </div>
+                    <p className="narrative-item-tagline" style={{
                       color: displayIndex === idx ? '#fff' : 'inherit',
-                      textShadow: displayIndex === idx ? `0 0 10px ${cuisine.border}, 0 0 20px ${cuisine.border}` : 'none',
-                      letterSpacing: displayIndex === idx ? '0.15em' : '0.05em'
+                      opacity: displayIndex === idx ? 0.9 : 0.6
                     }}>
-                      {cuisine.name}
-                    </h4>
+                      {cuisine.tagline}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -534,6 +561,25 @@ const CuisineSection = () => {
         </div>
 
         {/* 📋 Right Side - Cuisine Details */}
+        <AnimatePresence>
+          {displayIndex !== null && (
+            <motion.div
+              key="cuisine-map"
+              className="cuisine-origin-map-container"
+              initial={{ opacity: 0, scale: 0.8, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.8, x: 20 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <img 
+                src={CUISINES[displayIndex].map} 
+                alt={`${CUISINES[displayIndex].name} origin map`} 
+                className="cuisine-origin-map-img"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {isMobile ? (
           displayIndex !== null && displayCuisine && createPortal(
             <div className="cuisine-info-container-mobile-modal" onClick={() => { setActiveIndex(null); setIsPaused(false); }}>

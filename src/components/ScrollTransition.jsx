@@ -1,11 +1,13 @@
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import "../styles/components/ScrollTransition.css"
+import styles from "../styles/components/ScrollTransition.module.css"
 
 const ScrollTransition = () => {
-  const ref = useRef(null)
+  const containerRef = useRef(null)
+
+  // The trigger is now the container which sits in the flow
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: containerRef,
     offset: ["start end", "end start"]
   })
 
@@ -19,41 +21,47 @@ const ScrollTransition = () => {
   // Fade and Scale effects using the smooth progress
   const opacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
 
-  // Wider parallax for the 2 moving lines
+  // Parallax for the 2 moving lines
   const x1 = useTransform(smoothProgress, [0, 1], [-80, 80])
   const x2 = useTransform(smoothProgress, [0, 1], [80, -80])
+
   // Logo scale and slight rotation for a dynamic feel
   const logoScale = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], [0.8, 1.1, 1, 1.1, 0.8])
   const logoRotate = useTransform(smoothProgress, [0, 1], [-2, 2])
 
   return (
-    <motion.div
-      ref={ref}
-      className="scroll-transition-overlay"
-      style={{ opacity }}
-    >
-      {/* 1. Moving Line Top (Hero Section Area) */}
-      <motion.div className="typo-layer typo-layer-top" style={{ x: x1 }}>
-        anandofoods PREMIUM anandofoods PREMIUM anandofoods PREMIUM
-      </motion.div>
-
-      {/* 2. Central Logo Container */}
+    <div ref={containerRef} className={styles.scrollTransitionWrapper}>
       <motion.div
-        className="transition-content-wrapper"
-        style={{ scale: logoScale, rotate: logoRotate }}
+        className={styles.overlay}
+        style={{ opacity }}
       >
-        <div className="anando-tagline">SINCE 1974</div>
-        <div className="anando-logo-box">
-          <span className="anando-logo-text">anandofoods</span>
-        </div>
-        <div className="anando-tagline">DELIVERING HAPPINESS</div>
-      </motion.div>
+        {/* 1. Moving Line Top */}
+        <motion.div
+          className={`${styles.typoLayer} ${styles.typoLayerTop}`}
+          style={{ x: x1 }}
+        >
+          anandofoodsanandofoodsanandofoods
+        </motion.div>
 
-      {/* 3. Moving Line Bottom (Dish Section Area) */}
-      <motion.div className="typo-layer typo-layer-bottom" style={{ x: x2 }}>
-        anandofoods TRADITION anandofoods TRADITION anandofoods TRADITION
+        {/* 2. Central Logo Container */}
+        <motion.div
+          className={styles.contentWrapper}
+          style={{ scale: logoScale, rotate: logoRotate }}
+        >
+          <div className={styles.logoBox}>
+            <span className={styles.logoText}>anandofoods</span>
+          </div>
+        </motion.div>
+
+        {/* 3. Moving Line Bottom */}
+        <motion.div
+          className={`${styles.typoLayer} ${styles.typoLayerBottom}`}
+          style={{ x: x2 }}
+        >
+          anandofoodsanandofoodsanandofoods
+        </motion.div>
       </motion.div>
-    </motion.div >
+    </div>
   )
 }
 

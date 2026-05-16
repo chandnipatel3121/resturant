@@ -51,6 +51,7 @@ const ChefSection = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 0.8 }}
               className="chef-subtitle"
             >
@@ -61,6 +62,7 @@ const ChefSection = () => {
             <motion.h2
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="chef-title"
             >
@@ -73,6 +75,7 @@ const ChefSection = () => {
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="chef-desc"
             >
@@ -87,6 +90,7 @@ const ChefSection = () => {
             <motion.div
               initial={{ opacity: 0, x: 50, rotate: -2 }}
               whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 1.2 }}
               style={{ y: image1Y }}
               className="chef-video-card"
@@ -110,6 +114,7 @@ const ChefSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 1.3, delay: 0.2 }}
               style={{
                 y: image2YSmooth,

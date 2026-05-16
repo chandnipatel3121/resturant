@@ -12,6 +12,7 @@ const Navbar = () => {
   const navLinks = [
     { label: "Restaurant", path: "/" },
     { label: "Menu", path: "/menu" },
+    { label: "Gallery", path: "/gallery" },
     { label: "Chef", path: "/about" },
     { label: "Contact", path: "/contact" },
   ]

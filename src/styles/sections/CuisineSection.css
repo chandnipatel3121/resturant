@@ -17,13 +17,6 @@
   scroll-snap-stop: always;
 }
 
-@media (min-width: 768px) {
-  .cuisine-section {
-    margin: 0;
-    padding: 6rem 2.5rem 3rem 2.5rem;
-  }
-}
-
 .cuisine-noise-overlay {
   position: absolute;
   inset: 0;
@@ -68,19 +61,12 @@
   background-size: cover;
   background-position: center;
   filter: grayscale(20%) brightness(1.0) contrast(1.1);
-  mix-blend-mode: multiply; /* Default for light background */
+  mix-blend-mode: multiply;
   transition: filter 0.8s ease;
 }
 
 .cuisine-section.is-hovered .cuisine-bg-image-layer {
-  filter: grayscale(20%) brightness(0.7) contrast(1.2); /* Brighter on hover */
-}
-
-@media (max-width: 768px) {
-  .cuisine-bg-image-layer {
-    opacity: 0.1 !important; /* Lower opacity for mobile to prevent distraction */
-    background-position: center 20%; /* Focus on the top part of the image for vertical screens */
-  }
+  filter: grayscale(20%) brightness(0.7) contrast(1.2);
 }
 
 .cuisine-header {
@@ -99,12 +85,6 @@
   letter-spacing: -0.02em;
 }
 
-@media (min-width: 768px) {
-  .cuisine-main-title {
-    font-size: 4.5rem;
-  }
-}
-
 .cuisine-title-italic {
   font-style: italic;
   font-weight: 300;
@@ -118,7 +98,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-grow: 1; /* Take up available space */
+  flex-grow: 1;
   margin: 1rem 0;
   padding: 0;
   perspective: 1400px;
@@ -131,24 +111,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* transform: rotateX(62deg);  Moved to Framer Motion for scroll-driven tilt */
   transform-style: preserve-3d;
   margin-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-  .cuisine-table-topview {
-    width: 550px;
-    height: 550px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cuisine-table-topview {
-    width: clamp(500px, 45vw, 750px);
-    height: clamp(500px, 45vw, 750px);
-    margin-bottom: 0;
-  }
 }
 
 /* 🪵 Realistic 3D Round Table Surface */
@@ -172,26 +136,6 @@
   transform-style: preserve-3d;
 }
 
-@media (min-width: 768px) {
-  .cuisine-table-surface-round {
-    width: 580px;
-    height: 580px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cuisine-table-surface-round {
-    width: 700px;
-    height: 700px;
-  }
-}
-
-/* Polished Gloss Removed */
-.cuisine-table-surface-round::before {
-  display: none;
-}
-
-/* 🧱 The 3D Edge/Thickness of the Table - More Realistic Depth */
 .cuisine-table-surface-round::after {
   content: '';
   position: absolute;
@@ -203,7 +147,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* 🦵 Table Central Leg Style */
 .cuisine-table-leg {
   position: absolute;
   top: 50%;
@@ -218,21 +161,6 @@
   display: none;
 }
 
-.cuisine-table-leg::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 40px;
-  background: #000;
-  border-radius: 50%;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-  display: none;
-}
-
-/* 🌑 Floor Shadow Overlay */
 .cuisine-table-shadow-floor {
   position: absolute;
   top: 55%;
@@ -246,25 +174,6 @@
   pointer-events: none;
 }
 
-@media (min-width: 768px) {
-  .cuisine-table-shadow-floor {
-    width: 650px;
-    height: 400px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cuisine-table-surface-round {
-    width: 700px;
-    height: 700px;
-  }
-}
-
-.cuisine-table-texture-light {
-  display: none;
-}
-
-/* Center Logo Top View */
 .table-center-logo-top {
   position: absolute;
   width: 120px;
@@ -277,29 +186,15 @@
   overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .table-center-logo-top {
-    width: 230px;
-    height: 230px;
-  }
-}
-
 .table-center-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply; /* Removes white background from the logo asset */
+  mix-blend-mode: multiply;
   filter: contrast(1.1) brightness(1.1);
   transform: scale(0.9);
 }
-.cuisine-dish-motion-wrapper,
-.cuisine-bg-image-layer {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
 
-/* 🥗 Dishes Round Grid */
 .cuisine-dishes-round-grid {
   position: absolute;
   width: 100%;
@@ -316,20 +211,6 @@
   transform: translate(-50%, -50%);
 }
 
-@media (min-width: 768px) {
-  .cuisine-dish-wrapper-round {
-    width: 140px;
-    height: 140px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cuisine-dish-wrapper-round {
-    width: 190px;
-    height: 190px;
-  }
-}
-
 .cuisine-dish-motion-wrapper {
   width: 100%;
   height: 100%;
@@ -339,26 +220,18 @@
   justify-content: center;
   contain: layout paint;
   isolation: isolate;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-
-/* Using center-based positioning (translate(-50%, -50%) is applied to the wrapper) */
-/* 🍛 Optimized positions for Mobile - tighter radius to prevent clipping */
+/* Dish Positions */
 .dish-round-0 { top: 15%; left: 50%; }
 .dish-round-1 { top: 38%; left: 78%; }
 .dish-round-2 { top: 72%; left: 68%; }
 .dish-round-3 { top: 72%; left: 32%; }
 .dish-round-4 { top: 38%; left: 22%; }
 
-@media (min-width: 1024px) {
-  .dish-round-0 { top: 16%; left: 50%; }
-  .dish-round-1 { top: 40%; left: 84%; }
-  .dish-round-2 { top: 76%; left: 72%; }
-  .dish-round-3 { top: 76%; left: 28%; }
-  .dish-round-4 { top: 40%; left: 16%; }
-}
-
-/* 🍛 Served Angles - Settling the plates organically */
 .dish-round-0 .plate-rim-gold { transform: rotate(-12deg); }
 .dish-round-1 .plate-rim-gold { transform: rotate(12deg); }
 .dish-round-2 .plate-rim-gold { transform: rotate(5deg); }
@@ -382,7 +255,6 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
- /* border: 4px solid #d4af37;  */
   padding: 5px;
 }
 
@@ -399,7 +271,7 @@
   height: 100%;
   object-fit: cover;
   transform: translateZ(0);
-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .dish-shadow-top {
@@ -411,26 +283,13 @@ backface-visibility: hidden;
   filter: blur(8px);
 }
 
-.cuisine-dish-wrapper-round:hover .cuisine-dish-plate-premium {
-  transform: scale(1.02);
-  box-shadow:
-    0 12px 24px rgba(0,0,0,0.18);
-}
-
-.cuisine-dish-wrapper-round:hover .dish-shadow-top {
-  transform: translateY(20px) scale(0.9);
-  opacity: 0.4;
-  filter: blur(12px);
-}
-
 .active-plate {
   transform: scale(1.04) !important;
-  box-shadow:
-    0 14px 28px rgba(0,0,0,0.2) !important;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.2) !important;
   border: 2px solid #d4af37 !important;
 }
 
-/* 📋 Dual-Anchor Layout (Left Menu / Right Info) */
+/* Layout Containers */
 .cuisine-menu-container,
 .cuisine-info-container {
   position: relative;
@@ -441,29 +300,6 @@ backface-visibility: hidden;
   pointer-events: none;
 }
 
-/* ==========================================================================
-   💻 DEVICE CATEGORY 1: MAIN DESKTOP (1441px+)
-   Default styles apply here (1920x1080)
-   ========================================================================== */
-@media (min-width: 1441px) {
-  .cuisine-menu-container {
-    position: absolute;
-    top: 50%;
-    left: 4%;
-    transform: translateY(-50%);
-    margin: 0;
-  }
-
-  .cuisine-info-container {
-    position: absolute;
-    top: 50%;
-    right: 4%;
-    transform: translateY(-50%);
-    margin: 0;
-  }
-}
-
-/* Mobile Close Button Style */
 .mobile-close-btn {
   display: none;
   position: absolute;
@@ -483,128 +319,12 @@ backface-visibility: hidden;
   transition: background 0.3s ease;
 }
 
-.mobile-close-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-/* ==========================================================================
-   📱 DEVICE CATEGORY 4: TABLET / IPAD (768px - 1023px)
-   ========================================================================== */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .cuisine-section {
-    padding: 80px 20px !important;
-    height: auto;
-    min-height: 100vh;
-  }
-
-  .cuisine-menu-container,
-  .cuisine-info-container {
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto 30px;
-  }
-
-  .cuisine-table-perspective {
-    margin: 20px 0;
-    transform: scale(0.8);
-  }
-
-}
-
-/* ==========================================================================
-   📱 DEVICE CATEGORY 5: MOBILE (Below 768px) - e.g. 390x844
-   ========================================================================== */
-@media (max-width: 767px) {
-  .cuisine-section {
-    padding: 60px 15px !important;
-    height: auto;
-  }
-
-  .cuisine-main-title { font-size: 1.8rem; }
-
-  .cuisine-table-perspective {
-    min-height: 250px;
-    transform: scale(0.7);
-  }
-
-  .cuisine-menu-container {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .narrative-items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .narrative-item-name { font-size: 0.9rem; }
-
-  .cuisine-menu-container {
-    order: -1;
-    margin-top: 0;
-  }
-
-  .cuisine-table-topview {
-    order: 0;
-  }
-
-  .cuisine-info-container {
-    order: 1;
-  }
-
-  /* MODAL OVERLAY FOR MOBILE/TABLET via React Portal */
-  .cuisine-info-container-mobile-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100dvh;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .cuisine-info-container-mobile-modal .cuisine-card-wrapper {
-    max-width: 100%;
-    width: 420px;
-  }
-
-  .cuisine-info-container-mobile-modal .cuisine-glass-card {
-    margin: 0 !important;
-    min-height: auto;
-    padding-bottom: 30px;
-  }
-
-  .cuisine-info-container-mobile-modal .mobile-close-btn {
-    display: flex;
-  }
-
-  .cuisine-info-container-mobile-modal .glass-card-header,
-  .cuisine-info-container-mobile-modal .glass-card-body {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-}
-
-/* Ensure children have pointer-events */
-.cuisine-floating-narrative,
-.cuisine-info-panel {
-  pointer-events: auto;
-}
-
-/* 🌌 Floating Narrative Layout */
+/* Floating Narrative */
 .cuisine-floating-narrative {
   position: relative;
-  padding: 2rem 1.5rem; /* More compact padding */
+  padding: 1rem 0;
   pointer-events: auto;
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 15px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .narrative-background-text {
@@ -625,7 +345,7 @@ backface-visibility: hidden;
 
 .narrative-decor-blob {
   position: absolute;
-  width: 200px; /* Reduced from 300px */
+  width: 200px;
   height: 200px;
   background: linear-gradient(135deg, rgba(224, 169, 75, 0.05), transparent);
   border-radius: 50%;
@@ -642,121 +362,129 @@ backface-visibility: hidden;
   66% { transform: translate(-20px, 20px) rotate(-5deg); }
 }
 
+.narrative-spine-background {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spine-line-continuous {
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+}
 
 .narrative-items {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  padding-left: 0;
+  z-index: 10;
 }
 
 .narrative-item {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 20px;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  opacity: 1; /* Slightly dimmed by default */
 }
 
-.narrative-item:hover {
+.narrative-leaf-cluster {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--accent);
+  transition: all 0.5s ease;
+  z-index: 2;
+  background: transparent;
+}
+
+.is-active .narrative-leaf-cluster {
+  color: #fff;
+  filter: drop-shadow(0 0 8px currentColor);
+  transform: scale(1.1);
+}
+
+.narrative-menu-style {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.narrative-item-main {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.narrative-leader-line {
+  flex: 1;
+  height: 1px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 6px;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.is-active .narrative-leader-line {
+  border-bottom-width: 2px;
   opacity: 1;
-  transform: translateX(5px);
-}
-
-.narrative-item.is-active {
-  opacity: 1;
-  transform: translateX(15px);
-}
-
-.cuisine-section.is-hovered .narrative-item:not(.is-active) {
-  opacity: 0.6; /* Increased for better visibility */
-}
-
-.cuisine-section.is-hovered .narrative-item:not(.is-active) .narrative-item-name {
-  color: rgba(255, 255, 255, 0.6); /* Use light color against dark bg */
 }
 
 .narrative-item-name {
   font-family: var(--font-serif);
-  font-size: 1.6rem;
-  color: var(--text);
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+  color: #fff;
   line-height: 1.1;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   transition: all 0.5s ease;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Ensure readability */
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  opacity: 0.7;
 }
 
 .is-active .narrative-item-name {
   opacity: 1;
+  transform: scale(1.05);
 }
 
-.narrative-item-index {
-  display: flex;
-  flex-direction: row; /* Horizontal layout */
-  align-items: center;
-  gap: 0.75rem;
-  min-width: 65px; /* Fixed width for alignment */
-}
-
-.index-line {
-  width: 1px;
-  height: 24px;
-  background: var(--accent);
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  opacity: 0.6;
-}
-
-.is-active .index-line {
-  height: 32px;
-  opacity: 1;
-  box-shadow: 0 0 15px var(--accent);
-}
-
-.index-num {
+.narrative-item-index-price {
   font-family: var(--font-serif);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
+  font-size: clamp(1rem, 1.8vw, 1.6rem);
+  font-weight: 800;
+  min-width: 45px;
+  text-align: right;
   transition: all 0.5s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.is-active .index-num {
-  color: #fff;
-  transform: scale(1.2);
-  text-shadow: 0 0 10px var(--accent);
+.price-symbol {
+  font-size: 0.9rem;
+  vertical-align: middle;
+  margin-right: 4px;
+  opacity: 0.8;
 }
 
-@media (max-width: 768px) {
-  .cuisine-floating-narrative {
-    padding: 1rem 0.5rem;
-  }
+.narrative-item-tagline {
+  font-size: 1rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  opacity: 0.6;
+  margin-top: 0;
+  transition: all 0.5s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
-  .narrative-background-text {
-    font-size: 6rem;
-  }
-
-  .narrative-items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .narrative-item {
-    align-self: stretch !important;
-    transform: none !important;
-    padding: 0.4rem;
-    gap: 0.5rem;
-  }
-
-  .narrative-item-index {
-    padding-top: 0;
-  }
-
-  .narrative-item-name {
-    font-size: 1rem;
-  }
+.is-active .narrative-item-tagline {
+  opacity: 1;
+  transform: translateX(5px);
 }
 
 .narrative-decor-svg {
@@ -766,7 +494,7 @@ backface-visibility: hidden;
   display: block;
 }
 
-/* 📋 Premium Futuristic Glassmorphic Cuisine Card */
+/* Glass Card */
 .cuisine-card-wrapper {
   position: relative;
   width: 100%;
@@ -776,46 +504,74 @@ backface-visibility: hidden;
   z-index: 10;
 }
 
+/* Origin Map Container */
+.cuisine-origin-map-container {
+  position: absolute;
+  top: clamp(8%, 12vh, 15%);
+  right: clamp(20%, 24vw, 28%);
+  width: clamp(120px, 15vw, 220px);
+  height: clamp(120px, 15vw, 220px);
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+.cuisine-origin-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6)) brightness(1.2) contrast(1.1);
+  transition: all 0.5s ease;
+}
+
+@media (max-width: 1200px) {
+  .cuisine-origin-map-container {
+    width: 140px;
+    height: 140px;
+    right: 22%;
+    top: 12%;
+  }
+}
+
+@media (max-width: 900px) {
+  .cuisine-origin-map-container {
+    display: none; /* Hide on smaller screens to avoid clutter */
+  }
+}
+
 .cuisine-glass-card {
   position: relative;
-  width: 110%;
+  width: 100%;
   height: 100%;
   min-height: 200px;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   z-index: 2;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.473) 0%,
-    rgba(255, 255, 255, 0.637) 100%
-  );
-  backdrop-filter: blur(40px) saturate(200%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  background: var(--card-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
 
   /* Beveled Border & Depth */
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow:
-    0 40px 100px -20px rgba(0, 0, 0, 0.6),
-    inset 0 0 40px rgba(255, 255, 255, 0.05),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.1);
+    0 40px 100px -20px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
 
   transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
 }
 
-/* Glass Refractive Highlights */
 .glass-reflection-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.664) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.664) 0%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -840,7 +596,6 @@ backface-visibility: hidden;
   z-index: 1;
 }
 
-/* Content Structure */
 .glass-card-content {
   position: relative;
   z-index: 10;
@@ -868,39 +623,14 @@ backface-visibility: hidden;
   margin-bottom: 15px;
 }
 
-.luxury-divider-accent {
-  width: 15px;
-  height: 1px;
-  background: var(--theme-color);
-}
-
 .glass-card-title {
   font-family: var(--font-serif);
   font-size: 3.5rem;
-  color: #140101fa;
+  color: var(--card-text);
   font-weight: 700;
   margin-bottom: 15px;
   line-height: 1;
-  /* text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); */
-}
-
-.luxury-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  color: var(--theme-color);
-}
-
-.ornament-line {
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--theme-color), transparent);
-}
-
-.ornament-star {
-  font-size: 1.2rem;
-  filter: drop-shadow(0 0 5px var(--theme-color));
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .glass-card-body {
@@ -914,46 +644,23 @@ backface-visibility: hidden;
 
 .glass-card-desc-large {
   font-size: 1.1rem;
-  color: rgba(12, 1, 1, 0.9);
+  color: var(--card-text);
   line-height: 1.8;
-  font-weight: 700;
+  font-weight: 500;
   font-style: italic;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.95;
 }
 
-.glass-card-footer-branding {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.pagination-minimal {
-  display: flex;
-  gap: 8px;
-}
-
-.pagination-line {
-  width: 20px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-
-.pagination-line.active {
-  width: 40px;
-  background: var(--theme-color);
-  box-shadow: 0 0 10px var(--theme-color);
-}
-
-/* Bottom Area */
-.glass-wave-bottom {
+.glass-card-footer {
   position: relative;
-  height: 100px;
+  height: 90px;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .wave-branding-futuristic {
@@ -964,64 +671,27 @@ backface-visibility: hidden;
   gap: 15px;
 }
 
-.brand-logo-symbol {
-  width: 45px;
-  height: 45px;
-  color: var(--theme-color);
-}
-
-.brand-text-stack {
-  display: flex;
-  flex-direction: column;
-}
-
 .brand-name-main {
-  font-size: 1rem;
-  letter-spacing: 6px;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
   font-weight: 900;
-  color: #1d0202ec;
-}
-
-.brand-tag-sub {
-  font-size: 0.6rem;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff;
   text-transform: uppercase;
 }
 
-.wave-pattern-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.brand-tag-sub {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Bottom Wave */
-
-
-/* 🌘 Dark State Adaptations */
-.is-hovered .cuisine-card-wrapper {
-  box-shadow: 0 50px 120px rgba(0,0,0,0.8);
+.footer-geometric-accent {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(20px);
 }
 
-
-@media (max-width: 768px) {
-  .cuisine-editorial-menu {
-    padding: 1.5rem;
-    gap: 1rem;
-  }
-
-  .title-word {
-    font-size: 3rem;
-  }
-
-  .editorial-sidebar {
-     display: none;
-  }
-}
-
-/* 🔄 Infinite Orbital Rotation with Pause on Hover */
+/* Animations */
 @keyframes orbital-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -1037,85 +707,35 @@ backface-visibility: hidden;
   animation-play-state: running;
 }
 
-/* Pause rotation when the container OR any dish is hovered */
 .cuisine-dishes-round-grid:hover,
 .cuisine-dishes-round-grid.is-paused {
   animation-play-state: paused !important;
 }
 
 .cuisine-dish-motion-wrapper {
-  /* Counter-rotate to keep plates upright */
   animation: orbital-counter-rotate 60s linear infinite;
   animation-play-state: running;
 }
 
-.cuisine-dishes-round-grid:hover .cuisine-dish-motion-wrapper,
-.cuisine-dishes-round-grid.is-paused .cuisine-dish-motion-wrapper {
-  animation-play-state: paused !important;
+/* Globe */
+.cuisine-globe-wrapper {
+  position: absolute;
+  top: 18%;
+  right: 28%;
+  width: 160px;
+  height: 160px;
+  z-index: 200;
+  pointer-events: none;
+  display: flex;
+  position: relative;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
 }
 
-@media (max-width: 768px) {
-  .cuisine-main-title {
-    font-size: 2.2rem;
-  }
-
-  .cuisine-table-surface-round {
-    width: 600px;
-    height: 600px;
-  }
-
-  .cuisine-dish-wrapper-round {
-    width: 120px;
-    height: 120px;
-  }
-
-  .narrative-item-name {
-    font-size: 1.2rem;
-  }
-
-  .cuisine-glass-card {
-    max-width: 95%;
-    margin: 0 auto;
-    min-height: 500px;
-  }
-
-  .glass-card-header {
-    margin-top: 20px;
-  }
-
-  .glass-card-title {
-    font-size: 2.2rem;
-  }
-
-  .glass-card-desc-large {
-    font-size: 0.95rem;
-    padding: 0 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cuisine-main-title {
-    font-size: 1.8rem;
-  }
-
-  .cuisine-table-surface-round {
-    width: 260px;
-    height: 260px;
-  }
-
-  .cuisine-dish-wrapper-round {
-    width: 70px;
-    height: 70px;
-  }
-
-  .cuisine-table-perspective {
-    height: auto;
-    gap: 1rem;
-    min-height: 220px;
-  }
-}
-
-/* ?? Dark Active State for Cuisine Section */
+/* Dark States */
 .cuisine-section.is-hovered {
   background-color: #000000 !important;
 }
@@ -1130,236 +750,106 @@ backface-visibility: hidden;
   opacity: 0.3 !important;
 }
 
-.cuisine-section.is-hovered .cuisine-footer-text {
-  color: #ffffff !important;
-}
-/* 🌍 Interactive Cuisine Globe Positioning */
-.cuisine-globe-wrapper {
-  position: absolute;
-  top: 18%;
-  right: 28%; /* Positioned between table and card */
-  width: 160px;
-  height: 160px;
-  z-index: 200;
-  pointer-events: none;
-  display: flex;
-  position: relative;
-  height: 100px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
-}
-
 /* ==========================================================================
-   💻 DEVICE CATEGORY 2: LAPTOP (1201px - 1440px) - e.g. 1366x768
+   RESPONSIVE MEDIA QUERIES
    ========================================================================== */
+
+@media (min-width: 1441px) {
+  .cuisine-menu-container {
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+
+  .cuisine-info-container {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+}
+
 @media (min-width: 1201px) and (max-width: 1440px) {
-  .cuisine-section {
-    padding: 6rem 3.5rem 3rem 3.5rem !important;
-  }
-
-  .cuisine-table-perspective {
-    transform: translateY(-2%) scale(0.8) !important;
-    width: 100% !important;
-    right: 0 !important;
-    margin: 0 auto !important;
-  }
-
-  .cuisine-menu-container {
-    position: absolute !important;
-    top: 50% !important;
-    left: 4% !important;
-    transform: translateY(-50%) !important;
-    max-width: 280px !important;
-  }
-
-  .cuisine-info-container {
-    position: absolute !important;
-    top: 50% !important;
-    right: 4% !important;
-    transform: translateY(-50%) !important;
-    max-width: 360px !important;
-  }
-
-  .cuisine-globe-wrapper {
-    position: absolute !important;
+  .cuisine-section { padding: 6rem 2.5rem 3rem 2.5rem !important; }
+  .cuisine-table-perspective { transform: translateY(-2%) scale(0.55) !important; width: 100% !important; margin: 0 auto !important; }
+  .cuisine-menu-container { position: absolute !important; top: 50% !important; left: 0.5% !important; transform: translateY(-50%) !important; max-width: 220px !important; }
+  .cuisine-info-container { position: absolute !important; top: 50% !important; right: 0.5% !important; transform: translateY(-50%) !important; max-width: 360px !important; }
+  
+  .cuisine-origin-map-container {
     top: 15% !important;
-    right: 32% !important;
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .glass-card-title { font-size: 2.8rem !important; }
-  .glass-card-desc-large { font-size: 1rem !important; }
-  .glass-wave-bottom { height: 70px !important; }
-}
-
-@media (max-width: 1023px) {
-  .cuisine-globe-wrapper {
-    display: none;
-  }
-}
-
-/* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
-@media (max-height: 700px) and (min-width: 1024px) {
-  .cuisine-section {
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    overflow: hidden;
-  }
-
-  .cuisine-header {
-    position: absolute !important;
-    top: 5rem !important; /* Moved down to clear navbar */
-    left: 0 !important;
-    width: 100% !important;
-    text-align: center !important;
-    z-index: 100;
-  }
-
-  .cuisine-main-title {
-    font-size: 1.8rem !important; /* Slightly larger */
-    margin-bottom: 0 !important;
-  }
-
-  .cuisine-footer-info {
-    position: absolute !important;
-    bottom: 0.5rem !important;
-    left: 0 !important;
-    width: 100% !important;
-    text-align: center !important;
-    z-index: 100;
-    margin: 0 !important;
-  }
-
-  .cuisine-footer-text {
-    font-size: 0.75rem !important;
-  }
-
-  /* 📋 MENU LIST LEFT - Slightly tighter */
-  .cuisine-menu-container {
-    position: absolute !important;
-    top: 50% !important;
-    left: 2.5rem !important;
-    transform: translateY(-50%) !important;
-    width: auto !important;
-    min-width: 220px !important;
-    margin: 0 !important;
-    z-index: 500 !important;
-    pointer-events: auto !important;
-  }
-
-  .narrative-items {
-    gap: 0.8rem !important;
-  }
-
-  .narrative-item {
-    gap: 1rem !important;
-  }
-
-  .narrative-item-index {
-    min-width: 60px !important;
-    gap: 0.5rem !important;
-  }
-
-  .index-line {
-    width: 20px !important;
-  }
-
-  .narrative-item-name {
-    font-size: 1.2rem !important;
-    letter-spacing: 0.1em !important;
-  }
-
-  /* 📋 INFO CARD (DESCRIPTION) - RECENTERED / BETTER POSITIONED */
-  .cuisine-info-container {
-    position: absolute !important;
-    top: 50% !important;
-    right: 2.5rem !important;
-    transform: translateY(-50%) !important;
-    width: 320px !important;
-    margin: 0 !important;
-    z-index: 500 !important;
-    pointer-events: auto !important;
+    right: 30.5% !important;
+    width: 110px !important;
+    height: 110px !important;
+    z-index: 100 !important;
   }
 
   .cuisine-glass-card {
-    min-height: auto !important;
-    padding: 15px 20px !important;
-    border-radius: 25px !important;
-    background: rgba(10, 10, 10, 0.7) !important;
-    backdrop-filter: blur(20px) !important;
+    padding: 20px 15px !important;
   }
+}
 
-  .glass-card-header {
-    margin-bottom: 15px !important;
-  }
+@media (min-width: 768px) {
+  .cuisine-section { padding: 6rem 2.5rem 3rem 2.5rem; }
+  .cuisine-main-title { font-size: 4.5rem; }
+  .cuisine-table-topview { width: 550px; height: 550px; }
+  .cuisine-table-surface-round { width: 580px; height: 580px; }
+  .cuisine-table-shadow-floor { width: 650px; height: 400px; }
+  .table-center-logo-top { width: 230px; height: 230px; }
+  .cuisine-dish-wrapper-round { width: 140px; height: 140px; }
+}
 
-  .glass-card-title {
-    font-size: 1.8rem !important;
-    color: #fff !important;
-  }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cuisine-section { padding: 80px 20px !important; height: auto; min-height: 100vh; }
+  .cuisine-menu-container, .cuisine-info-container { max-width: 500px; width: 100%; margin: 0 auto 30px; }
+  .cuisine-table-perspective { margin: 20px 0; transform: scale(0.8); }
+}
 
-  .glass-card-desc-large {
-    font-size: 0.85rem !important;
-    line-height: 1.4 !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-shadow: none !important;
+@media (max-width: 767px) {
+  .cuisine-section { padding: 60px 15px !important; height: auto; overflow: visible; }
+  .cuisine-main-title { font-size: 1.8rem; }
+  .cuisine-table-perspective { min-height: 250px; transform: scale(0.65); margin: -20px 0; }
+  .cuisine-menu-container { width: 100%; margin-bottom: 20px; order: -1; }
+  .narrative-items { display: flex; flex-direction: column; gap: 15px; }
+  .cuisine-table-topview { order: 0; }
+  .cuisine-info-container { order: 1; }
+  .cuisine-floating-narrative { padding: 0.5rem; }
+  .narrative-item { gap: 10px; padding: 5px 0; }
+  .narrative-item-name { font-size: 1.2rem; opacity: 0.8; }
+  .narrative-item-tagline { font-size: 0.8rem; }
+  .narrative-item-index-price { font-size: 1rem; min-width: 25px; }
+  .narrative-spine-background { left: 10px; }
+  .narrative-leaf-cluster { width: 20px; height: 20px; }
+  .cuisine-origin-map-container { 
+    top: 55%;
+    right: 5%;
+    width: 80px; 
+    height: 80px;
+    opacity: 0.6;
   }
+}
 
-  .glass-card-footer-branding {
-    margin-top: 15px !important;
+@media (max-height: 700px) and (min-width: 1024px) {
+  .cuisine-section { padding: 0 !important; height: 100vh !important; min-height: 100vh !important; overflow: hidden; }
+  .cuisine-header { position: absolute !important; top: 4rem !important; left: 0 !important; width: 100% !important; text-align: center !important; z-index: 100; }
+  .cuisine-main-title { font-size: 1.8rem !important; margin-bottom: 0 !important; }
+  .cuisine-menu-container { position: absolute !important; top: 55% !important; left: 2.5rem !important; transform: translateY(-50%) !important; width: auto !important; min-width: 250px !important; z-index: 500 !important; pointer-events: auto !important; }
+  .cuisine-info-container { position: absolute !important; top: 55% !important; right: 2.5rem !important; transform: translateY(-50%) !important; width: 340px !important; z-index: 500 !important; pointer-events: auto !important; }
+  .cuisine-table-perspective { position: relative !important; top: 2rem !important; transform: scale(0.75) !important; width: 100% !important; margin: 0 auto !important; z-index: 5 !important; }
+  .cuisine-table-topview { width: 420px !important; height: 420px !important; }
+  .cuisine-table-surface-round { width: 450px !important; height: 450px !important; }
+  .cuisine-origin-map-container { 
+    top: 15% !important;
+    right: 28% !important;
+    width: 130px !important;
+    height: 130px !important;
   }
+}
 
-  .brand-name-main {
-    color: #fff !important;
-    font-size: 0.8rem !important;
-  }
-
-  /* 📋 TABLE CENTERED BUT SCALED */
-  .cuisine-table-perspective {
-    position: relative !important;
-    top: 2rem !important; /* Nudge down */
-    right: 0 !important;
-    transform: scale(0.8) !important; /* Increased from 0.75 */
-    width: 100% !important;
-    margin: 0 auto !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 5 !important;
-  }
-
-  .cuisine-table-topview {
-    width: 450px !important;
-    height: 450px !important;
-  }
-
-  .cuisine-table-surface-round {
-    width: 500px !important;
-    height: 500px !important;
-  }
-
-  .cuisine-dish-wrapper-round {
-    width: 120px !important;
-    height: 120px !important;
-  }
-
-  /* 🌍 GLOBE POSITIONING */
-  .cuisine-globe-wrapper {
-    position: absolute !important;
-    top: 22% !important;
-    left: 50% !important;
-    transform: translateX(-50%) scale(0.6) !important;
-    width: 120px !important;
-    height: 120px !important;
-    z-index: 60 !important;
-    pointer-events: none !important;
-  }
+@media (max-width: 480px) {
+  .cuisine-table-surface-round { width: 260px; height: 260px; }
+  .cuisine-dish-wrapper-round { width: 70px; height: 70px; }
+  .cuisine-table-perspective { min-height: 220px; }
 }

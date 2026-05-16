@@ -44,7 +44,7 @@ const ContactSection = () => {
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          viewport={{ once: true }}
+          viewport={{ once: false, margin: "-10%" }}
           className="contact-ui-content"
         >
           <div className="contact-header">

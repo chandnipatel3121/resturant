@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: false, margin: "-10%" }}
           transition={{ duration: 0.8 }}
           className="testimonials-header"
         >

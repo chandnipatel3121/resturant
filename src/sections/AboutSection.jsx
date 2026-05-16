@@ -65,7 +65,7 @@ const AboutSection = () => {
           <div className="about-text-content">
             <motion.p
               initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="about-subtitle"
             >
@@ -84,7 +84,7 @@ const AboutSection = () => {
 
             <motion.p
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="about-desc"
             >
@@ -116,7 +116,7 @@ const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 40 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: false, margin: "-80px" }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ scale: 1.02 }}
               className="about-img-main group"
@@ -135,7 +135,7 @@ const AboutSection = () => {
               style={{ y: img2Y, rotate: img2Rotate }}
               initial={{ opacity: 0, x: -40, y: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
+              viewport={{ once: false, margin: "-10%" }}
               transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ scale: 1.08, rotate: 2, y: -20 }}
               className="about-img-secondary"

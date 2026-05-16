@@ -7,7 +7,18 @@
   z-index: 9999;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* INNER PAGE NAVBAR */
+body:has(.subpage-layout) .navbar {
+  background: rgba(251, 252, 251, 0.82);
 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-bottom: 1px solid rgba(15,92,92,0.08);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.04);
+}
 .navbar-dark {
   padding: clamp(0.5rem, 1.5vh, 1rem) 0;
   background-color: transparent;
