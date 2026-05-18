@@ -215,8 +215,48 @@ touch-action: none; */
   mix-blend-mode: difference;
 }
 
-@media (max-width: 480px) {
-  .transaction-title { font-size: 2rem; }
-  .cloche-v2-container { width: 240px; height: 240px; }
-  .stage-card-premium { width: 95%; }
+@media (max-width: 768px) {
+  .stage-card-premium {
+    width: 88%;
+    max-width: 340px;
+    min-height: 380px;
+    border-radius: 30px;
+  }
+  
+  .cloche-v2-container {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .card-inner-content-v2 {
+    padding: 80px 20px 24px;
+  }
+  
+  .seasonal-badge {
+    font-size: 0.6rem;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .transaction-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .gold-divider {
+    margin: 0.8rem 0;
+  }
+  
+  .transaction-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .formation-close {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+  }
 }

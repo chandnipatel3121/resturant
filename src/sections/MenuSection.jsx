@@ -10,9 +10,26 @@ import lemon from '../assets/ingredients/lemon.png';
 import coriander from '../assets/ingredients/coriander.png';
 import bayLeaf from '../assets/ingredients/bay_leaf.png';
 import patternBg from '../assets/pattern_bg.png';
+import anandoLogo from '../assets/anandofood.jpg';
 import '../styles/sections/MenuSection.css';
 
 const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(0);
+
+  const images = dish.images && dish.images.length > 0 ? dish.images : [dish.image];
+
+  React.useEffect(() => {
+    if (!isHovered || images.length <= 1) {
+      setHoveredIndex(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setHoveredIndex((prev) => (prev + 1) % images.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, [isHovered, images]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,9 +39,43 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
       className="dish-card-premium-kiosk"
       style={{ '--card-bg': dish.cardBg || '#1a1a1a' }}
       onClick={() => onOpenDetail(dish)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setHoveredIndex(0); }}
     >
       <div className="card-media-wrapper">
-        <img src={dish.image} alt={dish.title} className="card-img-main" decoding="async" />
+        {images.length > 1 ? (
+          /* Dynamic Sliding Track - Kept stable in DOM for smooth hover transitions */
+          <div
+            className="carousel-track"
+            style={{
+              transform: `translateX(-${hoveredIndex * (100 / images.length)}%)`,
+              width: `${images.length * 100}%`
+            }}
+          >
+            {images.map((imgUrl, i) => (
+              <img
+                key={i}
+                src={imgUrl}
+                alt={`${dish.title} - view ${i + 1}`}
+                className={`card-img-main carousel-img ${hoveredIndex === i ? 'active-slide' : 'peeking-slide'}`}
+                decoding="async"
+                style={{ width: `${100 / images.length}%` }}
+              />
+            ))}
+          </div>
+        ) : (
+          /* Static Single Image inside matching track structure for stable DOM zoom */
+          <div className="carousel-track" style={{ width: '100%' }}>
+            <img
+              src={images[0]}
+              alt={dish.title}
+              className="card-img-main carousel-img active-slide"
+              decoding="async"
+              style={{ width: '100%' }}
+            />
+          </div>
+        )}
+
         <div className="media-overlay-top">
           <div className={`diet-badge ${dish.diet === 'Veg' ? 'veg' : 'non-veg'}`}>
             <div className="badge-dot"></div>
@@ -35,6 +86,18 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
           <div className="status-dot-live"></div>
           <span className="status-text-kiosk">{dish.availability || "In Stock"}</span>
         </div>
+
+        {/* iOS-Style Stretched Pagination Dots */}
+        {isHovered && images.length > 1 && (
+          <div className="carousel-indicators">
+            {images.map((_, i) => (
+              <div
+                key={i}
+                className={`indicator-dot ${hoveredIndex === i ? 'active' : ''}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="card-content-grid">
@@ -90,8 +153,147 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
   );
 });
 
-const BookDetailView = ({ dish, onClose, onAddToCart, quantity }) => {
+const LeftPageContent = ({ dish }) => {
   if (!dish) return null;
+  return (
+    <div className="w-full h-full flex flex-col justify-between">
+      <div className="book-image-container">
+        <img
+          src={dish.image}
+          alt={dish.title}
+          className="book-main-img"
+          decoding="async"
+        />
+      </div>
+      <div className="page-footer-branding">
+        <span className="brand-text">anandofoods</span>
+        <span className="brand-text">Est. 2026</span>
+      </div>
+    </div>
+  );
+};
+
+const RightPageContent = ({ dish, onAddToCart }) => {
+  if (!dish) return null;
+  return (
+    <div className="page-inner">
+      <div className="detail-header">
+        <h2 className="detail-title-large">{dish.title}</h2>
+        <div className="detail-price-pill">₹{dish.price}</div>
+      </div>
+
+      <div className="detail-section">
+        <p className="detail-description-long">{dish.description}</p>
+      </div>
+
+      {/* Premium horizontal printed metadata bar */}
+      <div className="detail-horizontal-ribbon">
+        <span className="ribbon-item">
+          <Clock size={15} />
+          <span>{dish.prepTime} Mins</span>
+        </span>
+        <span className="ribbon-sep">•</span>
+        <span className="ribbon-item">
+          <Users size={15} />
+          <span>Serves {dish.serves}</span>
+        </span>
+        <span className="ribbon-sep">•</span>
+        <span className="ribbon-item">
+          <MapPin size={15} />
+          <span>{dish.origin}</span>
+        </span>
+        <span className="ribbon-sep">•</span>
+        <span className="ribbon-item">
+          <Flame size={15} />
+          <span className="spice-dots">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className={`spice-dot ${i < dish.spiceLevel ? 'active' : ''}`} />
+            ))}
+          </span>
+        </span>
+      </div>
+
+      {/* Elegant bulleted ingredients row */}
+      <div className="detail-section ingredients-section">
+        <h4 className="section-title">Essential Ingredients</h4>
+        <div className="detail-ingredients-bulleted">
+          {dish.ingredients.join("  •  ")}
+        </div>
+      </div>
+
+      <div className="book-actions">
+        <button className="book-add-cart-btn" onClick={() => onAddToCart(dish, 1)}>
+          <ShoppingBag size={20} />
+          <span>Experience this Flavor</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) => {
+  if (!dish) return null;
+
+  // Track page index
+  const initialIndex = dishes.findIndex(d => d.id === dish.id);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+
+  // Real page flipping animation states
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [flipDirection, setFlipDirection] = useState('next'); // 'next' or 'prev'
+
+  const handlePrev = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (isFlipping) return;
+    if (currentIndex > 0) {
+      setFlipDirection('prev');
+      setIsFlipping(true);
+    }
+  };
+
+  const handleNext = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (isFlipping) return;
+    if (currentIndex < dishes.length - 1) {
+      setFlipDirection('next');
+      setIsFlipping(true);
+    }
+  };
+
+  // Keyboard accessibility support
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        handleNext();
+      } else if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, dishes, isFlipping]);
+
+  // Determine stationary page contents during the active flip
+  let stationaryLeftDish = dishes[currentIndex];
+  let stationaryRightDish = dishes[currentIndex];
+
+  if (isFlipping) {
+    if (flipDirection === 'next') {
+      stationaryLeftDish = dishes[currentIndex]; // holds old image
+      stationaryRightDish = dishes[currentIndex + 1]; // reveals new details
+    } else {
+      stationaryLeftDish = dishes[currentIndex - 1]; // reveals new image
+      stationaryRightDish = dishes[currentIndex]; // holds old details
+    }
+  }
 
   return (
     <motion.div
@@ -117,123 +319,207 @@ const BookDetailView = ({ dish, onClose, onAddToCart, quantity }) => {
       <motion.div
         className="book-detail-container"
         onClick={(e) => e.stopPropagation()}
-        initial={{ rotateY: 90, scale: 0.8, opacity: 0 }}
-        animate={{ rotateY: 0, scale: 1, opacity: 1 }}
-        exit={{ rotateY: -90, scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 120 }}
+        initial={{ scale: 0.85, opacity: 0, rotateY: -35 }}
+        animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+        exit={{ scale: 0.85, opacity: 0, rotateY: 35 }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       >
+        <div className="book-content-wrapper" style={{ position: 'relative', transformStyle: 'preserve-3d', perspective: '2000px' }}>
+          {/* Left Page: Boxy structural reveal acting as folding front cover */}
+          <motion.div
+            className="book-page left-page folding-cover"
+            initial={{ rotateY: 180 }}
+            animate={{ rotateY: 0 }}
+            exit={{ rotateY: 180 }}
+            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+            style={{ transformOrigin: "right center" }}
+          >
+            <div className="cover-inner-3d">
+              {/* Back of the cover (visible when open - shows dish image) */}
+              <div className="cover-face-inner">
+                <LeftPageContent dish={stationaryLeftDish} />
+              </div>
 
+              {/* Front of the cover (visible when closed) */}
+              <div className="cover-face-outer">
+                <div className="vintage-leather-texture"></div>
+                <div className="gold-embossed-crest">
+                  <img
+                    src={anandoLogo}
+                    alt="Anando Logo"
+                    className="cover-brand-logo"
+                  />
+                  <h3 className="crest-title">ANANDO</h3>
+                  <p className="crest-subtitle">CULINARY JOURNAL</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-        <div className="book-content-wrapper">
+          {/* Spine */}
           <div className="book-spine"></div>
 
-          {/* Left Page: Boxy structural reveal */}
-          <motion.div
-            className="book-page left-page"
-            initial={{ rotateY: 90 }}
-            animate={{ rotateY: 15 }}
-            transition={{ duration: 0.8 }}
-            style={{ '--book-cover-bg': dish.cardBg || '#153a3a' }}
-          >
-            <div className="page-inner">
-              <div className="book-image-container">
-                <img
-                  src={dish.image}
-                  alt={dish.title}
-                  className="book-main-img"
-                  decoding="async"
-                />
-              </div>
-              <div className="page-footer-branding">
-                <span className="brand-text">anandofoods</span>
-                <span className="brand-text">Est. 2026</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Page: Details - Flipping open like a real book */}
+          {/* Right Page: Details - Stationary right page sitting behind the folding cover */}
           <motion.div
             className="book-page right-page"
-            initial={{ rotateY: -180, translateZ: -1 }}
-            animate={{ rotateY: -12, translateZ: 0 }}
-            exit={{ rotateY: -180, translateZ: -1 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            style={{ transformOrigin: "left center" }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
           >
-            <div className="page-inner">
-              <div className="detail-header">
-                <h2 className="detail-title-large">{dish.title}</h2>
-                <div className="detail-price-pill">₹{dish.price}</div>
-              </div>
-
-              <div className="detail-section">
-                <h4 className="section-title">The Story</h4>
-                <p className="detail-description-long">{dish.description}</p>
-              </div>
-
-              <div className="detail-grid-info">
-                <div className="info-item">
-                  <Clock size={18} className="info-icon" />
-                  <div className="info-content">
-                    <span className="info-label">Prep Time</span>
-                    <span className="info-value">{dish.prepTime} mins</span>
-                  </div>
-                </div>
-                <div className="info-item">
-                  <Users size={18} className="info-icon" />
-                  <div className="info-content">
-                    <span className="info-label">Serves</span>
-                    <span className="info-value">{dish.serves} Person</span>
-                  </div>
-                </div>
-                <div className="info-item">
-                  <MapPin size={18} className="info-icon" />
-                  <div className="info-content">
-                    <span className="info-label">Origin</span>
-                    <span className="info-value">{dish.origin}</span>
-                  </div>
-                </div>
-                <div className="info-item">
-                  <Flame size={18} className="info-icon" />
-                  <div className="info-content">
-                    <span className="info-label">Spiciness</span>
-                    <div className="spice-dots">
-                      {[...Array(3)].map((_, i) => (
-                        <div key={i} className={`spice-dot ${i < dish.spiceLevel ? 'active' : ''}`} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="detail-section">
-                <h4 className="section-title">Essential Ingredients</h4>
-                <div className="detail-ingredients-list">
-                  {dish.ingredients.map((ing, i) => (
-                    <span key={i} className="ingredient-chip">{ing}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="book-actions">
-                {quantity === 0 ? (
-                  <button className="book-add-cart-btn" onClick={() => onAddToCart(dish, 1)}>
-                    <ShoppingBag size={20} />
-                    <span>Experience this Flavor</span>
-                  </button>
-                ) : (
-                  <div className="book-quantity-control">
-                    <button onClick={() => onAddToCart(dish, -1)}>-</button>
-                    <span className="qty-val">{quantity}</span>
-                    <button onClick={() => onAddToCart(dish, 1)}>+</button>
-                  </div>
-                )}
-              </div>
-            </div>
+            <RightPageContent dish={stationaryRightDish} onAddToCart={onAddToCart} />
           </motion.div>
+
+          {/* Real 3D Physical Page Sheet in motion */}
+          {isFlipping && (
+            <motion.div
+              className="book-page middle-flipping-page"
+              key={`${currentIndex}-${flipDirection}`}
+              initial={{ rotateY: flipDirection === 'next' ? 0 : -180 }}
+              animate={{ rotateY: flipDirection === 'next' ? -180 : 0 }}
+              transition={{ duration: 0.85, ease: [0.25, 1, 0.5, 1] }}
+              onAnimationComplete={() => {
+                setCurrentIndex(flipDirection === 'next' ? currentIndex + 1 : currentIndex - 1);
+                setIsFlipping(false);
+              }}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: 0,
+                width: '50%',
+                height: '100%',
+                transformOrigin: 'left center',
+                zIndex: 15,
+                transformStyle: 'preserve-3d',
+                pointerEvents: 'none',
+                padding: 0,
+                margin: 0,
+                boxShadow: 'none',
+                border: 'none',
+                borderRadius: 0,
+                background: 'transparent'
+              }}
+            >
+              <div className="flipping-inner" style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d' }}>
+                {/* Front of the flipping page: shows details of old (next) or new (prev) */}
+                <div
+                  className="flipping-page-front"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'rotateY(0deg)',
+                    transformStyle: 'preserve-3d',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <RightPageContent dish={flipDirection === 'next' ? dishes[currentIndex] : dishes[currentIndex - 1]} />
+                </div>
+
+                {/* Back of the flipping page: shows image of new (next) or old (prev) */}
+                <div
+                  className="flipping-page-back"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'rotateY(180deg)',
+                    transformStyle: 'preserve-3d',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <LeftPageContent dish={flipDirection === 'next' ? dishes[currentIndex + 1] : dishes[currentIndex]} />
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Gold-Leaf Index Navigation Tabs */}
+          {!isFlipping && currentIndex > 0 && (
+            <button
+              className="page-nav-btn prev-page"
+              onClick={handlePrev}
+              aria-label="Previous Page"
+            >
+              <ArrowRight className="rotate-180" size={20} />
+            </button>
+          )}
+
+          {!isFlipping && currentIndex < dishes.length - 1 && (
+            <button
+              className="page-nav-btn next-page"
+              onClick={handleNext}
+              aria-label="Next Page"
+            >
+              <ArrowRight size={20} />
+            </button>
+          )}
         </div>
       </motion.div>
     </motion.div>
+  );
+};
+
+const CartAvatar = ({ item, index }) => {
+  const [hasError, setHasError] = useState(false);
+  const initials = useMemo(() => {
+    if (!item.title) return '';
+    const words = item.title.trim().split(/\s+/);
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+    return item.title.substring(0, 2).toUpperCase();
+  }, [item.title]);
+
+  return (
+    <div
+      className="cart-bar-avatar-ring"
+      style={{ zIndex: 10 - index }}
+    >
+      {hasError || !item.image ? (
+        <div className="cart-bar-avatar-fallback">
+          {initials}
+        </div>
+      ) : (
+        <img
+          src={item.image}
+          alt={item.title}
+          className="cart-bar-avatar-img"
+          onError={() => setHasError(true)}
+        />
+      )}
+    </div>
+  );
+};
+
+const CartItemImage = ({ item }) => {
+  const [hasError, setHasError] = useState(false);
+  const initials = useMemo(() => {
+    if (!item.title) return '';
+    const words = item.title.trim().split(/\s+/);
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+    return item.title.substring(0, 2).toUpperCase();
+  }, [item.title]);
+
+  return (
+    <div className="cart-item-img-wrapper">
+      {hasError || !item.image ? (
+        <div className="cart-item-img-fallback">
+          {initials}
+        </div>
+      ) : (
+        <img
+          src={item.image}
+          alt={item.title}
+          className="cart-item-img"
+          onError={() => setHasError(true)}
+        />
+      )}
+    </div>
   );
 };
 
@@ -259,17 +545,26 @@ const MenuSection = () => {
   const [cart, setCart] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+
+  // Cart calculations for totals and item counts
+  const cartItemCount = useMemo(() => cart.reduce((total, item) => total + item.quantity, 0), [cart]);
+  const cartSubtotal = useMemo(() => cart.reduce((total, item) => total + (Number(item.price) * item.quantity), 0), [cart]);
+  const GST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal]);
+  const SGST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal]);
+  const cartTotal = useMemo(() => cartSubtotal + GST + SGST, [cartSubtotal, GST, SGST]);
 
   // Expanded categories with better visuals
   const cuisinies = [
-    { name: "Indian", icon: <Flame size={20} />, img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80&w=300" },
-    { name: "Italian", icon: <Pizza size={20} />, img: "https://images.unsplash.com/photo-1498579150354-977475b7ea0b?auto=format&fit=crop&q=80&w=300" },
-    { name: "Chinese", icon: <Soup size={20} />, img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&q=80&w=300" },
-    { name: "Japanese", icon: <Fish size={20} />, img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=300" },
-    { name: "Mexican", icon: <Utensils size={20} />, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=300" },
-    { name: "Thai", icon: <Leaf size={20} />, img: "https://images.unsplash.com/photo-1559311648-d46f4d8593d6?auto=format&fit=crop&q=80&w=300" },
-    { name: "Mediterranean", icon: <Sun size={20} />, img: "https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&q=80&w=300" },
-    { name: "French", icon: <Coffee size={20} />, img: "https://images.unsplash.com/photo-1572453800999-e8d2d1589b7c?auto=format&fit=crop&q=80&w=300" }
+    { name: "Indian", icon: <Flame size={20} /> },
+    { name: "Italian", icon: <Pizza size={20} /> },
+    { name: "Chinese", icon: <Soup size={20} /> },
+    { name: "Japanese", icon: <Fish size={20} /> },
+    { name: "Mexican", icon: <Utensils size={20} /> },
+    { name: "Thai", icon: <Leaf size={20} /> },
+    { name: "Mediterranean", icon: <Sun size={20} /> },
+    { name: "French", icon: <Coffee size={20} /> }
   ];
 
   const meals = ['All', 'Breakfast', 'Lunch', 'Dinner'];
@@ -338,40 +633,39 @@ const MenuSection = () => {
             <div className="hero-bg-overlay pattern-overlay"></div>
           </div>
 
-          <div className="max-w-[1800px] mx-auto px-[var(--container-px)] relative z-20 h-full flex flex-col justify-center py-8">
-            <div className="hero-panel-header flex justify-between items-center mb-4">
+          <div className="w-full max-w-[1800px] mx-auto px-[var(--container-px)] relative z-20 h-full flex flex-col justify-center py-8">
+            <motion.div
+              className="hero-panel-header flex justify-between items-center mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className="brand-group">
                 <span className="text-editorial !text-[var(--accent)] block leading-none mb-1">anandofoods</span>
               </div>
               <div className="menu-year text-editorial !text-white/60">Collection '26</div>
-            </div>
+            </motion.div>
 
-            <div className="hero-panel-content flex flex-col lg:flex-row gap-10 items-center justify-around">
-              <div className="flex-1 text-left">
-                <h1 className="hero-title-main !text-white reveal">
+            <div className="hero-panel-content flex flex-col items-center justify-center text-center w-full max-w-[800px] mx-auto py-8">
+              <div className="text-center overflow-hidden">
+                <motion.h1
+                  className="hero-title-main !text-white text-center"
+                  initial={{ y: "80px", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                >
                   A <span className="italic-serif text-[var(--accent)]">Symphony</span> of <br />
                   Culinary Art.
-                </h1>
-                <p className="hero-subtitle-text mt-6 !text-white/70 reveal delay-1">
-                  Discover our hand-picked selection of gourmet masterpieces, where every plate is a canvas of tradition and innovation.
-                </p>
-              </div>
+                </motion.h1>
 
-              <div className="w-full lg:w-[500px] reveal delay-2">
-                <div className="neumorphic-search-wrapper">
-                  <div className="neumorphic-input-pill">
-                    <input
-                      type="text"
-                      placeholder="Search for flavors..."
-                      className="neumorphic-input"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <button className="neumorphic-search-btn">
-                    <Search className="search-icon" size={20} />
-                  </button>
-                </div>
+                <motion.p
+                  className="hero-subtitle-text mt-6 !text-white/70 text-center"
+                  initial={{ y: "40px", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+                >
+                  Discover our hand-picked selection of gourmet masterpieces, where every plate is a canvas of tradition and innovation.
+                </motion.p>
               </div>
             </div>
           </div>
@@ -389,6 +683,18 @@ const MenuSection = () => {
               <span className="text-editorial !text-[var(--accent)]">Cuisines</span>
               <h2 className="sidebar-title">Global Flavors</h2>
               <div className="sidebar-line"></div>
+
+              {/* Sidebar Search Bar */}
+              <div className="sidebar-search-wrapper">
+                <input
+                  type="text"
+                  placeholder="Search flavors..."
+                  className="sidebar-search-input"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Search className="sidebar-search-icon" size={16} />
+              </div>
             </div>
             <div className="sidebar-cuisines-list">
               {cuisinies.map((cat, idx) => (
@@ -497,9 +803,10 @@ const MenuSection = () => {
                 {selectedDish && (
                   <BookDetailView
                     dish={selectedDish}
+                    dishes={filteredItems}
                     onClose={() => setSelectedDish(null)}
                     onAddToCart={handleUpdateCart}
-                    quantity={cart.find(item => item.id === selectedDish.id)?.quantity || 0}
+                    cart={cart}
                   />
                 )}
               </AnimatePresence>
@@ -520,6 +827,195 @@ const MenuSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating Cart Bar / Pill */}
+      <AnimatePresence>
+        {cartItemCount > 0 && !cartOpen && (
+          <motion.div
+            initial={{ y: 100, opacity: 0, x: "-50%" }}
+            animate={{ y: 0, opacity: 1, x: "-50%" }}
+            exit={{ y: 100, opacity: 0, x: "-50%" }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="floating-cart-bar-kiosk"
+          >
+            <div className="cart-bar-left">
+              <div className="cart-bar-avatars-container">
+                <div className="cart-bar-avatars-group">
+                  {cart.slice(0, 3).map((item, index) => (
+                    <CartAvatar key={item.id} item={item} index={index} />
+                  ))}
+                  {cart.length > 3 && (
+                    <div className="cart-bar-avatar-more">
+                      +{cart.length - 3}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="cart-bar-info">
+                <span className="cart-bar-label">Your Selection</span>
+                <span className="cart-bar-subtext">
+                  {cart.length === 1
+                    ? cart[0].title
+                    : `${cart[0].title} & ${cartItemCount - cart[0].quantity} more`}
+                </span>
+              </div>
+            </div>
+
+            <div className="cart-bar-right">
+              <button
+                className="cart-bar-view-btn"
+                onClick={() => setCartOpen(true)}
+              >
+                <span>View</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cart Drawer Overlay */}
+      <AnimatePresence>
+        {cartOpen && (
+          <>
+            {/* Backdrop Blur Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="cart-drawer-overlay"
+              onClick={() => setCartOpen(false)}
+            />
+
+            {/* Cart Slide-out Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="cart-drawer-panel"
+            >
+              <div className="cart-drawer-header">
+                <div>
+                  <span className="cart-subtitle-brand">anandofoods</span>
+                  <h2 className="cart-title-editorial">Your Selection</h2>
+                </div>
+                <button className="cart-close-btn" onClick={() => setCartOpen(false)}>
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Cart Items List */}
+              <div className="cart-items-container">
+                {cart.length === 0 ? (
+                  <div className="cart-empty-state">
+                    <ShoppingBag size={48} className="empty-bag-icon" />
+                    <h3>Your selection is empty</h3>
+                    <p>Add some gourmet dishes to begin your culinary experience.</p>
+                  </div>
+                ) : (
+                  cart.map((item) => (
+                    <div key={item.id} className="cart-item-card">
+                      <CartItemImage item={item} />
+                      <div className="cart-item-details">
+                        <div className="cart-item-info">
+                          <h4>{item.title}</h4>
+                          <span className={`cart-diet-pill ${item.diet.toLowerCase()}`}>{item.diet}</span>
+                        </div>
+                        <div className="cart-item-action-row">
+                          <div className="cart-item-price">₹{item.price}</div>
+                          <div className="cart-item-counter">
+                            <button onClick={() => handleUpdateCart(item, -1)}>-</button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => handleUpdateCart(item, 1)}>+</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Cart Footer / Totals */}
+              {cart.length > 0 && (
+                <div className="cart-drawer-footer">
+                  <div className="cart-bill-details">
+                    <div className="bill-row">
+                      <span>Subtotal</span>
+                      <span>₹{cartSubtotal}</span>
+                    </div>
+                    <div className="bill-row">
+                      <span>GST (5%)</span>
+                      <span>₹{GST}</span>
+                    </div>
+                    <div className="bill-row">
+                      <span>SGST (5%)</span>
+                      <span>₹{SGST}</span>
+                    </div>
+                    <div className="bill-divider"></div>
+                    <div className="bill-row total-row">
+                      <span>Total</span>
+                      <span>₹{cartTotal}</span>
+                    </div>
+                  </div>
+                  <button
+                    className="cart-checkout-btn"
+                    onClick={() => {
+                      setCheckoutSuccess(true);
+                      setCart([]);
+                    }}
+                  >
+                    <span>Place Culinary Order</span>
+                    <ArrowRight size={18} />
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {checkoutSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="checkout-success-overlay"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="checkout-success-card"
+            >
+              <div className="success-icon-wrapper">
+                <motion.svg
+                  viewBox="0 0 52 52"
+                  className="checkmark-svg"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                >
+                  <circle cx="26" cy="26" r="25" fill="none" stroke="#d4af37" strokeWidth="2" />
+                  <path d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none" stroke="#d4af37" strokeWidth="3" strokeLinecap="round" />
+                </motion.svg>
+              </div>
+              <h2>Order Confirmed!</h2>
+              <p>Your culinary request has been received. Our chef is preparing your gourmet experience.</p>
+              <button
+                className="success-close-btn"
+                onClick={() => {
+                  setCheckoutSuccess(false);
+                  setCartOpen(false);
+                }}
+              >
+                Back to Menu
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

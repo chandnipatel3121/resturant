@@ -39,24 +39,29 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
         '--card-bg': cuisine.cardBg,
         '--card-text': cuisine.textColor
       }}>
-        {/* Optical Effects Layers */}
+        {/* Optical Glass Flare & Glowing Effects */}
         <div className="glass-reflection-top" />
         <div className="glass-inner-glow" />
         <div className="glass-card-border-glow" />
+        <div className="glass-bottom-neon-glow" />
+        <div className="glass-corner-flare">
+          <div className="glass-corner-flare-dot" />
+        </div>
 
         {isMobile && <button className="mobile-close-btn" onClick={onClose}>✕</button>}
 
         <div className="glass-card-content">
           <header className="glass-card-header">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="glass-subheader"
-            >
-              <span className="luxury-divider-accent" />
-              {cuisine.tagline}
-              <span className="luxury-divider-accent" />
-            </motion.div>
+            {/* Steaming Pot/Bowl Icon */}
+            <div className="glass-card-icon-container" style={{ color: cuisine.border }}>
+              <svg className="glass-card-bowl-svg" viewBox="0 0 100 100">
+                <path d="M35 30 Q38 20 35 10" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-1" />
+                <path d="M50 25 Q53 15 50 5" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-2" />
+                <path d="M65 30 Q68 20 65 10" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-3" />
+                <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
+                <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
+              </svg>
+            </div>
 
             <motion.h2
               initial={{ opacity: 0, scale: 0.95 }}
@@ -69,7 +74,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
 
             <div className="luxury-ornament">
               <span className="ornament-line" />
-              <span className="ornament-star">✦</span>
+              <span className="ornament-star" style={{ color: cuisine.border }}>✦</span>
               <span className="ornament-line" />
             </div>
           </header>
@@ -86,29 +91,13 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
           </div>
 
           <div className="glass-card-footer-branding">
-            <div className="pagination-minimal">
-              <div className="pagination-line active" />
-              <div className="pagination-line" />
-              <div className="pagination-line" />
+            <div className="glass-footer-divider" />
+            <div className="glass-footer-brand-text">
+              <span className="brand-name-main">ANANDOFOODS</span>
+              <span className="brand-name-sub" style={{ color: cuisine.border }}> Fine</span>
             </div>
+            <div className="brand-tagline">Dining Excellence</div>
           </div>
-        </div>
-
-        <div className="glass-card-footer">
-          <div className="wave-branding-futuristic">
-            <div className="brand-logo-symbol">
-              <svg viewBox="0 0 100 100">
-                <path d="M50 5 L95 25 L95 75 L50 95 L5 75 L5 25 Z" fill="none" stroke="currentColor" strokeWidth="2" />
-                <circle cx="50" cy="50" r="15" fill="currentColor" opacity="0.4" />
-              </svg>
-            </div>
-            <div className="brand-text-stack">
-              <span className="brand-name-main">anandofoods</span>
-              <span className="brand-tag-sub">Fine Dining Excellence</span>
-            </div>
-          </div>
-          {/* Elegant geometric pattern instead of messy wave */}
-          <div className="footer-geometric-accent" style={{ background: cuisine.border }} />
         </div>
       </div>
     </motion.div>
@@ -308,7 +297,7 @@ const CuisineSection = () => {
   const handleLeave = () => {
     hoverTimeout.current = setTimeout(() => {
       setHoveredIndex(null)
-    }, 40)
+    }, 150) // Increased to 150ms to absorb micro-stutters and prevent flickering
   }
   const handleDishClick = (e, i) => {
     e.stopPropagation()
@@ -324,7 +313,7 @@ const CuisineSection = () => {
   }
 
   const activeCuisine = activeIndex !== null ? CUISINES[activeIndex] : null
-  const displayIndex = hoveredIndex !== null ? hoveredIndex : activeIndex
+  const displayIndex = activeIndex !== null ? activeIndex : hoveredIndex
   const displayCuisine = displayIndex !== null ? CUISINES[displayIndex] : null
   const isCurrentlyPaused = hoveredIndex !== null || isPaused
 
@@ -485,78 +474,106 @@ const CuisineSection = () => {
 
         <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>
           <div className="cuisine-floating-narrative">
-            {/* Leaf Spine - Inspired by 1st image */}
-            {/* Leaf Spine Background Line */}
-            <div className="narrative-spine-background">
-              <div className="spine-line-continuous" />
-            </div>
+            {/* Premium Narrative Menu Items - Styled exactly like the image! */}
             <div className="narrative-items">
               {CUISINES.map((cuisine, idx) => (
-                <motion.div
-                  key={idx}
-                  className={`narrative-item ${displayIndex === idx ? 'is-active' : ''}`}
-                  onMouseEnter={() => handleEnter(idx)}
-                  onMouseLeave={handleLeave}
-                  onClick={(e) => handleDishClick(e, idx)}
-                  variants={{
-                    hidden: { opacity: 0, x: -30 },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: {
-                        duration: 0.8,
-                        ease: "easeOut",
-                        delay: idx * 0.1
+                <div key={idx} className="narrative-item-container">
+                  <motion.div
+                    className={`narrative-item ${displayIndex === idx ? 'is-active' : ''}`}
+                    onMouseEnter={() => handleEnter(idx)}
+                    onMouseLeave={handleLeave}
+                    onClick={(e) => handleDishClick(e, idx)}
+                    variants={{
+                      hidden: { opacity: 0, x: -30 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          duration: 0.8,
+                          ease: "easeOut",
+                          delay: idx * 0.1
+                        }
                       }
-                    }
-                  }}
-                  animate={displayIndex === idx ? { x: 12, scale: 1.02 } : { x: 0, scale: 1 }}
-                >
-                  <div className="narrative-leaf-cluster">
-                    <svg viewBox="0 0 40 40">
-                      <path d="M20 40 Q15 30 20 20 Q25 30 20 40" fill="currentColor" opacity="0.4" />
-                      <path d="M20 30 Q10 25 5 15 Q10 20 20 30" fill="currentColor" opacity="0.3" />
-                      <path d="M20 30 Q30 25 35 15 Q30 20 20 30" fill="currentColor" opacity="0.3" />
-                    </svg>
-                  </div>
-                  <div className="narrative-menu-style">
-                    <div className="narrative-item-main">
-                      <h4 className="narrative-item-name" style={{
-                        color: displayIndex === idx ? '#fff' : 'inherit',
+                    }}
+                    animate={displayIndex === idx ? { x: 12, scale: 1.02 } : { x: 0, scale: 1 }}
+                  >
+                    {/* Left: Premium Icon Group (Only Steaming Bowl/Cup) */}
+                    <div className="premium-icon-group">
+                      {/* Steaming Bowl SVG */}
+                      <div className="premium-bowl-container">
+                        <svg className="premium-bowl-svg" viewBox="0 0 100 100" style={{
+                          color: displayIndex === null
+                            ? '#0F5C5C'
+                            : displayIndex === idx
+                              ? (cuisine.border || '#ebc51f')
+                              : 'rgba(255, 255, 255, 0.4)'
+                        }}>
+                          {/* Steam lines */}
+                          <path d="M35 30 Q38 20 35 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-1" />
+                          <path d="M50 25 Q53 15 50 5" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-2" />
+                          <path d="M65 30 Q68 20 65 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-3" />
+                          {/* Bowl */}
+                          <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
+                          <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Vertical Divider Line */}
+                    <div className="premium-vertical-divider" style={{
+                      background: displayIndex === null
+                        ? 'rgba(15, 92, 92, 0.2)'
+                        : displayIndex === idx
+                          ? (cuisine.border || '#2ECC71')
+                          : 'rgba(255, 255, 255, 0.15)'
+                    }} />
+
+                    {/* Right: Cursive Title & Italic Tagline */}
+                    <div className="premium-text-group">
+                      <h4 className="premium-cuisine-name" style={{
+                        color: displayIndex === null
+                          ? '#0F5C5C'
+                          : displayIndex === idx
+                            ? (cuisine.border || '#2ECC71')
+                            : 'rgba(255, 255, 255, 0.6)'
                       }}>
                         {cuisine.name}
                       </h4>
-                      <div className="narrative-leader-line" style={{
-                        borderColor: displayIndex === idx ? cuisine.border : 'rgba(255,255,255,0.1)'
-                      }} />
-                      <div className="narrative-item-index-price" style={{
-                        color: displayIndex === idx ? cuisine.border : 'var(--accent)'
+                      <p className="premium-cuisine-tagline" style={{
+                        color: displayIndex === null
+                          ? 'rgba(15, 92, 92, 0.7)'
+                          : displayIndex === idx
+                            ? '#ffffff'
+                            : 'rgba(255, 255, 255, 0.35)'
                       }}>
-                        <span className="price-symbol">✦</span>{idx + 1}
-                      </div>
+                        {cuisine.tagline}
+                      </p>
                     </div>
-                    <p className="narrative-item-tagline" style={{
-                      color: displayIndex === idx ? '#fff' : 'inherit',
-                      opacity: displayIndex === idx ? 0.9 : 0.6
+                  </motion.div>
+
+                  {/* Horizontal dotted separator with golden traditional motif */}
+                  <div className="premium-horizontal-divider" style={{
+                    color: displayIndex === null
+                      ? 'rgba(15, 92, 92, 0.2)'
+                      : 'rgba(255, 255, 255, 0.1)'
+                  }}>
+                    <span className="divider-dots">····················</span>
+                    <span className="divider-motif" style={{
+                      color: displayIndex === idx ? (cuisine.border || '#2ECC71') : '#ebc51f'
                     }}>
-                      {cuisine.tagline}
-                    </p>
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 2 C11.5 5 9 8 12 11 C15 8 12.5 5 12 2 Z" fill="currentColor" />
+                        <path d="M12 22 C11.5 19 9 16 12 13 C15 16 12.5 19 12 22 Z" fill="currentColor" />
+                        <path d="M2 12 C5 11.5 8 9 11 12 C8 15 5 12.5 2 12 Z" fill="currentColor" />
+                        <path d="M22 12 C19 11.5 16 9 13 12 C16 15 19 12.5 22 12 Z" fill="currentColor" />
+                        <circle cx="12" cy="12" r="2.5" fill="#ffffff" />
+                      </svg>
+                    </span>
+                    <span className="divider-dots">····················</span>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-
-            <svg className="narrative-decor-svg" viewBox="0 0 200 200">
-              <motion.path
-                d="M 20,100 Q 50,20 100,100 T 180,100"
-                fill="none"
-                stroke="var(--accent)"
-                strokeWidth="0.5"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 0.2 }}
-                transition={{ duration: 2, delay: 0.5 }}
-              />
-            </svg>
           </div>
         </div>
 
@@ -571,9 +588,9 @@ const CuisineSection = () => {
               exit={{ opacity: 0, scale: 0.8, x: 20 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <img 
-                src={CUISINES[displayIndex].map} 
-                alt={`${CUISINES[displayIndex].name} origin map`} 
+              <img
+                src={CUISINES[displayIndex].map}
+                alt={`${CUISINES[displayIndex].name} origin map`}
                 className="cuisine-origin-map-img"
               />
             </motion.div>

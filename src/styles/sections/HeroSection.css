@@ -247,6 +247,9 @@
 
 /* 🎬 SHORT VIEWPORT OPTIMIZATIONS */
 @media (max-height: 700px) {
+  .hero-section {
+    padding-bottom: 0 !important;
+  }
   .hero-scene2-content {
     gap: 0.75rem;
     padding-top: 5rem;

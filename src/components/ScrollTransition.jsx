@@ -1,5 +1,7 @@
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import logo from "../assets/logo.png"
+import bgandado from "../assets/bgandado.png"
 import styles from "../styles/components/ScrollTransition.module.css"
 
 const ScrollTransition = () => {
@@ -11,7 +13,7 @@ const ScrollTransition = () => {
     offset: ["start end", "end start"]
   })
 
-  // Create a smooth spring-based scroll progress
+  // Create a spring-based scroll progress for smooth scrolling physics
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -21,13 +23,13 @@ const ScrollTransition = () => {
   // Fade and Scale effects using the smooth progress
   const opacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
 
-  // Parallax for the 2 moving lines
-  const x1 = useTransform(smoothProgress, [0, 1], [-80, 80])
-  const x2 = useTransform(smoothProgress, [0, 1], [80, -80])
+  // Parallax for the 2 moving lines (expanded range to fit continuous marquee)
+  const x1 = useTransform(smoothProgress, [0, 1], [-180, 180])
+  const x2 = useTransform(smoothProgress, [0, 1], [180, -180])
 
   // Logo scale and slight rotation for a dynamic feel
-  const logoScale = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], [0.8, 1.1, 1, 1.1, 0.8])
-  const logoRotate = useTransform(smoothProgress, [0, 1], [-2, 2])
+  const logoScale = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], [0.85, 1.05, 1, 1.05, 0.85])
+  const logoRotate = useTransform(smoothProgress, [0, 1], [-1.5, 1.5])
 
   return (
     <div ref={containerRef} className={styles.scrollTransitionWrapper}>
@@ -35,31 +37,21 @@ const ScrollTransition = () => {
         className={styles.overlay}
         style={{ opacity }}
       >
-        {/* 1. Moving Line Top */}
-        <motion.div
-          className={`${styles.typoLayer} ${styles.typoLayerTop}`}
-          style={{ x: x1 }}
-        >
-          anandofoodsanandofoodsanandofoods
-        </motion.div>
+        {/* Unified Green Segment with Repeating Brand Pattern Background */}
+        <div
+          className={styles.unifiedSegment}
+          style={{ backgroundImage: `url(${bgandado})` }}
+        />
 
-        {/* 2. Central Logo Container */}
-        <motion.div
-          className={styles.contentWrapper}
-          style={{ scale: logoScale, rotate: logoRotate }}
-        >
-          <div className={styles.logoBox}>
-            <span className={styles.logoText}>anandofoods</span>
-          </div>
-        </motion.div>
-
-        {/* 3. Moving Line Bottom */}
-        <motion.div
-          className={`${styles.typoLayer} ${styles.typoLayerBottom}`}
-          style={{ x: x2 }}
-        >
-          anandofoodsanandofoodsanandofoods
-        </motion.div>
+        {/* 2. Central Logo Container (Centering in pure CSS, scaling/rotation on child logoCircle) */}
+        <div className={styles.contentWrapper}>
+          <motion.div
+            className={styles.logoCircle}
+            style={{ scale: logoScale, rotate: logoRotate }}
+          >
+            <img src={logo} alt="anandofoods" className={styles.logoImage} />
+          </motion.div>
+        </div>
       </motion.div>
     </div>
   )

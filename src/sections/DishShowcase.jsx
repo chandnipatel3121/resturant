@@ -64,13 +64,13 @@ const DishShowcase = () => {
 
 
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={activeIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12vh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18vh)]'}`}
             style={{ color: currentTheme.accent }}
           >
@@ -94,7 +94,7 @@ const DishShowcase = () => {
           if (distance > DISHES.length / 2) distance -= DISHES.length
           if (distance < -DISHES.length / 2) distance += DISHES.length
 
-          const isVisible = Math.abs(distance) <= 2
+          const isVisible = isMobile ? distance === 0 : Math.abs(distance) <= 2
 
           return (
             <DishItem
@@ -162,7 +162,7 @@ const DishItem = ({ dish, distance, isVisible, slotSize, radius, accentColor, is
       initial={false}
       animate={{
         x: xPos,
-        y: yPos - (isMobile ? 20 : (isShort ? 45 : 50)),
+        y: yPos - (isMobile ? 110 : (isShort ? 45 : 50)),
         scale: isActive ? (isMobile ? 1.6 : (isShort ? 2.3 : 2.0)) : 0.5,
         opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
         zIndex: isActive ? 50 : 20 - Math.abs(distance),

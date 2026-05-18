@@ -137,7 +137,7 @@ const ChefMascot = () => {
             onClick={handleClick}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="relative w-15 h-15 rounded-full bg-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-105 transition"
+            className="relative w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center cursor-pointer hover:scale-105 transition"
           >
             {/* Glow */}
             <div className="absolute inset-0 rounded-full bg-[#EAD7B7] blur-xl opacity-30 -z-10" />
@@ -147,7 +147,7 @@ const ChefMascot = () => {
               // onClick={handleClick}
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-15 flex flex-col items-center cursor-pointer z-50"
+              className="absolute -top-16 flex flex-col items-center cursor-pointer z-50"
             >
               <div className="w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center border border-[#0F5C5C]/10">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F5C5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">

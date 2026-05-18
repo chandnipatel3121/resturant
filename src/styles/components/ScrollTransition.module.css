@@ -9,15 +9,14 @@
 
 .overlay {
   position: absolute;
-  top: -20vh; /* Centered on the section divider */
+  top: -9.5vh; /* Centered on the section divider */
   left: 0;
   width: 100%;
-  height: 40vh; /* Increased height for more breathing room */
+  height: 19vh; /* Increased for a bolder, premium visual presence */
 
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Removed padding-bottom to ensure vertical centering of content */
 
   overflow: hidden;
   background: transparent;
@@ -25,90 +24,141 @@
   pointer-events: none;
 }
 
-/* Center Content */
+/* Center Content (Strict CSS centering decoupled from Framer Motion) */
 .contentWrapper {
-  position: relative;
-  z-index: 5;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  height: 100%; /* Spans the exact vertical height of the banner */
+  z-index: 200; /* Float high above the text rows */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem; /* Increased gap for better clarity */
+  align-items: center; /* Center the circular logo vertically */
+  justify-content: center;
+  pointer-events: none;
 }
 
-/* Tagline */
-.tagline {
-  font-size: clamp(0.6rem, 1vw, 1rem);
-  font-weight: 700;
-  color: white;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-
-/* Logo Box */
-.logoBox {
-  padding: 12px 28px;
-  background: #006837;
-  border: 2px solid white;
+/* Central Circular Logo Badge */
+.logoCircle {
+  height: 100%; /* Spans full height of the parent banner */
+  aspect-ratio: 1 / 1; /* Guarantees a perfect circle */
+  border-radius: 50%;
+  background: #006837; /* Matches the exact green backing of logo.png */
+  border: 3.5px solid #ebc51f; /* Gold circular border matching marquee color */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  pointer-events: auto;
+  overflow: hidden;
+  padding: 0; /* Remove padding to eliminate white gaps */
+  box-sizing: border-box;
 }
 
-.logoText {
-  font-size: clamp(1.8rem, 4vw, 3.5rem);
-  font-weight: 900;
-  color: white;
-  line-height: 1;
-  white-space: nowrap;
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the circle fully and crop the square corners cleanly */
 }
 
-/* Moving Text Layer */
-.typoLayer {
+/* 🎗️ UNIFIED SEGMENT DESIGN (Repeating Brand Pattern Strip) */
+.unifiedSegment {
   position: absolute;
-  width: max-content;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #006837; /* Base green backing */
+  background-repeat: no-repeat; /* Display as a single, beautiful non-repeating image */
+  background-size: 100% 100%; /* Stretch cleanly to fill 100% height and 100% width of the block */
+  background-position: center; /* Center the graphic artwork perfectly */
+  border-top: 3.5px solid #ebc51f; /* Bolder gold accent borders */
+  border-bottom: 3.5px solid #ebc51f;
+  overflow: hidden;
   display: flex;
-  gap: 3rem;
-  font-weight: 900;
-  text-transform: uppercase;
+  flex-direction: column;
+  justify-content: space-around; /* Distribute the 2 rows beautifully */
+  padding: 0.35rem 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  z-index: 10;
+}
+ 
+.horizontalRow {
+  display: flex;
+  width: 180%; /* Extremely wide to prevent any gaps on the right */
+  margin-left: -40vw; /* Massively overflow on the left to cover any right-scrolling gaps */
   white-space: nowrap;
-  opacity: 0.3; /* Increased for better visibility */
-  letter-spacing: 0.15em;
   will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
-
-.typoLayerTop {
-  top: 8%; /* Balanced spacing from the edge */
-  font-size: clamp(2.5rem, 6vw, 6rem); /* Slightly larger for presence */
-  color: #ebc51f;
-}
-
-.typoLayerBottom {
-  bottom: 8%; /* Balanced spacing from the edge */
-  font-size: clamp(2.5rem, 6vw, 6rem);
-  color: #004b32;
+ 
+.boldText {
+  font-family: 'Poppins', 'Montserrat', 'Futura', 'Outfit', var(--font-sans), sans-serif; /* Highly circular geometric sans-serif stack */
+  font-size: clamp(2rem, 4.5vw, 3.4rem); /* Bolder, scaled-up luxury typography */
+  font-weight: 800; /* Extra bold geometric look */
+  text-transform: lowercase; /* Lowercase as requested! */
+  color: #ebc51f; /* Vibrant golden yellow */
+  letter-spacing: -0.02em; /* Tight geometric spacing */
+  white-space: nowrap;
+  opacity: 0.95;
+  padding-right: 0.12em; /* Extremely tight continuous spacing for repeating words */
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.15);
 }
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .overlay {
-    top: -12vh;
-    height: 24vh;
+    top: -7vh;
+    height: 14vh;
+  }
+ 
+  .unifiedSegment {
+    padding: 0.2rem 0;
+    border-top: 2.5px solid #ebc51f;
+    border-bottom: 2.5px solid #ebc51f;
   }
 
-  .typoLayer {
-    opacity: 0.2;
+  .horizontalRow {
+    width: 220%;
+    margin-left: -60vw;
+  }
+ 
+  .boldText {
+    font-size: clamp(1.3rem, 3.8vw, 2rem);
+    letter-spacing: -0.02em;
+    padding-right: 0.12em;
+  }
+ 
+  .logoCircle {
+    border-width: 2.5px;
+    padding: 0;
+  }
+}
+ 
+/* Specific fix for 1195x585 or similar short desktop screens */
+@media (max-width: 1200px) and (max-height: 600px) {
+  .overlay {
+    top: -7vh;
+    height: 14vh;
+  }
+ 
+  .unifiedSegment {
+    padding: 0.25rem 0;
   }
 
-  .typoLayerTop,
-  .typoLayerBottom {
-    font-size: 9vw;
+  .horizontalRow {
+    width: 200%;
+    margin-left: -50vw;
   }
-
+ 
+  .boldText {
+    font-size: clamp(1.3rem, 3vw, 2rem);
+  }
+ 
   .logoBox {
-    padding: 10px 20px;
+    padding: 6px 16px;
+  }
+ 
+  .logoText {
+    font-size: clamp(1.1rem, 2.2vw, 1.8rem);
   }
 }

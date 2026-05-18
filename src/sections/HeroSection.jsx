@@ -232,7 +232,7 @@ const HeroSection = () => {
             style={{
               opacity: nameOpacity,
               y: nameRevealY,
-              translateY: isMobile ? "18vh" : "28vh"
+              translateY: isMobile ? "24vh" : "28vh"
             }}
             className="absolute top-[50%] flex flex-col items-center z-30"
           >
