@@ -568,7 +568,7 @@ const MenuSection = () => {
   ];
 
   const meals = ['All', 'Breakfast', 'Lunch', 'Dinner'];
-  const diets = ['All', 'Veg', 'Nonveg', 'Vegan'];
+  const diets = ['All', 'Veg', 'Vegan'];
   const courses = ['All', 'Starter', 'Main Course', 'Dessert', 'Drinks', 'Beverages', 'Soups', 'Specials'];
 
   const filteredItems = useMemo(() => {
@@ -727,7 +727,7 @@ const MenuSection = () => {
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     {searchQuery && (
-                      <button 
+                      <button
                         className="general-search-clear"
                         onClick={() => setSearchQuery('')}
                         aria-label="Clear search"
@@ -736,7 +736,7 @@ const MenuSection = () => {
                       </button>
                     )}
                   </div>
-                  
+
                   <div className="search-stats text-editorial">
                     {filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available
                   </div>
