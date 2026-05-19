@@ -200,14 +200,38 @@
   height: 8px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: 0.2;
-  transition: all 0.4s ease;
   position: relative;
+  display: inline-block;
+  transition: all 0.4s ease;
 }
 
-.liquid-search-container:focus-within .search-status-dot {
-  opacity: 1;
-  box-shadow: 0 0 15px var(--accent);
+/* Pulsing aura */
+.search-status-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-aura 2s infinite ease-in-out;
+  opacity: 0.6;
+}
+
+@keyframes pulse-aura {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.general-search-container:focus-within ~ .search-stats .search-status-dot::after {
+  animation-duration: 1s;
 }
 .menu-main-layout {
   display: flex;
@@ -231,15 +255,13 @@
 
   height: calc(100vh - 76px);
 
-  overflow-y: auto;
-  overflow-x: hidden;
-
   z-index: 40;
   flex-shrink: 0;
   scrollbar-width: none;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-  overflow: hidden; /* For blobs */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar-bg-effects {
@@ -526,7 +548,6 @@
 .menu-filters-sticky {
   position: sticky;
   top: 76px;
-
   z-index: 45;
 
   width: 100%;
@@ -545,11 +566,145 @@
   transform: translateZ(0);
   isolation: isolate;
 
-box-shadow:
-  0 10px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 
   padding-top: 12px;
   padding-bottom: 16px;
+}
+
+/* --- GENERAL SEARCH BAR --- */
+.search-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-left: 32px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.general-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(21, 58, 58, 0.12);
+  border-radius: 100px;
+  padding: 0 16px 0 20px;
+  padding-left: 25px;
+  height: 50px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.general-search-container:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+.general-search-container:focus-within {
+  border-color: #d4af37; /* Gold focus */
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+  transform: translateY(-1px);
+}
+
+.general-search-icon {
+  color: #153a3a;
+  opacity: 0.5;
+  margin-right: 12px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.general-search-container:focus-within .general-search-icon {
+  color: #d4af37;
+  opacity: 1;
+}
+
+.general-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #153a3a;
+  height: 100%;
+  width: 100%;
+}
+
+.general-search-input::placeholder {
+  color: rgba(21, 58, 58, 0.45);
+}
+
+.general-search-clear {
+  background: rgba(21, 58, 58, 0.05);
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #153a3a;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.general-search-clear:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  opacity: 1;
+}
+
+.search-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 92, 92, 0.05); /* Premium green tint */
+  border: 1px solid rgba(15, 92, 92, 0.12);
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  box-shadow: 0 4px 15px rgba(15, 92, 92, 0.03);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  margin-right: 48px; /* Slightly away from right end */
+}
+
+.search-stats:hover {
+  background: rgba(15, 92, 92, 0.08);
+  border-color: rgba(224, 169, 75, 0.3);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .search-bar-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .general-search-container {
+    max-width: 100%;
+  }
+  .search-stats {
+    margin-right: 0;
+    align-self: flex-start;
+  }
 }
 /* .filter-bar-separator {
   padding: 30px 0;
@@ -579,6 +734,7 @@ box-shadow:
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding-left: 12px;
   position: relative;
 }
 
@@ -1632,11 +1788,11 @@ box-shadow:
 }
 
 .book-close-btn {
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #153a3a;
   color: #d4af37;
@@ -1645,9 +1801,9 @@ box-shadow:
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10000;
+  z-index: 1000;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   pointer-events: auto;
 }
 
@@ -1655,14 +1811,21 @@ box-shadow:
 .book-close-btn::after {
   content: '';
   position: absolute;
-  inset: -20px;
+  inset: -12px;
   cursor: pointer;
 }
 
 .book-close-btn:hover {
-  transform: rotate(90deg) scale(1.15);
+  transform: rotate(90deg) scale(1.1);
   background: #d4af37;
   color: #153a3a;
+}
+
+@media (max-width: 900px) {
+  .book-close-btn {
+    top: 12px;
+    right: 12px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1737,7 +1900,7 @@ box-shadow:
 
 .flipping-page-front {
   z-index: 2;
-  transform: rotateY(0deg);
+  transform: rotateY(0deg) translateZ(1px) !important;
   border-right: 3px solid rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
@@ -1748,7 +1911,7 @@ box-shadow:
 }
 
 .flipping-page-back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px) !important;
   border-left: 3px solid rgba(0, 0, 0, 0.15);
   box-shadow:
     10px 0 30px rgba(0,0,0,0.05),
@@ -2021,8 +2184,8 @@ box-shadow:
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 46px;
-  height: 80px;
+  width: 38px;
+  height: 64px;
   background-color: #0e2929; /* Matches the luxury leather green cover color */
   background-image: url("https://www.transparenttextures.com/patterns/black-leather.png");
   border: 2px solid #d4af37; /* Embossed gold frame border */
@@ -2033,19 +2196,19 @@ box-shadow:
   cursor: pointer;
   z-index: 500;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   outline: none;
 }
 
 .page-nav-btn.prev-page {
-  left: -20px;
-  border-radius: 8px 0 0 8px;
+  left: -16px;
+  border-radius: 6px 0 0 6px;
   padding-right: 2px;
 }
 
 .page-nav-btn.next-page {
-  right: -20px;
-  border-radius: 0 8px 8px 0;
+  right: -16px;
+  border-radius: 0 6px 6px 0;
   padding-left: 2px;
 }
 
@@ -2053,10 +2216,10 @@ box-shadow:
   background-color: #d4af37;
   background-image: none;
   color: #0e2929;
-  box-shadow: 
-    0 15px 35px rgba(212, 175, 55, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2);
-  transform: translateY(-50%) scaleX(1.1); /* Expands slightly when hovered */
+  box-shadow:
+    0 12px 28px rgba(212, 175, 55, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%) scaleX(1.08); /* Expands slightly when hovered */
 }
 
 /* Hide on mobile to keep 3D book clean on narrow viewports */
@@ -2085,7 +2248,7 @@ box-shadow:
   align-items: center;
   padding: 8px 10px 8px 20px;
   z-index: 999;
-  box-shadow: 
+  box-shadow:
     0 30px 60px rgba(21, 58, 58, 0.15),
     0 10px 20px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
@@ -2095,7 +2258,7 @@ box-shadow:
 .floating-cart-bar-kiosk:hover {
   transform: translateX(-50%) translateY(-3px);
   border-color: #153a3a;
-  box-shadow: 
+  box-shadow:
     0 40px 80px rgba(21, 58, 58, 0.22),
     0 0 30px rgba(212, 175, 55, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);

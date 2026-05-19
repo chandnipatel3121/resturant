@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react"
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
+import React, { useRef, useEffect, useState } from "react"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import videoSrc from "../assets/video.mp4"
 import chef2 from "../assets/chef2.jpg"
 import "../styles/sections/ChefSection.css"
@@ -8,6 +8,10 @@ const ChefSection = () => {
   const containerRef = useRef(null)
   const videoRef = useRef(null)
 
+  /* ── Animation trigger: fires after snap settles ── */
+  const [isSnapped, setIsSnapped] = useState(false)
+
+  /* ── Video autoplay ── */
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
@@ -27,6 +31,30 @@ const ChefSection = () => {
     return () => observer.disconnect()
   }, [])
 
+  /* ── Animation trigger via IntersectionObserver ── */
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+            setIsSnapped(true)
+          }
+          if (!entry.isIntersecting && entry.intersectionRatio === 0) {
+            setIsSnapped(false)
+          }
+        })
+      },
+      { threshold: [0, 0.45, 1] }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  /* ── Parallax ── */
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -34,25 +62,23 @@ const ChefSection = () => {
 
   const image1Y = useTransform(scrollYProgress, [0, 1], [40, -40])
   const image2Y = useTransform(scrollYProgress, [0, 1], [-60, 60])
-
-  const image2YSmooth = useSpring(image2Y, {
-    stiffness: 50,
-    damping: 28,
-    mass: 0.8
-  })
+  const image2YSmooth = useSpring(image2Y, { stiffness: 50, damping: 28, mass: 0.8 })
 
   return (
-    <section id="chef-section" ref={containerRef} className="chef-section">
+    <section
+      id="chef-section"
+      ref={containerRef}
+      className={`chef-section ${isSnapped ? "chef-snapped" : ""}`}
+    >
       <div className="chef-container">
         <div className="chef-flex-container">
 
           {/* LEFT: TEXT */}
           <div className="chef-text-content">
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10%" }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, x: -40 }}
+              animate={isSnapped ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
               className="chef-subtitle"
             >
               <span className="chef-subtitle-line" />
@@ -60,10 +86,9 @@ const ChefSection = () => {
             </motion.p>
 
             <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10%" }}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              initial={{ opacity: 0, y: 55 }}
+              animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 55 }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="chef-title"
             >
               The Hands<br />
@@ -74,9 +99,8 @@ const ChefSection = () => {
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10%" }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="chef-desc"
             >
               At anandofoods, every dish begins with a vision.
@@ -88,10 +112,11 @@ const ChefSection = () => {
           <div className="chef-image-content">
             {/* VIDEO CARD */}
             <motion.div
-              initial={{ opacity: 0, x: 50, rotate: -2 }}
-              whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-              viewport={{ once: false, margin: "-10%" }}
-              transition={{ duration: 1.2 }}
+              initial={{ opacity: 0, x: 90, rotate: -3 }}
+              animate={isSnapped
+                ? { opacity: 1, x: 0, rotate: 0 }
+                : { opacity: 0, x: 90, rotate: -3 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               style={{ y: image1Y }}
               className="chef-video-card"
             >
@@ -103,7 +128,6 @@ const ChefSection = () => {
                 playsInline
                 className="w-full h-auto block"
               />
-
               <div className="chef-live-tag">
                 <span className="chef-live-dot" />
                 <span className="chef-live-text">Live</span>
@@ -112,10 +136,11 @@ const ChefSection = () => {
 
             {/* IMAGE CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10%" }}
-              transition={{ duration: 1.3, delay: 0.2 }}
+              initial={{ opacity: 0, y: 90, scale: 0.88 }}
+              animate={isSnapped
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: 90, scale: 0.88 }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               style={{
                 y: image2YSmooth,
                 willChange: "transform",
@@ -124,11 +149,7 @@ const ChefSection = () => {
               className="chef-image-card"
             >
               <div className="w-full h-full overflow-hidden">
-                <img
-                  src={chef2}
-                  alt="Chef"
-                  className="chef-img-hover"
-                />
+                <img src={chef2} alt="Chef" className="chef-img-hover" />
               </div>
               <div className="chef-img-overlay" />
             </motion.div>

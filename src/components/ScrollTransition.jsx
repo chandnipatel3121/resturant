@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useEffect } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import logo from "../assets/logo.png"
 import bgandado from "../assets/bgandado.png"
@@ -12,6 +12,39 @@ const ScrollTransition = () => {
     target: containerRef,
     offset: ["start end", "end start"]
   })
+
+  // Trigger forced scroll smoothly once the divider transition has fully scrolled up and out of view (come to end)
+  useEffect(() => {
+    let hasSnapped = false
+
+    const handleScroll = () => {
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+
+      // The green banner is centered at the boundary with a height of 19vh.
+      // It completely exits the top of the viewport when rect.top + 9.5vh <= 0.
+      const bannerLimit = -window.innerHeight * 0.095
+
+      if (rect.top <= bannerLimit && rect.top > bannerLimit - 200) {
+        if (!hasSnapped) {
+          hasSnapped = true
+          const target = document.getElementById("dish-showcase")
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop,
+              behavior: "smooth"
+            })
+          }
+        }
+      } else if (rect.top > window.innerHeight * 0.6) {
+        // Reset snap to allow triggering again when scrolling back down
+        hasSnapped = false
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Create a spring-based scroll progress for smooth scrolling physics
   const smoothProgress = useSpring(scrollYProgress, {
@@ -37,11 +70,32 @@ const ScrollTransition = () => {
         className={styles.overlay}
         style={{ opacity }}
       >
-        {/* Unified Green Segment with Repeating Brand Pattern Background */}
-        <div
-          className={styles.unifiedSegment}
-          style={{ backgroundImage: `url(${bgandado})` }}
-        />
+        {/* Unified Green Segment with Scrolling Text Marquees */}
+        <div className={styles.unifiedSegment}>
+          {/* Row 1 (Moving left-to-right) */}
+          <motion.div
+            className={styles.horizontalRow}
+            style={{ x: x1 }}
+          >
+            {[...Array(15)].map((_, i) => (
+              <span key={`r1-${i}`} className={styles.boldText}>
+                anandofoods
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Row 2 (Moving right-to-left) */}
+          <motion.div
+            className={styles.horizontalRow}
+            style={{ x: x2 }}
+          >
+            {[...Array(15)].map((_, i) => (
+              <span key={`r2-${i}`} className={styles.boldText}>
+                anandofoods
+              </span>
+            ))}
+          </motion.div>
+        </div>
 
         {/* 2. Central Logo Container (Centering in pure CSS, scaling/rotation on child logoCircle) */}
         <div className={styles.contentWrapper}>

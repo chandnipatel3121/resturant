@@ -304,18 +304,6 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
       onClick={onClose}
       style={{ pointerEvents: 'auto', zIndex: 10000 }}
     >
-      <div
-        className="book-close-btn"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onClose();
-        }}
-        aria-label="Close book"
-      >
-        <X size={32} />
-      </div>
-
       <motion.div
         className="book-detail-container"
         onClick={(e) => e.stopPropagation()}
@@ -324,6 +312,18 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
         exit={{ scale: 0.85, opacity: 0, rotateY: 35 }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       >
+        {/* Floating luxury close button positioned relative to the book container */}
+        <div
+          className="book-close-btn"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClose();
+          }}
+          aria-label="Close book"
+        >
+          <X size={16} />
+        </div>
         <div className="book-content-wrapper" style={{ position: 'relative', transformStyle: 'preserve-3d', perspective: '2000px' }}>
           {/* Left Page: Boxy structural reveal acting as folding front cover */}
           <motion.div
@@ -409,7 +409,7 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
                     inset: 0,
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
-                    transform: 'rotateY(0deg)',
+                    transform: 'rotateY(0deg) translateZ(1px)',
                     transformStyle: 'preserve-3d',
                     overflow: 'hidden'
                   }}
@@ -425,7 +425,7 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
                     inset: 0,
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
-                    transform: 'rotateY(180deg)',
+                    transform: 'rotateY(180deg) translateZ(1px)',
                     transformStyle: 'preserve-3d',
                     overflow: 'hidden'
                   }}
@@ -443,7 +443,7 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
               onClick={handlePrev}
               aria-label="Previous Page"
             >
-              <ArrowRight className="rotate-180" size={20} />
+              <ArrowRight className="rotate-180" size={16} />
             </button>
           )}
 
@@ -453,7 +453,7 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
               onClick={handleNext}
               aria-label="Next Page"
             >
-              <ArrowRight size={20} />
+              <ArrowRight size={16} />
             </button>
           )}
         </div>
@@ -683,18 +683,6 @@ const MenuSection = () => {
               <span className="text-editorial !text-[var(--accent)]">Cuisines</span>
               <h2 className="sidebar-title">Global Flavors</h2>
               <div className="sidebar-line"></div>
-
-              {/* Sidebar Search Bar */}
-              <div className="sidebar-search-wrapper">
-                <input
-                  type="text"
-                  placeholder="Search flavors..."
-                  className="sidebar-search-input"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Search className="sidebar-search-icon" size={16} />
-              </div>
             </div>
             <div className="sidebar-cuisines-list">
               {cuisinies.map((cat, idx) => (
@@ -726,10 +714,37 @@ const MenuSection = () => {
           <div className="menu-content-area px-16">
             {/* Horizontal Filter Bar */}
             <div className="menu-filters-sticky">
-              <div className="max-w-[1800px] pl-10 pr-[var(--container-px)] py-10 border-b border-gray-100 mb-12">
+              <div className="max-w-[1800px] pl-10 pr-[var(--container-px)] py-6 border-b border-gray-100 mb-12">
+                {/* General Search Bar Row */}
+                <div className="search-bar-row">
+                  <div className="general-search-container">
+                    <Search className="general-search-icon" size={18} />
+                    <input
+                      type="text"
+                      placeholder="Search across all cuisines and dishes..."
+                      className="general-search-input"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {searchQuery && (
+                      <button 
+                        className="general-search-clear"
+                        onClick={() => setSearchQuery('')}
+                        aria-label="Clear search"
+                      >
+                        <X size={16} />
+                      </button>
+                    )}
+                  </div>
+                  
+                  <div className="search-stats text-editorial">
+                    {filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available
+                  </div>
+                </div>
+
                 <div className="all-filters-horizontal-row">
                   <div className="filter-group meal-times-group">
-                    <span className="group-label">Service</span>
+                    <span className="group-label">Service Sessions</span>
                     <div className="filter-pills">
                       {meals.map((meal) => (
                         <button
@@ -745,7 +760,7 @@ const MenuSection = () => {
                   </div>
 
                   <div className="filter-group diet-group">
-                    <span className="group-label">Preference</span>
+                    <span className="group-label">Cuisine Nature</span>
                     <div className="filter-toggles">
                       {diets.map((diet) => (
                         <button
@@ -762,7 +777,7 @@ const MenuSection = () => {
                   </div>
 
                   <div className="filter-group course-group">
-                    <span className="group-label">Category</span>
+                    <span className="group-label">Cuisine Segments</span>
                     <div className="course-chips">
                       {courses.map((course) => (
                         <button

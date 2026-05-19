@@ -14,7 +14,7 @@ const InfographicMap = () => {
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}
       />
 
-      <div className="relative z-10 w-full h-full px-2 flex items-center justify-center">
+      <div className="relative z-10 w-full h-full p-8 md:p-14 flex items-center justify-center">
 
 
 

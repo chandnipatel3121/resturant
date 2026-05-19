@@ -10,12 +10,14 @@
   background: #f4f7f7;
   overflow: hidden;
   scroll-snap-align: start;
+  padding-top: 76px;
 }
 
 @media (min-width: 1024px) {
   .contact-section {
     flex-direction: row;
     height: 100vh;
+    padding-top: 76px;
   }
 }
 

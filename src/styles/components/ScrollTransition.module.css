@@ -2,17 +2,20 @@
 .scrollTransitionWrapper {
   position: relative;
   width: 100%;
-  height: 0; /* No physical space to keep sections seamless */
+  height: 20vh; /* Real physical space — no more dark gap */
   z-index: 20;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .overlay {
   position: absolute;
-  top: -9.5vh; /* Centered on the section divider */
+  top: 0;       /* Sits cleanly inside the wrapper */
   left: 0;
   width: 100%;
-  height: 19vh; /* Increased for a bolder, premium visual presence */
+  height: 100%; /* Fills the wrapper exactly */
 
   display: flex;
   align-items: center;
@@ -69,20 +72,18 @@
   width: 100%;
   height: 100%;
   background-color: #006837; /* Base green backing */
-  background-repeat: no-repeat; /* Display as a single, beautiful non-repeating image */
-  background-size: 100% 100%; /* Stretch cleanly to fill 100% height and 100% width of the block */
-  background-position: center; /* Center the graphic artwork perfectly */
   border-top: 3.5px solid #ebc51f; /* Bolder gold accent borders */
   border-bottom: 3.5px solid #ebc51f;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-around; /* Distribute the 2 rows beautifully */
-  padding: 0.35rem 0;
+  justify-content: center; /* Center the rows vertically for absolute balance */
+  gap: 0.8rem; /* Equal, consistent spacing between the two marquee rows */
+  padding: 0; /* Let flex centering manage the top/bottom spacing perfectly */
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   z-index: 10;
 }
- 
+
 .horizontalRow {
   display: flex;
   width: 180%; /* Extremely wide to prevent any gaps on the right */
@@ -90,29 +91,34 @@
   white-space: nowrap;
   will-change: transform;
 }
- 
+
 .boldText {
   font-family: 'Poppins', 'Montserrat', 'Futura', 'Outfit', var(--font-sans), sans-serif; /* Highly circular geometric sans-serif stack */
-  font-size: clamp(2rem, 4.5vw, 3.4rem); /* Bolder, scaled-up luxury typography */
-  font-weight: 800; /* Extra bold geometric look */
+  font-size: clamp(2.2rem, 5vw, 3.8rem); /* Slightly larger for a bold look */
+  font-weight: 900; /* Extra bold geometric look matching the 2nd image */
   text-transform: lowercase; /* Lowercase as requested! */
-  color: #ebc51f; /* Vibrant golden yellow */
-  letter-spacing: -0.02em; /* Tight geometric spacing */
+  color: rgba(235, 197, 31, 0.35); /* Tinted golden yellow to blend with green */
+  letter-spacing: -0.04em; /* Tight letter spacing like the 2nd image */
   white-space: nowrap;
-  opacity: 0.95;
-  padding-right: 0.12em; /* Extremely tight continuous spacing for repeating words */
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.15);
+  padding-right: 0.15em; /* Extremely close repeating spacing */
+  text-shadow: none; /* Flat, clean look matching 2nd image */
+  line-height: 1; /* Eliminates baseline browser offsets to guarantee perfect symmetry */
 }
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
-  .overlay {
-    top: -7vh;
-    height: 14vh;
+  .scrollTransitionWrapper {
+    height: 16vh;
   }
- 
+
+  .overlay {
+    top: 0;
+    height: 100%;
+  }
+
   .unifiedSegment {
-    padding: 0.2rem 0;
+    padding: 0;
+    gap: 0.5rem;
     border-top: 2.5px solid #ebc51f;
     border-bottom: 2.5px solid #ebc51f;
   }
@@ -121,43 +127,50 @@
     width: 220%;
     margin-left: -60vw;
   }
- 
+
   .boldText {
     font-size: clamp(1.3rem, 3.8vw, 2rem);
     letter-spacing: -0.02em;
     padding-right: 0.12em;
+    line-height: 1;
   }
- 
+
   .logoCircle {
     border-width: 2.5px;
     padding: 0;
   }
 }
- 
+
 /* Specific fix for 1195x585 or similar short desktop screens */
 @media (max-width: 1200px) and (max-height: 600px) {
-  .overlay {
-    top: -7vh;
+  .scrollTransitionWrapper {
     height: 14vh;
   }
- 
+
+  .overlay {
+    top: 0;
+    height: 100%;
+  }
+
   .unifiedSegment {
-    padding: 0.25rem 0;
+    padding: 0;
+    gap: 0.6rem;
   }
 
   .horizontalRow {
     width: 200%;
     margin-left: -50vw;
   }
- 
+
   .boldText {
     font-size: clamp(1.3rem, 3vw, 2rem);
+    line-height: 1;
   }
- 
+
   .logoBox {
     padding: 6px 16px;
   }
- 
+
   .logoText {
     font-size: clamp(1.1rem, 2.2vw, 1.8rem);
   }

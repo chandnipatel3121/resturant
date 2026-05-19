@@ -45,6 +45,13 @@ const HeroSection = () => {
     [0, 1]
   )
 
+  /* Lock scroll while popup is open */
+  useEffect(() => {
+    const lenis = window.lenis
+    if (!lenis) return
+    showPopup ? lenis.stop() : lenis.start()
+  }, [showPopup])
+
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     const direction = v > prevV.current ? 'down' : 'up'
     prevV.current = v
@@ -66,8 +73,9 @@ const HeroSection = () => {
     const threshold = isMobile ? 0.9 : 0.92
     // Removed manual snap to next section
 
-    // Show popup exactly when Scene 1 is going up and Scene 2 is coming in (at 0.5 progress)
-    if (v >= 0.5 && !hasShownPopup.current) {
+    // Popup fires only AFTER Scene 1 is fully gone (desktop: 0.65, mobile: 0.58)
+    const popupTrigger = isMobile ? 0.59 : 0.66
+    if (v >= popupTrigger && !hasShownPopup.current) {
       setShowPopup(true)
       hasShownPopup.current = true
     }

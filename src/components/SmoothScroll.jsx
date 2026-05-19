@@ -4,15 +4,13 @@ import "lenis/dist/lenis.css"
 
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1.1,
+      wheelMultiplier: 1.0,
       smoothTouch: false,
       touchMultiplier: 1.5,
       infinite: false,
@@ -20,81 +18,141 @@ const SmoothScroll = ({ children }) => {
 
     window.lenis = lenis
 
-    let isSnapping = false
-    let snapTimeout = null
+    /* ─────────────────────────────────────────────
+       IntersectionObserver: .is-visible for CSS
+    ───────────────────────────────────────────── */
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-visible")
+        })
+      },
+      { threshold: 0.2 }
+    )
+    document.querySelectorAll("section[id], footer").forEach((s) =>
+      visibilityObserver.observe(s)
+    )
 
-    // 🎯 Intersection Observer for Section Visibility & Animations
-    const observerOptions = {
-      threshold: 0.2, // Trigger when 20% of section is visible
+    /* ─────────────────────────────────────────────
+       DIRECTION-AWARE FORCED SNAP
+
+       Scroll order:
+         hero-section (300vh sticky)
+           ↓ ends
+         [ScrollTransition — height:0, just visual]
+         dish-showcase   ← snap
+         about-section   ← snap
+         chef-section    ← snap
+
+       When scrolling UP back into hero from dish-showcase,
+       snap to the hero's last frame (end of Scene 2).
+    ───────────────────────────────────────────── */
+    const SNAP_IDS = [
+      "dish-showcase",
+      "about-section",
+      "chef-section",
+      "cuisine-section",
+      "testimonials-section",
+      "contact-section",
+      "main-footer"
+    ]
+    const SNAP_COOLDOWN = 650
+    const VEL_THRESHOLD = 0.42
+
+    let snapInProgress = false
+    let lastSnapTime = 0
+    let scrollDir = 1       // +1 down, -1 up
+    let lastScrollY = window.scrollY
+    let debounceTimer = null
+
+    const snapTo = (target, offset = 0) => {
+      snapInProgress = true
+      lastSnapTime = Date.now()
+      lenis.scrollTo(target, {
+        duration: 0.95,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+        offset,
+        onComplete: () => { snapInProgress = false },
+      })
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible")
-        } else {
-          // Keep it simple - add class once and keep it, or remove to re-animate
-          // entry.target.classList.remove("is-visible")
+    const trySnap = () => {
+      if (snapInProgress) return
+      const now = Date.now()
+      if (now - lastSnapTime < SNAP_COOLDOWN) return
+
+      const vh = window.innerHeight
+
+      /* ── When scrolling UP back into Hero ──
+         Hero is 300vh. If hero bottom is in view and hero top
+         has scrolled above the viewport, we're inside the hero.
+         Snap to hero's last scroll position (end of Scene 2). */
+      if (scrollDir < 0) {
+        const hero = document.getElementById("hero-section")
+        if (hero) {
+          const rect = hero.getBoundingClientRect()
+          const heroPartiallyVisible =
+            rect.bottom > 0 &&
+            rect.bottom < vh * 1.25 &&
+            rect.top < -10
+          if (heroPartiallyVisible) {
+            const targetY = hero.offsetTop + hero.offsetHeight - vh
+            if (Math.abs(window.scrollY - targetY) > 8) {
+              snapTo(targetY)
+              return
+            }
+          }
         }
-      })
-    }, observerOptions)
+      }
 
-    const sections = document.querySelectorAll("section[id], footer")
-    sections.forEach((s) => observer.observe(s))
+      /* ── Standard snap for dish-showcase, about, chef ── */
+      for (const id of SNAP_IDS) {
+        const el = document.getElementById(id)
+        if (!el) continue
 
-    // 🧲 Magnetic Snapping Logic
-    const handleSnap = () => {
-      if (isSnapping) return
+        const rect = el.getBoundingClientRect()
+        const top = rect.top
+        const bottom = rect.bottom
 
-      const scrollPos = window.scrollY
-      const viewportHeight = window.innerHeight
-      let nearestSection = null
-      let minDistance = Infinity
+        // Eager snap ranges covering the entire viewport range to eliminate dead zones
+        const snapDown = scrollDir >= 0 && top > 3 && top < vh * 0.95
+        const snapUp = scrollDir < 0 && top > vh * -0.95 && top < -3 && bottom > 0
 
-      sections.forEach((section) => {
-        const distance = Math.abs(scrollPos - section.offsetTop)
-        // Snap if we're within 15% of a section start
-        if (distance < viewportHeight * 0.15 && distance < minDistance) {
-          minDistance = distance
-          nearestSection = section
+        if (snapDown || snapUp) {
+          snapTo(el)
+          break
         }
-      })
-
-      if (nearestSection && minDistance > 5) {
-        isSnapping = true
-        lenis.scrollTo(nearestSection, {
-          duration: 0.8,
-          easing: (t) => 1 - Math.pow(1 - t, 4),
-          onComplete: () => {
-            isSnapping = false
-          },
-        })
       }
     }
 
     lenis.on("scroll", ({ velocity }) => {
-      if (isSnapping) return
+      if (snapInProgress) return
 
-      if (snapTimeout) clearTimeout(snapTimeout)
+      // Track direction
+      const currentY = window.scrollY
+      if (currentY !== lastScrollY) {
+        scrollDir = currentY > lastScrollY ? 1 : -1
+        lastScrollY = currentY
+      }
 
-      // When scroll slows down significantly, check for snap
-      if (Math.abs(velocity) < 0.5) {
-        snapTimeout = setTimeout(handleSnap, 400)
+      if (debounceTimer) clearTimeout(debounceTimer)
+      if (Math.abs(velocity) < VEL_THRESHOLD) {
+        debounceTimer = setTimeout(trySnap, 90)
       }
     })
 
+    /* ── RAF loop ── */
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
     }
-
     requestAnimationFrame(raf)
 
     return () => {
-      observer.disconnect()
+      visibilityObserver.disconnect()
       lenis.destroy()
       window.lenis = null
-      if (snapTimeout) clearTimeout(snapTimeout)
+      if (debounceTimer) clearTimeout(debounceTimer)
     }
   }, [])
 
