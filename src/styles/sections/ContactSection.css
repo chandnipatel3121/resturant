@@ -9,7 +9,6 @@
   flex-direction: column;
   background: #f4f7f7;
   overflow: hidden;
-  scroll-snap-align: start;
   padding-top: 76px;
 }
 
@@ -200,11 +199,11 @@
 @media (max-width: 1023px) {
   .contact-section {
     min-height: 100vh;
-    height: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .contact-info-panel {

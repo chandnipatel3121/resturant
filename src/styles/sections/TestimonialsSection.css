@@ -8,7 +8,6 @@
   flex-direction: column;
   justify-content: center;
   overflow-x: hidden;
-  scroll-snap-align: start;
 }
 
 .testimonials-ghost-text {

@@ -85,7 +85,6 @@ section, footer {
   min-height: 100vh;
   width: 100%;
   position: relative;
-  scroll-snap-align: start;
 }
 
 /* UTILITIES */
@@ -196,7 +195,7 @@ section, footer {
 .delay-4 { transition-delay: 0.4s; }
 .delay-5 { transition-delay: 0.5s; }
 
-/* Ensure all sections have proper snap alignment and min-height */
+/* All sections: strict 100vh height on desktop for forced snap */
 section {
   min-height: 100vh;
   width: 100%;

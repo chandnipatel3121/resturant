@@ -4,49 +4,40 @@ import "lenis/dist/lenis.css"
 
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
+    /* ── Lenis: used ONLY for smooth scrollTo animation ── */
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.0,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      smoothTouch: false,
-      touchMultiplier: 1.5,
+      smoothTouch: true,
+      touchMultiplier: 2,
       infinite: false,
     })
 
     window.lenis = lenis
 
-    /* ─────────────────────────────────────────────
-       IntersectionObserver: .is-visible for CSS
-    ───────────────────────────────────────────── */
+    /* ── IntersectionObserver: .is-visible for CSS reveal animations ── */
     const visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) entry.target.classList.add("is-visible")
         })
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     )
     document.querySelectorAll("section[id], footer").forEach((s) =>
       visibilityObserver.observe(s)
     )
 
-    /* ─────────────────────────────────────────────
-       DIRECTION-AWARE FORCED SNAP
-
-       Scroll order:
-         hero-section (300vh sticky)
-           ↓ ends
-         [ScrollTransition — height:0, just visual]
-         dish-showcase   ← snap
-         about-section   ← snap
-         chef-section    ← snap
-
-       When scrolling UP back into hero from dish-showcase,
-       snap to the hero's last frame (end of Scene 2).
-    ───────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────────────────────
+       FULLPAGE.JS-STYLE FORCED SECTION SCROLL
+       ─ Outside hero: every wheel tick = one section snap
+       ─ Inside hero: free Lenis scroll (300vh sticky animation)
+       ─ ScrollTransition banner stays in-flow between hero & dish
+    ───────────────────────────────────────────────────────────── */
     const SNAP_IDS = [
       "dish-showcase",
       "about-section",
@@ -54,92 +45,130 @@ const SmoothScroll = ({ children }) => {
       "cuisine-section",
       "testimonials-section",
       "contact-section",
-      "main-footer"
+      "main-footer",
     ]
-    const SNAP_COOLDOWN = 650
-    const VEL_THRESHOLD = 0.42
+
+    const SNAP_COOLDOWN = 1050  // ms between snaps
+    const DELTA_THRESHOLD = 30  // px of accumulated wheel delta to trigger
 
     let snapInProgress = false
     let lastSnapTime = 0
-    let scrollDir = 1       // +1 down, -1 up
-    let lastScrollY = window.scrollY
-    let debounceTimer = null
+    let accumulated = 0
+    let touchStartY = 0
 
-    const snapTo = (target, offset = 0) => {
+    const getElements = () =>
+      SNAP_IDS.map((id) => document.getElementById(id)).filter(Boolean)
+
+    /* True while the viewport is inside the hero's sticky scroll zone */
+    const isInHero = () => {
+      const hero = document.getElementById("hero-section")
+      if (!hero) return false
+      // Hero sticky zone ends when scrollY reaches: hero.offsetTop + hero.offsetHeight - vh
+      const heroScrollEnd =
+        hero.offsetTop + hero.offsetHeight - window.innerHeight
+      return window.scrollY < heroScrollEnd - 40
+    }
+
+    /*
+      Returns the index in SNAP_IDS of the "current" section
+      (last section whose top <= +50px from viewport top).
+      -1 = still in hero / before first snap section.
+    */
+    const getCurrentSectionIndex = () => {
+      const elements = getElements()
+      let idx = -1
+      for (let i = 0; i < elements.length; i++) {
+        const top = elements[i].getBoundingClientRect().top
+        if (top <= 50) idx = i
+        else break
+      }
+      return idx
+    }
+
+    const snapTo = (target) => {
       snapInProgress = true
       lastSnapTime = Date.now()
+      accumulated = 0
+
       lenis.scrollTo(target, {
-        duration: 0.95,
+        duration: 1.0,
         easing: (t) => 1 - Math.pow(1 - t, 4),
-        offset,
-        onComplete: () => { snapInProgress = false },
+        onComplete: () => {
+          snapInProgress = false
+        },
       })
     }
 
-    const trySnap = () => {
+    const triggerSnap = (direction) => {
       if (snapInProgress) return
-      const now = Date.now()
-      if (now - lastSnapTime < SNAP_COOLDOWN) return
+      if (Date.now() - lastSnapTime < SNAP_COOLDOWN) return
 
-      const vh = window.innerHeight
+      const hero = document.getElementById("hero-section")
+      const elements = getElements()
+      const currentIdx = getCurrentSectionIndex()
 
-      /* ── When scrolling UP back into Hero ──
-         Hero is 300vh. If hero bottom is in view and hero top
-         has scrolled above the viewport, we're inside the hero.
-         Snap to hero's last scroll position (end of Scene 2). */
-      if (scrollDir < 0) {
-        const hero = document.getElementById("hero-section")
-        if (hero) {
-          const rect = hero.getBoundingClientRect()
-          const heroPartiallyVisible =
-            rect.bottom > 0 &&
-            rect.bottom < vh * 1.25 &&
-            rect.top < -10
-          if (heroPartiallyVisible) {
-            const targetY = hero.offsetTop + hero.offsetHeight - vh
-            if (Math.abs(window.scrollY - targetY) > 8) {
-              snapTo(targetY)
-              return
-            }
-          }
+      if (direction > 0) {
+        /* ── Scroll DOWN ── */
+        const nextIdx = currentIdx + 1
+        if (nextIdx < elements.length) {
+          snapTo(elements[nextIdx])
         }
-      }
-
-      /* ── Standard snap for dish-showcase, about, chef ── */
-      for (const id of SNAP_IDS) {
-        const el = document.getElementById(id)
-        if (!el) continue
-
-        const rect = el.getBoundingClientRect()
-        const top = rect.top
-        const bottom = rect.bottom
-
-        // Eager snap ranges covering the entire viewport range to eliminate dead zones
-        const snapDown = scrollDir >= 0 && top > 3 && top < vh * 0.95
-        const snapUp = scrollDir < 0 && top > vh * -0.95 && top < -3 && bottom > 0
-
-        if (snapDown || snapUp) {
-          snapTo(el)
-          break
+      } else {
+        /* ── Scroll UP ── */
+        if (currentIdx > 0) {
+          snapTo(elements[currentIdx - 1])
+        } else {
+          /* Back to hero end (last sticky frame) */
+          if (hero) {
+            const heroEnd =
+              hero.offsetTop + hero.offsetHeight - window.innerHeight
+            snapTo(heroEnd)
+          }
         }
       }
     }
 
-    lenis.on("scroll", ({ velocity }) => {
+    /* ── Wheel handler (capture phase so it runs before Lenis) ── */
+    const handleWheel = (e) => {
+      /* Inside hero: let Lenis scroll freely */
+      if (isInHero()) return
+
+      /* Outside hero: always block native + Lenis wheel input */
+      e.preventDefault()
+
       if (snapInProgress) return
+      if (Date.now() - lastSnapTime < SNAP_COOLDOWN) return
 
-      // Track direction
-      const currentY = window.scrollY
-      if (currentY !== lastScrollY) {
-        scrollDir = currentY > lastScrollY ? 1 : -1
-        lastScrollY = currentY
-      }
+      /* Accumulate delta (handles high-resolution trackpads) */
+      accumulated += e.deltaY
 
-      if (debounceTimer) clearTimeout(debounceTimer)
-      if (Math.abs(velocity) < VEL_THRESHOLD) {
-        debounceTimer = setTimeout(trySnap, 90)
+      if (Math.abs(accumulated) >= DELTA_THRESHOLD) {
+        const direction = accumulated > 0 ? 1 : -1
+        accumulated = 0
+        triggerSnap(direction)
       }
-    })
+    }
+
+    /* ── Touch handlers ── */
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchEnd = (e) => {
+      if (isInHero()) return
+      if (snapInProgress) return
+      if (Date.now() - lastSnapTime < SNAP_COOLDOWN) return
+
+      const delta = touchStartY - e.changedTouches[0].clientY
+      if (Math.abs(delta) < 25) return
+
+      triggerSnap(delta > 0 ? 1 : -1)
+    }
+
+    /* Use capture:true so our handler fires BEFORE Lenis processes the event */
+    window.addEventListener("wheel", handleWheel, { capture: true, passive: false })
+    window.addEventListener("touchstart", handleTouchStart, { passive: true })
+    window.addEventListener("touchend", handleTouchEnd, { passive: true })
 
     /* ── RAF loop ── */
     function raf(time) {
@@ -152,7 +181,9 @@ const SmoothScroll = ({ children }) => {
       visibilityObserver.disconnect()
       lenis.destroy()
       window.lenis = null
-      if (debounceTimer) clearTimeout(debounceTimer)
+      window.removeEventListener("wheel", handleWheel, { capture: true })
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchend", handleTouchEnd)
     }
   }, [])
 

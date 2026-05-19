@@ -11,12 +11,6 @@
   padding: 0;
   margin: 0;
   z-index: 5;
-
-  /* Smooth scroll snap */
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-
-  /* GPU composite */
   will-change: transform;
   transform: translateZ(0);
 }
@@ -232,9 +226,9 @@
 /* ── RESPONSIVE: Tablet (768px – 1023px) ── */
 @media (min-width: 768px) and (max-width: 1023px) {
   .about-section {
-    height: auto;
-    min-height: 100vh;
-    padding: 6rem 0 4rem;
+    height: 100vh;
+    padding: 0;
+    align-items: center;
   }
 
   .about-image-collage {

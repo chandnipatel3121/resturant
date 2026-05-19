@@ -1,50 +1,16 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import logo from "../assets/logo.png"
-import bgandado from "../assets/bgandado.png"
 import styles from "../styles/components/ScrollTransition.module.css"
 
 const ScrollTransition = () => {
   const containerRef = useRef(null)
 
-  // The trigger is now the container which sits in the flow
+  // Scroll progress of this in-flow banner
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   })
-
-  // Trigger forced scroll smoothly once the divider transition has fully scrolled up and out of view (come to end)
-  useEffect(() => {
-    let hasSnapped = false
-
-    const handleScroll = () => {
-      if (!containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-
-      // The green banner is centered at the boundary with a height of 19vh.
-      // It completely exits the top of the viewport when rect.top + 9.5vh <= 0.
-      const bannerLimit = -window.innerHeight * 0.095
-
-      if (rect.top <= bannerLimit && rect.top > bannerLimit - 200) {
-        if (!hasSnapped) {
-          hasSnapped = true
-          const target = document.getElementById("dish-showcase")
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop,
-              behavior: "smooth"
-            })
-          }
-        }
-      } else if (rect.top > window.innerHeight * 0.6) {
-        // Reset snap to allow triggering again when scrolling back down
-        hasSnapped = false
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   // Create a spring-based scroll progress for smooth scrolling physics
   const smoothProgress = useSpring(scrollYProgress, {

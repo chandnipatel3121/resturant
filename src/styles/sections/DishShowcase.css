@@ -1,20 +1,23 @@
 /* 🍽 DISH SHOWCASE STYLES */
 .dish-showcase {
   width: 100%;
+  height: 100vh;
   position: relative;
   z-index: 10;
-  padding-top: 100px; /* Prevent overlap */
+  overflow: hidden;
 }
 
 @media (max-width: 1024px) {
   .dish-showcase {
-    padding-top: 140px;
+    height: 100vh;
+    overflow: hidden;
   }
 }
 
 @media (max-height: 720px) {
   .dish-showcase {
-    padding-top: 60px;
+    height: 100vh;
+    overflow: hidden;
   }
   .dish-name {
     opacity: 0.9 !important;
