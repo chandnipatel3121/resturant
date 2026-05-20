@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, memo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Search, Plus, Star, Clock, Users, ArrowRight, Flame, Pizza, Soup, Fish, Utensils, Leaf, Sun, Coffee, X, ShoppingBag, MapPin, Info } from 'lucide-react';
 import menuData from '../data/menuData';
 import gourmetSalad from '../assets/gourmet_salad.png';
@@ -233,6 +233,29 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
   const [isFlipping, setIsFlipping] = useState(false);
   const [flipDirection, setFlipDirection] = useState('next'); // 'next' or 'prev'
 
+  // Framer Motion synchronized 3D page flip transition values
+  const rotateY = useMotionValue(flipDirection === 'next' ? 0 : -180);
+  const opacityFront = useTransform(rotateY, [-180, -90.1, -90, 0], [0, 0, 1, 1]);
+  const opacityBack = useTransform(rotateY, [-180, -90.1, -90, 0], [1, 1, 0, 0]);
+  const transform = useTransform(rotateY, (r) => `perspective(2000px) rotateY(${r}deg)`);
+
+  React.useEffect(() => {
+    if (isFlipping) {
+      const startValue = flipDirection === 'next' ? 0 : -180;
+      const endValue = flipDirection === 'next' ? -180 : 0;
+      rotateY.set(startValue);
+      const controls = animate(rotateY, endValue, {
+        duration: 0.85,
+        ease: [0.25, 1, 0.5, 1],
+        onComplete: () => {
+          setCurrentIndex(flipDirection === 'next' ? currentIndex + 1 : currentIndex - 1);
+          setIsFlipping(false);
+        }
+      });
+      return () => controls.stop();
+    }
+  }, [isFlipping, flipDirection, rotateY, currentIndex]);
+
   const handlePrev = (e) => {
     if (e) {
       e.preventDefault();
@@ -366,13 +389,6 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
             <motion.div
               className="book-page middle-flipping-page"
               key={`${currentIndex}-${flipDirection}`}
-              initial={{ rotateY: flipDirection === 'next' ? 0 : -180 }}
-              animate={{ rotateY: flipDirection === 'next' ? -180 : 0 }}
-              transition={{ duration: 0.85, ease: [0.25, 1, 0.5, 1] }}
-              onAnimationComplete={() => {
-                setCurrentIndex(flipDirection === 'next' ? currentIndex + 1 : currentIndex - 1);
-                setIsFlipping(false);
-              }}
               style={{
                 position: 'absolute',
                 left: '50%',
@@ -388,41 +404,44 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
                 boxShadow: 'none',
                 border: 'none',
                 borderRadius: 0,
-                background: 'transparent'
+                background: 'transparent',
+                transform
               }}
             >
               <div className="flipping-inner" style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d' }}>
                 {/* Front of the flipping page: shows details of old (next) or new (prev) */}
-                <div
+                <motion.div
                   className="flipping-page-front"
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'visible',
+                    WebkitBackfaceVisibility: 'visible',
                     transform: 'rotateY(0deg) translateZ(1px)',
                     transformStyle: 'preserve-3d',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    opacity: opacityFront
                   }}
                 >
                   <RightPageContent dish={flipDirection === 'next' ? dishes[currentIndex] : dishes[currentIndex - 1]} />
-                </div>
+                </motion.div>
 
                 {/* Back of the flipping page: shows image of new (next) or old (prev) */}
-                <div
+                <motion.div
                   className="flipping-page-back"
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'visible',
+                    WebkitBackfaceVisibility: 'visible',
                     transform: 'rotateY(180deg) translateZ(1px)',
                     transformStyle: 'preserve-3d',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    opacity: opacityBack
                   }}
                 >
                   <LeftPageContent dish={flipDirection === 'next' ? dishes[currentIndex + 1] : dishes[currentIndex]} />
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -657,6 +676,13 @@ const MenuSection = () => {
     }
   };
 
+  const renderCuisineLabel = (name) => {
+    if (name === "Mediterranean") {
+      return <>Mediter<wbr />ranean</>;
+    }
+    return name;
+  };
+
   return (
     <section className="subpage-layout w-full min-h-screen bg-[var(--bg)] pb-24 relative is-visible" id="menu">
       {/* Optimized Background elements */}
@@ -750,7 +776,7 @@ const MenuSection = () => {
                     {cat.icon}
                   </div>
                   <div className="sidebar-cat-info">
-                    <span className="sidebar-cat-label">{cat.name}</span>
+                    <span className="sidebar-cat-label">{renderCuisineLabel(cat.name)}</span>
                     <p className="sidebar-cat-desc">Explore {cat.name} flavors</p>
                   </div>
                   {activeCuisines.includes(cat.name) && (

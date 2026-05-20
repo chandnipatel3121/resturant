@@ -2667,8 +2667,8 @@ html.menu-snap-page .menu-main-layout {
   left: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
   background-color: #faf7ef;
   background-image:
     url("https://www.transparenttextures.com/patterns/black-leather.png"),
@@ -2718,6 +2718,12 @@ html.menu-snap-page .menu-main-layout {
   -webkit-backface-visibility: hidden !important;
 }
 */
+
+/* Fix Chrome/WebKit bug that hides the main dish image inside the turning page */
+.middle-flipping-page .book-main-img {
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+}
 
 /* Vintage branding on the middle flipping sheet */
 .vintage-seal {
