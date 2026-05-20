@@ -523,6 +523,14 @@ const MenuSection = () => {
 
   const mainLayoutRef = useRef(null);
 
+  // Mount/Dismount effect for scroll snap on the Menu page
+  React.useEffect(() => {
+    document.documentElement.classList.add("menu-snap-page");
+    return () => {
+      document.documentElement.classList.remove("menu-snap-page");
+    };
+  }, []);
+
   // Smart dynamic scroll management to bypass all filter layout jumps
   React.useEffect(() => {
     if (mainLayoutRef.current) {
@@ -560,7 +568,7 @@ const MenuSection = () => {
       setActiveCuisines([]);
       return;
     }
-    setActiveCuisines(prev => 
+    setActiveCuisines(prev =>
       prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
     );
   };
@@ -573,7 +581,7 @@ const MenuSection = () => {
       setActiveCourses([]);
       return;
     }
-    setActiveCourses(prev => 
+    setActiveCourses(prev =>
       prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
     );
   };
@@ -784,30 +792,35 @@ const MenuSection = () => {
                     )}
                   </div>
 
-                  <div className="filter-group meal-times-group">
-                    <div className="filter-pills">
-                      {meals.map((meal) => (
-                        <button
-                          key={meal}
-                          onClick={() => toggleMealFilter(meal)}
-                          className={`meal-pill-modern ${(meal === 'All' && activeMeals.length === 0) || activeMeals.includes(meal) ? 'active' : ''
-                            }`}
-                        >
-                          {meal}
-                        </button>
-                      ))}
+                  <div className="meal-stats-row">
+                    <div className="filter-group meal-times-group">
+                      <div className="filter-pills">
+                        {meals.map((meal) => (
+                          <button
+                            key={meal}
+                            onClick={() => toggleMealFilter(meal)}
+                            className={`meal-pill-modern ${(meal === 'All' && activeMeals.length === 0) || activeMeals.includes(meal) ? 'active' : ''
+                              }`}
+                          >
+                            {meal}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="search-stats text-editorial">
-                    {filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available
+                    <div className="search-stats text-editorial">
+                      <span className="desktop-stats-text">{filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available</span>
+                      <span className="mobile-stats-text">{filteredItems.length} available</span>
+                    </div>
                   </div>
                 </div>
 
                 {/* Row 2: Cuisine Segments taking full width */}
                 <div className="filters-bottom-line">
                   <div className="filter-group course-group full-width-course">
-                    <span className="group-label">Cuisine Segments</span>
+                    <div className="course-header-row">
+                      <span className="search-stats-inline">{filteredItems.length} available</span>
+                    </div>
                     <div className="course-chips">
                       {courses.map((course) => (
                         <button
@@ -826,7 +839,7 @@ const MenuSection = () => {
             </div>
 
             {/* Menu Grid Container - Enhanced framing */}
-            <div className="max-w-[1900px] mx-auto px-4 md:px-12 pt-6 md:pt-10 pb-24">
+            <div className="menu-grid-container max-w-[1900px] mx-auto px-4 md:px-12 pt-6 md:pt-10 pb-24">
               <div className="explorer-grid">
                 {filteredItems.map((dish) => {
                   const cartItem = cart.find(item => item.id === dish.id);
@@ -861,7 +874,13 @@ const MenuSection = () => {
                   <h3 className="italic">No flavors found...</h3>
                   <p>Try exploring a different cuisine or mood!</p>
                   <button
-                    onClick={() => { setActiveCategory(""); setActiveCourse("All"); setActiveMeal("All"); setActiveDiet("All"); setSearchQuery(""); }}
+                    onClick={() => {
+                      setActiveCuisines([]);
+                      setActiveCourses([]);
+                      setActiveMeals([]);
+                      setActiveDiets([]);
+                      setSearchQuery("");
+                    }}
                     className="mt-6 px-8 py-3 bg-[var(--text)] text-white rounded-full font-bold"
                   >
                     Reset Gallery
