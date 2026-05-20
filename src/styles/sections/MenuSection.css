@@ -1597,6 +1597,220 @@ html.menu-snap-page .menu-main-layout {
   }
 }
 
+/* Compact desktop layout for short 1195 x 585 style viewports */
+@media (min-width: 1100px) and (max-width: 1240px) and (max-height: 620px) {
+  .menu-main-layout {
+    min-height: 100vh !important;
+  }
+
+  .menu-sidebar {
+    width: 300px !important;
+    padding: 10px 24px 8px !important;
+    top: 47px !important;
+    height: calc(100vh - 47px) !important;
+    overflow-y: hidden !important;
+  }
+
+  .sidebar-header {
+    margin-bottom: 10px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .sidebar-header .text-editorial {
+    font-size: 0.66rem !important;
+    letter-spacing: 0.34em !important;
+  }
+
+  .sidebar-title {
+    font-size: 1.3rem !important;
+    margin-top: 3px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .sidebar-line {
+    width: 30px !important;
+  }
+
+  .sidebar-cuisines-list {
+    gap: 4px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .sidebar-cat-item {
+    min-height: 43px !important;
+    padding: 5px 12px !important;
+    border-radius: 13px !important;
+    gap: 9px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .sidebar-cat-pill {
+    height: 32px !important;
+  }
+
+  .sidebar-cat-icon-container {
+    width: 29px !important;
+    height: 29px !important;
+  }
+
+  .sidebar-cat-icon-container svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .sidebar-cat-label {
+    font-size: 0.78rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .sidebar-cat-desc {
+    font-size: 0.58rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .menu-filters-sticky {
+    top: 47px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    background: #edf7f7 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(15, 92, 92, 0.08) !important;
+    border-top: 1px solid #edf7f7 !important;
+  }
+
+  .menu-filters-sticky > div {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .filters-top-line {
+    justify-content: space-between !important;
+    margin-bottom: 8px !important;
+    gap: 14px !important;
+    padding-left: 28px !important;
+    padding-right: 22px !important;
+  }
+
+  .general-search-container {
+    flex: 1 1 330px !important;
+    min-width: 0 !important;
+    max-width: 360px !important;
+    height: 46px !important;
+  }
+
+  .general-search-input {
+    font-size: 0.82rem !important;
+  }
+
+  .meal-stats-row {
+    gap: 14px !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+  }
+
+  .meal-times-group .filter-pills {
+    padding: 3px !important;
+  }
+
+  .meal-pill-modern {
+    padding: 8px 17px !important;
+    font-size: 0.76rem !important;
+  }
+
+  .search-stats {
+    padding: 7px 13px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+  }
+
+  .filters-bottom-line {
+    margin-top: 6px !important;
+    padding-top: 6px !important;
+  }
+
+  .filters-bottom-line .course-group {
+    padding-left: 28px !important;
+    padding-right: 22px !important;
+  }
+
+  .filters-bottom-line .course-chips {
+    gap: 10px !important;
+    padding: 3px 3px 6px !important;
+  }
+
+  .course-chip {
+    padding: 7px 18px 7px 24px !important;
+    font-size: 0.68rem !important;
+  }
+
+  .course-chip::before {
+    left: 12px !important;
+  }
+
+  .menu-grid-container {
+    padding-top: 0 !important;
+  }
+
+  .explorer-grid {
+    padding: 36px 40px 0 !important;
+    gap: 32px !important;
+    grid-template-columns: repeat(2, minmax(280px, 1fr)) !important;
+  }
+
+  .dish-card-premium-kiosk {
+    height: 330px !important;
+    max-width: 380px !important;
+    border-radius: 28px !important;
+  }
+
+  .card-media-wrapper {
+    height: 180px !important;
+    border-radius: 24px !important;
+  }
+
+  .dish-tags-kiosk-on-image {
+    bottom: 9px !important;
+    left: 12px !important;
+    gap: 5px !important;
+  }
+
+  .tag-pill-kiosk-image {
+    padding: 3px 8px !important;
+    font-size: 0.58rem !important;
+    border-radius: 7px !important;
+  }
+
+  .card-content-grid {
+    padding: 12px 16px 14px !important;
+    gap: 12px !important;
+  }
+
+  .dish-name-kiosk {
+    font-size: 1.15rem !important;
+  }
+
+  .dish-desc-kiosk {
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .origin-badge-kiosk {
+    font-size: 0.72rem !important;
+  }
+
+  .price-tag-kiosk {
+    font-size: 1.45rem !important;
+  }
+
+  .grid-right-side {
+    gap: 8px !important;
+  }
+}
+
 .course-chip.active::before {
   background: #ffffff;
   transform: translateY(-50%) scale(1.4);
