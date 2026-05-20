@@ -134,6 +134,9 @@ const AboutSection = () => {
               Dining is more than sustenance—it is a sequence of moments.
               Every ingredient, every texture, every presentation is crafted
               to awaken emotion and memory.
+              <span className="block mt-3 md:hidden text-[14px] leading-relaxed font-normal opacity-90">
+                Rooted in heritage and refined by modern culinary art, we carefully source every ingredient to bring you the rich, authentic flavors of India. Every plate is a journey through our history, crafted with dedication and served with love.
+              </span>
             </motion.p>
 
             <motion.button

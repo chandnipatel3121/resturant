@@ -19,7 +19,7 @@
   font-style: italic;
   line-height: 1;
   color: rgba(15, 92, 92);
-  opacity:0.09;
+  opacity: 0.09;
   text-transform: uppercase;
   pointer-events: none;
   user-select: none;
@@ -263,14 +263,103 @@
     padding-top: 5rem;
     min-height: 110vh;
   }
+
   .testimonials-header {
     margin-bottom: 1rem;
   }
+
   .testimonials-marquee {
     padding: 1rem 0;
   }
+
   .testimonial-card {
     padding: 1.5rem;
   }
 }
 
+/* 📱 MOBILE CAROUSEL TOUCH SWIPER STYLES */
+.testimonials-mobile-slider {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .testimonials-marquee {
+    display: none !important;
+  }
+
+  .testimonials-mobile-slider {
+    display: block !important;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0 2rem 0;
+  }
+
+  .testimonials-mobile-track-container {
+    width: 100%;
+    overflow: hidden;
+    touch-action: pan-y; /* Block horizontal scrolling to stabilize touch swiping */
+  }
+
+  .testimonials-mobile-track {
+    display: flex;
+    width: 100%;
+    cursor: grab;
+  }
+
+  .testimonials-mobile-track:active {
+    cursor: grabbing;
+  }
+
+  .testimonials-mobile-slide {
+    width: 20%; /* Fallback for 5 testimonials, overridden dynamically in JSX */
+    flex-shrink: 0;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Scale card wrapper to perfectly fit mobile screen width */
+  .testimonials-mobile-slide .testimonial-card-wrapper {
+    width: 100% !important;
+    max-width: 480px !important;
+  }
+
+  /* Star ratings and content responsive layout adjustments */
+  .testimonials-mobile-slide .testimonial-card {
+    padding: 1.5rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+  .testimonials-mobile-slide .testimonial-quote {
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* dot indicators designed beautifully like premium carousels */
+  .testimonials-mobile-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+
+  .testimonial-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(15, 92, 92, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .testimonial-dot.is-active {
+    width: 24px; /* Expanding active dot */
+    border-radius: 4px;
+    background-color: var(--accent); /* Luxurious theme accent color */
+  }
+}

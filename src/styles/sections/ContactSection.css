@@ -226,7 +226,8 @@
   .map-container-wrapper {
     width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1; /* Forces the map to be perfectly square and fully visible */
+    aspect-ratio: 1 / 1;
+    /* Forces the map to be perfectly square and fully visible */
   }
 
   .contact-brand-title {

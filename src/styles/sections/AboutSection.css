@@ -244,11 +244,12 @@
 /* ── RESPONSIVE: Mobile (< 768px) ── */
 @media (max-width: 767px) {
   .about-section {
-    height: auto;
-    min-height: 100svh;
-    padding: 5rem 0 4rem;
-    align-items: flex-start;
-    padding-top: 5rem;
+    height: 100vh !important;
+    min-height: 100svh !important;
+    padding: 3.5rem 0 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .about-ghost-text {
@@ -256,8 +257,12 @@
     top: 5%;
   }
 
+  .about-text-content {
+    gap: 0.875rem !important;
+  }
+
   .about-flex-container {
-    gap: 2.5rem;
+    gap: 1.5rem !important;
   }
 
   .about-image-collage {
@@ -288,10 +293,14 @@
 /* ── SHORT VIEWPORT (e.g. 1195×585) ── */
 @media (max-height: 700px) and (min-width: 1024px) {
   .about-section {
-    height: auto;
-    min-height: 100vh;
-    padding: 4rem 0;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   .about-image-collage {

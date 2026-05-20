@@ -76,15 +76,11 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
           </div>
         )}
 
-        <div className="media-overlay-top">
-          <div className={`diet-badge ${dish.diet === 'Veg' ? 'veg' : 'non-veg'}`}>
-            <div className="badge-dot"></div>
-            <span>{dish.diet}</span>
-          </div>
-        </div>
-        <div className="media-status-pill">
-          <div className="status-dot-live"></div>
-          <span className="status-text-kiosk">{dish.availability || "In Stock"}</span>
+        {/* Ingredients Tags Kiosk positioned beautifully at the bottom of the image */}
+        <div className="dish-tags-kiosk-on-image">
+          {(dish.ingredients || []).slice(0, 3).map(ing => (
+            <span key={ing} className="tag-pill-kiosk-image">{ing}</span>
+          ))}
         </div>
 
         {/* iOS-Style Stretched Pagination Dots */}
@@ -103,11 +99,6 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
       <div className="card-content-grid">
         <div className="grid-left-side">
           <h3 className="dish-name-kiosk">{dish.title}</h3>
-          <div className="dish-tags-kiosk">
-            {(dish.ingredients || []).slice(0, 3).map(ing => (
-              <span key={ing} className="tag-pill-kiosk">{ing}</span>
-            ))}
-          </div>
           <p className="dish-desc-kiosk">{dish.shortDescription || dish.description}</p>
           <div className="origin-badge-kiosk">
             <span className="dot-small"></span>
@@ -528,20 +519,75 @@ const MenuSection = () => {
   const [activeMeals, setActiveMeals] = useState([]);
   const [activeDiets, setActiveDiets] = useState([]);
   const [activeCourses, setActiveCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Helper to toggle multi-filters
-  const toggleFilter = (current, setter, value) => {
+  const mainLayoutRef = useRef(null);
+
+  // Smart dynamic scroll management to bypass all filter layout jumps
+  React.useEffect(() => {
+    if (mainLayoutRef.current) {
+      const rect = mainLayoutRef.current.getBoundingClientRect();
+      const absoluteTop = window.pageYOffset + rect.top;
+      const targetScroll = Math.max(0, absoluteTop - 76); // Align perfectly below navbar
+
+      const currentScroll = window.scrollY;
+      const hasActiveFilters = activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0 || searchQuery !== '';
+
+      if (hasActiveFilters) {
+        if (currentScroll < targetScroll - 10) {
+          // Scrolled above the menu content (hero visible): scroll down smoothly to target content
+          window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        } else if (currentScroll > targetScroll + 150) {
+          // Scrolled deep into the grid: scroll back up to the top of the grid smoothly
+          window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        }
+        // If already in the sweet spot (sticky filter header is active & pinned), do not trigger any scroll adjustments!
+      }
+    }
+  }, [activeCuisines, activeCourses, activeMeals, searchQuery]);
+
+  // Helper to toggle Cuisine (sidebar) - allows multiple cuisines but clears courses and meals
+  const toggleCuisineFilter = (value) => {
+    setActiveCourses([]);
+    setActiveMeals([]);
     if (value === 'All') {
-      setter([]);
+      setActiveCuisines([]);
       return;
     }
-    if (current.includes(value)) {
-      setter(current.filter(item => item !== value));
-    } else {
-      setter([...current, value]);
-    }
+    setActiveCuisines(prev => 
+      prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
+    );
   };
-  const [searchQuery, setSearchQuery] = useState('');
+
+  // Helper to toggle Cuisine Segment (course chips) - allows multiple courses but clears cuisines and meals
+  const toggleCourseFilter = (value) => {
+    setActiveCuisines([]);
+    setActiveMeals([]);
+    if (value === 'All') {
+      setActiveCourses([]);
+      return;
+    }
+    setActiveCourses(prev => 
+      prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
+    );
+  };
+
+  // Helper to toggle Service Session (meal pills) - single selection only, clears cuisines and courses
+  const toggleMealFilter = (value) => {
+    setActiveCuisines([]);
+    setActiveCourses([]);
+    if (value === 'All') {
+      setActiveMeals([]);
+      return;
+    }
+    setActiveMeals(prev => prev.includes(value) ? [] : [value]);
+  };
   const [cart, setCart] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
@@ -625,7 +671,7 @@ const MenuSection = () => {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-[#fcfcfc]">
+      <div className="min-h-screen bg-transparent">
         {/* Full-Width Hero */}
         <div className="enhanced-menu-hero pattern-variant">
           <div className="hero-bg-media">
@@ -672,7 +718,7 @@ const MenuSection = () => {
         </div>
 
         {/* Content Area with Sidebar and Grid */}
-        <div className="menu-main-layout">
+        <div className="menu-main-layout" ref={mainLayoutRef}>
           {/* Vertical Sidebar for Cuisines */}
           <aside className="menu-sidebar reveal-left">
             <div className="sidebar-bg-effects">
@@ -688,7 +734,7 @@ const MenuSection = () => {
               {cuisinies.map((cat, idx) => (
                 <button
                   key={cat.name}
-                  onClick={() => toggleFilter(activeCuisines, setActiveCuisines, cat.name)}
+                  onClick={() => toggleCuisineFilter(cat.name)}
                   className={`sidebar-cat-item ${activeCuisines.includes(cat.name) ? 'active' : ''}`}
                 >
                   <div className={`sidebar-cat-pill color-${(idx % 4) + 1}`}></div>
@@ -711,12 +757,13 @@ const MenuSection = () => {
           </aside>
 
           {/* Main Grid Area - Added significant padding for breathing room */}
-          <div className="menu-content-area px-16">
+          <div className="menu-content-area px-4 md:px-16">
             {/* Horizontal Filter Bar */}
             <div className="menu-filters-sticky">
-              <div className="max-w-[1800px] pl-10 pr-[var(--container-px)] py-6 border-b border-gray-100 mb-12">
+              <div className="max-w-[1800px] px-4 md:pl-10 md:pr-[var(--container-px)] py-4 md:py-6 mb-6 md:mb-12">
                 {/* General Search Bar Row */}
-                <div className="search-bar-row">
+                {/* Row 1: Search, Service Sessions, and Stats in ONE line */}
+                <div className="filters-top-line">
                   <div className="general-search-container">
                     <Search className="general-search-icon" size={18} />
                     <input
@@ -737,19 +784,12 @@ const MenuSection = () => {
                     )}
                   </div>
 
-                  <div className="search-stats text-editorial">
-                    {filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available
-                  </div>
-                </div>
-
-                <div className="all-filters-horizontal-row">
                   <div className="filter-group meal-times-group">
-                    <span className="group-label">Service Sessions</span>
                     <div className="filter-pills">
                       {meals.map((meal) => (
                         <button
                           key={meal}
-                          onClick={() => toggleFilter(activeMeals, setActiveMeals, meal)}
+                          onClick={() => toggleMealFilter(meal)}
                           className={`meal-pill-modern ${(meal === 'All' && activeMeals.length === 0) || activeMeals.includes(meal) ? 'active' : ''
                             }`}
                         >
@@ -759,30 +799,20 @@ const MenuSection = () => {
                     </div>
                   </div>
 
-                  <div className="filter-group diet-group">
-                    <span className="group-label">Cuisine Nature</span>
-                    <div className="filter-toggles">
-                      {diets.map((diet) => (
-                        <button
-                          key={diet}
-                          onClick={() => toggleFilter(activeDiets, setActiveDiets, diet)}
-                          className={`diet-toggle-modern ${diet.toLowerCase()} ${(diet === 'All' && activeDiets.length === 0) || activeDiets.includes(diet) ? 'active' : ''
-                            }`}
-                        >
-                          <div className="toggle-dot"></div>
-                          {diet}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="search-stats text-editorial">
+                    {filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available
                   </div>
+                </div>
 
-                  <div className="filter-group course-group">
+                {/* Row 2: Cuisine Segments taking full width */}
+                <div className="filters-bottom-line">
+                  <div className="filter-group course-group full-width-course">
                     <span className="group-label">Cuisine Segments</span>
                     <div className="course-chips">
                       {courses.map((course) => (
                         <button
                           key={course}
-                          onClick={() => toggleFilter(activeCourses, setActiveCourses, course)}
+                          onClick={() => toggleCourseFilter(course)}
                           className={`course-chip ${course.toLowerCase().replace(' ', '-')} ${(course === 'All' && activeCourses.length === 0) || activeCourses.includes(course) ? 'active' : ''
                             }`}
                         >
@@ -796,7 +826,7 @@ const MenuSection = () => {
             </div>
 
             {/* Menu Grid Container - Enhanced framing */}
-            <div className="max-w-[1900px] mx-auto px-12 pt-10 pb-24">
+            <div className="max-w-[1900px] mx-auto px-4 md:px-12 pt-6 md:pt-10 pb-24">
               <div className="explorer-grid">
                 {filteredItems.map((dish) => {
                   const cartItem = cart.find(item => item.id === dish.id);

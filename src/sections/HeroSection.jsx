@@ -47,9 +47,14 @@ const HeroSection = () => {
 
   /* Lock scroll while popup is open */
   useEffect(() => {
-    const lenis = window.lenis
-    if (!lenis) return
-    showPopup ? lenis.stop() : lenis.start()
+    if (showPopup) {
+      document.documentElement.style.overflow = "hidden"
+    } else {
+      document.documentElement.style.overflow = ""
+    }
+    return () => {
+      document.documentElement.style.overflow = ""
+    }
   }, [showPopup])
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
@@ -254,6 +259,8 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
+      <div id="hero-snap-peak" style={{ bottom: "60vh" }} className="absolute left-0 right-0 h-[1px] pointer-events-none" />
+      <div id="hero-snap-mid" style={{ bottom: "20vh" }} className="absolute left-0 right-0 h-[1px] pointer-events-none" />
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </section>
   )

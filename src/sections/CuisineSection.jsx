@@ -29,6 +29,7 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
   return (
     <motion.div
       className="cuisine-card-wrapper"
+      onClick={(e) => e.stopPropagation()}
       initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
@@ -52,6 +53,13 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
 
         <div className="glass-card-content">
           <header className="glass-card-header">
+            {/* Circular Map Preview on Mobile Modal */}
+            {isMobile && cuisine.map && (
+              <div className="modal-plate-preview modal-map-preview">
+                <img src={cuisine.map} alt={`${cuisine.name} origin map`} className="modal-map-img" />
+              </div>
+            )}
+
             {/* Steaming Pot/Bowl Icon */}
             <div className="glass-card-icon-container" style={{ color: cuisine.border }}>
               <svg className="glass-card-bowl-svg" viewBox="0 0 100 100">
@@ -274,11 +282,11 @@ const CuisineSection = () => {
   }, [])
 
   // 🎭 Dynamic 3D Transforms based on scroll
-  const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], [18, 10, 0])
+  const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], isSideBySide ? [12, 6, 0] : [18, 10, 0])
   const tableScale = useTransform(
     smoothProgress,
     [0, 0.3, 0.5, 1],
-    isShort ? [0.45, 0.55, 0.65, 0.55] : [0.8, 0.9, 1, 0.9]
+    isMobile ? [0.9, 1, 1, 0.9] : (isSideBySide ? [0.9, 0.98, 1.0, 0.98] : (isShort ? [0.85, 0.95, 1.0, 0.95] : [0.8, 0.9, 1, 0.9]))
   )
   const tableY = useTransform(
     smoothProgress,
@@ -480,6 +488,9 @@ const CuisineSection = () => {
                 <div key={idx} className="narrative-item-container">
                   <motion.div
                     className={`narrative-item ${displayIndex === idx ? 'is-active' : ''}`}
+                    style={{
+                      '--theme-color': cuisine.border
+                    }}
                     onMouseEnter={() => handleEnter(idx)}
                     onMouseLeave={handleLeave}
                     onClick={(e) => handleDishClick(e, idx)}
@@ -497,29 +508,54 @@ const CuisineSection = () => {
                     }}
                     animate={displayIndex === idx ? { x: 12, scale: 1.02 } : { x: 0, scale: 1 }}
                   >
-                    {/* Left: Premium Icon Group (Only Steaming Bowl/Cup) */}
+                    {/* Left: Premium Icon Group (Steaming Bowl on desktop, Botanical Leaf on mobile) */}
                     <div className="premium-icon-group">
-                      {/* Steaming Bowl SVG */}
                       <div className="premium-bowl-container">
-                        <svg className="premium-bowl-svg" viewBox="0 0 100 100" style={{
-                          color: displayIndex === null
-                            ? '#0F5C5C'
-                            : displayIndex === idx
-                              ? (cuisine.border || '#ebc51f')
-                              : 'rgba(255, 255, 255, 0.4)'
-                        }}>
-                          {/* Steam lines */}
-                          <path d="M35 30 Q38 20 35 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-1" />
-                          <path d="M50 25 Q53 15 50 5" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-2" />
-                          <path d="M65 30 Q68 20 65 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-3" />
-                          {/* Bowl */}
-                          <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
-                          <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
-                        </svg>
+                        {isMobile ? (
+                          <svg className="premium-leaf-svg" viewBox="0 0 100 100" style={{
+                            color: displayIndex === null
+                              ? '#76885B' // Elegant botanical sage green for light backgrounds
+                              : displayIndex === idx
+                                ? (cuisine.border || '#ebc51f')
+                                : 'rgba(255, 255, 255, 0.45)',
+                            transition: 'all 0.4s ease',
+                            width: '100%',
+                            height: '100%'
+                          }}>
+                            {/* Curved Stem */}
+                            <path d="M30 90 Q38 60 52 20" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                            {/* Left Side Leaves */}
+                            <path d="M33 78 Q20 75 25 65 Q35 68 38 73 Z" fill="currentColor" />
+                            <path d="M40 58 Q25 53 30 43 Q40 46 44 52 Z" fill="currentColor" />
+                            <path d="M48 38 Q33 33 38 23 Q48 26 51 32 Z" fill="currentColor" />
+                            {/* Right Side Leaves */}
+                            <path d="M38 80 Q52 82 48 72 Q38 70 37 77 Z" fill="currentColor" />
+                            <path d="M44 60 Q58 60 55 50 Q45 50 43 56 Z" fill="currentColor" />
+                            <path d="M51 40 Q65 38 61 28 Q51 30 50 36 Z" fill="currentColor" />
+                            {/* Top Leaf */}
+                            <path d="M52 20 Q55 8 59 12 Q55 24 52 20 Z" fill="currentColor" />
+                          </svg>
+                        ) : (
+                          <svg className="premium-bowl-svg" viewBox="0 0 100 100" style={{
+                            color: displayIndex === null
+                              ? '#0F5C5C'
+                              : displayIndex === idx
+                                ? (cuisine.border || '#ebc51f')
+                                : 'rgba(255, 255, 255, 0.4)'
+                          }}>
+                            {/* Steam lines */}
+                            <path d="M35 30 Q38 20 35 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-1" />
+                            <path d="M50 25 Q53 15 50 5" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-2" />
+                            <path d="M65 30 Q68 20 65 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-3" />
+                            {/* Bowl */}
+                            <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
+                            <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
+                          </svg>
+                        )}
                       </div>
                     </div>
 
-                    {/* Vertical Divider Line */}
+                    {/* Vertical Divider Line (Hidden on mobile) */}
                     <div className="premium-vertical-divider" style={{
                       background: displayIndex === null
                         ? 'rgba(15, 92, 92, 0.2)'
@@ -528,7 +564,7 @@ const CuisineSection = () => {
                           : 'rgba(255, 255, 255, 0.15)'
                     }} />
 
-                    {/* Right: Cursive Title & Italic Tagline */}
+                    {/* Right: Cuisine Title & Italic Tagline */}
                     <div className="premium-text-group">
                       <h4 className="premium-cuisine-name" style={{
                         color: displayIndex === null
@@ -539,9 +575,19 @@ const CuisineSection = () => {
                       }}>
                         {cuisine.name}
                       </h4>
+                      
+                      {/* Horizontal gold ornament divider (Only on mobile!) */}
+                      {isMobile && (
+                        <div className="mobile-gold-divider">
+                          <span className="mobile-divider-line" />
+                          <span className="mobile-divider-motif">✦</span>
+                          <span className="mobile-divider-line" />
+                        </div>
+                      )}
+
                       <p className="premium-cuisine-tagline" style={{
                         color: displayIndex === null
-                          ? 'rgba(15, 92, 92, 0.7)'
+                          ? 'rgba(15, 92, 92, 0.9)'
                           : displayIndex === idx
                             ? '#ffffff'
                             : 'rgba(255, 255, 255, 0.35)'
@@ -598,11 +644,11 @@ const CuisineSection = () => {
         </AnimatePresence>
 
         {isMobile ? (
-          displayIndex !== null && displayCuisine && createPortal(
+          activeIndex !== null && activeCuisine && createPortal(
             <div className="cuisine-info-container-mobile-modal" onClick={() => { setActiveIndex(null); setIsPaused(false); }}>
               <AnimatePresence>
                 <InternalCuisineCard
-                  cuisine={CUISINES[displayIndex]}
+                  cuisine={CUISINES[activeIndex]}
                   isMobile={true}
                   onClose={() => { setActiveIndex(null); setIsPaused(false); }}
                 />

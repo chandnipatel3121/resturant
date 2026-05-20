@@ -19,6 +19,7 @@
     height: 100vh;
     overflow: hidden;
   }
+
   .dish-name {
     opacity: 0.9 !important;
   }
@@ -64,7 +65,7 @@
   width: 180%;
   height: 180%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,0,0,0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.25) 0%, transparent 70%);
   z-index: -1;
   pointer-events: none;
   filter: blur(40px);
@@ -77,8 +78,13 @@
 }
 
 @keyframes slowRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .slow-rotate {
@@ -90,7 +96,64 @@
 }
 
 @media (max-width: 768px) {
+  .showcase-text-container {
+    position: absolute !important;
+    top: 24% !important;
+    left: 5% !important;
+    width: 90% !important;
+    transform: none !important;
+    translate: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
   .dish-name {
-    font-size: 2rem;
+    font-size: 2.2rem !important;
+    padding-top: 0vh !important;
+    white-space: normal !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: block !important;
+    line-height: 1.1 !important;
+  }
+
+  .showcase-desc-wrapper {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    translate: none !important;
+    width: 100% !important;
+    margin: 10px auto 0 !important;
+    text-align: center !important;
+    display: block !important;
+  }
+
+  .showcase-desc-text {
+    font-size: 14px !important;
+    font-weight: 500;
+    line-height: 1.7 !important;
+    text-align: center !important;
+  }
+
+  .showcase-arrow {
+    top: auto !important;
+    bottom: 28% !important;
+    transform: translateY(0) !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .showcase-arrow-left {
+    left: 1.5rem !important;
+  }
+
+  .showcase-arrow-right {
+    right: 1.5rem !important;
   }
 }

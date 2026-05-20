@@ -112,7 +112,7 @@ const ChefMascot = () => {
           animate={{ opacity: 1, y: 0, scale: isShort ? 0.7 : 1 }}
           exit={{ opacity: 0, y: 40, scale: 0.9 }}
           transition={{ duration: 0.4 }}
-          className="fixed bottom-6 right-6 z-[100] flex items-center gap-3 origin-bottom-right"
+          className="chef-mascot-container fixed bottom-6 right-6 z-[100] flex items-center gap-3 origin-bottom-right"
         >
           {/* 💬 MESSAGE */}
           <AnimatePresence>

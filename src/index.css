@@ -33,6 +33,16 @@
   box-sizing: border-box;
 }
 
+/* Disable selection and dragging on all images globally */
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 html {
   background: var(--bg);
   scrollbar-width: none;
@@ -61,7 +71,12 @@ body {
 }
 
 /* TYPOGRAPHY */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -81,7 +96,8 @@ p {
 }
 
 /* SECTION DEFAULTS */
-section, footer {
+section,
+footer {
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -119,13 +135,25 @@ section, footer {
 
 /* SHARED ANIMATIONS */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
@@ -134,14 +162,18 @@ section, footer {
     font-size: 14px;
   }
 
-  section {
-    min-height: 110vh; /* Allow slightly more room for scroll triggers */
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  section:not(.hero-section) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
-  h1 { font-size: clamp(2rem, 6vw, 4rem); }
-  h2 { font-size: clamp(1.8rem, 5vw, 3.5rem); }
+  h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+  }
 
   .section-container {
     padding-top: 2rem;
@@ -189,15 +221,120 @@ section, footer {
 }
 
 /* Staggered delays */
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-.delay-4 { transition-delay: 0.4s; }
-.delay-5 { transition-delay: 0.5s; }
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.delay-4 {
+  transition-delay: 0.4s;
+}
+
+.delay-5 {
+  transition-delay: 0.5s;
+}
 
 /* All sections: strict 100vh height on desktop for forced snap */
 section {
   min-height: 100vh;
   width: 100%;
   position: relative;
+}
+
+/* 🌊 NATIVE NATIVE CSS SNAP SCROLLING */
+/* Active only on desktop devices for a premium Fullpage.js-like experience */
+@media (min-width: 1024px) {
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    height: 100%;
+  }
+
+  /* Snapping active only when snap-peak-only is dynamically added */
+  html.home-page.snap-peak-only {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.home-page.snap-peak-only #hero-snap-peak {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.home-page.snap-peak-only section,
+  html.home-page.snap-peak-only footer,
+  html.home-page.snap-peak-only #hero-snap-mid {
+    scroll-snap-align: none !important;
+  }
+
+  /* Snapping active only when snap-mid-only is dynamically added */
+  html.home-page.snap-mid-only {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.home-page.snap-mid-only #hero-snap-mid {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.home-page.snap-mid-only section,
+  html.home-page.snap-mid-only footer,
+  html.home-page.snap-mid-only #hero-snap-peak {
+    scroll-snap-align: none !important;
+  }
+
+  /* Snapping active only when snap-all-sections is dynamically added */
+  html.home-page.snap-all-sections {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.home-page.snap-all-sections section:not(.hero-section),
+  html.home-page.snap-all-sections footer,
+  html.home-page.snap-all-sections #hero-snap-peak,
+  html.home-page.snap-all-sections #hero-snap-mid {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.home-page.snap-all-sections .hero-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.home-page section:not(.hero-section),
+  html.home-page footer {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+  }
+}
+
+/* 📱 MOBILE RESPONSIVE SCROLL SNAPPING & FLOATING CONTROLS */
+@media (max-width: 1023px) {
+  html.home-page {
+    scroll-snap-type: y mandatory !important;
+    scroll-behavior: smooth !important;
+  }
+
+  html.home-page section, html.home-page footer {
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .chef-mascot-container {
+    transform: scale(0.75) !important;
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+  }
 }

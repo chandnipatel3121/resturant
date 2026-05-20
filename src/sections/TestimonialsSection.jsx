@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import testimonials from "../data/testimonials"
 import "../styles/sections/TestimonialsSection.css"
@@ -64,10 +64,43 @@ const Card = ({ item }) => (
 
 const TestimonialsSection = () => {
   const containerRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  // Auto swipe every 4 seconds on mobile, resetting timer on slide change
+  useEffect(() => {
+    if (!isMobile) return
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [isMobile, currentIndex])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   })
+
+  // Swipe gesture dynamics using drag offsets (with loop support)
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50
+    if (info.offset.x < -swipeThreshold) {
+      // Swiped left -> Next card
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    } else if (info.offset.x > swipeThreshold) {
+      // Swiped right -> Previous card
+      setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    }
+  }
 
   return (
     <section id="testimonials-section" ref={containerRef} className="testimonials-section">
@@ -97,18 +130,60 @@ const TestimonialsSection = () => {
           </div>
         </motion.div>
 
-        {/* MARQUEE */}
-        <div className="testimonials-marquee">
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-            className="testimonials-track"
-          >
-            {[...testimonials, ...testimonials].map((item, i) => (
-              <Card key={i} item={item} />
-            ))}
-          </motion.div>
-        </div>
+        {/* DESKTOP MARQUEE */}
+        {!isMobile && (
+          <div className="testimonials-marquee">
+            <motion.div
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+              className="testimonials-track"
+            >
+              {[...testimonials, ...testimonials].map((item, i) => (
+                <Card key={i} item={item} />
+              ))}
+            </motion.div>
+          </div>
+        )}
+
+        {/* MOBILE SWIPER */}
+        {isMobile && (
+          <div className="testimonials-mobile-slider">
+            <div className="testimonials-mobile-track-container">
+              <motion.div
+                className="testimonials-mobile-track"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                animate={{ x: `-${currentIndex * (100 / testimonials.length)}%` }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                style={{ width: `${testimonials.length * 100}%` }}
+              >
+                {testimonials.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="testimonials-mobile-slide"
+                    style={{ width: `${100 / testimonials.length}%` }}
+                  >
+                    <Card item={item} />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Premium Indicator Dots */}
+            <div className="testimonials-mobile-dots">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`testimonial-dot ${currentIndex === idx ? 'is-active' : ''}`}
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

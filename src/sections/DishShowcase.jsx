@@ -71,14 +71,14 @@ const DishShowcase = () => {
             animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12vh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18vh)]'}`}
+            className={`showcase-text-container absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12vh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18vh)]'}`}
             style={{ color: currentTheme.accent }}
           >
             <h2 className="dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-bottom max-w-[90vw] md:max-w-[60vw] leading-[1]">
               {DISHES[activeIndex].name}
             </h2>
-            <div className="absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4vh, 60px))" }}>
-              <p className="font-serif text-[15px] md:text-[18px] font-light tracking-wide leading-relaxed drop-shadow-md opacity-90">
+            <div className="showcase-desc-wrapper absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4vh, 60px))" }}>
+              <p className="showcase-desc-text font-serif text-[15px] md:text-[18px] font-light tracking-wide leading-relaxed drop-shadow-md opacity-90">
                 {DISHES[activeIndex].description}
               </p>
             </div>
@@ -115,28 +115,29 @@ const DishShowcase = () => {
         })}
       </div>
 
-      {/* Vertical Navigation Buttons on the Right */}
-      <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4 md:gap-8 z-50">
-        <button
-          onClick={() => setActiveIndex(prev => (prev - 1 + DISHES.length) % DISHES.length)}
-          className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
-          style={{ color: currentTheme.accent }}
-        >
-          <svg className="w-5 h-5 md:w-6 md:h-6 rotate-90" viewBox="0 0 40 40" fill="none">
-            <path d="M25 8 L13 20 L25 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
-        </button>
-        <div className="h-10 md:h-20 w-px bg-white/10 mx-auto" />
-        <button
-          onClick={() => setActiveIndex(prev => (prev + 1) % DISHES.length)}
-          className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-current hover:scale-110 active:scale-95 backdrop-blur-sm"
-          style={{ color: currentTheme.accent }}
-        >
-          <svg className="w-5 h-5 md:w-6 md:h-6 rotate-90" viewBox="0 0 40 40" fill="none">
-            <path d="M15 8 L27 20 L15 32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
-        </button>
-      </div>
+      {/* Left Navigation Button */}
+      <button
+        onClick={() => setActiveIndex(prev => (prev - 1 + DISHES.length) % DISHES.length)}
+        className="showcase-arrow showcase-arrow-left absolute left-8 md:left-24 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm z-50 bg-white/5 hover:bg-white/10 cursor-pointer"
+        style={{ color: currentTheme.accent, borderColor: currentTheme.accent }}
+        aria-label="Previous Dish"
+      >
+        <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 40 40" fill="none">
+          <path d="M25 8 L13 20 L25 32" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Right Navigation Button */}
+      <button
+        onClick={() => setActiveIndex(prev => (prev + 1) % DISHES.length)}
+        className="showcase-arrow showcase-arrow-right absolute right-8 md:right-24 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm z-50 bg-white/5 hover:bg-white/10 cursor-pointer"
+        style={{ color: currentTheme.accent, borderColor: currentTheme.accent }}
+        aria-label="Next Dish"
+      >
+        <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 40 40" fill="none">
+          <path d="M15 8 L27 20 L15 32" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
     </section>
   )
 }
@@ -162,8 +163,8 @@ const DishItem = ({ dish, distance, isVisible, slotSize, radius, accentColor, is
       initial={false}
       animate={{
         x: xPos,
-        y: yPos - (isMobile ? 110 : (isShort ? 45 : 50)),
-        scale: isActive ? (isMobile ? 1.6 : (isShort ? 2.3 : 2.0)) : 0.5,
+        y: yPos - (isMobile ? 120 : (isShort ? 45 : 50)),
+        scale: isActive ? (isMobile ? 2.1 : (isShort ? 2.3 : 2.0)) : 0.5,
         opacity: isVisible ? (isActive ? 1 : 0.3) : 0,
         zIndex: isActive ? 50 : 20 - Math.abs(distance),
       }}

@@ -64,12 +64,24 @@ const ChefSection = () => {
   const image2Y = useTransform(scrollYProgress, [0, 1], [-60, 60])
   const image2YSmooth = useSpring(image2Y, { stiffness: 50, damping: 28, mass: 0.8 })
 
+  const smoothScrollY = useSpring(scrollYProgress, { stiffness: 60, damping: 20 })
+  const bgTextY = useTransform(smoothScrollY, [0, 1], [160, -160])
+
   return (
     <section
       id="chef-section"
       ref={containerRef}
       className={`chef-section ${isSnapped ? "chef-snapped" : ""}`}
     >
+      {/* Background Ghost Text Watermark */}
+      <motion.div
+        className="chef-ghost-text"
+        style={{ y: bgTextY }}
+        aria-hidden
+      >
+        anandofoods
+      </motion.div>
+
       <div className="chef-container">
         <div className="chef-flex-container">
 
@@ -105,6 +117,9 @@ const ChefSection = () => {
             >
               At anandofoods, every dish begins with a vision.
               Our chef transforms simple ingredients into experiences.
+              <span className="block mt-3 md:hidden text-[14px] leading-relaxed font-normal opacity-90">
+                With years of culinary refinement, our kitchen crafts a dialogue between time-honored Indian recipes and contemporary plating. Every blend of spices is precise, and every texture is intentional, turning each meal into a timeless sensory memory.
+              </span>
             </motion.p>
           </div>
 

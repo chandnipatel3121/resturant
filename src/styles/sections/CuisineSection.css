@@ -388,10 +388,16 @@
 .narrative-item {
   display: flex;
   align-items: center;
-  gap: 1px;
+  gap: 12px;
   cursor: pointer;
-  padding: 1px 0;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 8px 14px;
+  background: #ffffff; /* Premium solid white card for default light background */
+  border-radius: 16px;
+  border: 1px solid rgba(15, 92, 92, 0.12);
+  box-shadow: 0 4px 15px rgba(15, 92, 92, 0.05); /* Extremely soft glowing shadow */
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .premium-bowl-container {
@@ -401,19 +407,19 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  pointer-events: none; /* Shield child elements to keep hover on the parent */
+  pointer-events: none;
 }
 
 .premium-bowl-svg {
   width: 100%;
   height: 100%;
-  color: #2e5939;
-  transition: all 0.5s ease;
+  color: #0F5C5C;
+  transition: all 0.4s ease;
   pointer-events: none;
 }
 
 .is-active .premium-bowl-svg {
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
 }
 
 /* ♨️ Hot Floating Steam Animation */
@@ -446,9 +452,9 @@
 .premium-vertical-divider {
   width: 1.5px;
   align-self: stretch;
-  background: rgba(255, 255, 255, 0.15);
-  margin: 5px 12px;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgba(15, 92, 92, 0.22); /* Clean, high-contrast divider in light state */
+  margin: 5px 2px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: background, height;
   pointer-events: none;
 }
@@ -460,7 +466,7 @@
 .premium-text-group {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   text-align: left;
   pointer-events: none;
 }
@@ -468,31 +474,82 @@
 .premium-cuisine-name {
   font-family: 'Playball', 'Alex Brush', 'Great Vibes', 'Caveat', cursive;
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-  font-weight: 400;
-  color: #ffffff;
+  font-weight: 500;
+  color: #0F5C5C; /* Clean dark teal in light state */
   line-height: 1.05;
   margin: 0;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: left center;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: none; /* Removed blur-inducing shadow in default state */
 }
 
 .is-active .premium-cuisine-name {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .premium-cuisine-tagline {
   font-family: var(--font-serif), Georgia, serif;
   font-style: italic;
   font-size: clamp(0.75rem, 1.3vw, 0.88rem);
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(15, 92, 92, 0.82); /* High contrast readable color for light state */
   margin: 0;
-  transition: all 0.5s ease;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  text-shadow: none; /* No shadow for sharp text */
 }
 
-.is-active .premium-cuisine-tagline {
-  color: #ffffff;
+/* ---------------------------------------------------- */
+/* Hovered/Active Card States (When background is dark) */
+/* ---------------------------------------------------- */
+
+/* Fully Active Card in Dark State */
+.narrative-item.is-active {
+  background: rgba(255, 255, 255, 0.15) !important; /* Elegant glowing glass card */
+  border: 1.5px solid var(--theme-color) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.narrative-item.is-active .premium-cuisine-name {
+  color: var(--theme-color) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.narrative-item.is-active .premium-cuisine-tagline {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+}
+
+.narrative-item.is-active .premium-bowl-svg {
+  color: var(--theme-color) !important;
+}
+
+.narrative-item.is-active .premium-vertical-divider {
+  background: var(--theme-color) !important;
+}
+
+/* Gracefully Faded Inactive Cards when another card is active/hovered */
+.cuisine-section.is-hovered .narrative-item:not(.is-active) {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
+  opacity: 0.45 !important;
+}
+
+.cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-name {
+  color: rgba(255, 255, 255, 0.55) !important;
+  text-shadow: none !important;
+}
+
+.cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-tagline {
+  color: rgba(255, 255, 255, 0.32) !important;
+  text-shadow: none !important;
+}
+
+.cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-bowl-svg {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-vertical-divider {
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* ⚜️ Decorative Golden Separators */
@@ -935,28 +992,396 @@
   }
 }
 
-@media (min-width: 1201px) and (max-width: 1440px) {
-  .cuisine-section { padding: 6rem 2.5rem 3rem 2.5rem !important; }
-  .cuisine-table-perspective { transform: translateY(-2%) scale(0.55) !important; width: 100% !important; margin: 0 auto !important; }
-  .cuisine-menu-container { position: absolute !important; top: 53% !important; left: 3.5% !important; transform: translateY(-50%) !important; max-width: 220px !important; }
-  .cuisine-info-container { position: absolute !important; top: 50% !important; right: 0.5% !important; transform: translateY(-50%) !important; max-width: 360px !important; }
-
-  .cuisine-origin-map-container {
-    top: 15% !important;
-    right: 30.5% !important;
-    width: 110px !important;
-    height: 110px !important;
-    z-index: 100 !important;
+@media (min-width: 1024px) and (max-width: 1440px) {
+  /* 1. Clear fixed top navigation bar and prevent overlaps */
+  .cuisine-section {
+    justify-content: flex-start !important; /* Pull content up to vertically center it nicely */
+    padding: 4.8rem 2.5rem 1.5rem 2.5rem !important; /* Perfect sticky navbar clearance on laptops */
+    height: 100vh !important;
+    min-height: 100vh !important;
   }
 
+  /* 2. Style the header and tagline elegantly */
+  .cuisine-main-title {
+    font-size: clamp(2.4rem, 4.5vw, 3.5rem) !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  .cuisine-footer-info {
+    margin-bottom: 0.2rem !important;
+  }
+
+  .cuisine-footer-text {
+    font-size: 1rem !important;
+    margin: 0 !important;
+  }
+
+  /* 3. Disable global scale that squished narrative items & cards to 55% of their size */
+  .cuisine-table-perspective {
+    transform: none !important; /* Keep side panels at standard highly-readable text scale */
+    padding-top: 0 !important;
+    margin: 0 auto !important;
+    perspective: 1400px !important;
+  }
+
+  /* Physically scale the 3D rotating wooden table to fit standard laptop display height */
+  .cuisine-table-topview {
+    width: 400px !important;
+    height: 400px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .cuisine-table-surface-round {
+    width: 430px !important;
+    height: 430px !important;
+  }
+
+  .table-center-logo-top {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .cuisine-dish-wrapper-round {
+    width: 95px !important;
+    height: 95px !important;
+  }
+
+  /* 4. Beautifully size and flank side-by-side elements, resolving all layout gaps */
+  .cuisine-menu-container {
+    position: absolute !important;
+    top: 50% !important; /* Center vertically on the table perspectiva */
+    left: 4% !important; /* Flank perfectly with screen edge */
+    transform: translateY(-50%) !important;
+    max-width: 250px !important; /* Spacious readability for name/tagline card */
+    margin: 0 !important;
+  }
+
+  .cuisine-info-container {
+    position: absolute !important;
+    top: 50% !important;
+    right: 4% !important; /* Flank perfectly with screen edge */
+    transform: translateY(-50%) !important;
+    max-width: 360px !important; /* Beautiful glass card size */
+    margin: 0 !important;
+  }
+
+  /* 5. Complete list display for narrative cards */
+  .cuisine-floating-narrative {
+    padding: 0 !important; /* Remove standard 15rem padding to fit list within viewport */
+  }
+
+  .narrative-items {
+    gap: 0.35rem !important;
+  }
+
+  .narrative-item {
+    padding: 8px 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .premium-cuisine-name {
+    font-size: clamp(1.5rem, 2vw, 2rem) !important;
+  }
+
+  .premium-cuisine-tagline {
+    font-size: 0.85rem !important;
+  }
+
+  .premium-bowl-container {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .premium-horizontal-divider {
+    margin: 2px 0 4px 0 !important;
+    gap: 12px !important;
+  }
+
+  .divider-dots {
+    display: inline !important;
+    font-size: 0.7rem !important;
+    opacity: 0.2 !important;
+  }
+
+  .divider-motif {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* 6. Premium Glass Description Card styling to fit laptop viewport height */
   .cuisine-glass-card {
-    padding: 20px 15px !important;
+    min-height: auto !important;
+    height: auto !important;
+    max-height: 82vh !important;
+    border-radius: 28px !important;
+  }
+
+  .cuisine-glass-card::before {
+    border-radius: 28px !important;
+  }
+
+  .glass-card-content {
+    padding: 24px 20px 16px 20px !important;
+  }
+
+  .glass-card-header {
+    margin-bottom: 10px !important;
+  }
+
+  .glass-card-icon-container {
+    width: 34px !important;
+    height: 34px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .glass-card-title {
+    font-size: 2.1rem !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .luxury-ornament {
+    display: flex !important;
+    margin: 6px 0 !important;
+  }
+
+  .glass-card-body {
+    margin-bottom: 10px !important;
+    padding: 0 !important;
+  }
+
+  .glass-card-desc-large {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .glass-card-footer-branding {
+    margin-top: 10px !important;
+  }
+
+  .glass-footer-divider {
+    margin-bottom: 6px !important;
+  }
+
+  .glass-footer-brand-text {
+    font-size: 0.85rem !important;
+  }
+
+  .brand-name-main {
+    font-size: 0.85rem !important;
+  }
+
+  .glass-card-footer-branding .brand-tagline {
+    font-size: 0.72rem !important;
+    margin-top: 3px !important;
+  }
+
+  /* 7. Position origin map to the right side top, directly centered above the description card */
+  .cuisine-origin-map-container {
+    top: -65px !important; /* Float perfectly above description card top edge */
+    right: 14% !important; /* Centered horizontally above the 360px description card located at right: 4% */
+    width: 105px !important;
+    height: 105px !important;
+    z-index: 100 !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+  /* 1. Clear fixed top navigation bar and prevent overlaps */
+  .cuisine-section {
+    justify-content: flex-start !important; /* Pull everything up to prevent bottom cutoffs */
+    padding: 4.5rem 2.5rem 1rem 2.5rem !important; /* Perfect top nav clearance (72px) to maximize content height */
+    height: 100vh !important;
+    min-height: 100vh !important;
+  }
+
+  /* 2. Style the header and tagline elegantly */
+  .cuisine-main-title {
+    font-size: clamp(2.4rem, 4vw, 3.2rem) !important; /* Grand, filled header title */
+    margin-bottom: 0.3rem !important;
+  }
+
+  .cuisine-footer-info {
+    margin-bottom: 0.15rem !important;
+  }
+
+  .cuisine-footer-text {
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+  }
+
+  /* 3. Pull table up into place smoothly and DISABLE global scale that shrinks panels */
+  .cuisine-table-perspective {
+    transform: none !important; /* Prevents narrative items and description cards from becoming tiny */
+    padding-top: 0 !important; /* Prevent vertical overflow cutoffs */
+    margin: -0.5rem 0 0 0 !important; /* Snugs the table up right below the title */
+  }
+
+  /* Physically scale the 3D rotating wooden table to fit vertically within the 100vh height */
+  .cuisine-table-topview {
+    width: 310px !important;
+    height: 310px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .cuisine-table-surface-round {
+    width: 330px !important;
+    height: 330px !important;
+  }
+
+  .table-center-logo-top {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .cuisine-dish-wrapper-round {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  /* 4. Beautifully size and flank side-by-side elements closer to the center, resolving all overlaps */
+  .cuisine-menu-container {
+    position: absolute !important;
+    top: 50% !important; /* Align exactly to the vertical center of the table perspective wrapper */
+    left: 3% !important; /* Bring in to perfectly align with screen edges and clear the table */
+    transform: translateY(-50%) !important;
+    max-width: 220px !important; /* Ideal width to prevent overlap */
+    margin: 0 !important;
+  }
+
+  .cuisine-info-container {
+    position: absolute !important;
+    top: 50% !important;
+    right: 3% !important; /* Bring in to perfectly align with screen edges and clear the table */
+    transform: translateY(-50%) !important;
+    max-width: 330px !important; /* Magnificent readable descriptive glass card size */
+    margin: 0 !important;
+  }
+
+  /* 5. Compact narrative cards for premium fit on short screens */
+  .cuisine-floating-narrative {
+    padding: 0 !important; /* Remove the massive 15rem padding to display all 5 cards! */
+  }
+
+  .narrative-items {
+    gap: 0.25rem !important;
+  }
+
+  .narrative-item {
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .premium-cuisine-name {
+    font-size: clamp(1.4rem, 1.8vw, 1.8rem) !important; /* Elegant scaled serif fonts */
+  }
+
+  .premium-cuisine-tagline {
+    font-size: 0.8rem !important;
+  }
+
+  .premium-bowl-container {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  /* Traditional dotted lines with motif */
+  .premium-horizontal-divider {
+    margin: 1px 0 2px 0 !important;
+    gap: 8px !important;
+  }
+
+  .divider-dots {
+    display: inline !important;
+    font-size: 0.65rem !important;
+    opacity: 0.2 !important;
+  }
+
+  .divider-motif {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* 6. Premium Glass Description Card sizing to fit vertical flow */
+  .cuisine-glass-card {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    border-radius: 24px !important;
+  }
+
+  .cuisine-glass-card::before {
+    border-radius: 24px !important;
+  }
+
+  .glass-card-content {
+    padding: 16px 14px 12px 14px !important;
+  }
+
+  .glass-card-header {
+    margin-bottom: 6px !important;
+  }
+
+  .glass-card-icon-container {
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .glass-card-title {
+    font-size: 1.7rem !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  .luxury-ornament {
+    display: flex !important;
+    margin: 4px 0 !important;
+  }
+
+  .glass-card-body {
+    margin-bottom: 6px !important;
+    padding: 0 !important;
+  }
+
+  .glass-card-desc-large {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .glass-card-footer-branding {
+    margin-top: 5px !important;
+  }
+
+  .glass-footer-divider {
+    margin-bottom: 4px !important;
+  }
+
+  .glass-footer-brand-text {
+    font-size: 0.8rem !important;
+  }
+
+  .brand-name-main {
+    font-size: 0.8rem !important;
+  }
+
+  .glass-card-footer-branding .brand-tagline {
+    font-size: 0.65rem !important;
+    margin-top: 2px !important;
+  }
+
+  /* 7. Position origin map to the right side top, directly centered above the description card */
+  .cuisine-origin-map-container {
+    top: -55px !important; /* Raised to float perfectly above the card without overlapping */
+    right: 13% !important; /* Centered horizontally above the 330px description card located at right: 3% */
+    width: 95px !important;
+    height: 95px !important;
+    z-index: 100 !important;
   }
 }
 
 @media (min-width: 768px) {
   .cuisine-section { padding: 6rem 2.5rem 3rem 2.5rem; }
   .cuisine-main-title { font-size: 4.5rem; }
+  .cuisine-table-perspective { padding-top: 5.5rem; }
   .cuisine-table-topview { width: 550px; height: 550px; }
   .cuisine-table-surface-round { width: 580px; height: 580px; }
   .cuisine-table-shadow-floor { width: 650px; height: 400px; }
@@ -968,62 +1393,475 @@
   .cuisine-section { padding: 80px 20px !important; height: auto; min-height: 100vh; }
   .cuisine-menu-container, .cuisine-info-container { max-width: 500px; width: 100%; margin: 0 auto 30px; }
   .cuisine-table-perspective { margin: 20px 0; transform: scale(0.8); }
-}
 
-@media (max-width: 767px) {
-  .cuisine-section { padding: 60px 15px !important; height: auto; overflow: visible; }
-  .cuisine-main-title { font-size: 1.8rem; }
-  .cuisine-table-perspective { min-height: 250px; transform: scale(0.65); margin: -20px 0; }
-  .cuisine-menu-container { width: 100%; margin-bottom: 20px; order: -1; }
-  .narrative-items { display: flex; flex-direction: column; gap: 15px; }
-  .cuisine-table-topview { order: 0; }
-  .cuisine-info-container { order: 1; }
-  .cuisine-floating-narrative { padding: 0.5rem; }
-  .narrative-item { gap: 10px; padding: 5px 0; }
-  .narrative-item-name { font-size: 1.2rem; opacity: 0.8; }
-  .narrative-item-tagline { font-size: 0.8rem; }
-  .narrative-item-index-price { font-size: 1rem; min-width: 25px; }
-  .narrative-spine-background { left: 10px; }
-  .narrative-leaf-cluster { width: 20px; height: 20px; }
-  .cuisine-origin-map-container {
-    top: 55%;
-    right: 5%;
-    width: 80px;
-    height: 80px;
-    opacity: 0.6;
+  /* Mobile-style typography overrides for tablet view where leaf SVG & gold divider show */
+  .premium-vertical-divider {
+    display: none !important;
+  }
+
+  .premium-text-group {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex: 1 !important;
+    gap: 3px !important;
+  }
+
+  .premium-bowl-container {
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .premium-cuisine-name {
+    font-family: var(--font-serif), "Playfair Display", Georgia, serif !important;
+    font-weight: 600 !important;
+    font-size: 1.5rem !important;
+    color: #0F5C5C !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.1 !important;
+    text-shadow: none !important;
+  }
+
+  .narrative-item.is-active .premium-cuisine-name {
+    color: var(--theme-color) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-name {
+    color: rgba(255, 255, 255, 0.55) !important;
+    text-shadow: none !important;
+  }
+
+  .mobile-gold-divider {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    margin: 3px 0 5px 0 !important;
+    pointer-events: none;
+  }
+
+  .mobile-divider-line {
+    height: 1px !important;
+    width: 25px !important;
+    background: linear-gradient(to right, transparent, #d4af37, transparent) !important;
+  }
+
+  .mobile-divider-motif {
+    color: #d4af37 !important;
+    font-size: 0.75rem !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+  }
+
+  .premium-cuisine-tagline {
+    font-family: var(--font-serif), "Playfair Display", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 0.8rem !important;
+    color: #555555 !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    text-shadow: none !important;
+  }
+
+  .narrative-item.is-active .premium-cuisine-tagline {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-tagline {
+    color: rgba(255, 255, 255, 0.32) !important;
+    text-shadow: none !important;
   }
 }
 
-@media (max-height: 700px) and (min-width: 1024px) {
-  .cuisine-section { padding: 0 !important; height: 100vh !important; min-height: 100vh !important; overflow: hidden; }
+@media (max-width: 767px) {
+  .cuisine-section {
+    padding: 6.5rem 1rem 0.5rem 1rem !important; /* Increased top padding to completely prevent nav bar overlap */
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
 
-  .cuisine-header { position: absolute !important; top: 75px !important; left: 0 !important; width: 100% !important; text-align: center !important; z-index: 100; }
-  .cuisine-main-title { font-size: 2.8rem !important; margin-bottom: 0 !important; }
+  .cuisine-header {
+    margin-bottom: 0.1rem !important;
+  }
 
-  .cuisine-footer-info { position: absolute !important; top: 125px !important; left: 0 !important; width: 100% !important; text-align: center !important; z-index: 100; }
+  .cuisine-main-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 0.2rem !important;
+  }
 
-  /* Reset table to desktop dimensions before scaling proportionally */
-  .cuisine-table-topview { width: 550px !important; height: 550px !important; }
-  .cuisine-table-surface-round { width: 580px !important; height: 580px !important; }
-  .table-center-logo-top { width: 230px !important; height: 230px !important; }
-  .cuisine-dish-wrapper-round { width: 140px !important; height: 140px !important; }
+  .cuisine-footer-info {
+    margin-bottom: 0.4rem !important;
+  }
 
-  .cuisine-table-perspective { position: absolute !important; top: 61% !important; left: 50% !important; transform: translate(-50%, -50%) scale(0.72) !important; width: 100% !important; margin: 0 !important; z-index: 5 !important; }
+  .cuisine-footer-text {
+    font-size: 0.85rem !important;
+    margin: 0 !important;
+  }
 
-  .cuisine-menu-container { position: absolute !important; top: 63% !important; left: 6% !important; transform: translateY(-50%) scale(0.8) !important; transform-origin: left center !important; width: auto !important; min-width: 250px !important; z-index: 500 !important; pointer-events: auto !important; margin: 0 !important; }
+  .cuisine-table-perspective {
+    min-height: auto !important; /* Responsive fluid height instead of forced min-height */
+    transform: scale(1.0) !important; /* Perfect visual scale without layout overflow */
+    margin: 0 !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-around !important; /* Elegant spacing to close gap at top and prevent overlap at bottom */
+    gap: 0 !important;
+    padding-bottom: 10px !important; /* Raises the table wheel slightly off the bottom edge */
+  }
 
-  .cuisine-info-container { position: absolute !important; top: 61% !important; right: 4% !important; transform: translateY(-50%) scale(0.8) !important; transform-origin: right center !important; width: 360px !important; z-index: 500 !important; pointer-events: none !important; margin: 0 !important; }
+  .cuisine-table-topview {
+    width: 240px !important; /* Downscaled to fit perfectly in the viewport flow */
+    height: 240px !important;
+    order: 2 !important; /* Table wheel sits below the menu items */
+    margin-bottom: 0 !important;
+  }
 
-  .cuisine-origin-map-container {
-    top: 10% !important;
-    right: 25% !important;
+  .cuisine-table-surface-round {
+    width: 250px !important;
+    height: 250px !important;
+  }
+
+  .table-center-logo-top {
     width: 100px !important;
     height: 100px !important;
+  }
+
+  .cuisine-dish-wrapper-round {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .cuisine-menu-container {
+    width: 100% !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    order: 1 !important; /* Menu cards positioned in the upper center */
+    pointer-events: auto !important;
+  }
+
+  .cuisine-floating-narrative {
+    padding: 0 !important;
+  }
+
+  .narrative-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 0 5px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .narrative-item-container {
+    display: flex !important;
+    width: 100% !important;
+  }
+
+  /* Make 5th narrative item span 2 columns and centered */
+  .narrative-item-container:nth-child(5) {
+    grid-column: span 2 !important;
+    justify-content: center !important;
+  }
+  
+  .narrative-item-container:nth-child(5) .narrative-item {
+    max-width: 220px !important;
+  }
+
+  .narrative-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .narrative-item.is-active {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--theme-color) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* Center text block and hide vertical line on mobile phone view */
+  .premium-vertical-divider {
+    display: none !important;
+  }
+
+  .premium-text-group {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex: 1 !important;
+    gap: 3px !important;
+  }
+
+  .premium-bowl-container {
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Classic Serif Typography exclusively on mobile for maximum legibility */
+  .premium-cuisine-name {
+    font-family: var(--font-serif), "Playfair Display", Georgia, serif !important;
+    font-weight: 600 !important;
+    font-size: 1.35rem !important;
+    color: #0F5C5C !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.1 !important;
+    text-shadow: none !important;
+  }
+
+  .narrative-item.is-active .premium-cuisine-name {
+    color: var(--theme-color) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-name {
+    color: rgba(255, 255, 255, 0.55) !important;
+    text-shadow: none !important;
+  }
+
+  /* Gold Motif Separator */
+  .mobile-gold-divider {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    margin: 3px 0 5px 0 !important;
+    pointer-events: none;
+  }
+
+  .mobile-divider-line {
+    height: 1px !important;
+    width: 25px !important;
+    background: linear-gradient(to right, transparent, #d4af37, transparent) !important;
+  }
+
+  .mobile-divider-motif {
+    color: #d4af37 !important;
+    font-size: 0.75rem !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+  }
+
+  /* Elegant Italic Serif Tagline */
+  .premium-cuisine-tagline {
+    font-family: var(--font-serif), "Playfair Display", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 0.74rem !important;
+    color: #555555 !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    text-shadow: none !important;
+    white-space: normal !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+  }
+
+  .narrative-item.is-active .premium-cuisine-tagline {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-tagline {
+    color: rgba(255, 255, 255, 0.32) !important;
+    text-shadow: none !important;
+  }
+
+  /* Hide separators */
+  .premium-horizontal-divider {
+    display: none !important;
+  }
+
+  .cuisine-origin-map-container {
+    display: none !important;
   }
 }
 
 @media (max-width: 480px) {
-  .cuisine-table-surface-round { width: 260px; height: 260px; }
-  .cuisine-dish-wrapper-round { width: 70px; height: 70px; }
-  .cuisine-table-perspective { min-height: 220px; }
+  .cuisine-section {
+    padding: 5.5rem 0.5rem 0.5rem 0.5rem !important; /* Safe clearance for smallest screens */
+  }
+
+  .cuisine-table-perspective {
+    min-height: auto !important;
+    transform: scale(1.0) !important;
+    margin: 0 !important;
+    justify-content: space-around !important; /* Elegant spacing on extra small displays */
+    gap: 0 !important;
+    padding-bottom: 5px !important;
+  }
+
+  .cuisine-table-topview {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .cuisine-table-surface-round {
+    width: 210px !important;
+    height: 210px !important;
+  }
+
+  .table-center-logo-top {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .cuisine-dish-wrapper-round {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .narrative-items {
+    gap: 8px !important;
+  }
+
+  .narrative-item {
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .premium-bowl-container {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .premium-cuisine-name {
+    font-size: 1.2rem !important;
+  }
+
+  .premium-cuisine-tagline {
+    font-size: 0.68rem !important;
+  }
+
+  .mobile-divider-line {
+    width: 18px !important;
+  }
+}
+
+/* 🌟 PREMIUM MOBILE MODAL GLASS OVERLAY STYLES */
+.cuisine-info-container-mobile-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(16px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.cuisine-info-container-mobile-modal .cuisine-card-wrapper {
+  width: 100% !important;
+  max-width: 400px !important;
+  pointer-events: auto !important;
+}
+
+.cuisine-info-container-mobile-modal .cuisine-glass-card {
+  min-height: auto !important;
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  background: rgba(10, 15, 30, 0.25) !important;
+  border-radius: 35px !important;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Gold rim circular food plate inside modal */
+.modal-plate-preview {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--theme-color) !important;
+  padding: 4px !important;
+  background: #ffffff !important;
+  box-shadow:
+    0 12px 25px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(255, 255, 255, 0.1) !important;
+  margin: 0 auto 20px auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translateZ(20px) !important;
+  animation: modal-plate-spin 25s linear infinite !important;
+}
+
+@keyframes modal-plate-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.modal-plate-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+
+.modal-map-preview {
+  animation: none !important; /* Stop spinning for maps to keep text and boundaries readable */
+  background: #ffffff !important; /* Clean high-contrast backdrop for map outline */
+}
+
+.modal-map-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Fully fits the map outline inside the circle without cropping */
+  border-radius: 50% !important;
+  padding: 4px !important;
+}
+
+/* Beautiful Close Button */
+.cuisine-info-container-mobile-modal .mobile-close-btn {
+  display: flex !important;
+  position: absolute !important;
+  top: 15px !important;
+  right: 15px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+}
+
+.cuisine-info-container-mobile-modal .mobile-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: scale(1.1) rotate(90deg) !important;
 }

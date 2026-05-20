@@ -16,6 +16,14 @@ function AppContent() {
   const location = useLocation()
   const isHomePage = location.pathname === "/"
 
+  useEffect(() => {
+    if (isHomePage) {
+      document.documentElement.classList.add("home-page")
+    } else {
+      document.documentElement.classList.remove("home-page")
+    }
+  }, [isHomePage])
+
   return (
     <>
       <ScrollToTop />
