@@ -1573,14 +1573,14 @@
     width: 100% !important;
   }
 
-  /* Make 5th narrative item span 2 columns and centered */
+  /* Keep every narrative item the same size on mobile */
   .narrative-item-container:nth-child(5) {
-    grid-column: span 2 !important;
-    justify-content: center !important;
+    grid-column: auto !important;
+    justify-content: stretch !important;
   }
   
   .narrative-item-container:nth-child(5) .narrative-item {
-    max-width: 220px !important;
+    max-width: none !important;
   }
 
   .narrative-item {
@@ -1588,6 +1588,7 @@
     align-items: center !important;
     gap: 8px !important;
     padding: 8px 12px !important;
+    min-height: 72px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -1628,11 +1629,13 @@
     color: #0F5C5C !important;
     letter-spacing: 0.3px !important;
     line-height: 1.1 !important;
+    transform: none !important;
     text-shadow: none !important;
   }
 
   .narrative-item.is-active .premium-cuisine-name {
     color: var(--theme-color) !important;
+    transform: none !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
   }
 

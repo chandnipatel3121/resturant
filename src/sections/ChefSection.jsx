@@ -19,12 +19,12 @@ const ChefSection = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => { })
+          video.play().catch(() => {})
         } else {
           video.pause()
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.25 },
     )
 
     observer.observe(video)
@@ -47,7 +47,7 @@ const ChefSection = () => {
           }
         })
       },
-      { threshold: [0, 0.45, 1] }
+      { threshold: [0, 0.45, 1] },
     )
 
     observer.observe(el)
@@ -57,14 +57,21 @@ const ChefSection = () => {
   /* ── Parallax ── */
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   })
 
   const image1Y = useTransform(scrollYProgress, [0, 1], [40, -40])
   const image2Y = useTransform(scrollYProgress, [0, 1], [-60, 60])
-  const image2YSmooth = useSpring(image2Y, { stiffness: 50, damping: 28, mass: 0.8 })
+  const image2YSmooth = useSpring(image2Y, {
+    stiffness: 50,
+    damping: 28,
+    mass: 0.8,
+  })
 
-  const smoothScrollY = useSpring(scrollYProgress, { stiffness: 60, damping: 20 })
+  const smoothScrollY = useSpring(scrollYProgress, {
+    stiffness: 60,
+    damping: 20,
+  })
   const bgTextY = useTransform(smoothScrollY, [0, 1], [160, -160])
 
   return (
@@ -84,13 +91,18 @@ const ChefSection = () => {
 
       <div className="chef-container">
         <div className="chef-flex-container">
-
           {/* LEFT: TEXT */}
           <div className="chef-text-content">
             <motion.p
               initial={{ opacity: 0, x: -40 }}
-              animate={isSnapped ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+              animate={
+                isSnapped ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }
+              }
+              transition={{
+                duration: 0.75,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.05,
+              }}
               className="chef-subtitle"
             >
               <span className="chef-subtitle-line" />
@@ -100,25 +112,35 @@ const ChefSection = () => {
             <motion.h2
               initial={{ opacity: 0, y: 55 }}
               animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 55 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.9,
+                delay: 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="chef-title"
             >
-              The Hands<br />
-              <span className="chef-title-italic">
-                of anandofoods
-              </span>
+              The Hands
+              <br />
+              <span className="chef-title-italic">of anandofoods</span>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.85,
+                delay: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="chef-desc"
             >
-              At anandofoods, every dish begins with a vision.
-              Our chef transforms simple ingredients into experiences.
-              <span className="block mt-3 md:hidden text-[14px] leading-relaxed font-normal opacity-90">
-                With years of culinary refinement, our kitchen crafts a dialogue between time-honored Indian recipes and contemporary plating. Every blend of spices is precise, and every texture is intentional, turning each meal into a timeless sensory memory.
+              At anandofoods, every dish begins with a vision. Our chef
+              transforms simple ingredients into experiences.
+              <span className=" block mt-3 md:hidden text-[14px] leading-relaxed font-semibold opacity-90">
+                With years of culinary refinement, our kitchen crafts a dialogue
+                between time-honored Indian recipes and contemporary plating.
+                Every blend of spices is precise, and every texture is
+                intentional, turning each meal into a timeless sensory memory.
               </span>
             </motion.p>
           </div>
@@ -128,10 +150,16 @@ const ChefSection = () => {
             {/* VIDEO CARD */}
             <motion.div
               initial={{ opacity: 0, x: 90, rotate: -3 }}
-              animate={isSnapped
-                ? { opacity: 1, x: 0, rotate: 0 }
-                : { opacity: 0, x: 90, rotate: -3 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              animate={
+                isSnapped
+                  ? { opacity: 1, x: 0, rotate: 0 }
+                  : { opacity: 0, x: 90, rotate: -3 }
+              }
+              transition={{
+                duration: 1.1,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.1,
+              }}
               style={{ y: image1Y }}
               className="chef-video-card"
             >
@@ -152,14 +180,20 @@ const ChefSection = () => {
             {/* IMAGE CARD */}
             <motion.div
               initial={{ opacity: 0, y: 90, scale: 0.88 }}
-              animate={isSnapped
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: 90, scale: 0.88 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              animate={
+                isSnapped
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 90, scale: 0.88 }
+              }
+              transition={{
+                duration: 1.2,
+                delay: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               style={{
                 y: image2YSmooth,
                 willChange: "transform",
-                transform: "translateZ(0)"
+                transform: "translateZ(0)",
               }}
               className="chef-image-card"
             >
