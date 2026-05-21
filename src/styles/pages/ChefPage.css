@@ -1,829 +1,2596 @@
 /* ==========================================================================
-   CHEF PAGE STYLES - AWWWARDS AGENCY GRADE
+   🌿 AWWWARDS-STYLE EDITORIAL DESIGN SYSTEM: CHEF PORTFOLIO
    ========================================================================== */
 
-.chef-page-wrapper {
+/* ── CRITICAL OVERRIDES FOR SMOOTH SCROLL & SNAP DEACTIVATION ── */
+.chef-portfolio section {
+  min-height: unset !important;
+  height: auto !important;
+  overflow: visible !important;
+  scroll-snap-align: none !important;
+}
+
+/* ── GLOBAL CONTAINER & STYLING DEFINITIONS ── */
+.chef-portfolio {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  min-height: 100vh;
-  padding-top: 100px; /* Space for fixed Navbar */
   overflow-x: hidden;
-}
-
-/* ── HERO SECTION ── */
-.chef-page-hero {
   position: relative;
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
-  padding: 4rem 0;
-}
-
-.chef-hero-container {
-  max-width: 88rem;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--container-px);
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  align-items: center;
+  padding-bottom: 0;
+  padding-top: 80px; /* Offset for sticky Navbar */
 }
 
-@media (min-width: 1024px) {
-  .chef-hero-container {
-    flex-direction: row;
-  }
-}
-
-.chef-hero-text-side {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .chef-hero-text-side {
-    width: 50%;
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-.chef-hero-editorial {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.65;
-  margin-bottom: 1rem;
-}
-
-.chef-hero-name {
+/* ── BASE REUSABLE STYLES ── */
+.italic-accent {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  line-height: 1.05;
-  color: var(--text);
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.eyebrow-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
   margin-bottom: 1.5rem;
 }
 
-.chef-hero-title-lbl {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
+.eyebrow-accent svg {
   color: var(--accent);
-  margin-bottom: 2rem;
-  font-weight: 300;
+  animation: pulse-glow 2s infinite ease-in-out;
 }
 
-.chef-hero-quote {
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
-  line-height: 1.7;
-  color: var(--text);
-  opacity: 0.85;
-  border-left: 2px solid var(--accent);
-  padding-left: 1.5rem;
-  max-width: 32rem;
-  font-style: italic;
-  text-align: left;
-}
-
-.chef-hero-image-side {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+/* ── STUNNING HOVER BUTTONS ── */
+.btn-luxury-primary {
   position: relative;
-}
-
-@media (min-width: 1024px) {
-  .chef-hero-image-side {
-    width: 50%;
-  }
-}
-
-.chef-hero-img-frame {
-  position: relative;
-  width: 100%;
-  max-width: 480px;
-  height: clamp(340px, 50vh, 580px);
-  border-radius: 2.5rem;
+  background: var(--text);
+  border: 1px solid var(--text);
+  color: var(--bg);
+  padding: 1.25rem 2.5rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   overflow: hidden;
-  border: 1px solid rgba(224, 169, 75, 0.2);
-  box-shadow: 0 30px 75px rgba(15, 92, 92, 0.12);
+  transition: var(--transition-smooth);
+  z-index: 1;
 }
 
-.chef-hero-img {
+.btn-luxury-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.btn-luxury-primary:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(224, 169, 75, 0.2);
+}
+
+.btn-luxury-primary:hover::before {
+  transform: translateY(0);
+}
+
+.btn-luxury-primary svg {
+  transition: transform 0.4s ease;
+}
+
+.btn-luxury-primary:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   SECTION 1: HERO - THE ALCHEMIST
+   ========================================================================== */
+/* ==========================================================================
+   SECTION 1: HERO - THE CULINARY ALCHEMIST (Inspired by root-food.com)
+   ========================================================================== */
+.portfolio-hero {
+  position: relative;
+  height: 100vh !important;
+  min-height: 700px !important;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Giant background typography vertical-layered */
+.hero-giant-word-wrapper {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.hero-giant-word-wrapper.left-wrap {
+  left: 2vw;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+}
+
+.hero-giant-word-wrapper.right-wrap {
+  right: 2vw;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+}
+
+.hero-giant-word {
+  font-family: var(--font-serif);
+  font-size: clamp(8rem, 16vh, 22vh);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(15, 92, 92, 0.05); /* Soft, low-opacity luxury tint */
+  letter-spacing: -0.02em;
+  display: flex;
+  gap: 0.08em;
+}
+
+.char-overflow-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 0.9;
+  vertical-align: bottom;
+}
+
+.hero-center-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+/* Floating portrait wrapper in the center (Handles parallax boundaries, allowing overflow) */
+.hero-portrait-wrapper {
+  position: relative;
+  width: 32vw;
+  max-width: 440px;
+  min-width: 290px;
+  height: 72vh;
+  z-index: 2;
+  overflow: visible; /* Outlines float outside freely! */
+}
+
+/* Central portrait frame (clipped with overflow-hidden for curtain reveal & image scaling) */
+.hero-portrait-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 35px 90px rgba(10, 10, 10, 0.25);
+  background: #111;
+  z-index: 2;
+}
+
+.hero-center-chef-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.chef-hero-deco-tag {
+.hero-portrait-wrapper:hover .hero-center-chef-img {
+  transform: scale(1.1);
+}
+
+.hero-portrait-overlay {
   position: absolute;
-  bottom: 2rem;
-  left: -2rem;
-  background: #ffffff;
-  padding: 1rem 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(15, 92, 92, 0.05);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.85) 0%,
+    rgba(10, 10, 10, 0.5) 45%,
+    rgba(10, 10, 10, 0) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Golden luxury outline frameworks */
+.hero-frame-outline {
+  position: absolute;
+  inset: -12px;
+  border: 1px solid var(--accent);
+  opacity: 0.25;
+  border-radius: 12px;
+  pointer-events: none;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 1; /* Renders behind the portrait frame */
+}
+
+.hero-frame-outline-inner {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 4; /* Renders in front of image inside the portrait frame */
+}
+
+.hero-portrait-wrapper:hover .hero-frame-outline {
+  inset: -6px;
+  opacity: 0.45;
+  border-color: var(--accent);
+}
+
+.hero-portrait-wrapper:hover .hero-frame-outline-inner {
+  inset: 18px;
+  border-color: var(--accent);
+}
+
+/* Floating Content overlaying the center portrait at the bottom */
+/* Floating Content overlaying the center portrait at the bottom - Styled as a gorgeous high-contrast luxury card */
+.hero-overlay-content {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 580px;
   z-index: 10;
+  text-align: center;
+  background: rgba(15, 92, 92, 0.85); /* Deep luxury Forest Teal */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(224, 169, 75, 0.35); /* Subtle gold border border-highlight */
+  border-radius: 20px;
+  padding: 2.2rem 2.4rem 2rem;
+  box-shadow: 0 30px 70px rgba(10, 30, 30, 0.35);
+  color: #ffffff;
 }
 
-.chef-hero-deco-num {
+.hero-overlay-content .eyebrow-accent {
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.6rem;
+}
+
+.hero-editorial-title {
   font-family: var(--font-serif);
-  font-size: 2rem;
-  color: var(--text);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.chef-hero-deco-lbl {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
   text-transform: uppercase;
-  color: var(--muted);
+  margin: 0.2rem 0 1rem;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* ── CORE INTERACTIVE TABS SECTION ── */
-.chef-page-interactive-section {
-  padding: 6rem 0;
-  background: rgba(255, 255, 255, 0.25);
-  border-top: 1px solid rgba(15, 92, 92, 0.05);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.05);
-}
-
-.craft-container {
-  max-width: 88rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--container-px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.craft-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 3.5rem;
-  background: rgba(15, 92, 92, 0.05);
-  padding: 0.5rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(15, 92, 92, 0.1);
-  width: fit-content;
-}
-
-.craft-tab-btn {
-  background: none;
-  border: none;
-  padding: 0.75rem 2rem;
+.hero-editorial-title .italic-serif {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
-  color: var(--text);
-  opacity: 0.6;
-  cursor: pointer;
-  border-radius: 9999px;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.craft-tab-btn:hover {
-  opacity: 1;
-  background: rgba(15, 92, 92, 0.03);
-}
-
-.craft-tab-btn.active {
-  opacity: 1;
-  background: var(--text);
-  color: var(--bg);
-  box-shadow: 0 10px 25px rgba(15, 92, 92, 0.15);
-}
-
-.craft-content-box {
-  width: 100%;
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  align-items: center;
-}
-
-@media (min-width: 1024px) {
-  .craft-content-box {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-}
-
-.craft-left-panel {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 1024px) {
-  .craft-left-panel {
-    width: 50%;
-  }
-}
-
-.craft-tagline {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-style: italic;
   color: var(--accent);
-  margin-bottom: 1.5rem;
+}
+
+.hero-editorial-subtext {
+  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+  line-height: 1.55;
+  opacity: 0.85;
+  max-width: 480px;
+  margin: 0 auto 1.8rem;
+  font-weight: 300;
+  text-shadow: none;
+}
+
+.hero-stamp-and-badges {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(224, 169, 75, 0.25);
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.4s ease;
+}
+
+.hero-badge-item svg {
+  color: var(--accent);
+}
+
+.hero-badge-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hero-buttons-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+
+/* Warm gold high-contrast button */
+.btn-hero-luxury-primary {
+  position: relative;
+  background: #E0A94B;
+  border: 1px solid #E0A94B;
+  color: #0F5C5C;
+  padding: 1rem 2.2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  z-index: 1;
+}
+
+.btn-hero-luxury-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.btn-hero-luxury-primary:hover {
+  color: #0F5C5C;
+  border-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(224, 169, 75, 0.35);
+}
+
+.btn-hero-luxury-primary:hover::before {
+  transform: translateY(0);
+}
+
+.btn-hero-luxury-primary svg {
+  transition: transform 0.4s ease;
+}
+
+.btn-hero-luxury-primary:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.hero-social-links-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.hero-circle-social {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hero-circle-social:hover {
+  background: #ffffff;
+  color: #0F5C5C;
+  border-color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+}
+
+/* ── LUXURY FLOATING CHEF SELECTOR BAR ── */
+.chef-selector-bar {
+  display: flex;
+  gap: 12px;
+  padding: 6px 8px;
+  background: rgba(15, 92, 92, 0.45); /* Forest Teal Glassmorphism */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(224, 169, 75, 0.28); /* Subtle Kashmiri Gold accent */
+  border-radius: 100px;
+  position: absolute;
+  top: 100px; /* Sit perfectly below navigation overlay */
+  z-index: 100;
+  box-shadow: 0 20px 45px rgba(10, 30, 30, 0.3);
+  max-width: 90%;
+}
+
+.chef-selector-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 8px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chef-selector-role {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.65;
+  transition: opacity 0.4s ease, color 0.4s ease;
+}
+
+.chef-selector-name {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-top: 1px;
+  transition: color 0.4s ease;
+}
+
+/* Hover State */
+.chef-selector-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.chef-selector-btn:hover:not(.active) .chef-selector-role {
+  opacity: 0.95;
+}
+
+/* Active State - Kashmiri Gold Theme */
+.chef-selector-btn.active {
+  background: rgba(224, 169, 75, 0.16);
+  border-color: rgba(224, 169, 75, 0.6);
+  box-shadow: inset 0 0 10px rgba(224, 169, 75, 0.15);
+  color: #E0A94B;
+}
+
+.chef-selector-btn.active .chef-selector-role {
+  color: #E0A94B;
+  opacity: 1;
+}
+
+.chef-selector-btn.active .chef-selector-name {
+  color: #ffffff;
+}
+
+/* Micro spinning star keyframes */
+.rotating-star {
+  animation: rotation-spin 8s infinite linear;
+}
+
+@keyframes rotation-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN FOR CHEF HERO
+   ========================================================================== */
+
+/* Shorter Wide Viewports like 1195x585 */
+@media (max-height: 650px) and (min-width: 901px) {
+  .portfolio-hero {
+    height: 100vh !important;
+    min-height: 520px !important;
+  }
+
+  .hero-center-container {
+    height: 94vh;
+  }
+
+  .hero-portrait-wrapper {
+    width: 25vw;
+    height: 60vh;
+    min-width: 230px;
+  }
+
+  .hero-giant-word {
+    font-size: 15vh;
+  }
+
+  .hero-overlay-content {
+    bottom: 5vh;
+  }
+
+  .hero-editorial-title {
+    font-size: 2.2rem;
+    margin: 0.2rem 0 0.8rem;
+  }
+
+  .hero-editorial-subtext {
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+    max-width: 480px;
+  }
+
+  .hero-stamp-and-badges {
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .hero-badge-item {
+    padding: 6px 14px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablet viewports */
+@media (max-width: 900px) {
+  .chef-selector-bar {
+    position: relative;
+    top: 0;
+    margin: 0 auto 1.5rem;
+    max-width: 100%;
+    width: max-content;
+  }
+
+  .portfolio-hero {
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .hero-center-container {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+    padding: 0;
+  }
+
+  .hero-giant-word {
+    display: none; /* Hide background text on smaller viewports */
+  }
+
+  .hero-portrait-wrapper {
+    width: 60vw;
+    height: 50vh;
+    min-width: 260px;
+  }
+
+  .hero-overlay-content {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1.5rem;
+    padding: 1.8rem 1.6rem 1.6rem;
+  }
+}
+
+/* Mobile viewports */
+@media (max-width: 480px) {
+  .chef-selector-bar {
+    max-width: 95vw;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    gap: 8px;
+  }
+  
+  .chef-selector-bar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .chef-selector-btn {
+    padding: 6px 14px;
+  }
+  
+  .chef-selector-role {
+    font-size: 0.6rem;
+  }
+  
+  .chef-selector-name {
+    font-size: 0.78rem;
+  }
+
+  .portfolio-hero {
+    padding: 5rem 1.5rem 2.5rem;
+  }
+
+  .hero-portrait-wrapper {
+    width: 80vw;
+    height: 42vh;
+  }
+
+  .hero-overlay-content {
+    padding: 1.5rem 1.2rem 1.2rem;
+  }
+
+  .hero-editorial-title {
+    font-size: 2rem;
+  }
+
+  .hero-editorial-subtext {
+    font-size: 0.85rem;
+  }
+
+  .hero-stamp-and-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-badge-item {
+    width: 100%;
+    max-width: 240px;
+    justify-content: center;
+  }
+
+  .hero-buttons-row {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .hero-social-links-wrap {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   SECTION 2: PHILOSOPHY - SYMPHONY OF FLAVORS
+   ========================================================================== */
+.portfolio-philosophy {
+  position: relative;
+  padding: calc(var(--section-padding) * 1.35) var(--container-px);
+  background: linear-gradient(to bottom, #FCFBF9 0%, #F5EFEB 100%);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
+  overflow: hidden;
+}
+
+.philosophy-watermark {
+  position: absolute;
+  left: -3vw;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 13vw, 11rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(15, 92, 92, 0.02);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: 0.15em;
+  z-index: 0;
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start; /* critical for sticky */
+  position: relative;
+  z-index: 2;
+}
+
+.philosophy-visual-block {
+  position: sticky;
+  top: 140px; /* Offset for header spacing */
+  height: calc(100vh - 200px);
+  min-height: 480px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* New rotating floating gold ring */
+.philosophy-floating-circle {
+  position: absolute;
+  width: 82%;
+  height: 84%;
+  border: 1px dashed rgba(224, 169, 75, 0.28);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transition: border-color 0.4s ease;
+}
+
+.philosophy-visual-block:hover .philosophy-floating-circle {
+  border-color: rgba(224, 169, 75, 0.55);
+  border-style: solid;
+}
+
+/* Gold floating backdrop frame */
+.philosophy-accent-frame {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 78%;
+  height: 80%;
+  border: 1.5px solid var(--accent);
+  opacity: 0.22;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 0;
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.philosophy-visual-block:hover .philosophy-accent-frame {
+  opacity: 0.45;
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+
+.overlapping-frame-large {
+  width: 78%;
+  height: 80%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 35px 80px rgba(15, 92, 92, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  z-index: 1;
+  transition: box-shadow 0.6s ease;
+}
+
+.philosophy-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 0.4s ease-out;
+}
+
+.overlapping-frame-small {
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 0.82;
+  bottom: 4%;
+  right: 4%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 85px rgba(10, 30, 30, 0.25);
+  border: 5px solid var(--bg);
+  z-index: 2;
+  transition: border-color 0.5s ease, box-shadow 0.6s ease;
+}
+
+.philosophy-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 0.4s ease-out;
+}
+
+.philosophy-visual-block:hover .philosophy-bg-img {
+  transform: scale(1.12);
+}
+
+.philosophy-visual-block:hover .philosophy-detail-img {
+  transform: scale(1.15) rotate(1deg);
+}
+
+.philosophy-content-block {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.philosophy-title {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.05;
+  font-family: var(--font-serif);
+  color: var(--text);
+  margin-bottom: 1.5rem; /* Tighter margins with the new divider line */
+}
+
+.title-line-wrapper {
+  overflow: hidden;
+  display: block;
   line-height: 1.2;
 }
 
-.craft-description {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--text);
-  opacity: 0.85;
+.philosophy-divider {
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, #E0A94B 0%, rgba(224, 169, 75, 0) 100%);
   margin-bottom: 2.5rem;
+  transform-origin: left center;
 }
 
-/* Journey Stats */
-.craft-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+.philosophy-pullquote {
+  position: relative;
+  padding: 1.5rem 0 1.5rem 2.8rem;
+  border-left: 2px solid var(--accent);
+  margin-bottom: 3.5rem;
 }
 
-.craft-stat-card {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  text-align: center;
-}
-
-.craft-stat-num {
-  font-family: var(--font-serif);
-  font-size: 2rem;
-  color: var(--text);
+.quote-author {
+  display: block;
+  font-size: 0.82rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
-}
-
-.craft-stat-lbl {
-  font-size: 0.72rem;
-  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
+  margin-top: 1rem;
+  font-family: var(--font-sans);
 }
 
-/* Philosophy Cards */
-.craft-pillars-list {
+.philosophy-pullquote .quote-mark {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  color: var(--accent);
+  opacity: 0.15;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+}
+
+.philosophy-pullquote p {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  line-height: 1.75;
+  color: var(--text);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.philosophy-pillars-list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.8rem;
 }
 
-.craft-pillar-card {
+.philosophy-pillar-card {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  background: #ffffff;
-  padding: 1.25rem 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-  border: 1px solid rgba(15, 92, 92, 0.05);
+  position: relative;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(224, 169, 75, 0.18);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(15, 92, 92, 0.02);
 }
 
-.craft-pillar-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+.philosophy-pillar-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.philosophy-pillar-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: var(--text);
+  border-color: var(--accent);
+  box-shadow: 0 25px 55px rgba(15, 92, 92, 0.18);
+}
+
+.philosophy-pillar-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pillar-number {
+  position: absolute;
+  right: 2rem;
+  top: 1.6rem;
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.14;
+  letter-spacing: -0.01em;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.philosophy-pillar-card:hover .pillar-number {
+  opacity: 0.85;
+  transform: scale(1.12) translateY(-2px);
+}
+
+.pillar-icon-box {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: rgba(224, 169, 75, 0.1);
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 1.1rem;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.craft-pillar-text {
-  font-size: 1rem;
+.philosophy-pillar-card:hover .pillar-icon-box {
+  background: var(--accent);
+  color: var(--text);
+  transform: rotate(360deg);
+}
+
+.pillar-icon-box svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pillar-info {
+  z-index: 1;
+}
+
+.pillar-info h3 {
+  font-size: 1.25rem;
+  font-family: var(--font-sans);
   font-weight: 600;
   color: var(--text);
+  margin-bottom: 0.4rem;
+  transition: color 0.4s ease;
 }
 
-/* Alchemy explorer */
-.craft-alchemy-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  width: 100%;
+.philosophy-pillar-card:hover .pillar-info h3 {
+  color: #ffffff;
 }
 
-@media (min-width: 768px) {
-  .craft-alchemy-layout {
-    flex-direction: row;
-  }
-}
-
-.alchemy-spices-picker {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .alchemy-spices-picker {
-    flex-direction: column;
-    width: 35%;
-    justify-content: flex-start;
-  }
-}
-
-.alchemy-spice-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid transparent;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  background: rgba(255,255,255,0.3);
-  flex: 1;
-}
-
-@media (min-width: 768px) {
-  .alchemy-spice-item {
-    flex-direction: row;
-    gap: 1rem;
-    align-items: center;
-    background: transparent;
-    flex: none;
-  }
-}
-
-.alchemy-spice-item:hover {
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-}
-
-.alchemy-spice-item.active {
-  background: #ffffff;
-  border-color: rgba(224, 169, 75, 0.3);
-  box-shadow: 0 15px 40px rgba(15, 92, 92, 0.08);
-}
-
-.alchemy-spice-thumb-frame {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background: rgba(15, 92, 92, 0.03);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(15, 92, 92, 0.08);
-  padding: 0.35rem;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.alchemy-spice-item.active .alchemy-spice-thumb-frame {
-  transform: scale(1.15) rotate(15deg);
-  border-color: var(--accent);
-  background: rgba(224, 169, 75, 0.05);
-}
-
-.alchemy-spice-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.alchemy-spice-meta {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .alchemy-spice-meta {
-    text-align: left;
-  }
-}
-
-.alchemy-spice-name {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  color: var(--text);
-  font-weight: 500;
-}
-
-.alchemy-spice-lbl {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.pillar-info p {
+  font-size: 0.92rem;
+  line-height: 1.65;
   color: var(--muted);
+  transition: color 0.4s ease;
 }
 
-/* Alchemy details */
-.alchemy-details-panel {
-  flex: 1;
-  background: #ffffff;
-  padding: 2rem 2.5rem;
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 50px rgba(15, 92, 92, 0.06);
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.philosophy-pillar-card:hover .pillar-info p {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.alchemy-detail-head {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+/* ==========================================================================
+   SECTION 3: INTERACTIVE SHOWCASE - SIGNATURE MASTERPIECES
+   ========================================================================== */
+.portfolio-showcase {
+  padding: var(--section-padding) var(--container-px);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
+  background-color: var(--bg);
 }
 
-.alchemy-detail-name {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  color: var(--text);
-  font-weight: 600;
+.section-title-wrapper {
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
 }
 
-.alchemy-detail-lbl {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-}
-
-.alchemy-detail-bio {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text);
-  opacity: 0.8;
-}
-
-.alchemy-dials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.alchemy-dial-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.alchemy-dial-lbl {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* Image panels */
-.craft-right-panel {
-  width: 100%;
-  display: flex;
+.center-eyebrow {
   justify-content: center;
-}
-
-@media (min-width: 1024px) {
-  .craft-right-panel {
-    width: 50%;
-  }
-}
-
-.craft-img-frame {
-  width: 100%;
-  max-width: 440px;
-  height: clamp(300px, 45vh, 480px);
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(15, 92, 92, 0.05);
-}
-
-.craft-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
-/* ── TIMELINE SECTION ── */
-.chef-timeline-section {
-  padding: 8rem 0;
-  background: var(--bg);
-}
-
-.chef-section-header {
-  text-align: center;
-  margin-bottom: 5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.chef-section-lbl {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.6;
-  margin-bottom: 1rem;
-}
-
-.chef-section-title {
+.showcase-title {
+  font-size: clamp(2.2rem, 5vw, 4rem);
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3.2rem);
   color: var(--text);
-}
-
-.chef-timeline-container {
-  max-width: 48rem;
-  margin: 0 auto;
-  padding: 0 var(--container-px);
-  position: relative;
-}
-
-.chef-timeline-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 1.5rem;
-  width: 1px;
-  background: rgba(15, 92, 92, 0.1);
-}
-
-@media (min-width: 640px) {
-  .chef-timeline-container::before {
-    left: 50%;
-  }
-}
-
-.chef-timeline-item {
-  position: relative;
-  margin-bottom: 4rem;
-  display: flex;
-  flex-direction: column;
-  padding-left: 3rem;
-}
-
-@media (min-width: 640px) {
-  .chef-timeline-item {
-    flex-direction: row;
-    padding-left: 0;
-    margin-bottom: 5rem;
-  }
-}
-
-.chef-timeline-item:last-child {
-  margin-bottom: 0;
-}
-
-.chef-timeline-badge {
-  position: absolute;
-  left: 0.88rem;
-  top: 0.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 3px solid var(--accent);
-  z-index: 5;
-}
-
-@media (min-width: 640px) {
-  .chef-timeline-badge {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-.chef-timeline-year-col {
-  width: auto;
-  margin-bottom: 0.5rem;
-}
-
-@media (min-width: 640px) {
-  .chef-timeline-year-col {
-    width: 45%;
-    text-align: right;
-    padding-right: 3rem;
-    margin-bottom: 0;
-  }
-}
-
-.chef-timeline-year {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  color: var(--accent);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.chef-timeline-content-col {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .chef-timeline-content-col {
-    width: 45%;
-    padding-left: 3rem;
-  }
-}
-
-.chef-timeline-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.75rem;
-}
-
-.chef-timeline-desc {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: var(--text);
-  opacity: 0.8;
-}
-
-/* ── SIGNATURE MASTERPIECE SECTION ── */
-.chef-signature-section {
-  padding: 8rem 0;
-  background: rgba(15, 92, 92, 0.02);
-  border-top: 1px solid rgba(15, 92, 92, 0.05);
-}
-
-.chef-sig-container {
-  max-width: 88rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--container-px);
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  align-items: center;
-}
-
-@media (min-width: 1024px) {
-  .chef-sig-container {
-    flex-direction: row-reverse;
-  }
-}
-
-.chef-sig-text-side {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .chef-sig-text-side {
-    width: 50%;
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-.chef-sig-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--text);
+  line-height: 1.1;
   margin-bottom: 1.5rem;
 }
 
-.chef-sig-desc {
-  font-size: 1.05rem;
+.showcase-lead {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--muted);
   line-height: 1.7;
-  color: var(--text);
-  opacity: 0.8;
-  margin-bottom: 2.5rem;
-  max-width: 34rem;
 }
 
-.chef-sig-profile {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 32rem;
+.text-center {
+  text-align: center;
 }
 
-.chef-sig-profile-item {
-  display: flex;
-  gap: 1rem;
-  text-align: left;
+/* Showcase Grid Layout */
+.interactive-showcase-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 4vw, 5rem);
+  align-items: start;
 }
 
-.chef-sig-profile-num {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  color: var(--accent);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.chef-sig-profile-meta {
+/* Left panel: Vertical selector rows */
+.showcase-selector-panel {
   display: flex;
   flex-direction: column;
 }
 
-.chef-sig-profile-title {
-  font-size: 0.95rem;
+.selector-list-header {
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(15, 92, 92, 0.1);
+  margin-bottom: 1.5rem;
 }
 
-.chef-sig-profile-text {
+.selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.selector-row-item {
+  width: 100%;
+  background: white;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Kinetic Border around active row */
+.selector-row-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #E0A94B, #0F5C5C, #E0A94B, #0F5C5C);
+  background-size: 300% 100%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Micro-interaction glare swipe */
+.selector-row-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.selector-row-item .row-number {
   font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--text);
-  opacity: 0.75;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-right: 1.5rem;
+  opacity: 0.8;
+  transition: all 0.4s ease;
 }
 
-.chef-sig-image-side {
+.selector-row-item .row-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--text);
+  flex-grow: 1;
+  transition: all 0.4s ease;
+}
+
+.selector-row-item .row-arrow {
+  color: var(--accent);
+  transform: translateX(-10px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Hover & Active Selector Row classes */
+.selector-row-item:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 12px 25px rgba(15, 92, 92, 0.04);
+  border-color: rgba(15, 92, 92, 0.18);
+}
+
+.selector-row-item:hover::after {
+  left: 150%;
+  transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.selector-row-item:hover .row-arrow {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.selector-row-item.active-row {
+  background: var(--text);
+  border-color: transparent;
+  box-shadow: 0 20px 40px rgba(15, 92, 92, 0.15), 0 0 25px rgba(224, 169, 75, 0.08);
+}
+
+.selector-row-item.active-row::before {
+  opacity: 1;
+  animation: border-gradient-shift 4s infinite linear;
+}
+
+.selector-row-item.active-row .row-title {
+  color: var(--bg);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.selector-row-item.active-row .row-number {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+.selector-row-item.active-row .row-arrow {
+  color: var(--accent);
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@keyframes border-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Right panel: Showcase Presentation Cards */
+.showcase-presentation-panel {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 92, 92, 0.08);
+  padding: clamp(2rem, 3.5vw, 4rem);
+  box-shadow: 0 30px 70px rgba(15, 92, 92, 0.06);
+}
+
+.presentation-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(2rem, 3.5vw, 4rem);
+  align-items: center;
+}
+
+/* Presentation Image */
+.presentation-visual-frame {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-@media (min-width: 1024px) {
-  .chef-sig-image-side {
-    width: 50%;
-  }
-}
-
-.chef-sig-img-frame {
+.visual-outer-card {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  height: clamp(320px, 50vh, 520px);
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(224, 169, 75, 0.15);
+  aspect-ratio: 0.85;
+  border-radius: 16px;
+  overflow: visible !important; /* Extremely critical: allows spinning seal and elements to overflow outer border cleanly */
+  box-shadow: 0 30px 65px rgba(15, 92, 92, 0.15);
+  border: 1px solid rgba(15, 92, 92, 0.05);
 }
 
-.chef-sig-img {
+.clip-reveal-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  display: block;
+}
+
+.presentation-dish-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.chef-sig-img-frame:hover .chef-sig-img {
+.visual-outer-card:hover .presentation-dish-img {
   transform: scale(1.06);
 }
 
-.chef-sig-img-caption {
+/* Custom Spinning Luxury Badge Seal (Awwwards design) */
+.luxury-spinning-seal {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(15, 92, 92, 0.9) 0%, rgba(15, 92, 92, 0.4) 60%, transparent 100%);
-  padding: 2rem 1.5rem 1.5rem;
-  color: #ffffff;
-  text-align: left;
+  top: -38px;
+  left: -38px;
+  width: 95px;
+  height: 95px;
+  z-index: 20;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.chef-sig-img-name {
+.luxury-spinning-seal svg {
+  width: 100%;
+  height: 100%;
+  animation: rotation-spin 18s infinite linear;
+}
+
+.luxury-spinning-seal text {
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  fill: #E0A94B !important;
+  animation: gold-shimmer-text 4s infinite alternate ease-in-out;
+}
+
+.luxury-spinning-seal .seal-star {
+  position: absolute;
+  font-size: 14px;
+  color: #E0A94B;
+  text-shadow: 0 0 10px rgba(224, 169, 75, 0.9);
+  animation: pulse-glow-star 2.2s infinite ease-in-out;
+}
+
+@keyframes gold-shimmer-text {
+  0% {
+    fill: #E0A94B;
+    filter: drop-shadow(0 0 1px rgba(224, 169, 75, 0.4));
+  }
+  100% {
+    fill: #FFF2D5;
+    filter: drop-shadow(0 0 8px rgba(224, 169, 75, 0.85));
+  }
+}
+
+@keyframes pulse-glow-star {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 1;
+    color: #ffffff;
+  }
+}
+
+.dish-stamp-tag {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(15, 92, 92, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 7px 16px;
+  border-radius: 50px;
+  color: #E0A94B;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  border: 1px solid rgba(224, 169, 75, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* Presentation Detail Column */
+.presentation-detail-card {
+  display: flex;
+  flex-direction: column;
+  animation: slide-up-fade 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.active-tag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.signature-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  background: rgba(224, 169, 75, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.dish-index-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.active-dish-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.active-dish-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* Sensory Flavor Metrics (Taste Bars) */
+.dish-taste-profile {
+  margin-bottom: 2.2rem;
+}
+
+.details-sub-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
+  padding-bottom: 6px;
+}
+
+.details-sub-heading svg {
+  color: var(--accent);
+}
+
+.taste-bars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.taste-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.taste-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.taste-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(15, 92, 92, 0.06);
+  border-radius: 100px;
+  overflow: visible !important; /* Extremely critical: allows glowing bubble tip to overflow and breathe */
+  position: relative;
+}
+
+.taste-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--text) 0%, var(--accent) 50%, var(--text) 100%);
+  background-size: 200% 100%;
+  border-radius: 100px;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  animation: taste-bar-flow 3s infinite linear;
+}
+
+@keyframes taste-bar-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -200% 0%;
+  }
+}
+
+.taste-bar-fill::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px var(--accent), 0 0 18px var(--accent);
+  animation: pulse-glow-tip 1.6s infinite ease-in-out;
+  z-index: 5;
+}
+
+@keyframes pulse-glow-tip {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+    box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.35);
+    box-shadow: 0 0 14px var(--accent), 0 0 24px var(--accent);
+  }
+}
+
+/* Key Botanical Ingredients */
+.dish-ingredients-row {
+  margin-bottom: 2.2rem;
+}
+
+.ingredients-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 92, 92, 0.03);
+  border: 1px solid rgba(15, 92, 92, 0.1);
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: var(--transition-fast);
+}
+
+.ing-pill:hover {
+  background: rgba(224, 169, 75, 0.08);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.pill-star {
+  color: var(--accent);
+}
+
+/* Chef's Emotional Note Box */
+.dish-chef-quote {
+  display: flex;
+  gap: 14px;
+  background: rgba(224, 169, 75, 0.05);
+  border-left: 3px solid var(--accent);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+}
+
+.dish-chef-quote .heart-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dish-chef-quote h5 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.dish-chef-quote p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SECTION 4: THE ATELIER TOOLKIT
+   ========================================================================== */
+.portfolio-toolkit {
+  padding: var(--section-padding) var(--container-px);
+  background: white;
+  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
+}
+
+.toolkit-header {
+  max-width: 800px;
+  margin-bottom: 4rem;
+}
+
+.toolkit-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-family: var(--font-serif);
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.toolkit-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.toolkit-card {
+  padding: 3rem 2.5rem;
+  background: var(--bg);
+  border-radius: 16px;
+  border: 1px solid rgba(15, 92, 92, 0.06);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-top-accent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+
+.card-index {
   font-family: var(--font-serif);
   font-size: 1.25rem;
+  color: var(--accent);
   font-weight: 500;
-  margin-bottom: 0.25rem;
 }
 
-.chef-sig-img-lbl {
+.card-line {
+  height: 1px;
+  background: rgba(15, 92, 92, 0.1);
+  flex-grow: 1;
+}
+
+.toolkit-card .card-title {
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  color: var(--text);
+  margin-bottom: 0.3em;
+  font-weight: 500;
+}
+
+.toolkit-card .card-subtitle {
   font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.toolkit-card .card-description {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* Toolkit card hover details */
+.toolkit-card:hover {
+  transform: translateY(-8px);
+  background: white;
+  border-color: rgba(224, 169, 75, 0.35);
+  box-shadow: 0 25px 60px rgba(15, 92, 92, 0.06);
+}
+
+.toolkit-card:hover .card-line {
+  background: var(--accent);
+}
+
+/* ==========================================================================
+   SECTION 5: TIMELINE & ACCOLADES (STAGGERED CHRONICLES)
+   ========================================================================== */
+.portfolio-timeline {
+  padding: var(--section-padding) var(--container-px);
+  background: rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
+}
+
+.timeline-grid-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+
+.timeline-left-intro {
+  position: relative;
+}
+
+.sticky-intro-content {
+  position: sticky;
+  top: 130px;
+}
+
+.timeline-section-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-family: var(--font-serif);
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 1.8rem;
+}
+
+.timeline-lead {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 3.5rem;
+  max-width: 520px;
+}
+
+/* Awards sidebar */
+.timeline-awards-block h3 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(15, 92, 92, 0.1);
+  padding-bottom: 8px;
+}
+
+.awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.award-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  transition: var(--transition-fast);
+}
+
+.award-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(15, 92, 92, 0.03);
+  border-color: rgba(224, 169, 75, 0.2);
+}
+
+.award-star-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.award-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.award-title-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.award-source {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Right-side timeline milestones track */
+.timeline-right-scrollable {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.vertical-timeline-track {
+  position: relative;
+}
+
+/* Timeline Vertical Line */
+.vertical-timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent) 0%, rgba(15, 92, 92, 0.06) 100%);
+}
+
+.timeline-milestone-item {
+  position: relative;
+  padding-bottom: 3.5rem;
+}
+
+.timeline-milestone-item:last-child {
+  padding-bottom: 0;
+}
+
+.milestone-line-indicator {
+  position: absolute;
+  left: -2.5rem;
+  top: 15px;
+  width: 2px;
+  height: 100%;
+}
+
+.milestone-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: -12px;
+  top: 0;
+  color: var(--accent);
+  box-shadow: 0 0 0 6px white;
+  transition: var(--transition-fast);
+  z-index: 10;
+}
+
+.timeline-milestone-item:hover .milestone-dot {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(224, 169, 75, 0.6);
+}
+
+.milestone-content-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.2rem;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  box-shadow: 0 10px 30px rgba(15, 92, 92, 0.02);
+  transition: var(--transition-smooth);
+}
+
+.milestone-content-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(15, 92, 92, 0.12);
+  box-shadow: 0 20px 40px rgba(15, 92, 92, 0.05);
+}
+
+.milestone-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.milestone-year {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.milestone-tag {
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--text);
+  background: rgba(15, 92, 92, 0.05);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.milestone-title {
+  font-size: 1.3rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+
+.milestone-desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   SECTION 6: INVITATION CTA
+   ========================================================================== */
+.portfolio-cta {
+  padding: var(--section-padding) var(--container-px);
+  background: white;
+}
+
+.cta-framed-card {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--text); /* Beautiful forest teal overlay background */
+  border-radius: 24px;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(15, 92, 92, 0.2);
+}
+
+.cta-border-decoration {
+  position: absolute;
+  inset: 15px;
+  border: 1px solid rgba(224, 169, 75, 0.35);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.cta-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.cta-icon-badge {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(224, 169, 75, 0.4);
   color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem auto;
+}
+
+.cta-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-family: var(--font-serif);
+  color: var(--bg);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.cta-desc {
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--bg);
+  opacity: 0.8;
+  margin-bottom: 3rem;
+}
+
+.cta-button-holder {
+  display: flex;
+  justify-content: center;
+}
+
+.cta-framed-card .btn-luxury-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.cta-framed-card .btn-luxury-primary::before {
+  background: var(--bg);
+}
+
+.cta-framed-card .btn-luxury-primary:hover {
+  color: var(--text);
+  border-color: var(--bg);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   ANIMATIONS & TRANSITIONS
+   ========================================================================== */
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes scale-in-fade {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up-fade {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   📱 MOBILE RESPONSIVE VIEWS & MEDIA QUERIES
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .interactive-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .showcase-selector-panel {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .showcase-presentation-panel {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .hero-right-gallery {
+    order: -1; /* Display chef photo first on tablets */
+  }
+
+  .hero-image-frame {
+    max-width: 380px;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .philosophy-visual-block {
+    position: relative !important;
+    top: 0 !important;
+    height: auto !important;
+    min-height: unset !important;
+    aspect-ratio: 0.95 !important;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .toolkit-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .sticky-intro-content {
+    position: relative;
+    top: 0;
+  }
+
+  .timeline-awards-block {
+    display: none; /* Hide award lists on vertical layouts to reduce length */
+  }
+}
+
+@media (max-width: 768px) {
+  .chef-portfolio {
+    padding-top: 60px;
+  }
+
+  .hero-vertical-tag {
+    display: none; /* Hide rotated typography on small phones */
+  }
+
+  .hero-grid-layout {
+    margin-left: 0;
+  }
+
+  .hero-action-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .btn-luxury-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-large-title {
+    font-size: 3.8rem;
+  }
+
+  .overlapping-frame-small {
+    bottom: -10px;
+    right: -10px;
+  }
+
+  .presentation-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .toolkit-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-right-scrollable {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-milestone-item {
+    padding-bottom: 2.5rem;
+  }
+
+  .milestone-dot {
+    left: -8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .milestone-dot svg {
+    display: none; /* Hide small star icon in mobile dot */
+  }
+
+  .timeline-right-scrollable .vertical-timeline-track::before {
+    left: 0px;
+  }
+
+  .milestone-line-indicator {
+    left: -1.5rem;
+  }
+
+  .milestone-content-card {
+    padding: 1.5rem;
+  }
+
+  .milestone-year {
+    font-size: 1.6rem;
+  }
+
+  .milestone-title {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-large-title {
+    font-size: 3rem;
+  }
+
+  .floating-badge-1 {
+    left: -10px;
+  }
+
+  .floating-badge-2 {
+    right: -10px;
+  }
+
+  .philosophy-pillar-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selector-row-item {
+    padding: 1.2rem;
+  }
+
+  .selector-row-item .row-title {
+    font-size: 1.15rem;
+  }
+
+  .taste-label-row {
+    font-size: 0.72rem;
+  }
+}
+
+/* ==========================================================================
+   🌊 ELITE AWWWARDS FULL-PAGE SCROLL SNAPPING & LAYOUT OPTIMIZATIONS (DESKTOP)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  /* Enforce smooth root snap-scrolling */
+  html.chef-page {
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+    height: 100% !important;
+    overflow-y: scroll !important;
+    scrollbar-width: none !important;
+  }
+
+  html.chef-page::-webkit-scrollbar {
+    display: none !important;
+  }
+
+
+
+  /* strict 100vh viewport sections on desktop */
+  html.chef-page .chef-portfolio {
+    height: auto !important;
+    min-height: 100% !important;
+    padding-top: 0 !important;
+  }
+
+
+  html.chef-page .chef-portfolio section {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding-top: 85px !important; /* Offset for navbar */
+    padding-bottom: 2rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 🌿 SECTION 2: PHILOSOPHY GRID ADJUSTMENT (3-COLUMN PILLARS) */
+  html.chef-page .portfolio-philosophy {
+    background: linear-gradient(to bottom, #FCFBF9 0%, #F4EFEB 100%) !important;
+  }
+
+  html.chef-page .philosophy-grid {
+    grid-template-columns: 1fr 1.25fr !important;
+    align-items: center !important;
+    height: calc(100vh - 120px) !important;
+  }
+
+  html.chef-page .philosophy-visual-block {
+    position: relative !important;
+    top: 0 !important;
+    height: 85% !important;
+    min-height: unset !important;
+    aspect-ratio: 0.95 !important;
+  }
+
+  html.chef-page .philosophy-content-block {
+    height: auto !important;
+    justify-content: center !important;
+  }
+
+  html.chef-page .philosophy-title {
+    margin-bottom: 1rem !important;
+    font-size: 2.8rem !important;
+  }
+
+  html.chef-page .philosophy-pullquote {
+    padding: 0.8rem 0 0.8rem 2rem !important;
+    margin-bottom: 1.8rem !important;
+  }
+
+  html.chef-page .philosophy-pullquote p {
+    font-size: 1.2rem !important;
+    line-height: 1.6 !important;
+  }
+
+  html.chef-page .philosophy-pillars-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.2rem !important;
+    width: 100% !important;
+  }
+
+  html.chef-page .philosophy-pillar-card {
+    padding: 1.4rem 1.2rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    height: 100% !important;
+    border-radius: 16px !important;
+  }
+
+  html.chef-page .pillar-number {
+    right: 1.2rem !important;
+    top: 1.2rem !important;
+    font-size: 1.8rem !important;
+  }
+
+  html.chef-page .pillar-icon-box {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  html.chef-page .pillar-info h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  html.chef-page .pillar-info p {
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 🌌 SECTION 3: CURATED SHOWCASE HEIGHT OPTIMIZATION */
+  html.chef-page .portfolio-showcase {
+    padding: 85px var(--container-px) 1.5rem var(--container-px) !important;
+    background-color: #ffffff !important;
+  }
+
+  html.chef-page .section-title-wrapper {
+    margin-bottom: 1.2rem !important;
+  }
+
+  html.chef-page .showcase-title {
+    font-size: 2.5rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  html.chef-page .showcase-lead {
+    font-size: 0.9rem !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+  }
+
+  html.chef-page .interactive-showcase-grid {
+    height: calc(100vh - 240px) !important;
+    align-items: stretch !important;
+    gap: 2rem !important;
+  }
+
+  html.chef-page .showcase-selector-panel {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  html.chef-page .selector-list {
+    gap: 8px !important;
+  }
+
+  html.chef-page .selector-row-item {
+    padding: 1.1rem 1.5rem !important;
+  }
+
+  html.chef-page .showcase-presentation-panel {
+    height: 100% !important;
+    padding: 1.5rem !important; /* Reduced from default clamp to save massive vertical space */
+  }
+
+  html.chef-page .presentation-layout {
+    height: 100% !important;
+    align-items: stretch !important;
+    gap: 2rem !important;
+  }
+
+  html.chef-page .presentation-visual-frame {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  html.chef-page .visual-outer-card {
+    height: 100% !important;
+    max-height: 480px !important; /* Prevents visual card from pushing grid out of bounds */
+    aspect-ratio: 0.85 !important;
+    overflow: visible !important;
+  }
+
+  html.chef-page .presentation-detail-card {
+    padding: 0 0.5rem !important; /* Cleared large nested padding */
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  html.chef-page .presentation-detail-card::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  html.chef-page .active-dish-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  html.chef-page .active-dish-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  html.chef-page .dish-taste-profile {
+    margin-bottom: 1rem !important;
+  }
+
+  html.chef-page .taste-bars-grid {
+    gap: 0.5rem !important;
+  }
+
+  html.chef-page .taste-bar-row {
+    gap: 2px !important;
+  }
+
+  html.chef-page .dish-ingredients-row {
+    margin-bottom: 1rem !important;
+  }
+
+  html.chef-page .dish-chef-quote {
+    padding: 10px 14px !important;
+    margin-top: 0.5rem !important;
+  }
+
+  html.chef-page .dish-chef-quote p {
+    font-size: 0.8rem !important;
+  }
+
+  /* 🌿 SECTION 4: GASTRO-TOOLKIT VIEWPORT FITTING */
+  html.chef-page .portfolio-toolkit {
+    padding: 85px var(--container-px) 2rem var(--container-px) !important;
+    background-color: var(--bg) !important;
+  }
+
+  html.chef-page .toolkit-header {
+    margin-bottom: 2rem !important;
+  }
+
+  html.chef-page .toolkit-title {
+    font-size: 2.8rem !important;
+  }
+
+  html.chef-page .toolkit-cards-grid {
+    gap: 1.5rem !important;
+  }
+
+  html.chef-page .toolkit-card {
+    padding: 2.2rem 2rem !important;
+  }
+
+  html.chef-page .toolkit-card .card-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  html.chef-page .toolkit-card .card-description {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* 🗺️ SECTION 5: TIMELINE ROADMAP HORIZONTAL TRANSFORMATION */
+  html.chef-page .portfolio-timeline {
+    padding: 85px var(--container-px) 2rem var(--container-px) !important;
+    background-color: #ffffff !important;
+  }
+
+  html.chef-page .timeline-grid-layout {
+    grid-template-columns: 1fr !important; /* Full width row */
+    gap: 2rem !important;
+    height: calc(100vh - 120px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  html.chef-page .timeline-left-intro {
+    width: 100% !important;
+    border-bottom: 1px solid rgba(15, 92, 92, 0.08) !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  html.chef-page .sticky-intro-content {
+    position: relative !important;
+    top: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1.2fr 1fr !important;
+    gap: 4rem !important;
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  html.chef-page .timeline-section-title {
+    margin-bottom: 0 !important;
+    font-size: 2.6rem !important;
+  }
+
+  html.chef-page .timeline-lead {
+    margin-bottom: 0 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+
+  html.chef-page .timeline-awards-block {
+    display: none !important; /* Hide vertical list items to preserve layout height */
+  }
+
+  html.chef-page .timeline-right-scrollable {
+    width: 100% !important;
+    overflow: visible !important;
+    padding-left: 0 !important;
+  }
+
+  /* Convert timeline roadmap to beautiful horizontal row */
+  html.chef-page .vertical-timeline-track {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1.5rem !important;
+    padding-top: 1.2rem !important;
+    width: 100% !important;
+  }
+
+  /* Horizontal connecting node path */
+  html.chef-page .vertical-timeline-track::before {
+    top: 15px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(15, 92, 92, 0.06) 100%) !important;
+  }
+
+  html.chef-page .timeline-milestone-item {
+    padding-bottom: 0 !important;
+    padding-top: 2.2rem !important;
+  }
+
+  html.chef-page .milestone-line-indicator {
+    left: 0 !important;
+    top: -2.2rem !important;
+    width: 100% !important;
+    height: 2px !important;
+  }
+
+  html.chef-page .milestone-dot {
+    left: 0 !important;
+    top: -11px !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 6px #ffffff !important;
+  }
+
+  html.chef-page .timeline-milestone-item:hover .milestone-dot {
+    background: var(--accent) !important;
+    box-shadow: 0 0 15px rgba(224, 169, 75, 0.6) !important;
+  }
+
+  html.chef-page .milestone-content-card {
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+
+  html.chef-page .milestone-year {
+    font-size: 1.8rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  html.chef-page .milestone-tag {
+    font-size: 0.65rem !important;
+    padding: 3px 8px !important;
+  }
+
+  html.chef-page .milestone-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  html.chef-page .milestone-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* ✉️ SECTION 6: INVITATION CTA CENTERING */
+  html.chef-page .portfolio-cta {
+    padding: 85px var(--container-px) 2rem var(--container-px) !important;
+    background-color: var(--bg) !important;
+  }
+
+  html.chef-page .cta-framed-card {
+    max-height: 76vh !important;
+    padding: 3.5rem clamp(1.5rem, 5vw, 4rem) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  html.chef-page .cta-icon-badge {
+    margin-bottom: 1.5rem !important;
+  }
+
+  html.chef-page .cta-title {
+    font-size: 2.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  html.chef-page .cta-desc {
+    font-size: 0.95rem !important;
+    margin-bottom: 2rem !important;
+  }
 }

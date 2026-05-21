@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import videoSrc from "../assets/video.mp4"
 import chef2 from "../assets/chef2.jpg"
 import "../styles/sections/ChefSection.css"
@@ -7,6 +8,7 @@ import "../styles/sections/ChefSection.css"
 const ChefSection = () => {
   const containerRef = useRef(null)
   const videoRef = useRef(null)
+  const navigate = useNavigate()
 
   /* ── Animation trigger: fires after snap settles ── */
   const [isSnapped, setIsSnapped] = useState(false)
@@ -143,6 +145,25 @@ const ChefSection = () => {
                 intentional, turning each meal into a timeless sensory memory.
               </span>
             </motion.p>
+
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="about-cta"
+              onClick={() => navigate("/chef")}
+            >
+              <span className="about-cta-text">
+                Meet the Chef
+                <span className="about-cta-line" />
+              </span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              >
+                →
+              </motion.span>
+            </motion.button>
           </div>
 
           {/* RIGHT: IMAGES */}

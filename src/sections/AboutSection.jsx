@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import img1 from "../assets/dining.jpg"
 import img2 from "../assets/dish1.jpg"
 import "../styles/sections/AboutSection.css"
@@ -36,6 +37,7 @@ const SplitReveal = ({ text, className, delay = 0, isVisible }) => (
 
 const AboutSection = () => {
   const ref = useRef(null)
+  const navigate = useNavigate()
 
   /* ── Animation trigger: fires after snap settles ── */
   const [isSnapped, setIsSnapped] = useState(false)
@@ -154,6 +156,7 @@ const AboutSection = () => {
               animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.7, delay: 0.55 }}
               className="about-cta"
+              onClick={() => navigate("/chef")}
             >
               <span className="about-cta-text">
                 Discover Our Ethos

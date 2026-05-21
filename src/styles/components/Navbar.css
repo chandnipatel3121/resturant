@@ -7,18 +7,31 @@
   z-index: 9999;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* INNER PAGE NAVBAR */
+
+/* INNER PAGE NAVBAR - MENU */
 body:has(.subpage-layout) .navbar {
   background: rgba(251, 252, 251, 0.82);
 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
-  border-bottom: 1px solid rgba(15,92,92,0.08);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.04);
+    0 10px 30px rgba(0, 0, 0, 0.04);
 }
+
+/* INNER PAGE NAVBAR - GALLERY, CHEF, CONTACT */
+html:not(.home-page) body:has(.gallery-page) .navbar,
+html:not(.home-page) body:has(.chef-portfolio) .navbar,
+html:not(.home-page) body:has(.contact-section) .navbar {
+  background: rgba(237, 247, 247, 0.88); /* Brand --bg with high opacity */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(224, 169, 75, 0.25); /* Elegant gold border border-highlight */
+  box-shadow: 0 10px 30px rgba(10, 30, 30, 0.05);
+}
+
 .navbar-dark {
   padding: clamp(0.5rem, 1.5vh, 1rem) 0;
   background-color: transparent;
@@ -256,26 +269,32 @@ body:has(.subpage-layout) .navbar {
 
 /* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
 @media (max-height: 700px) {
+
   .navbar-dark,
   .navbar-light {
     padding: 0 !important;
     height: 56px !important;
   }
+
   .nav-container {
     padding: 0 1.5rem;
     height: 100%;
     display: flex;
     align-items: center;
   }
+
   .nav-logo {
     font-size: 1.3rem !important;
   }
+
   .nav-links {
     gap: 1.2rem;
   }
+
   .nav-link {
     font-size: 11px;
   }
+
   .nav-btn {
     padding: 0.4rem 0.8rem;
     font-size: 10px;
@@ -284,17 +303,19 @@ body:has(.subpage-layout) .navbar {
 
 /* 🖥️ LAPTOP VIEWPORT OPTIMIZATIONS (e.g. 1366x768) */
 @media (min-width: 1241px) and (max-width: 1400px) and (max-height: 800px) {
+
   .navbar-dark,
   .navbar-light {
     padding: 0 !important;
     height: 70px !important;
-    background: #ffffff !important; /* Solid background to prevent scrolling content bleed */
+    background: #ffffff !important;
+    /* Solid background to prevent scrolling content bleed */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
   }
+
   .nav-container {
     height: 100% !important;
     display: flex !important;
     align-items: center !important;
   }
 }
-

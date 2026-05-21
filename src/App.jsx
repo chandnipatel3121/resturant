@@ -7,7 +7,7 @@ import { NavProvider } from "./utils/NavContext"
 
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
-import About from "./pages/Chefpage"
+import ChefPage from "./pages/Chefpage"
 import Contact from "./pages/Contact"
 import Gallery from "./pages/Gallery"
 import ScrollToTop from "./components/ScrollToTop"
@@ -34,7 +34,7 @@ function AppContent() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/menu" element={<Menu />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/chef" element={<ChefPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/gallery" element={<Gallery />} />
             </Routes>

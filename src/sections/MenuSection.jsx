@@ -173,42 +173,44 @@ const RightPageContent = ({ dish, onAddToCart }) => {
         <div className="detail-price-pill">₹{dish.price}</div>
       </div>
 
-      <div className="detail-section">
-        <p className="detail-description-long">{dish.description}</p>
-      </div>
+      <div className="detail-scroll-container">
+        <div className="detail-section">
+          <p className="detail-description-long">{dish.description}</p>
+        </div>
 
-      {/* Premium horizontal printed metadata bar */}
-      <div className="detail-horizontal-ribbon">
-        <span className="ribbon-item">
-          <Clock size={15} />
-          <span>{dish.prepTime} Mins</span>
-        </span>
-        <span className="ribbon-sep">•</span>
-        <span className="ribbon-item">
-          <Users size={15} />
-          <span>Serves {dish.serves}</span>
-        </span>
-        <span className="ribbon-sep">•</span>
-        <span className="ribbon-item">
-          <MapPin size={15} />
-          <span>{dish.origin}</span>
-        </span>
-        <span className="ribbon-sep">•</span>
-        <span className="ribbon-item">
-          <Flame size={15} />
-          <span className="spice-dots">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className={`spice-dot ${i < dish.spiceLevel ? 'active' : ''}`} />
-            ))}
+        {/* Premium horizontal printed metadata bar */}
+        <div className="detail-horizontal-ribbon">
+          <span className="ribbon-item">
+            <Clock size={15} />
+            <span>{dish.prepTime} Mins</span>
           </span>
-        </span>
-      </div>
+          <span className="ribbon-sep">•</span>
+          <span className="ribbon-item">
+            <Users size={15} />
+            <span>Serves {dish.serves}</span>
+          </span>
+          <span className="ribbon-sep">•</span>
+          <span className="ribbon-item">
+            <MapPin size={15} />
+            <span>{dish.origin}</span>
+          </span>
+          <span className="ribbon-sep">•</span>
+          <span className="ribbon-item">
+            <Flame size={15} />
+            <span className="spice-dots">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className={`spice-dot ${i < dish.spiceLevel ? 'active' : ''}`} />
+              ))}
+            </span>
+          </span>
+        </div>
 
-      {/* Elegant bulleted ingredients row */}
-      <div className="detail-section ingredients-section">
-        <h4 className="section-title">Essential Ingredients</h4>
-        <div className="detail-ingredients-bulleted">
-          {dish.ingredients.join("  •  ")}
+        {/* Elegant bulleted ingredients row */}
+        <div className="detail-section ingredients-section">
+          <h4 className="section-title">Essential Ingredients</h4>
+          <div className="detail-ingredients-bulleted">
+            {dish.ingredients.join("  •  ")}
+          </div>
         </div>
       </div>
 

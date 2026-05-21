@@ -4509,3 +4509,159 @@ html.menu-snap-page .menu-main-layout {
     margin-bottom: 18px !important;
   }
 }
+
+/* --- 📖 3D BOOK POPUP OPTIMIZATIONS FOR SHORT VIEWPORTS (e.g., 1195 x 585) --- */
+@media (max-height: 620px) and (min-width: 901px) {
+  .book-detail-overlay {
+    padding: 16px !important;
+  }
+
+  .book-detail-container {
+    height: 480px !important;
+    width: 780px !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    transform: rotateX(4deg) !important; /* Flattened slightly for better vertical space */
+  }
+
+  .book-close-btn {
+    top: 12px !important;
+    right: 12px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .book-spine {
+    top: 10px !important;
+    bottom: 10px !important;
+    width: 22px !important;
+  }
+
+  .book-page.right-page {
+    border-right: 10px solid #153a3a !important;
+    border-top: 10px solid #153a3a !important;
+    border-bottom: 10px solid #153a3a !important;
+  }
+
+  .cover-face-inner {
+    border-left: 10px solid #153a3a !important;
+    border-top: 10px solid #153a3a !important;
+    border-bottom: 10px solid #153a3a !important;
+    padding: 12px 20px !important;
+  }
+
+  .cover-face-outer {
+    border-right: 10px solid #081d1d !important;
+    border-top: 10px solid #081d1d !important;
+    border-bottom: 10px solid #081d1d !important;
+  }
+
+  .flipping-page-front,
+  .flipping-page-back {
+    border-top: 10px solid #153a3a !important;
+    border-bottom: 10px solid #153a3a !important;
+  }
+
+  .page-inner {
+    padding: 12px 20px !important;
+  }
+
+  .book-image-container {
+    margin: 8px !important;
+    padding: 8px !important;
+  }
+
+  .page-footer-branding {
+    padding: 10px 20px !important;
+  }
+
+  .detail-header {
+    margin-bottom: 8px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .detail-title-large {
+    font-size: 1.35rem !important;
+  }
+
+  .detail-price-pill {
+    font-size: 1.1rem !important;
+  }
+
+  .detail-description-long {
+    font-size: 0.88rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .detail-horizontal-ribbon {
+    padding: 5px 10px !important;
+    margin-bottom: 8px !important;
+    font-size: 0.72rem !important;
+    gap: 8px !important;
+  }
+
+  .detail-horizontal-ribbon svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .ingredients-section {
+    margin-top: 4px !important;
+  }
+
+  .ingredients-section .section-title {
+    font-size: 0.75rem !important;
+    margin-bottom: 4px !important;
+    padding-left: 8px !important;
+  }
+
+  .detail-ingredients-bulleted {
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .book-actions {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+  }
+
+  .book-add-cart-btn {
+    padding: 10px !important;
+    font-size: 0.8rem !important;
+    gap: 6px !important;
+  }
+
+  .book-add-cart-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .cover-brand-logo {
+    width: 65px !important;
+    height: 65px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .crest-title {
+    font-size: 1.3rem !important;
+    letter-spacing: 0.25em !important;
+  }
+
+  .crest-subtitle {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .page-nav-btn {
+    width: 32px !important;
+    height: 52px !important;
+  }
+
+  .page-nav-btn.prev-page {
+    left: -12px !important;
+  }
+
+  .page-nav-btn.next-page {
+    right: -12px !important;
+  }
+}

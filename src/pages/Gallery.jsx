@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, X, Grid } from "lucide-react"
 import "../styles/pages/Gallery.css"
 
 // Import assets for categories
@@ -16,21 +16,39 @@ const categories = [
     title: "Ambience",
     desc: "Step behind the curtain and explore the grand architecture and vibrant atmosphere of our main dining halls and intimate spaces.",
     img: dining,
-    link: "#ambience"
+    link: "#ambience",
+    subImages: [
+      dining,
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop"
+    ]
   },
   {
     id: "02",
     title: "Craft",
     desc: "Witness the precision and passion of our master chefs as they orchestrate culinary perfection in the heart of the kitchen.",
     img: chef1,
-    link: "#craft"
+    link: "#craft",
+    subImages: [
+      chef1,
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=600&auto=format&fit=crop"
+    ]
   },
   {
     id: "03",
     title: "Signatures",
     desc: "A visual tasting menu. Explore our most iconic and meticulously plated signature dishes that define the Anando experience.",
     img: dish1,
-    link: "#signatures"
+    link: "#signatures",
+    subImages: [
+      dish1,
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop"
+    ]
   }
 ]
 
@@ -80,14 +98,71 @@ const Gallery = () => {
   const [[page, direction], setPage] = useState([0, 0])
   const [hPage, setHPage] = useState(0)
   const [inHorizontal, setInHorizontal] = useState(false)
+  const [activeSubGallery, setActiveSubGallery] = useState(null)
   const isAnimating = useRef(false)
   const touchStartY = useRef(0)
 
   const moreMoments = [
-    { id: 1, text1: "BEHIND", text2: "THE CURTAIN", img: restro2, bg: "#170a24", color1: "#a855f7", color2: "#fde047" },
-    { id: 2, text1: "PRIVATE", text2: "DINING", img: restro3, bg: "#0a171d", color1: "#38bdf8", color2: "#fde047" },
-    { id: 3, text1: "THE", text2: "BAR", img: dining, bg: "#231118", color1: "#fb7185", color2: "#fde047" },
-    { id: 4, text1: "MASTER", text2: "CHEF", img: chef1, bg: "#101912", color1: "#4ade80", color2: "#fde047" }
+    {
+      id: 1,
+      text1: "BEHIND",
+      text2: "THE CURTAIN",
+      img: restro2,
+      bg: "#b4f5f5ff", // Brand light mint-grey background
+      color1: "#0F5C5C", // Brand deep Forest Teal text
+      color2: "#E0A94B", // Brand Kashmiri gold accent
+      subImages: [
+        restro2,
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop"
+      ]
+    },
+    {
+      id: 2,
+      text1: "PRIVATE",
+      text2: "DINING",
+      img: restro3,
+      bg: "#b2ddc9ff", // Brand light mint variant
+      color1: "#0F5C5C", // Brand deep Forest Teal text
+      color2: "#E0A94B", // Brand Kashmiri gold accent
+      subImages: [
+        restro3,
+        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop"
+      ]
+    },
+    {
+      id: 3,
+      text1: "THE",
+      text2: "BAR",
+      img: dining,
+      bg: "#ebdcc9", // Brand light sand/gold variant
+      color1: "#0F5C5C", // Brand deep Forest Teal text
+      color2: "#E0A94B", // Brand Kashmiri gold accent
+      subImages: [
+        dining,
+        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1560512823-829485b8bf24?q=80&w=600&auto=format&fit=crop"
+      ]
+    },
+    {
+      id: 4,
+      text1: "MASTER",
+      text2: "CHEF",
+      img: chef1,
+      bg: "#edf7f7", // Brand light mint-grey background
+      color1: "#0F5C5C", // Brand deep Forest Teal text
+      color2: "#E0A94B", // Brand Kashmiri gold accent
+      subImages: [
+        chef1,
+        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=600&auto=format&fit=crop"
+      ]
+    }
   ]
 
   // Clamp the page index
@@ -114,15 +189,16 @@ const Gallery = () => {
   }
 
   const handleScrollAction = (direction) => {
+    if (activeSubGallery) return // Disable scrolling when expanded!
     if (isAnimating.current) return
     isAnimating.current = true
-    
+
     if (inHorizontal) {
       paginateHorizontal(direction)
     } else {
       paginateVertical(direction)
     }
-    
+
     setTimeout(() => {
       isAnimating.current = false
     }, 1200)
@@ -131,6 +207,7 @@ const Gallery = () => {
   // Wheel event for desktop scrolling
   useEffect(() => {
     const handleWheel = (e) => {
+      if (activeSubGallery) return // Skip when active sub gallery is open
       e.preventDefault()
       if (Math.abs(e.deltaY) > 20) {
         if (e.deltaY > 0) handleScrollAction(1)
@@ -140,7 +217,7 @@ const Gallery = () => {
 
     window.addEventListener("wheel", handleWheel, { passive: false })
     return () => window.removeEventListener("wheel", handleWheel)
-  }, [page, hPage, inHorizontal])
+  }, [page, hPage, inHorizontal, activeSubGallery])
 
   // Touch events for mobile swiping
   useEffect(() => {
@@ -148,9 +225,11 @@ const Gallery = () => {
       touchStartY.current = e.touches[0].clientY
     }
     const handleTouchMove = (e) => {
+      if (activeSubGallery) return // Skip when active sub gallery is open
       e.preventDefault() // prevent all native scrolling
     }
     const handleTouchEnd = (e) => {
+      if (activeSubGallery) return // Skip when active sub gallery is open
       const touchEndY = e.changedTouches[0].clientY
       const distance = touchStartY.current - touchEndY
       if (Math.abs(distance) > 50) {
@@ -204,7 +283,7 @@ const Gallery = () => {
         ))}
       </div>
 
-      <motion.div 
+      <motion.div
         className="gallery-main-wrapper"
         animate={{ y: inHorizontal ? "-100vh" : "0vh" }}
         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
@@ -238,7 +317,20 @@ const Gallery = () => {
                     <h1 className="slide-title">{categories[activeIndex].title}</h1>
                     <p className="slide-desc">{categories[activeIndex].desc}</p>
 
-                    <a href={categories[activeIndex].link} className="view-gallery-btn" onClick={(e) => e.preventDefault()}>
+                    <a
+                      href={categories[activeIndex].link}
+                      className="view-gallery-btn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveSubGallery({
+                          id: categories[activeIndex].id,
+                          title: categories[activeIndex].title,
+                          desc: categories[activeIndex].desc,
+                          subImages: categories[activeIndex].subImages,
+                          bg: "#edf7f7"
+                        });
+                      }}
+                    >
                       VIEW GALLERY
                       <ArrowRight size={16} />
                     </a>
@@ -251,7 +343,7 @@ const Gallery = () => {
 
         {/* Horizontal Scroll Section (Awwwards Style) */}
         <div className="gallery-horizontal-section">
-          <motion.div 
+          <motion.div
             className="horizontal-track"
             animate={{ x: `-${hPage * 100}vw` }}
             transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
@@ -261,33 +353,41 @@ const Gallery = () => {
               const isActive = (hPage === index && inHorizontal);
               return (
                 <div key={item.id} className="h-slide" style={{ width: "100vw", height: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: item.bg, transition: "background-color 1.2s ease" }}>
-                  
+
                   {/* Content Container (3 Columns) */}
                   <div className="h-slide-content-container">
-                    
+
                     {/* Left Text */}
                     <div className="h-slide-text-left-wrapper">
-                      <motion.h2 
+                      <motion.h2
                         initial={{ x: -50, opacity: 0 }}
                         animate={{ x: isActive ? 0 : -50, opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
                         className="h-slide-text-left"
                         style={{ color: item.color1 }}
                       >
-                        {item.text1.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br/></React.Fragment>)}
+                        {item.text1.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br /></React.Fragment>)}
                       </motion.h2>
                     </div>
 
                     {/* Center Image */}
-                    <motion.div 
+                    <motion.div
                       className="h-slide-img-wrapper"
                       initial={{ scale: 0.6, opacity: 0 }}
                       animate={{ scale: isActive ? 1 : 0.6, opacity: isActive ? 1 : 0 }}
                       transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
+                      onClick={() => setActiveSubGallery({
+                        id: item.id,
+                        title: `${item.text1} ${item.text2}`,
+                        desc: "Exclusive capture of the premium culinary design and authentic interior atmosphere at Anando.",
+                        subImages: item.subImages,
+                        bg: item.bg
+                      })}
+                      style={{ cursor: "pointer" }}
                     >
-                      <motion.img 
-                        src={item.img} 
-                        alt={`${item.text1} ${item.text2}`} 
+                      <motion.img
+                        src={item.img}
+                        alt={`${item.text1} ${item.text2}`}
                         className="h-slide-img"
                         initial={{ scale: 1.5 }}
                         animate={{ scale: isActive ? 1 : 1.5 }}
@@ -297,14 +397,14 @@ const Gallery = () => {
 
                     {/* Right Text */}
                     <div className="h-slide-text-right-wrapper">
-                      <motion.h2 
+                      <motion.h2
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: isActive ? 0 : 50, opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
                         className="h-slide-text-right"
                         style={{ color: item.color2 }}
                       >
-                        {item.text2.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br/></React.Fragment>)}
+                        {item.text2.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br /></React.Fragment>)}
                       </motion.h2>
                     </div>
 
@@ -315,6 +415,83 @@ const Gallery = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Expanded Sub-Gallery Overlay */}
+      <AnimatePresence>
+        {activeSubGallery && (
+          <motion.div
+            className="sub-gallery-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveSubGallery(null)}
+          >
+            <motion.div
+              className="sub-gallery-container"
+              initial={{ opacity: 0, scale: 0.3, y: 100 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.3, y: 100 }}
+              transition={{ type: "spring", damping: 25, stiffness: 120 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="sub-gallery-close"
+                onClick={() => setActiveSubGallery(null)}
+                aria-label="Close gallery"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="sub-gallery-header">
+                <span className="sub-gallery-index">0{activeSubGallery.id} / ARCHIVE</span>
+                <h2 className="sub-gallery-title">{activeSubGallery.title}</h2>
+                <p className="sub-gallery-desc">{activeSubGallery.desc}</p>
+              </div>
+
+              <motion.div
+                className="sub-gallery-grid"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.12,
+                      delayChildren: 0.1
+                    }
+                  }
+                }}
+              >
+                {(activeSubGallery.subImages || []).map((imgUrl, i) => (
+                  <motion.div
+                    key={i}
+                    className="sub-gallery-card"
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.6, y: 50 },
+                      visible: {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        transition: { type: "spring", damping: 18, stiffness: 100 }
+                      }
+                    }}
+                    whileHover={{ scale: 1.04, y: -8, transition: { duration: 0.3 } }}
+                  >
+                    <img src={imgUrl} alt={`Sub Gallery ${i + 1}`} className="sub-gallery-img" />
+                    <div className="sub-gallery-card-frame"></div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <div className="sub-gallery-footer">
+                <Grid size={16} className="sub-gallery-footer-icon" />
+                <span>CLICK ANYWHERE OUTSIDE TO ESCAPE THE VAULT</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
