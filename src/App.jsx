@@ -1,5 +1,10 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Footer from "./sections/Footer"
 import SmoothScroll from "./components/SmoothScroll"
@@ -8,7 +13,7 @@ import { NavProvider } from "./utils/NavContext"
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 import ChefPage from "./pages/Chefpage"
-import Contact from "./pages/Contact"
+import ContactPage from "./pages/Contact"
 import Gallery from "./pages/Gallery"
 import ScrollToTop from "./components/ScrollToTop"
 
@@ -35,7 +40,7 @@ function AppContent() {
               <Route path="/" element={<Home />} />
               <Route path="/menu" element={<Menu />} />
               <Route path="/chef" element={<ChefPage />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/gallery" element={<Gallery />} />
             </Routes>
             {isHomePage && <Footer />}
@@ -49,7 +54,7 @@ function AppContent() {
 function App() {
   // 🔄 Force scroll to top on refresh
   useEffect(() => {
-    window.history.scrollRestoration = 'manual'
+    window.history.scrollRestoration = "manual"
     window.scrollTo(0, 0)
   }, [])
 
