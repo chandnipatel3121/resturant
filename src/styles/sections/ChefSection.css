@@ -1,7 +1,7 @@
 /* 👨‍🍳 CHEF SECTION STYLES */
 .chef-section {
   position: relative;
-  height: 100vh;
+   height: 100lvh;
   min-height: 600px;
   display: flex;
   align-items: center;
@@ -238,7 +238,7 @@
 /* ── RESPONSIVE: Tablet (768px – 1023px) ── */
 @media (min-width: 768px) and (max-width: 1023px) {
   .chef-section {
-    height: 100vh;
+     height: 100lvh;
     padding: 0;
     align-items: center;
   }
@@ -313,7 +313,7 @@
 @media (max-height: 700px) and (min-width: 1024px) {
   .chef-section {
     height: auto;
-    min-height: 100vh;
+     min-height: 100lvh;
     padding: 4rem 0;
   }
 

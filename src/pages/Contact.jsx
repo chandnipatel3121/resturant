@@ -1,5 +1,6 @@
-import React from "react"
-import { motion } from "framer-motion"
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useNav } from "../utils/NavContext";
 import {
   MapPin,
   Phone,
@@ -7,151 +8,239 @@ import {
   Clock3,
   ArrowUpRight,
   Sparkles,
-} from "lucide-react"
+} from "lucide-react";
 
-import "../styles/pages/ContactPage.css"
+import "../styles/pages/ContactPage.css";
+
+// Reusable magnetic button component for Awwwards-style interaction
+const MagneticButton = ({ children, className, onClick }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    
+    // Magnetic pull distance
+    x.set((clientX - centerX) * 0.2);
+    y.set((clientY - centerY) * 0.2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      className={className}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 const ContactPage = () => {
+  const { setNavTheme } = useNav();
+  
+  // Enforce green/dark text theme for the light navbar on mount
+  useEffect(() => {
+    setNavTheme('green');
+  }, [setNavTheme]);
+
+  const { scrollYProgress } = useScroll();
+  const yMap = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  // Framer Motion Variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    },
+  };
+
   return (
     <div className="contact-page">
+      {/* Background Ambience */}
       <div className="bg-glow glow-1"></div>
       <div className="bg-glow glow-2"></div>
-      <div className="noise"></div>
 
       {/* HERO SECTION */}
       <section className="contact-hero">
         <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="hero-content-wrapper"
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}
         >
-          <div className="hero-tag">
-            <Sparkles size={15} />
-            Luxury Dining Experience
-          </div>
+          <motion.div className="hero-tag" variants={itemVariants}>
+            <Sparkles size={14} />
+            Connect With Us
+          </motion.div>
 
-          <h1>
-            Reserve Your
-            <span> Perfect Evening</span>
-          </h1>
+          <motion.h1 variants={itemVariants}>
+            Reserve Your <br />
+            <span>Perfect Evening</span>
+          </motion.h1>
 
-          <p>
+          <motion.p variants={itemVariants}>
             Experience modern fine dining with immersive ambience, handcrafted
-            flavors, and unforgettable hospitality.
-          </p>
-
-          <div className="hero-buttons">
-            <button className="primary-btn">Book A Table</button>
-            <button className="secondary-btn">Explore Menu</button>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="hero-image-wrapper"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1 }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop"
-            alt="Restaurant Interior"
-          />
+            flavors, and unforgettable hospitality. We await your arrival.
+          </motion.p>
         </motion.div>
       </section>
 
-      {/* CONTACT SECTION */}
-      <section className="contact-section">
-        <div className="contact-container">
-          {/* Left Column: Info Panels */}
-          <motion.div
-            className="contact-info glass-card"
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
-            <div className="section-title">
-              <span className="eyebrow">Get In Touch</span>
-              <h2>Visit Flavor Fusion</h2>
-            </div>
+      {/* SPLIT CONTACT SECTION */}
+      <section className="contact-split-container">
+        
+        {/* Left: Info Card */}
+        <motion.div 
+          className="info-glass-card"
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="info-header">
+            <h2>Visit Anandofoods</h2>
+            <p>Our dedicated concierge team is at your disposal.</p>
+          </div>
 
-            <div className="info-details">
-              <div className="info-item">
-                <MapPin className="info-icon" size={20} />
-                <div>
-                  <h3>Location</h3>
-                  <p>123 Gastronomy Boulevard, Culinary District</p>
-                </div>
+          <div className="info-details-list">
+            <div className="info-item">
+              <div className="icon-wrapper">
+                <MapPin size={22} />
               </div>
-
-              <div className="info-item">
-                <Phone className="info-icon" size={20} />
-                <div>
-                  <h3>Reservations</h3>
-                  <p>+1 (555) 839-2019</p>
-                </div>
-              </div>
-
-              <div className="info-item">
-                <Mail className="info-icon" size={20} />
-                <div>
-                  <h3>General Queries</h3>
-                  <p>dine@flavorfusion.com</p>
-                </div>
-              </div>
-
-              <div className="info-item">
-                <Clock3 className="info-icon" size={20} />
-                <div>
-                  <h3>Hours</h3>
-                  <p>Tue - Sun: 5:00 PM - 11:00 PM</p>
-                  <p className="subtext">Closed on Mondays</p>
-                </div>
+              <div className="info-text">
+                <h3>Location</h3>
+                <p>123 Gastronomy Blvd</p>
+                <span className="subtext">Bapa Sitaram Madhuli, Shivkrupa Nagar, Bhuj</span>
               </div>
             </div>
-          </motion.div>
 
-          {/* Right Column: Premium Floating-Label Form */}
-          <motion.div
-            className="contact-form-wrapper glass-card"
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+            <div className="info-item">
+              <div className="icon-wrapper">
+                <Phone size={22} />
+              </div>
+              <div className="info-text">
+                <h3>Reservations</h3>
+                <p>+91 99982 26826</p>
+                <span className="subtext">Available 11am - 11pm</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="icon-wrapper">
+                <Mail size={22} />
+              </div>
+              <div className="info-text">
+                <h3>General Queries</h3>
+                <p>dine@anandofoods.com</p>
+                <span className="subtext">Replies within 24 hours</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="icon-wrapper">
+                <Clock3 size={22} />
+              </div>
+              <div className="info-text">
+                <h3>Service Hours</h3>
+                <p>Mon - Sun: 11:00 AM - 11:00 PM</p>
+                <span className="subtext">Open everyday</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right: Reservation Form */}
+        <motion.div 
+          className="contact-form-wrapper"
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        >
+          <form className="premium-form" onSubmit={(e) => e.preventDefault()}>
+            
+            <div className="input-row">
               <div className="input-group">
                 <input type="text" id="name" required />
                 <label htmlFor="name">Full Name</label>
+                <div className="input-line"></div>
               </div>
 
               <div className="input-group">
                 <input type="email" id="email" required />
                 <label htmlFor="email">Email Address</label>
+                <div className="input-line"></div>
+              </div>
+            </div>
+
+            <div className="input-row">
+              <div className="input-group">
+                <input type="tel" id="phone" required />
+                <label htmlFor="phone">Phone Number</label>
+                <div className="input-line"></div>
               </div>
 
               <div className="input-group">
-                <textarea id="message" required></textarea>
-                <label htmlFor="message">Special Requests / Message</label>
+                <input type="date" id="date" required />
+                <label htmlFor="date" style={{top: "-20px", fontSize: "0.75rem", color: "var(--accent)"}}>Date</label>
+                <div className="input-line"></div>
               </div>
+            </div>
 
-              <button type="submit" className="submit-btn">
-                Send Message <ArrowUpRight size={16} />
-              </button>
-            </form>
-          </motion.div>
-        </div>
+            <div className="input-group">
+              <textarea id="message" required></textarea>
+              <label htmlFor="message">Special Requests / Occasion</label>
+              <div className="input-line"></div>
+            </div>
+
+            <MagneticButton className="submit-btn-magnetic" onClick={() => {}}>
+              <span>Request Reservation</span>
+              <ArrowUpRight size={18} />
+            </MagneticButton>
+          </form>
+        </motion.div>
+
       </section>
 
       {/* MAP SECTION */}
-      <section className="map-section">
+      <section className="premium-map-section">
         <motion.div
-          className="map-wrapper"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          className="map-aesthetic-wrapper"
+          style={{ y: yMap }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <iframe
             title="Restaurant Location Map"
@@ -162,10 +251,15 @@ const ContactPage = () => {
             marginWidth="0"
             allowFullScreen
           ></iframe>
+          
+          <div className="map-overlay-badge">
+            <MapPin size={18} color="var(--accent)" />
+            <h4>Get Directions</h4>
+          </div>
         </motion.div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default ContactPage
+export default ContactPage;

@@ -1,7 +1,7 @@
 /* 🍽 DISH SHOWCASE STYLES */
 .dish-showcase {
   width: 100%;
-  height: 100vh;
+   height: 100lvh;
   position: relative;
   z-index: 10;
   overflow: hidden;
@@ -9,14 +9,14 @@
 
 @media (max-width: 1024px) {
   .dish-showcase {
-    height: 100vh;
+     height: 100lvh;
     overflow: hidden;
   }
 }
 
 @media (max-height: 720px) {
   .dish-showcase {
-    height: 100vh;
+     height: 100lvh;
     overflow: hidden;
   }
 

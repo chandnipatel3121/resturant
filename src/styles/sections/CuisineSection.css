@@ -12,8 +12,8 @@
   padding: 4rem 1rem 2rem 1rem;
   transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
   background-color: var(--bg);
-  height: 100vh;
-  min-height: 100vh;
+   height: 100lvh;
+   min-height: 100lvh;
   width: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -1390,7 +1390,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .cuisine-section { padding: 80px 20px !important; height: auto; min-height: 100vh; }
+  .cuisine-section { padding: 80px 20px !important; height: auto;  min-height: 100lvh; }
   .cuisine-menu-container, .cuisine-info-container { max-width: 500px; width: 100%; margin: 0 auto 30px; }
   .cuisine-table-perspective { margin: 20px 0; transform: scale(0.8); }
 

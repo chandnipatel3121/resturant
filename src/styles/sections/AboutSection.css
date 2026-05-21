@@ -3,7 +3,7 @@
   position: relative;
   background-color: var(--bg);
   overflow: hidden;
-  height: 100vh;
+   height: 100lvh;
   min-height: 600px;
   display: flex;
   align-items: center;
@@ -226,7 +226,7 @@
 /* ── RESPONSIVE: Tablet (768px – 1023px) ── */
 @media (min-width: 768px) and (max-width: 1023px) {
   .about-section {
-    height: 100vh;
+     height: 100lvh;
     padding: 0;
     align-items: center;
   }

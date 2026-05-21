@@ -12,7 +12,7 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   width: 100vw;
-  height: 100vh;
+   height: 100lvh;
   overflow: hidden;
   /* JS driven scrolling */
   position: relative;
@@ -28,7 +28,7 @@
 
 .gallery-hero-section {
   width: 100vw;
-  height: 100vh;
+   height: 100lvh;
   position: relative;
   overflow: hidden;
 }
@@ -277,7 +277,7 @@
 .gallery-horizontal-section {
   position: relative;
   width: 100vw;
-  height: 100vh;
+   height: 100lvh;
   background-color: var(--bg-primary);
   overflow: hidden;
 }
@@ -435,7 +435,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+   height: 100lvh;
   display: flex;
   align-items: center;
   justify-content: center;

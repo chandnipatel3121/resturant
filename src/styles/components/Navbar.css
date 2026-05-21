@@ -214,10 +214,11 @@ html:not(.home-page) body:has(.contact-section) .navbar {
 
 .mobile-menu-drawer {
   position: fixed;
-  top: 60px;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 9998;
+  padding-top: 60px;
   background-color: var(--bg);
   border-bottom: 1px solid rgba(15, 92, 92, 0.1);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);

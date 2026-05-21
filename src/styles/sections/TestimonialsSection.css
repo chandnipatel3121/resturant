@@ -2,8 +2,8 @@
 .testimonials-section {
   position: relative;
   background-color: var(--bg);
-  height: 100vh;
-  min-height: 100vh;
+   height: 100lvh;
+   min-height: 100lvh;
   display: flex;
   flex-direction: column;
   justify-content: center;

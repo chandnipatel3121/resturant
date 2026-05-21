@@ -127,7 +127,7 @@ const HeroSection = () => {
   const groupY = useTransform(
     smooth,
     isMobile
-      ? [0, 0.42, 0.58] // Snappier swap for mobile
+      ? [0, 0.42, 0.55] // Snappier swap for mobile
       : [0, 0.45, 0.65],
     ["0vh", "0vh", "-100vh"]
   )
@@ -136,7 +136,7 @@ const HeroSection = () => {
   const s2Opacity = useTransform(
     smooth,
     isMobile
-      ? [0.42, 0.58]
+      ? [0.42, 0.55]
       : [0.45, 0.65],
     [0, 1]
   )
@@ -255,7 +255,7 @@ const HeroSection = () => {
               <span className="block text-[clamp(2.5rem,8vw,5rem)]">anandofoods</span>
             </h1>
             <p className={`text-[9px] uppercase tracking-[0.5em] font-medium ${navTheme === 'yellow' ? 'text-white/60' : 'text-[#7A688A]'}`}>
-              Est. 2012 &nbsp;·&nbsp; Fine Dining
+              50 YEARS OF LEGACY &nbsp;·&nbsp; Fine Dining
             </p>
             <div className="mt-4 w-16 h-[1px] bg-gradient-to-r from-transparent via-[#E0A94B] to-transparent" />
           </motion.div>
