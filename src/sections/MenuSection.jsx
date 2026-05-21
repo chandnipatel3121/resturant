@@ -10,7 +10,7 @@ import lemon from '../assets/ingredients/lemon.png';
 import coriander from '../assets/ingredients/coriander.png';
 import bayLeaf from '../assets/ingredients/bay_leaf.png';
 import patternBg from '../assets/pattern_bg.png';
-import anandoLogo from '../assets/anandofood.jpg';
+import anandoLogo from '../assets/logo.png';
 import '../styles/sections/MenuSection.css';
 
 const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {

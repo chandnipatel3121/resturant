@@ -1,0 +1,829 @@
+/* ==========================================================================
+   CHEF PAGE STYLES - AWWWARDS AGENCY GRADE
+   ========================================================================== */
+
+.chef-page-wrapper {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  padding-top: 100px; /* Space for fixed Navbar */
+  overflow-x: hidden;
+}
+
+/* ── HERO SECTION ── */
+.chef-page-hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.chef-hero-container {
+  max-width: 88rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .chef-hero-container {
+    flex-direction: row;
+  }
+}
+
+.chef-hero-text-side {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .chef-hero-text-side {
+    width: 50%;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.chef-hero-editorial {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.65;
+  margin-bottom: 1rem;
+}
+
+.chef-hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.chef-hero-title-lbl {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  color: var(--accent);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.chef-hero-quote {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.7;
+  color: var(--text);
+  opacity: 0.85;
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+  max-width: 32rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.chef-hero-image-side {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .chef-hero-image-side {
+    width: 50%;
+  }
+}
+
+.chef-hero-img-frame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: clamp(340px, 50vh, 580px);
+  border-radius: 2.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(224, 169, 75, 0.2);
+  box-shadow: 0 30px 75px rgba(15, 92, 92, 0.12);
+}
+
+.chef-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chef-hero-deco-tag {
+  position: absolute;
+  bottom: 2rem;
+  left: -2rem;
+  background: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  z-index: 10;
+}
+
+.chef-hero-deco-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.chef-hero-deco-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── CORE INTERACTIVE TABS SECTION ── */
+.chef-page-interactive-section {
+  padding: 6rem 0;
+  background: rgba(255, 255, 255, 0.25);
+  border-top: 1px solid rgba(15, 92, 92, 0.05);
+  border-bottom: 1px solid rgba(15, 92, 92, 0.05);
+}
+
+.craft-container {
+  max-width: 88rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.craft-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 3.5rem;
+  background: rgba(15, 92, 92, 0.05);
+  padding: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 92, 92, 0.1);
+  width: fit-content;
+}
+
+.craft-tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text);
+  opacity: 0.6;
+  cursor: pointer;
+  border-radius: 9999px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.craft-tab-btn:hover {
+  opacity: 1;
+  background: rgba(15, 92, 92, 0.03);
+}
+
+.craft-tab-btn.active {
+  opacity: 1;
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: 0 10px 25px rgba(15, 92, 92, 0.15);
+}
+
+.craft-content-box {
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .craft-content-box {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.craft-left-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .craft-left-panel {
+    width: 50%;
+  }
+}
+
+.craft-tagline {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.craft-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+/* Journey Stats */
+.craft-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.craft-stat-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  text-align: center;
+}
+
+.craft-stat-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.craft-stat-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+/* Philosophy Cards */
+.craft-pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.craft-pillar-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  border: 1px solid rgba(15, 92, 92, 0.05);
+}
+
+.craft-pillar-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(224, 169, 75, 0.1);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.craft-pillar-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Alchemy explorer */
+.craft-alchemy-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .craft-alchemy-layout {
+    flex-direction: row;
+  }
+}
+
+.alchemy-spices-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .alchemy-spices-picker {
+    flex-direction: column;
+    width: 35%;
+    justify-content: flex-start;
+  }
+}
+
+.alchemy-spice-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgba(255,255,255,0.3);
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .alchemy-spice-item {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    background: transparent;
+    flex: none;
+  }
+}
+
+.alchemy-spice-item:hover {
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.alchemy-spice-item.active {
+  background: #ffffff;
+  border-color: rgba(224, 169, 75, 0.3);
+  box-shadow: 0 15px 40px rgba(15, 92, 92, 0.08);
+}
+
+.alchemy-spice-thumb-frame {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(15, 92, 92, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(15, 92, 92, 0.08);
+  padding: 0.35rem;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.alchemy-spice-item.active .alchemy-spice-thumb-frame {
+  transform: scale(1.15) rotate(15deg);
+  border-color: var(--accent);
+  background: rgba(224, 169, 75, 0.05);
+}
+
+.alchemy-spice-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.alchemy-spice-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .alchemy-spice-meta {
+    text-align: left;
+  }
+}
+
+.alchemy-spice-name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.alchemy-spice-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+/* Alchemy details */
+.alchemy-details-panel {
+  flex: 1;
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 50px rgba(15, 92, 92, 0.06);
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.alchemy-detail-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.alchemy-detail-name {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.alchemy-detail-lbl {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.alchemy-detail-bio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.alchemy-dials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.alchemy-dial-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.alchemy-dial-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Image panels */
+.craft-right-panel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .craft-right-panel {
+    width: 50%;
+  }
+}
+
+.craft-img-frame {
+  width: 100%;
+  max-width: 440px;
+  height: clamp(300px, 45vh, 480px);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(15, 92, 92, 0.05);
+}
+
+.craft-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ── TIMELINE SECTION ── */
+.chef-timeline-section {
+  padding: 8rem 0;
+  background: var(--bg);
+}
+
+.chef-section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chef-section-lbl {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.chef-section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--text);
+}
+
+.chef-timeline-container {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  position: relative;
+}
+
+.chef-timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.5rem;
+  width: 1px;
+  background: rgba(15, 92, 92, 0.1);
+}
+
+@media (min-width: 640px) {
+  .chef-timeline-container::before {
+    left: 50%;
+  }
+}
+
+.chef-timeline-item {
+  position: relative;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3rem;
+}
+
+@media (min-width: 640px) {
+  .chef-timeline-item {
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 5rem;
+  }
+}
+
+.chef-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.chef-timeline-badge {
+  position: absolute;
+  left: 0.88rem;
+  top: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  z-index: 5;
+}
+
+@media (min-width: 640px) {
+  .chef-timeline-badge {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.chef-timeline-year-col {
+  width: auto;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .chef-timeline-year-col {
+    width: 45%;
+    text-align: right;
+    padding-right: 3rem;
+    margin-bottom: 0;
+  }
+}
+
+.chef-timeline-year {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.chef-timeline-content-col {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .chef-timeline-content-col {
+    width: 45%;
+    padding-left: 3rem;
+  }
+}
+
+.chef-timeline-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.chef-timeline-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+/* ── SIGNATURE MASTERPIECE SECTION ── */
+.chef-signature-section {
+  padding: 8rem 0;
+  background: rgba(15, 92, 92, 0.02);
+  border-top: 1px solid rgba(15, 92, 92, 0.05);
+}
+
+.chef-sig-container {
+  max-width: 88rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .chef-sig-container {
+    flex-direction: row-reverse;
+  }
+}
+
+.chef-sig-text-side {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .chef-sig-text-side {
+    width: 50%;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.chef-sig-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.chef-sig-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+  max-width: 34rem;
+}
+
+.chef-sig-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+.chef-sig-profile-item {
+  display: flex;
+  gap: 1rem;
+  text-align: left;
+}
+
+.chef-sig-profile-num {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.chef-sig-profile-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.chef-sig-profile-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.chef-sig-profile-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.75;
+}
+
+.chef-sig-image-side {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .chef-sig-image-side {
+    width: 50%;
+  }
+}
+
+.chef-sig-img-frame {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  height: clamp(320px, 50vh, 520px);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(224, 169, 75, 0.15);
+}
+
+.chef-sig-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chef-sig-img-frame:hover .chef-sig-img {
+  transform: scale(1.06);
+}
+
+.chef-sig-img-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(15, 92, 92, 0.9) 0%, rgba(15, 92, 92, 0.4) 60%, transparent 100%);
+  padding: 2rem 1.5rem 1.5rem;
+  color: #ffffff;
+  text-align: left;
+}
+
+.chef-sig-img-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.chef-sig-img-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}

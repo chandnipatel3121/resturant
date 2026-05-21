@@ -36,9 +36,9 @@ const SmoothScroll = ({ children }) => {
         return
       }
 
-      const hasSnap = document.documentElement.classList.contains("snap-peak-only") || 
-                      document.documentElement.classList.contains("snap-mid-only") || 
-                      document.documentElement.classList.contains("snap-all-sections")
+      const hasSnap = document.documentElement.classList.contains("snap-peak-only") ||
+        document.documentElement.classList.contains("snap-mid-only") ||
+        document.documentElement.classList.contains("snap-all-sections")
 
       // 1. Determine if snap should be active (hysteresis logic)
       let nextSnapActive = hasSnap

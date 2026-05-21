@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import "@fontsource/kalam" // Handwritten font
-import anandoLogo from "../assets/anandofood.jpg"
+import anandoLogo from "../assets/logo.png"
 import "../styles/sections/arrows.css"
 
 const InfographicMap = () => {

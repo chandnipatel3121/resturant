@@ -3,7 +3,8 @@
 :root {
   --card-radius: 40px;
   --inner-radius: 32px;
-  --transition-bounce: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
+  --transition-bounce:
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
   --book-perspective: 2000px;
 }
 
@@ -13,7 +14,6 @@
 }
 
 @media (max-width: 768px) {
-
   /* Remove top padding so hero is full-bleed; hero handles navbar offset internally */
   .subpage-layout {
     padding-top: 0;
@@ -60,7 +60,7 @@ html.menu-snap-page .menu-main-layout {
   will-change: transform;
 }
 
-.enhanced-menu-hero>div:not(.hero-bg-media) {
+.enhanced-menu-hero > div:not(.hero-bg-media) {
   width: 100%;
 }
 
@@ -155,7 +155,12 @@ html.menu-snap-page .menu-main-layout {
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.9) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
 }
 
 .hero-floating-elements {
@@ -316,7 +321,7 @@ html.menu-snap-page .menu-main-layout {
 
 /* Pulsing aura */
 .search-status-dot::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -340,7 +345,9 @@ html.menu-snap-page .menu-main-layout {
   }
 }
 
-.general-search-container:focus-within~.search-stats .search-status-dot::after {
+.general-search-container:focus-within
+  ~ .search-stats
+  .search-status-dot::after {
   animation-duration: 1s;
 }
 
@@ -481,7 +488,7 @@ html.menu-snap-page .menu-main-layout {
   transition: all 0.3s ease;
 }
 
-.sidebar-search-input:focus+.sidebar-search-icon {
+.sidebar-search-input:focus + .sidebar-search-icon {
   color: #d4af37;
   opacity: 1;
 }
@@ -653,7 +660,11 @@ html.menu-snap-page .menu-main-layout {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: linear-gradient(to bottom, var(--bg) 80%, rgba(15, 92, 92, 0.02));
+    background: linear-gradient(
+      to bottom,
+      var(--bg) 80%,
+      rgba(15, 92, 92, 0.02)
+    );
     position: static;
   }
 
@@ -848,7 +859,6 @@ html.menu-snap-page .menu-main-layout {
     /* Fix: must be visible to allow sticky children to stick cleanly */
   }
 }
-
 
 /* --- PREMIUM FILTER BAR --- */
 .menu-filters-sticky {
@@ -1082,7 +1092,6 @@ html.menu-snap-page .menu-main-layout {
 }
 
 @media (max-width: 768px) {
-
   /* Sticky filter bar: solid white with border and overlap under navbar */
   .menu-filters-sticky {
     top: 49px !important;
@@ -1097,7 +1106,7 @@ html.menu-snap-page .menu-main-layout {
   }
 
   /* Minimize direct child margins/padding to make sticky area vertically compact */
-  .menu-filters-sticky>div {
+  .menu-filters-sticky > div {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
@@ -1533,7 +1542,9 @@ html.menu-snap-page .menu-main-layout {
   color: rgb(var(--chip-rgb));
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.02),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1542,7 +1553,7 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .course-chip::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 14px;
@@ -1571,7 +1582,11 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .course-chip.active {
-  background: linear-gradient(135deg, var(--chip-grad-1), var(--chip-grad-2)) !important;
+  background: linear-gradient(
+    135deg,
+    var(--chip-grad-1),
+    var(--chip-grad-2)
+  ) !important;
   border-color: transparent !important;
   color: #ffffff !important;
   transform: translateY(-3px) scale(1.02);
@@ -1606,8 +1621,8 @@ html.menu-snap-page .menu-main-layout {
   .menu-sidebar {
     width: 300px !important;
     padding: 10px 24px 8px !important;
-    top: 47px !important;
-    height: calc(100vh - 47px) !important;
+    top: 56px !important;
+    height: calc(100vh - 56px) !important;
     overflow-y: hidden !important;
   }
 
@@ -1669,7 +1684,7 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .menu-filters-sticky {
-    top: 47px !important;
+    top: 56px !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     background: #edf7f7 !important;
@@ -1756,60 +1771,377 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .explorer-grid {
-    padding: 36px 40px 0 !important;
-    gap: 32px !important;
-    grid-template-columns: repeat(2, minmax(280px, 1fr)) !important;
+    padding: 20px 24px 0 !important;
+    gap: 16px !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 
   .dish-card-premium-kiosk {
-    height: 330px !important;
-    max-width: 380px !important;
+    height: 270px !important;
+    max-width: 100% !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .card-media-wrapper {
+    height: 120px !important;
+    border-radius: 16px !important;
+  }
+
+  .dish-tags-kiosk-on-image {
+    bottom: 6px !important;
+    left: 8px !important;
+    gap: 4px !important;
+  }
+
+  .tag-pill-kiosk-image {
+    padding: 2px 6px !important;
+    font-size: 0.5rem !important;
+    border-radius: 5px !important;
+  }
+
+  .card-content-grid {
+    padding: 8px 10px 10px !important;
+    gap: 6px !important;
+    flex-direction: column !important;
+    height: calc(100% - 120px) !important;
+  }
+
+  .grid-left-side {
+    flex: none !important;
+    width: 100% !important;
+    gap: 4px !important;
+  }
+
+  .dish-name-kiosk {
+    font-size: 0.9rem !important;
+    transform: none !important;
+  }
+
+  .dish-card-premium-kiosk:hover .dish-name-kiosk {
+    transform: none !important;
+    color: #d4af37 !important;
+  }
+
+  .dish-desc-kiosk {
+    font-size: 0.6rem !important;
+    line-height: 1.25 !important;
+    margin-top: 0 !important;
+    -webkit-line-clamp: 1 !important;
+  }
+
+  .origin-badge-kiosk {
+    font-size: 0.58rem !important;
+    margin-top: 2px !important;
+  }
+
+  .grid-divider-kiosk {
+    display: none !important;
+  }
+
+  .grid-right-side {
+    flex: none !important;
+    width: 100% !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: auto !important;
+    gap: 8px !important;
+  }
+
+  .price-tag-kiosk {
+    font-size: 1.1rem !important;
+  }
+
+  .dish-card-premium-kiosk:hover .price-tag-kiosk {
+    transform: none !important;
+  }
+
+  .action-area-kiosk {
+    width: auto !important;
+  }
+
+  .add-btn-kiosk {
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+    font-size: 0.7rem !important;
+    gap: 4px !important;
+    width: auto !important;
+  }
+
+  .counter-kiosk {
+    padding: 2px 6px !important;
+    gap: 6px !important;
+    border-radius: 8px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .counter-kiosk button {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .spice-row-kiosk {
+    display: none !important;
+  }
+}
+
+/* Laptop desktop layout for short 1366 x 768 style viewports */
+@media (min-width: 1241px) and (max-width: 1400px) and (max-height: 800px) {
+  .menu-main-layout {
+    min-height: 100vh !important;
+  }
+
+  /* SIDEBAR: Compact & perfectly scrollable with hidden scrollbars */
+  .menu-sidebar {
+    width: 300px !important;
+    padding: 15px 20px 10px !important;
+    top: 70px !important; /* Perfect align under 70px navbar */
+    height: calc(100vh - 70px) !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  .menu-sidebar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sidebar-header {
+    margin-bottom: 12px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .sidebar-header .text-editorial {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.25em !important;
+  }
+
+  .sidebar-title {
+    font-size: 1.5rem !important;
+    margin-top: 4px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .sidebar-line {
+    width: 35px !important;
+  }
+
+  .sidebar-cuisines-list {
+    gap: 5px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .sidebar-cat-item {
+    min-height: 52px !important;
+    padding: 6px 14px !important;
+    border-radius: 14px !important;
+    gap: 10px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .sidebar-cat-pill {
+    height: 36px !important;
+  }
+
+  .sidebar-cat-icon-container {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .sidebar-cat-icon-container svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .sidebar-cat-label {
+    font-size: 0.85rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .sidebar-cat-desc {
+    font-size: 0.65rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* STICKY FILTERS: Clean touch align under 70px navbar */
+  .menu-filters-sticky {
+    top: 70px !important; /* Perfect align under 70px navbar - NO OVERLAP */
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    background: #edf7f7 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(15, 92, 92, 0.08) !important;
+    border-top: 1px solid #edf7f7 !important;
+  }
+
+  .menu-filters-sticky > div {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .filters-top-line {
+    justify-content: space-between !important;
+    margin-bottom: 10px !important;
+    gap: 18px !important;
+    padding-left: 30px !important;
+    padding-right: 24px !important;
+  }
+
+  .general-search-container {
+    flex: 1 1 360px !important;
+    min-width: 0 !important;
+    max-width: 400px !important;
+    height: 48px !important;
+  }
+
+  .general-search-input {
+    font-size: 0.88rem !important;
+  }
+
+  .meal-stats-row {
+    gap: 18px !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+  }
+
+  .meal-times-group .filter-pills {
+    padding: 4px !important;
+  }
+
+  .meal-pill-modern {
+    padding: 8px 20px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .search-stats {
+    padding: 8px 15px !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+  }
+
+  .filters-bottom-line {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+  }
+
+  .filters-bottom-line .course-group {
+    padding-left: 30px !important;
+    padding-right: 24px !important;
+  }
+
+  .filters-bottom-line .course-chips {
+    gap: 12px !important;
+    padding: 4px 4px 8px !important;
+  }
+
+  .course-chip {
+    padding: 8px 20px 8px 26px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .course-chip::before {
+    left: 14px !important;
+  }
+
+  .menu-grid-container {
+    padding-top: 0 !important;
+  }
+
+  /* 3-COLUMN PREMIUM GRID */
+  .explorer-grid {
+    padding: 30px 30px 0 !important;
+    gap: 24px !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  /* DISH CARD COMPACT DESKTOP DESIGN */
+  .dish-card-premium-kiosk {
+    height: 380px !important;
+    max-width: 100% !important;
     border-radius: 28px !important;
   }
 
   .card-media-wrapper {
-    height: 180px !important;
-    border-radius: 24px !important;
+    height: 200px !important;
+    border-radius: 22px !important;
   }
 
   .dish-tags-kiosk-on-image {
-    bottom: 9px !important;
-    left: 12px !important;
+    bottom: 10px !important;
+    left: 14px !important;
     gap: 5px !important;
   }
 
   .tag-pill-kiosk-image {
     padding: 3px 8px !important;
-    font-size: 0.58rem !important;
+    font-size: 0.65rem !important;
     border-radius: 7px !important;
   }
 
   .card-content-grid {
-    padding: 12px 16px 14px !important;
-    gap: 12px !important;
+    padding: 12px 16px 16px !important;
+    gap: 10px !important;
+  }
+
+  .grid-left-side {
+    gap: 6px !important;
   }
 
   .dish-name-kiosk {
-    font-size: 1.15rem !important;
+    font-size: 1.2rem !important;
   }
 
   .dish-desc-kiosk {
-    font-size: 0.68rem !important;
-    line-height: 1.3 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+    margin-top: 2px !important;
+    -webkit-line-clamp: 2 !important;
   }
 
   .origin-badge-kiosk {
-    font-size: 0.72rem !important;
+    font-size: 0.8rem !important;
+    margin-top: 4px !important;
   }
 
-  .price-tag-kiosk {
-    font-size: 1.45rem !important;
+  .grid-divider-kiosk {
+    height: 70% !important;
   }
 
   .grid-right-side {
     gap: 8px !important;
   }
+
+  .price-tag-kiosk {
+    font-size: 1.6rem !important;
+  }
+
+  .add-btn-kiosk {
+    padding: 6px 12px !important;
+    border-radius: 10px !important;
+    font-size: 0.75rem !important;
+    gap: 5px !important;
+  }
+
+  .counter-kiosk {
+    padding: 4px 8px !important;
+    gap: 8px !important;
+    border-radius: 10px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .counter-kiosk button {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.75rem !important;
+  }
 }
+
 
 .course-chip.active::before {
   background: #ffffff;
@@ -1823,7 +2155,6 @@ html.menu-snap-page .menu-main-layout {
   padding: 0 var(--container-px) 100px;
   max-width: 1800px;
   margin: 0 auto;
-
 }
 
 .explorer-grid {
@@ -1860,7 +2191,9 @@ html.menu-snap-page .menu-main-layout {
 
 .dish-card-premium-kiosk:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 175, 55, 0.15);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(212, 175, 55, 0.15);
   border-color: rgba(212, 175, 55, 0.5);
   z-index: 10;
 }
@@ -1908,7 +2241,9 @@ html.menu-snap-page .menu-main-layout {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease;
+  transition:
+    transform 0.8s cubic-bezier(0.25, 1, 0.35, 1),
+    opacity 0.8s ease;
 }
 
 /* Inner Zoom Carousel slide transitions */
@@ -1930,12 +2265,14 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .active-slide {
-  transform: scale(1.0);
+  transform: scale(1);
   /* Default unhovered size */
   opacity: 1;
   border-radius: 32px !important;
   z-index: 2;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease;
+  transition:
+    transform 0.8s cubic-bezier(0.25, 1, 0.35, 1),
+    opacity 0.8s ease;
 }
 
 .dish-card-premium-kiosk:hover .active-slide {
@@ -2007,7 +2344,7 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .status-dot-live::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -3px;
   border-radius: 50%;
@@ -2113,7 +2450,12 @@ html.menu-snap-page .menu-main-layout {
 
 .grid-divider-kiosk {
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   height: 80%;
   align-self: center;
 }
@@ -2358,7 +2700,6 @@ html.menu-snap-page .menu-main-layout {
 
 /* --- ANIMATIONS --- */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -2435,7 +2776,9 @@ html.menu-snap-page .menu-main-layout {
   overflow: hidden;
   /* Lock page geometry flat */
   background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-  transition: box-shadow 0.6s ease, background-color 0.6s ease;
+  transition:
+    box-shadow 0.6s ease,
+    background-color 0.6s ease;
   transform-origin: right center;
   box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.05);
   will-change: transform, opacity;
@@ -2471,13 +2814,19 @@ html.menu-snap-page .menu-main-layout {
 
 /* Gold Metallic Corners for Right Page */
 .book-page.right-page::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(-135deg, #d4af37 0%, #f9e272 2%, #d4af37 4%, transparent 4.5%);
+  background: linear-gradient(
+    -135deg,
+    #d4af37 0%,
+    #f9e272 2%,
+    #d4af37 4%,
+    transparent 4.5%
+  );
   pointer-events: none;
   z-index: 10;
 }
@@ -2490,10 +2839,7 @@ html.menu-snap-page .menu-main-layout {
   bottom: 15px;
   width: 30px;
   transform: translateX(-50%) translateZ(-10px);
-  background: linear-gradient(to right,
-      #051111 0%,
-      #153a3a 50%,
-      #051111 100%);
+  background: linear-gradient(to right, #051111 0%, #153a3a 50%, #051111 100%);
   z-index: 5;
   pointer-events: none;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
@@ -2501,15 +2847,29 @@ html.menu-snap-page .menu-main-layout {
 
 /* Metallic Corner Accents */
 .book-detail-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background:
-    linear-gradient(135deg, transparent 96%, #d4af37 96.5%, #f9e272 97.5%, #d4af37 98.5%, transparent 99%),
-    linear-gradient(-135deg, transparent 96%, #d4af37 96.5%, #f9e272 97.5%, #d4af37 98.5%, transparent 99%);
+    linear-gradient(
+      135deg,
+      transparent 96%,
+      #d4af37 96.5%,
+      #f9e272 97.5%,
+      #d4af37 98.5%,
+      transparent 99%
+    ),
+    linear-gradient(
+      -135deg,
+      transparent 96%,
+      #d4af37 96.5%,
+      #f9e272 97.5%,
+      #d4af37 98.5%,
+      transparent 99%
+    );
   pointer-events: none;
   z-index: 5;
 }
@@ -2782,7 +3142,7 @@ html.menu-snap-page .menu-main-layout {
 
 /* Expanded hit area for the close button */
 .book-close-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -12px;
   cursor: pointer;
@@ -3059,7 +3419,12 @@ html.menu-snap-page .menu-main-layout {
 .flipping-shadow-sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2) 100%);
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   pointer-events: none;
   animation: sweep-shadow 1.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
 }
@@ -3143,7 +3508,11 @@ html.menu-snap-page .menu-main-layout {
   background-color: #0e2929;
   background-image:
     url("https://www.transparenttextures.com/patterns/black-leather.png"),
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 80%);
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 80%
+    );
   background-size: 250px, auto;
   border-radius: 4px 0 0 4px;
   border-right: 15px solid #081d1d;
@@ -3169,7 +3538,9 @@ html.menu-snap-page .menu-main-layout {
   border-left: 15px solid #153a3a;
   border-top: 15px solid #153a3a;
   border-bottom: 15px solid #153a3a;
-  box-shadow: inset -30px 0 40px rgba(0, 0, 0, 0.08), inset 0 0 50px rgba(0, 0, 0, 0.02);
+  box-shadow:
+    inset -30px 0 40px rgba(0, 0, 0, 0.08),
+    inset 0 0 50px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   padding: 24px 32px;
@@ -3188,13 +3559,19 @@ html.menu-snap-page .menu-main-layout {
 
 /* Gold corner for paper inner cover face */
 .cover-face-inner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #d4af37 0%, #f9e272 2%, #d4af37 4%, transparent 4.5%);
+  background: linear-gradient(
+    135deg,
+    #d4af37 0%,
+    #f9e272 2%,
+    #d4af37 4%,
+    transparent 4.5%
+  );
   pointer-events: none;
   z-index: 10;
 }
@@ -3935,7 +4312,6 @@ html.menu-snap-page .menu-main-layout {
 
 /* --- 📱 MOBILE VIEW COMPACT OVERRIDES (<= 480px) --- */
 @media (max-width: 480px) {
-
   /* Remove side padding from content area - sidebar + content fill screen */
   .menu-content-area {
     width: calc(100% - 56px) !important;

@@ -256,11 +256,16 @@ body:has(.subpage-layout) .navbar {
 
 /* 📱 SHORT VIEWPORT OPTIMIZATIONS (e.g. 1195x585) */
 @media (max-height: 700px) {
-  .navbar-dark, .navbar-light {
-    padding: 0.5rem 0;
+  .navbar-dark,
+  .navbar-light {
+    padding: 0 !important;
+    height: 56px !important;
   }
   .nav-container {
     padding: 0 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
   .nav-logo {
     font-size: 1.3rem !important;
@@ -276,3 +281,20 @@ body:has(.subpage-layout) .navbar {
     font-size: 10px;
   }
 }
+
+/* 🖥️ LAPTOP VIEWPORT OPTIMIZATIONS (e.g. 1366x768) */
+@media (min-width: 1241px) and (max-width: 1400px) and (max-height: 800px) {
+  .navbar-dark,
+  .navbar-light {
+    padding: 0 !important;
+    height: 70px !important;
+    background: #ffffff !important; /* Solid background to prevent scrolling content bleed */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  }
+  .nav-container {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+

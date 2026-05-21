@@ -325,7 +325,8 @@ section {
     scroll-behavior: smooth !important;
   }
 
-  html.home-page section, html.home-page footer {
+  html.home-page section,
+  html.home-page footer {
     scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
   }

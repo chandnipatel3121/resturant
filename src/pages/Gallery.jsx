@@ -263,15 +263,16 @@ const Gallery = () => {
                 <div key={item.id} className="h-slide" style={{ width: "100vw", height: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: item.bg, transition: "background-color 1.2s ease" }}>
                   
                   {/* Content Container (3 Columns) */}
-                  <div style={{ display: "flex", width: "100%", padding: "0 4vw", alignItems: "center", justifyContent: "space-between", gap: "3vw", zIndex: 1 }}>
+                  <div className="h-slide-content-container">
                     
                     {/* Left Text */}
-                    <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+                    <div className="h-slide-text-left-wrapper">
                       <motion.h2 
                         initial={{ x: -50, opacity: 0 }}
                         animate={{ x: isActive ? 0 : -50, opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-                        style={{ fontSize: "clamp(2rem, 6vw, 8.5rem)", fontFamily: "var(--font-serif)", margin: 0, lineHeight: 0.9, color: item.color1, textTransform: "uppercase", textAlign: "right", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}
+                        className="h-slide-text-left"
+                        style={{ color: item.color1 }}
                       >
                         {item.text1.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br/></React.Fragment>)}
                       </motion.h2>
@@ -283,12 +284,11 @@ const Gallery = () => {
                       initial={{ scale: 0.6, opacity: 0 }}
                       animate={{ scale: isActive ? 1 : 0.6, opacity: isActive ? 1 : 0 }}
                       transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
-                      style={{ flexShrink: 0, width: "32vw", height: "55vh", zIndex: 10, overflow: "hidden", borderRadius: "4px", boxShadow: "0 20px 50px rgba(0,0,0,0.8)" }}
                     >
                       <motion.img 
                         src={item.img} 
                         alt={`${item.text1} ${item.text2}`} 
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        className="h-slide-img"
                         initial={{ scale: 1.5 }}
                         animate={{ scale: isActive ? 1 : 1.5 }}
                         transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
@@ -296,12 +296,13 @@ const Gallery = () => {
                     </motion.div>
 
                     {/* Right Text */}
-                    <div style={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
+                    <div className="h-slide-text-right-wrapper">
                       <motion.h2 
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: isActive ? 0 : 50, opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-                        style={{ fontSize: "clamp(2rem, 6vw, 8.5rem)", fontFamily: "var(--font-serif)", margin: 0, lineHeight: 0.9, color: item.color2, textTransform: "uppercase", textAlign: "left", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}
+                        className="h-slide-text-right"
+                        style={{ color: item.color2 }}
                       >
                         {item.text2.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br/></React.Fragment>)}
                       </motion.h2>

@@ -268,6 +268,67 @@
   overflow: hidden;
 }
 
+/* Base horizontal scroll elements (extracted from inline styles) */
+.h-slide-content-container {
+  display: flex;
+  width: 100%;
+  padding: 0 4vw;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3vw;
+  z-index: 1;
+}
+
+.h-slide-text-left-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.h-slide-text-left {
+  font-size: clamp(2rem, 6vw, 8.5rem);
+  font-family: var(--font-serif);
+  margin: 0;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-align: right;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.h-slide-img-wrapper {
+  flex-shrink: 0;
+  width: 32vw;
+  height: 55vh;
+  z-index: 10;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.h-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.h-slide-text-right-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.h-slide-text-right {
+  font-size: clamp(2rem, 6vw, 8.5rem);
+  font-family: var(--font-serif);
+  margin: 0;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-align: left;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
 /* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
@@ -293,5 +354,36 @@
   .slide-desc {
     max-width: 100%;
     font-size: 0.9rem;
+  }
+
+  /* Mobile Horizontal Gallery Slide Vertically Stacked */
+  .h-slide-content-container {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 3.5vh !important;
+    padding: 0 6vw !important;
+  }
+
+  .h-slide-text-left-wrapper,
+  .h-slide-text-right-wrapper {
+    flex: none !important;
+    width: 100% !important;
+    justify-content: center !important;
+    display: flex !important;
+  }
+
+  .h-slide-text-left,
+  .h-slide-text-right {
+    font-size: clamp(2rem, 7.5vw, 3.8rem) !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.1 !important;
+  }
+
+  .h-slide-img-wrapper {
+    width: 75vw !important;
+    height: 38vh !important;
+    border-radius: 8px !important;
   }
 }

@@ -7,7 +7,7 @@ import { NavProvider } from "./utils/NavContext"
 
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
-import About from "./pages/About"
+import About from "./pages/Chefpage"
 import Contact from "./pages/Contact"
 import Gallery from "./pages/Gallery"
 import ScrollToTop from "./components/ScrollToTop"
