@@ -3745,7 +3745,7 @@ html.menu-snap-page .menu-main-layout {
   left: 50%;
   transform: translateX(-50%);
   width: 92%;
-  max-width: 460px;
+  max-width: 60px;
   background: rgba(252, 251, 250, 0.88);
   background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
   backdrop-filter: blur(25px) saturate(180%);
@@ -3753,7 +3753,7 @@ html.menu-snap-page .menu-main-layout {
   border: 1.5px solid #d4af37;
   border-radius: 100px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 8px 10px 8px 20px;
   z-index: 999;
@@ -3892,7 +3892,7 @@ html.menu-snap-page .menu-main-layout {
 .cart-bar-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 1px;
 }
 
 .cart-bar-total {
@@ -3907,7 +3907,7 @@ html.menu-snap-page .menu-main-layout {
   background: #153a3a;
   border: 1.5px solid #d4af37;
   color: #d4af37;
-  padding: 10px 24px;
+  padding: 10px 18px;
   border-radius: 100px;
   font-family: var(--font-serif);
   font-weight: 500;
@@ -3916,10 +3916,7 @@ html.menu-snap-page .menu-main-layout {
   letter-spacing: 0.15em;
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(21, 58, 58, 0.15);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 4px;
 }
 
 .cart-bar-view-btn:hover {
@@ -4404,10 +4401,18 @@ html.menu-snap-page .menu-main-layout {
 
   /* Floating Cart Bar */
   .floating-cart-bar-kiosk {
-    width: 92% !important;
-    bottom: 16px !important;
-    padding: 6px 6px 6px 10px !important;
-    border-radius: 50px !important;
+    width: 90% !important;
+    bottom: 12px !important;
+    padding: 6px 10px !important;
+    border-radius: 48px !important;
+    max-width: 420px !important;
+    box-shadow:
+      0 18px 40px rgba(21, 58, 58, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .menu-grid-container {
+    padding-bottom: 140px !important;
   }
 
   .cart-bar-left {
@@ -4415,31 +4420,48 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .cart-bar-avatar-ring {
-    width: 28px !important;
-    height: 28px !important;
+    width: 26px !important;
+    height: 26px !important;
     margin-left: -8px !important;
   }
 
   .cart-bar-avatar-more {
-    width: 26px !important;
-    height: 26px !important;
-    font-size: 0.65rem !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.64rem !important;
     margin-left: -8px !important;
   }
 
+  .cart-bar-info {
+    gap: 0px !important;
+    min-width: 0 !important;
+  }
+
   .cart-bar-label {
-    font-size: 0.6rem !important;
+    font-size: 0.58rem !important;
   }
 
   .cart-bar-subtext {
-    font-size: 0.72rem !important;
-    max-width: 90px !important;
+    font-size: 0.68rem !important;
+    max-width: 80px !important;
+    white-space: nowrap !important;
   }
 
   .cart-bar-view-btn {
-    padding: 7px 12px !important;
-    font-size: 0.7rem !important;
-    letter-spacing: 0.08em !important;
+    padding: 8px !important;
+    min-width: 42px !important;
+    width: 42px !important;
+    border-radius: 50% !important;
+    gap: 0 !important;
+  }
+
+  .cart-bar-view-btn span {
+    display: none !important;
+  }
+
+  .cart-bar-view-btn svg {
+    width: 1rem !important;
+    height: 1rem !important;
   }
 
   /* Cart Drawer */

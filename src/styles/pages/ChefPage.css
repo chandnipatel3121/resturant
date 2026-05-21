@@ -1581,8 +1581,16 @@
 .portfolio-toolkit {
   padding: 8rem var(--container-px);
   background:
-    radial-gradient(ellipse 75% 55% at 15% 35%, rgba(15, 92, 92, 0.055) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 70% at 88% 72%, rgba(224, 169, 75, 0.045) 0%, transparent 65%),
+    radial-gradient(
+      ellipse 75% 55% at 15% 35%,
+      rgba(15, 92, 92, 0.055) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 70% at 88% 72%,
+      rgba(224, 169, 75, 0.045) 0%,
+      transparent 65%
+    ),
     linear-gradient(180deg, #f7f9f8 0%, #ffffff 48%, #f6f8f7 100%);
   border-bottom: 1px solid rgba(15, 92, 92, 0.1);
   position: relative;
@@ -1610,12 +1618,24 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(15, 92, 92, 0.045) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgba(15, 92, 92, 0.045) 1px,
+    transparent 1px
+  );
   background-size: 34px 34px;
   pointer-events: none;
   z-index: 0;
-  mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, black 20%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, black 20%, transparent 100%);
+  mask-image: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    black 20%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    black 20%,
+    transparent 100%
+  );
 }
 
 .toolkit-header {
@@ -1736,9 +1756,16 @@
 }
 
 @keyframes toolkit-star-drift {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  35% { transform: rotate(18deg) scale(1.1); }
-  70% { transform: rotate(-12deg) scale(0.92); }
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  35% {
+    transform: rotate(18deg) scale(1.1);
+  }
+  70% {
+    transform: rotate(-12deg) scale(0.92);
+  }
 }
 
 .card-top-accent {
@@ -1768,7 +1795,11 @@
 
 .card-line {
   height: 1px;
-  background: linear-gradient(90deg, rgba(15, 92, 92, 0.12) 0%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(15, 92, 92, 0.12) 0%,
+    transparent 100%
+  );
   flex-grow: 1;
   transition: all 0.5s ease;
 }
@@ -1838,7 +1869,11 @@
 }
 
 .toolkit-card:hover .card-line {
-  background: linear-gradient(90deg, var(--accent) 0%, rgba(224, 169, 75, 0.1) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    rgba(224, 169, 75, 0.1) 100%
+  );
 }
 
 /* ==========================================================================
@@ -2797,6 +2832,36 @@
   }
 }
 
+@media (max-width: 768px) {
+  html.chef-page,
+  html.chef-page body {
+    scroll-snap-type: y mandatory !important;
+    scroll-behavior: smooth !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+  }
+
+  html.chef-page .chef-portfolio {
+    height: auto !important;
+    min-height: 100% !important;
+    padding-top: 0 !important;
+  }
+
+  html.chef-page .chef-portfolio section {
+    min-height: 100vh !important;
+    height: auto !important;
+    max-height: none !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    overflow: visible !important;
+    display: block !important;
+    padding: clamp(4rem, 8vw, 5.5rem) 0 clamp(2rem, 6vw, 3rem) !important;
+    box-sizing: border-box !important;
+  }
+}
+
 /* ==========================================================================
    RESPONSIVE — 1366 × 768 STANDARD LAPTOP
    ========================================================================== */
@@ -2981,7 +3046,7 @@
   }
 
   .hero-badge-item {
-    padding: 5px 12px;
+    padding: 4px 11px;
     font-size: 0.68rem;
   }
 
@@ -3017,7 +3082,7 @@
   }
 
   .toolkit-card {
-    padding: 2rem 1.8rem;
+    padding: 1rem 1.8rem;
   }
 
   .toolkit-card .card-title {
