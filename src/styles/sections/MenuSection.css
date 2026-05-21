@@ -1247,10 +1247,24 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .course-chip {
-    padding: 4px 10px;
-    font-size: 0.68rem;
+    padding: 4px 9px !important;
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
     flex-shrink: 0;
     white-space: nowrap;
+    box-shadow: none !important;
+    border-color: rgba(15, 92, 92, 0.12) !important;
+    background: rgba(241, 245, 249, 0.95) !important;
+  }
+
+  .course-chip:hover,
+  .course-chip.active {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .course-chip::before {
+    display: none !important;
   }
 
   /* Grid container margin adjustments */
@@ -1542,9 +1556,7 @@ html.menu-snap-page .menu-main-layout {
   color: rgb(var(--chip-rgb));
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.02),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1570,9 +1582,7 @@ html.menu-snap-page .menu-main-layout {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.95);
   border-color: rgba(var(--chip-rgb), 0.45);
-  box-shadow:
-    0 8px 20px rgba(var(--chip-rgb), 0.15),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
+  box-shadow: none;
   color: rgb(var(--chip-rgb));
 }
 
@@ -1590,25 +1600,17 @@ html.menu-snap-page .menu-main-layout {
   border-color: transparent !important;
   color: #ffffff !important;
   transform: translateY(-3px) scale(1.02);
-  box-shadow:
-    0 12px 28px rgba(var(--chip-rgb), 0.35),
-    inset 0 2px 4px rgba(255, 255, 255, 0.25);
+  box-shadow: none !important;
 }
 
 @media (min-width: 769px) {
   .course-chip.active {
     transform: translateY(-1px);
-    box-shadow:
-      0 6px 14px rgba(var(--chip-rgb), 0.22),
-      0 2px 5px rgba(17, 24, 39, 0.12),
-      inset 0 1px 2px rgba(255, 255, 255, 0.28);
+    box-shadow: none !important;
   }
 
   .course-chip.all.active {
-    box-shadow:
-      0 7px 16px rgba(17, 24, 39, 0.24),
-      0 2px 5px rgba(17, 24, 39, 0.12),
-      inset 0 1px 2px rgba(255, 255, 255, 0.22);
+    box-shadow: none !important;
   }
 }
 
@@ -2141,7 +2143,6 @@ html.menu-snap-page .menu-main-layout {
     font-size: 0.75rem !important;
   }
 }
-
 
 .course-chip.active::before {
   background: #ffffff;
@@ -4521,7 +4522,9 @@ html.menu-snap-page .menu-main-layout {
     width: 780px !important;
     max-width: 95vw !important;
     max-height: 90vh !important;
-    transform: rotateX(4deg) !important; /* Flattened slightly for better vertical space */
+    transform: rotateX(
+      4deg
+    ) !important; /* Flattened slightly for better vertical space */
   }
 
   .book-close-btn {

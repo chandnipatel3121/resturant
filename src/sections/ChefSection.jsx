@@ -21,7 +21,7 @@ const ChefSection = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => { })
+          video.play().catch(() => {})
         } else {
           video.pause()
         }
@@ -149,7 +149,11 @@ const ChefSection = () => {
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={isSnapped ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.7,
+                delay: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="about-cta"
               onClick={() => navigate("/chef")}
             >
@@ -159,7 +163,11 @@ const ChefSection = () => {
               </span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 1.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 →
               </motion.span>
