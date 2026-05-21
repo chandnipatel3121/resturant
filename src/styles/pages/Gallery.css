@@ -347,7 +347,35 @@
 /* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
+/* ── TABLET PORTRAIT (≤ 768px) ── */
 @media (max-width: 768px) {
+  /* Slide content panel — compact width */
+  .slide-content {
+    width: 65vw;
+    min-width: unset;
+    padding: 0 4vw;
+  }
+
+  .slide-title {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    margin-bottom: 1.2rem;
+  }
+
+  .slide-desc {
+    max-width: 100%;
+    font-size: 0.88rem;
+    margin-bottom: 2rem;
+  }
+
+  .gallery-global-ui {
+    padding: 85px 4vw 2rem;
+  }
+
+  .gallery-top-bar {
+    font-size: 0.7rem;
+  }
+
+  /* Pagination moves to bottom row */
   .gallery-pagination {
     right: auto;
     bottom: 3rem;
@@ -366,12 +394,7 @@
     padding-bottom: 5px;
   }
 
-  .slide-desc {
-    max-width: 100%;
-    font-size: 0.9rem;
-  }
-
-  /* Mobile Horizontal Gallery Slide Vertically Stacked */
+  /* Horizontal slide — vertically stacked on tablet portrait */
   .h-slide-content-container {
     flex-direction: column !important;
     justify-content: center !important;
@@ -416,8 +439,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
-  /* Ensure it stays above global navbar */
+  z-index: 10001; /* Above navbar (z-index: 9999) */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 2rem;
@@ -679,43 +701,248 @@
   }
 }
 
-/* Mobile Layout (max-width: 600px) */
+/* Mobile Sub-Gallery (max-width: 600px) */
 @media (max-width: 600px) {
+  /* Overlay: pad top to clear fixed navbar */
   .sub-gallery-overlay {
-    padding: 0.5rem;
+    padding: 60px 0 0;
+    align-items: flex-start;
+    z-index: 9999;
   }
 
+  /* Container: full-width bottom-anchored sheet */
   .sub-gallery-container {
-    padding: 2.5rem 1.5rem 1.5rem;
-    max-height: 95vh;
+    padding: 1.5rem 1.2rem 2rem;
+    max-height: calc(100vh - 60px);
+    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
+  /* Bigger, easier-to-tap close button */
   .sub-gallery-close {
-    top: 0.8rem;
-    right: 0.8rem;
-    width: 32px;
-    height: 32px;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Header: left-aligned, compact, padded right for close btn */
+  .sub-gallery-header {
+    text-align: left;
+    margin-bottom: 1.2rem;
+    padding-right: 3rem;
+  }
+
+  .sub-gallery-index {
+    font-size: 0.6rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.25em;
   }
 
   .sub-gallery-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin: 0.2rem 0 0.5rem;
   }
 
   .sub-gallery-desc {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    margin: 0;
+    text-align: left;
   }
 
+  /* 2-column image grid for better space use */
   .sub-gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .sub-gallery-card {
-    aspect-ratio: 16/10;
+    aspect-ratio: 4/3;
   }
 
   .sub-gallery-footer {
-    margin-top: 1.5rem;
-    font-size: 0.55rem;
+    margin-top: 1rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE — MAIN SLIDE PANEL & FULL-PAGE GALLERY LAYOUT
+   ========================================================================== */
+
+/* ── MOBILE PHONES (≤ 480px) — Bottom-sheet slide panel ── */
+@media (max-width: 480px) {
+  /* Full-width bottom sheet — image visible above it */
+  .slide-content {
+    width: 100%;
+    min-width: unset;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    max-height: 48vh;
+    padding: 1.6rem 6vw 2.5rem;
+    border-right: none;
+    border-top: 1px solid rgba(224, 169, 75, 0.4);
+    box-shadow: 0 -15px 40px rgba(10, 30, 30, 0.12);
+    border-radius: 20px 20px 0 0;
+    justify-content: flex-end;
+  }
+
+  .slide-number {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .slide-title {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+    margin-bottom: 0.6rem;
+  }
+
+  /* Show a short desc on mobile */
+  .slide-desc {
+    display: block;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+    opacity: 0.8;
+
+    /* Clamp to 2 lines to save space */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .view-gallery-btn {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    gap: 0.75rem;
+  }
+
+  /* Global top/bottom bars */
+  .gallery-global-ui {
+    padding: 75px 5vw 1rem;
+  }
+
+  .gallery-top-bar {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Hide pagination on mobile — swipe gestures are used instead */
+  .gallery-pagination {
+    display: none;
+  }
+}
+
+/* ── TABLET LANDSCAPE (769px – 1024px) — Slimmer slide panel ── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .slide-content {
+    width: 50vw;
+    min-width: unset;
+    padding: 0 3.5vw;
+  }
+
+  .slide-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .slide-desc {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    max-width: 300px;
+  }
+
+  .gallery-global-ui {
+    padding: 95px 5vw 2rem;
+  }
+
+  .h-slide-img-wrapper {
+    width: 28vw;
+    height: 45vh;
+  }
+
+  .h-slide-text-left,
+  .h-slide-text-right {
+    font-size: clamp(2rem, 4.5vw, 6rem);
+  }
+}
+
+/* ── 1195 × 585 SHORT WIDE — Slide content & text compact ── */
+@media (max-height: 650px) and (min-width: 901px) {
+  .slide-content {
+    padding: 0 3.5vw;
+  }
+
+  .slide-number {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .slide-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .slide-desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-width: 300px;
+  }
+
+  .view-gallery-btn {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+  }
+
+  .gallery-global-ui {
+    padding: 82px 5vw 1.5rem;
+  }
+
+  .gallery-top-bar {
+    font-size: 0.68rem;
+  }
+
+  .h-slide-img-wrapper {
+    height: 44vh;
+  }
+
+  .h-slide-text-left,
+  .h-slide-text-right {
+    font-size: clamp(2rem, 5vw, 6.5rem);
+  }
+}
+
+/* ── 1366 × 768 STANDARD LAPTOP — Refined typography & spacing ── */
+@media (min-width: 1200px) and (max-height: 800px) {
+  .gallery-global-ui {
+    padding: 100px 5vw 2rem;
+  }
+
+  .slide-content {
+    padding: 0 4vw;
+  }
+
+  .slide-title {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .slide-desc {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    max-width: 320px;
+  }
+
+  .h-slide-img-wrapper {
+    height: 50vh;
+    width: 30vw;
   }
 }

@@ -435,70 +435,70 @@ const badgeIconMap = {
 
 const ChefPage = () => {
   const { setNavTheme } = useNav();
-  
+
   useEffect(() => {
     setNavTheme('green');
-    
+
     document.documentElement.classList.add('chef-page');
-    
+
     const sections = document.querySelectorAll(".chef-portfolio > section");
     const activeSectionRef = { current: 0 };
     const isAnimatingRef = { current: false };
-    
+
     const scrollToSection = (index) => {
       if (index < 0 || index >= sections.length) return;
-      
+
       isAnimatingRef.current = true;
       activeSectionRef.current = index;
-      
+
       const targetTop = sections[index].offsetTop;
-      
+
       window.scrollTo({
         top: targetTop,
         behavior: "smooth"
       });
-      
+
       setTimeout(() => {
         isAnimatingRef.current = false;
       }, 1000);
     };
-    
+
     // Make function globally accessible for hero button clicks
     window.__chefScrollToSection = scrollToSection;
-    
+
     const handleWheel = (e) => {
       if (window.innerWidth < 1024) return;
-      
+
       e.preventDefault();
-      
+
       if (isAnimatingRef.current) return;
-      
+
       const direction = e.deltaY > 0 ? 1 : -1;
       const targetIndex = activeSectionRef.current + direction;
-      
+
       if (targetIndex >= 0 && targetIndex < sections.length) {
         scrollToSection(targetIndex);
       }
     };
-    
+
     let touchStartY = 0;
     const handleTouchStart = (e) => {
       if (window.innerWidth < 1024) return;
       touchStartY = e.touches[0].clientY;
     };
-    
+
     const handleTouchMove = (e) => {
       if (window.innerWidth < 1024) return;
       e.preventDefault();
     };
-    
+
     const handleTouchEnd = (e) => {
       if (window.innerWidth < 1024) return;
       if (isAnimatingRef.current) return;
-      
+
       const touchEndY = e.changedTouches[0].clientY;
       const diffY = touchStartY - touchEndY;
-      
+
       if (Math.abs(diffY) > 50) {
         const direction = diffY > 0 ? 1 : -1;
         const targetIndex = activeSectionRef.current + direction;
@@ -507,10 +507,10 @@ const ChefPage = () => {
         }
       }
     };
-    
+
     const handleKeyDown = (e) => {
       if (window.innerWidth < 1024) return;
-      
+
       if (["ArrowDown", "PageDown", " "].includes(e.key) && !e.shiftKey) {
         e.preventDefault();
         if (isAnimatingRef.current) return;
@@ -533,13 +533,13 @@ const ChefPage = () => {
         scrollToSection(sections.length - 1);
       }
     };
-    
+
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("touchend", handleTouchEnd, { passive: true });
-    
+
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
         const targetTop = sections[activeSectionRef.current]?.offsetTop;
@@ -549,7 +549,7 @@ const ChefPage = () => {
       }
     };
     window.addEventListener("resize", handleResize);
-    
+
     return () => {
       document.documentElement.classList.remove('chef-page');
       delete window.__chefScrollToSection;
@@ -882,14 +882,14 @@ const ChefPage = () => {
           {/* Left panel with scroll-parallax overlapping frames */}
           <div className="philosophy-visual-block">
             {/* Rotating floating gold ring */}
-            <motion.div 
-              className="philosophy-floating-circle" 
+            <motion.div
+              className="philosophy-floating-circle"
               style={{ rotate: rotateCircle, scale: scaleCircle }}
             />
 
             {/* Background Kashmiri Gold Accent Frame */}
-            <motion.div 
-              className="philosophy-accent-frame" 
+            <motion.div
+              className="philosophy-accent-frame"
               style={{ y: yAccentFrame }}
             />
 
@@ -941,24 +941,24 @@ const ChefPage = () => {
             {/* Premium Awwwards Line reveal for the Title */}
             <h2 className="philosophy-title">
               <div className="title-line-wrapper">
-                <motion.span 
-                   initial={{ y: "100%", opacity: 0 }}
-                   animate={{ y: 0, opacity: 1 }}
-                   transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                   style={{ display: "inline-block" }}
-                   key={`phil1-${currentChefIndex}`}
+                <motion.span
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ display: "inline-block" }}
+                  key={`phil1-${currentChefIndex}`}
                 >
                   {chef.philosophyTitle1}
                 </motion.span>
               </div>
               <div className="title-line-wrapper">
-                <motion.span 
-                   initial={{ y: "100%", opacity: 0 }}
-                   animate={{ y: 0, opacity: 1 }}
-                   transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                   style={{ display: "inline-block" }}
-                   className="italic-accent"
-                   key={`phil2-${currentChefIndex}`}
+                <motion.span
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ display: "inline-block" }}
+                  className="italic-accent"
+                  key={`phil2-${currentChefIndex}`}
                 >
                   {chef.philosophyTitle2}
                 </motion.span>
@@ -966,7 +966,7 @@ const ChefPage = () => {
             </h2>
 
             {/* Luxurious divider line with gold accent */}
-            <motion.div 
+            <motion.div
               className="philosophy-divider"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -1075,7 +1075,7 @@ const ChefPage = () => {
                         transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
                       />
                     </motion.div>
-                    
+
                     {/* Spinning luxury circular badge overlapping the image */}
                     <div className="luxury-spinning-seal">
                       <svg viewBox="0 0 100 100" width="80" height="80">
@@ -1086,7 +1086,7 @@ const ChefPage = () => {
                         />
                         <text fontStyle="normal" fontSize="7" fontWeight="600" letterSpacing="1.8" fill="#E0A94B">
                           <textPath href="#circlePath">
-                            ANANDO FOODS • SIGNATURE COLLECTION • 
+                            ANANDO FOODS • SIGNATURE COLLECTION •
                           </textPath>
                         </text>
                       </svg>
@@ -1170,14 +1170,21 @@ const ChefPage = () => {
       {/* SECTION 4: THE ATELIER TOOLKIT */}
       <section className="portfolio-toolkit">
         <div className="toolkit-header">
-          <div className="eyebrow-accent">
-            <Sparkles size={16} />
-            <span>KITCHEN ATELIER</span>
+          <div className="toolkit-header-left">
+            <div className="eyebrow-accent">
+              <Sparkles size={16} />
+              <span>KITCHEN ATELIER</span>
+            </div>
+            <h2 className="toolkit-title">
+              The secret pillars <br />
+              of our <span className="italic-accent">gastronomic toolkit</span>
+            </h2>
           </div>
-          <h2 className="toolkit-title">
-            The secret pillars <br />
-            of our <span className="italic-accent">gastronomic toolkit</span>
-          </h2>
+          <div className="toolkit-header-right">
+            <p className="toolkit-lead">
+              A master culinary craftsman is defined by their instruments and philosophies. We synthesize scientific precision with nature's raw botanical gifts to construct unforgettable edible journeys.
+            </p>
+          </div>
         </div>
 
         <div className="toolkit-cards-grid" key={`toolkit-grid-${currentChefIndex}`}>
@@ -1277,7 +1284,7 @@ const ChefPage = () => {
       </section>
 
       {/* SECTION 6: INVITATION CTA */}
-      <section className="portfolio-cta">
+      {/* <section className="portfolio-cta">
         <motion.div
           className="cta-framed-card"
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -1311,7 +1318,7 @@ const ChefPage = () => {
             </div>
           </div>
         </motion.div>
-      </section>
+      </section> */}
     </div>
   );
 };

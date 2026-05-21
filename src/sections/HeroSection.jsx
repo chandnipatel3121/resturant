@@ -91,7 +91,7 @@ const HeroSection = () => {
     const vh = window.innerHeight
     const isMobile = vw < 768
     const startRadius = Math.sqrt(vw * vw + vh * vh) * (isMobile ? 0.8 : 0.6)
-    const finalRadius = isMobile ? vh * 0.18 : vh * 0.22
+    const finalRadius = isMobile ? vh * 0.14 : vh * 0.22
     const r = startRadius * (1 - v) + finalRadius * v
     return `circle(${Math.round(r)}px at 50% 50%)`
   })
@@ -100,17 +100,19 @@ const HeroSection = () => {
 
   const forkX = useTransform(morphProgress, (v) => {
     const isMobile = window.innerWidth < 768
-    const offset = isMobile ? 18 : 22
-    if (v <= 0.5) return `calc(-50vw + ${(v / 0.5) * (isMobile ? 15 : 10)}vw - 100% - 2vh)`
+    const offset = isMobile ? 14 : 22
+    const gap = isMobile ? "0.8vh" : "1vh"
+    if (v <= 0.5) return `calc(-50vw + ${(v / 0.5) * (isMobile ? 15 : 10)}vw - 100% - ${gap})`
     const p = (v - 0.5) / 0.5
-    return `calc(-${isMobile ? 35 : 40}vw * ${1 - p} - ${offset}vh * ${p} - 100% - 1vh)`
+    return `calc(-${isMobile ? 35 : 40}vw * ${1 - p} - ${offset}vh * ${p} - 100% - ${gap})`
   })
   const spoonX = useTransform(morphProgress, (v) => {
     const isMobile = window.innerWidth < 768
-    const offset = isMobile ? 18 : 22
-    if (v <= 0.5) return `calc(50vw - ${(v / 0.5) * (isMobile ? 15 : 10)}vw + 2vh)`
+    const offset = isMobile ? 14 : 22
+    const gap = isMobile ? "0.8vh" : "1vh"
+    if (v <= 0.5) return `calc(50vw - ${(v / 0.5) * (isMobile ? 15 : 10)}vw + ${gap})`
     const p = (v - 0.5) / 0.5
-    return `calc(${isMobile ? 35 : 40}vw * ${1 - p} + ${offset}vh * ${p} + 1vh)`
+    return `calc(${isMobile ? 35 : 40}vw * ${1 - p} + ${offset}vh * ${p} + ${gap})`
   })
 
   const utensilsOpacity = useTransform(morphProgress, [0.2, 0.8], [0, 1])
@@ -222,7 +224,7 @@ const HeroSection = () => {
             style={{ x: forkX, opacity: utensilsOpacity }}
             className="absolute top-1/2 left-1/2 -translate-y-1/2 z-20"
           >
-            <svg className="w-[6vh] h-[30vh]" viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
+            <svg className={isMobile ? "w-[4.5vh] h-[22.5vh]" : "w-[6vh] h-[30vh]"} viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
               <path d="M20 20 L20 150 M40 20 L40 150 M60 20 L60 150 M80 20 L80 150" strokeWidth="6" />
               <path d="M20 150 C20 200 80 200 80 150" strokeWidth="6" />
               <path d="M50 185 L50 380" strokeWidth="8" strokeLinecap="round" />
@@ -234,7 +236,7 @@ const HeroSection = () => {
             style={{ x: spoonX, opacity: utensilsOpacity }}
             className="absolute top-1/2 left-1/2 -translate-y-1/2 z-20"
           >
-            <svg className="w-[6vh] h-[30vh]" viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
+            <svg className={isMobile ? "w-[4.5vh] h-[22.5vh]" : "w-[6vh] h-[30vh]"} viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
               <ellipse cx="50" cy="80" rx="35" ry="60" strokeWidth="6" />
               <path d="M50 140 L50 380" strokeWidth="8" strokeLinecap="round" />
             </svg>
