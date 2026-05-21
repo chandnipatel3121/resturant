@@ -581,36 +581,30 @@ const MenuSection = () => {
     }
   }, [activeCuisines, activeCourses, activeMeals, searchQuery]);
 
-  // Helper to toggle Cuisine (sidebar) - allows multiple cuisines but clears courses and meals
+  // Helper to toggle Cuisine (sidebar) - single selection only, preserves other category filters
   const toggleCuisineFilter = (value) => {
-    setActiveCourses([]);
-    setActiveMeals([]);
     if (value === 'All') {
       setActiveCuisines([]);
       return;
     }
     setActiveCuisines(prev =>
-      prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
+      prev.includes(value) ? [] : [value]
     );
   };
 
-  // Helper to toggle Cuisine Segment (course chips) - allows multiple courses but clears cuisines and meals
+  // Helper to toggle Cuisine Segment (course chips) - single selection only, preserves other category filters
   const toggleCourseFilter = (value) => {
-    setActiveCuisines([]);
-    setActiveMeals([]);
     if (value === 'All') {
       setActiveCourses([]);
       return;
     }
     setActiveCourses(prev =>
-      prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
+      prev.includes(value) ? [] : [value]
     );
   };
 
-  // Helper to toggle Service Session (meal pills) - single selection only, clears cuisines and courses
+  // Helper to toggle Service Session (meal pills) - single selection only, preserves other category filters
   const toggleMealFilter = (value) => {
-    setActiveCuisines([]);
-    setActiveCourses([]);
     if (value === 'All') {
       setActiveMeals([]);
       return;
