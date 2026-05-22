@@ -15,6 +15,7 @@ import Menu from "./pages/Menu"
 import ChefPage from "./pages/Chefpage"
 import ContactPage from "./pages/Contact"
 import Gallery from "./pages/Gallery"
+import Reservation from "./pages/Reservation"
 import ScrollToTop from "./components/ScrollToTop"
 
 function AppContent() {
@@ -42,6 +43,7 @@ function AppContent() {
               <Route path="/chef" element={<ChefPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/reservation" element={<Reservation />} />
             </Routes>
             {isHomePage && <Footer />}
           </main>

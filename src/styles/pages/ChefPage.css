@@ -269,12 +269,12 @@ body.journey-page-active {
   position: absolute;
   bottom: 5%;
   right: -5%;
-  width: 480px;
+  width: clamp(300px, 45vw, 480px);
   background: rgba(35, 93, 86, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 3rem;
+  padding: clamp(1.5rem, 4vh, 3rem);
   color: #fff;
   z-index: 20;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
@@ -303,16 +303,16 @@ body.journey-page-active {
 }
 
 .dic-desc {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.5vh, 1rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(1rem, 3vh, 2.5rem);
 }
 
 .dic-stats {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(1rem, 3vh, 2.5rem);
 }
 
 .dic-stat-pill {
@@ -423,7 +423,7 @@ body.journey-page-active {
 .accordion-container {
   display: flex;
   width: 100%;
-  height: 70vh;
+  height: clamp(350px, 60vh, 70vh);
   gap: 12px;
   max-width: 1600px;
   margin: 0 auto;
@@ -554,16 +554,16 @@ body.journey-page-active {
 
 .ap-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-size: clamp(1.8rem, 4vw, 4rem);
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.5rem, 2vh, 1rem);
 }
 
 .ap-desc {
-  font-size: 1.1rem;
+  font-size: clamp(0.85rem, 1.5vh, 1.1rem);
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(1rem, 3vh, 2.5rem);
   max-width: 450px;
 }
 
@@ -668,8 +668,8 @@ body.journey-page-active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 6rem;
-  gap: 4rem;
+  margin-bottom: clamp(2rem, 6vh, 6rem);
+  gap: clamp(1.5rem, 4vw, 4rem);
 }
 
 .phil-header-left {
@@ -714,15 +714,15 @@ body.journey-page-active {
 /* CARDS ROW */
 .phil-cards-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .phil-card-advanced {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(15, 92, 92, 0.08);
   border-radius: 12px;
-  padding: 2.5rem;
+  padding: clamp(1.2rem, 3vh, 2.5rem);
   box-shadow: 0 20px 40px rgba(15, 92, 92, 0.03);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   display: flex;
@@ -813,9 +813,9 @@ body.journey-page-active {
   display: grid;
   grid-template-columns: 1fr 2fr;
   /* Wider right side */
-  gap: 4rem;
+  gap: clamp(1rem, 3vw, 4rem);
   max-width: 1400px;
-  margin: 1rem auto 0;
+  margin: clamp(0.5rem, 2vh, 1rem) auto 0;
 }
 
 /* Left Sidebar: Chefs */
@@ -894,8 +894,7 @@ body.journey-page-active {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-  height: 550px;
-  /* Increased from 640px to safely contain all text */
+  height: clamp(400px, 60vh, 600px); /* Responsive height for all chefs */
 }
 
 .ims-img-container {
@@ -948,7 +947,7 @@ body.journey-page-active {
 }
 
 .ims-details {
-  padding: 1.5rem;
+  padding: clamp(1rem, 2vh, 1.5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -957,10 +956,10 @@ body.journey-page-active {
 
 .chef-phil-quote {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-style: italic;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   line-height: 1.5;
 }
 
@@ -968,21 +967,21 @@ body.journey-page-active {
   width: 40px;
   height: 2px;
   background: var(--accent);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .ims-details h3 {
   font-family: var(--font-serif);
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
   color: var(--text-primary);
 }
 
 .ims-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .ims-tag {
@@ -998,8 +997,8 @@ body.journey-page-active {
 .ims-metrics {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
+  gap: clamp(0.5rem, 1.5vh, 1.25rem);
+  margin-bottom: clamp(1rem, 2vh, 2.5rem);
 }
 
 .metric-row {
@@ -1066,7 +1065,7 @@ body.journey-page-active {
      ========================================================================== */
 .journey-experience {
   position: relative;
-  background-color: #fff;
+  background: radial-gradient(circle at top right, #f8fbf9, #f0f5f4);
   height: 100vh;
   flex-shrink: 0;
   width: 100vw;
@@ -1088,23 +1087,33 @@ body.journey-page-active {
 .experience-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin: 4rem 0;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin: clamp(1.5rem, 4vh, 4rem) 0;
 }
 
 .exp-card {
   padding: 0;
-  /* Remove padding to fit image nicely */
   text-align: left;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.05);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid rgba(15, 92, 92, 0.05);
+}
+
+.exp-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 45px rgba(15, 92, 92, 0.1);
+  border-color: rgba(234, 164, 59, 0.3);
 }
 
 .exp-img-wrapper {
   width: 100%;
-  height: 200px;
+  height: clamp(120px, 20vh, 200px);
   overflow: hidden;
 }
 
@@ -1112,22 +1121,26 @@ body.journey-page-active {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .exp-card:hover .exp-img-wrapper img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .exp-text-content {
-  padding: 2rem;
+  padding: clamp(1rem, 2vh, 2rem);
   flex: 1;
-  background: var(--bg-primary);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .exp-text-content h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
@@ -1137,33 +1150,63 @@ body.journey-page-active {
   font-size: 0.9rem;
 }
 
-.exp-card-border {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  border-radius: 12px;
-  pointer-events: none;
-  transition: border-color 0.4s ease;
-}
-
-.exp-card:hover .exp-card-border {
-  border-color: var(--accent);
-}
+/* Removed redundant exp-card-border since we applied border directly to exp-card */
 
 .experience-cta {
-  margin-top: 5rem;
+  margin-top: clamp(1.5rem, 4vh, 5rem);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .experience-cta p {
-  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
   margin-bottom: 2rem;
-  color: rgba(15, 92, 92, 0.8);
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.experience-cta .gold-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #eaa43b, #d4af37);
+  color: #fff;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(234, 164, 59, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.experience-cta .gold-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(234, 164, 59, 0.4);
 }
 
 /* ==========================================================================
      RESPONSIVE
      ========================================================================== */
+@media (max-height: 700px) {
+  .section-header, .accordion-header {
+    margin-bottom: 1.5rem;
+  }
+  .journey-hero-advanced,
+  .journey-story-accordion,
+  .journey-philosophy-advanced,
+  .journey-signature,
+  .journey-experience {
+    padding-top: 60px;
+  }
+}
+
 @media (max-width: 1200px) {
   .experience-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1186,18 +1229,90 @@ body.journey-page-active {
 
   .ims-preview-card {
     grid-template-columns: 1fr;
+    height: auto; /* Allows stacking to fit details on iPad portrait */
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .ims-img-container {
-    min-height: 300px;
+    min-height: 250px;
   }
 }
 
 @media (max-width: 768px) {
+  /* Restore snap scroll: Hide dots since they overlap */
+  .fp-nav-dots {
+    display: none !important;
+  }
 
+  /* Adjust grids to fit strictly inside 100vh */
   .philosophy-grid,
   .experience-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    margin: 1rem 0 !important;
+  }
+  
+  .exp-text-content {
+    padding: 0.5rem !important;
+  }
+
+  .exp-text-content h3 {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .exp-text-content p {
+    font-size: 0.7rem !important;
+  }
+
+  .exp-img-wrapper {
+    height: 80px !important;
+  }
+
+  .experience-cta {
+    margin-top: 1rem !important;
+  }
+  
+  .experience-cta p {
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .ims-left {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .interactive-chef-showcase {
+    max-width: 100%;
+  }
+
+  .ims-chef-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .ims-chef-item {
+    min-width: 130px;
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .chef-selector-avatar img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .chef-selector-info h3 {
+    font-size: 0.8rem;
+  }
+
+  .chef-selector-info span {
+    font-size: 0.65rem;
   }
 
   .hero-subtle-bg-text {
@@ -1210,5 +1325,118 @@ body.journey-page-active {
 
   .h-timeline-node {
     min-width: 280px;
+  }
+
+  .phil-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .phil-card-advanced {
+    padding: 1rem;
+  }
+
+  .pc-top {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .pc-content h3 {
+    font-size: 1rem;
+  }
+
+  .pc-content p {
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+  
+  .ims-preview-card {
+    height: 55vh;
+    max-height: 55vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .ims-img-container {
+    height: 25vh;
+    min-height: 150px;
+  }
+
+  .ims-details {
+    padding: 1rem;
+  }
+  
+  .chef-phil-quote {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .note-label {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .ims-details h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ims-tags {
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .ims-tag {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .ims-metrics {
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .metric-row {
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-label, .metric-val {
+    font-size: 0.85rem;
+  }
+
+  .ims-note {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+
+
+  .hero-dark-info-card {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .hero-center-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 1rem;
+  }
+  
+  .dic-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .dic-desc {
+    margin-bottom: 1rem !important;
+  }
+  
+  .dic-stats {
+    margin-bottom: 1rem !important;
   }
 }

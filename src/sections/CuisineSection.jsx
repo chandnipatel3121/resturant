@@ -112,58 +112,10 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
   )
 }
 
+import pavBhajiImg from "../assets/pavbhaji.png"
+import gourmetSaladImg from "../assets/gourmet_salad.png"
+
 const CUISINES = [
-  {
-    name: "Gujarati",
-    tagline: "Sweet, subtle & traditional",
-    specialty: "Authentic spices sourced from Rajkot, prepared using age-old family recipes for a truly soulful experience.",
-    description: "A harmonious blend of sweet and savory notes, featuring the iconic Dhokla, Thepla, and a variety of seasonal vegetable preparations served with love.",
-    img: gujImg,
-    bgImage: gujBg,
-    bg: "#000000",
-    cardBg: "rgba(224, 169, 75, 0.15)",
-    cardBgAlt: "rgba(224, 169, 75, 0.2)",
-    border: "#E0A94B",
-    border: "#d97706",
-    glow: "rgba(224, 169, 75, 0.4)",
-    textColor: "#ffffff",
-    map: gujMap,
-    items: [
-      { name: "Undhiyu", desc: "Slow-cooked seasonal veggies", price: "450" },
-      { name: "Khandvi Rolls", desc: "Gram flour, tempered spices", price: "250" },
-      { name: "Surati Ghari", desc: "Rich sweet with mawa & nuts", price: "320" },
-      { name: "Dhokla Platter", desc: "Steamed fermented lentil cakes", price: "280" },
-      { name: "Thepla with Chunda", desc: "Spiced flatbreads & mango jam", price: "180" },
-      { name: "Lilva Kachori", desc: "Fresh pigeon pea fritters", price: "220" },
-      { name: "Patra", desc: "Colocasia leaves with gram flour", price: "240" },
-      { name: "Doodhpak", desc: "Creamy saffron rice pudding", price: "290" }
-    ]
-  },
-  {
-    name: "Punjabi",
-    tagline: "Rich, bold & buttery flavors",
-    specialty: "Tandoor-fired to perfection with a secret blend of 12 hand-ground spices and premium farmhouse butter.",
-    description: "Indulge in the robust heartiness of North India. Creamy Dal Makhani, buttery Naans, and the legendary Tandoori specialties that define culinary excellence.",
-    img: punImg,
-    bgImage: punBg,
-    bg: "#000000",
-    cardBg: "rgba(255, 125, 41, 0.15)",
-    cardBgAlt: "rgba(255, 125, 41, 0.2)",
-    border: "#FF7D29",
-    glow: "rgba(255, 125, 41, 0.4)",
-    textColor: "#ffffff",
-    map: punMap,
-    items: [
-      { name: "Dal Makhani", desc: "24-hour slow-cooked black lentils", price: "380" },
-      { name: "Butter Chicken", desc: "Tandoori chicken in tomato gravy", price: "550" },
-      { name: "Amritsari Kulcha", desc: "Stuffed bread from the tandoor", price: "180" },
-      { name: "Paneer Tikka", desc: "Clay oven charred cottage cheese", price: "420" },
-      { name: "Sarson ka Saag", desc: "Mustard greens with corn bread", price: "350" },
-      { name: "Mutton Rogan Josh", desc: "Slow-braised Kashmiri lamb", price: "650" },
-      { name: "Tandoori Chicken", desc: "Classic bone-in roasted chicken", price: "480" },
-      { name: "Gajar Halwa", desc: "Warm carrot pudding with nuts", price: "250" }
-    ]
-  },
   {
     name: "South Indian",
     tagline: "Light, fermented & aromatic",
@@ -178,16 +130,7 @@ const CUISINES = [
     glow: "rgba(46, 204, 113, 0.5)",
     textColor: "#ffffff",
     map: southMap,
-    items: [
-      { name: "Masala Dosa", desc: "Crispy rice crepe with potato", price: "220" },
-      { name: "Appam with Stew", desc: "Fermented lacey pancakes", price: "350" },
-      { name: "Mysore Pak", desc: "Ghee-rich gram flour sweet", price: "150" },
-      { name: "Medhu Vada", desc: "Savory lentil donuts", price: "180" },
-      { name: "Chicken Chettinad", desc: "Spicy peppercorn based gravy", price: "520" },
-      { name: "Lemon Rice", desc: "Zesty tempered basmati rice", price: "240" },
-      { name: "Filter Coffee", desc: "Traditional brass tumbler brew", price: "90" },
-      { name: "Payasam", desc: "Coconut milk & jaggery pudding", price: "180" }
-    ]
+    items: []
   },
   {
     name: "Chinese",
@@ -203,22 +146,13 @@ const CUISINES = [
     glow: "rgba(255, 252, 77, 0.5)",
     textColor: "#ffffff",
     map: chinMap,
-    items: [
-      { name: "Dim Sum Basket", desc: "Hand-rolled steamed parcels", price: "420" },
-      { name: "Kung Pao Paneer", desc: "Spicy stir-fry with peanuts", price: "450" },
-      { name: "Hakka Noodles", desc: "Wok-tossed with garden veggies", price: "320" },
-      { name: "Manchow Soup", desc: "Spicy garlic broth with noodles", price: "180" },
-      { name: "Chilly Chicken", desc: "Crispy chicken in soy-chilly", price: "480" },
-      { name: "Schezwan Fried Rice", desc: "Fiery wok-tossed rice", price: "350" },
-      { name: "Spring Rolls", desc: "Crispy vegetable filled rolls", price: "280" },
-      { name: "Honey Noodles", desc: "Crispy noodles with ice cream", price: "250" }
-    ]
+    items: []
   },
   {
-    name: "Italian",
-    tagline: "Classic, cheesy & elegant",
-    specialty: "House-made pasta flour imported from Italy and sun-ripened tomatoes for an authentic Mediterranean soul.",
-    description: "The soul of the Mediterranean. Hand-rolled pastas, artisanal pizzas, and rich risottos crafted with the finest herbs, cheeses, and sun-ripened tomatoes.",
+    name: "Fast Food",
+    tagline: "Quick, cheesy & irresistible",
+    specialty: "Freshly baked pizzas and golden fries prepared with our signature seasoning and premium cheese.",
+    description: "Indulge in our classic fast food collection. From perfectly crispy French Fries to gourmet Pizzas loaded with fresh ingredients, every bite is a joy.",
     img: italImg,
     bgImage: italBg,
     bg: "#000000",
@@ -227,17 +161,40 @@ const CUISINES = [
     border: "#4D79FF",
     glow: "rgba(77, 121, 255, 0.5)",
     textColor: "#ffffff",
-    map: italMap,
-    items: [
-      { name: "Truffle Tortellini", desc: "Handmade pasta, sage butter", price: "580" },
-      { name: "Burrata Salad", desc: "Fresh burrata, heirloom tomatoes", price: "480" },
-      { name: "Classic Tiramisu", desc: "Coffee-soaked ladyfingers", price: "350" },
-      { name: "Margherita Pizza", desc: "Wood-fired buffalo mozzarella", price: "550" },
-      { name: "Pesto Genovese", desc: "Basil & pine nut linguine", price: "450" },
-      { name: "Osso Buco", desc: "Slow-braised veal shanks", price: "850" },
-      { name: "Panna Cotta", desc: "Silky vanilla cream with berries", price: "320" },
-      { name: "Bruschetta Trio", desc: "Toasted bread with fresh toppings", price: "280" }
-    ]
+    map: null,
+    items: []
+  },
+  {
+    name: "Street Food",
+    tagline: "Spicy, tangy & local",
+    specialty: "Authentic chaats and vibrant flavors that bring the essence of Indian street culture to your plate.",
+    description: "Experience the vibrant hustle of the streets. Spicy Pav Bhaji, tangy chaats, and crispy delights that burst with sweet, spicy, and sour flavors.",
+    img: pavBhajiImg,
+    bgImage: gujBg,
+    bg: "#000000",
+    cardBg: "rgba(224, 169, 75, 0.15)",
+    cardBgAlt: "rgba(224, 169, 75, 0.2)",
+    border: "#d97706",
+    glow: "rgba(224, 169, 75, 0.4)",
+    textColor: "#ffffff",
+    map: null,
+    items: []
+  },
+  {
+    name: "Fusion Food",
+    tagline: "Modern, creative & bold",
+    specialty: "A unique blend of traditional spices with contemporary culinary techniques for a modern palate.",
+    description: "Where tradition meets innovation. Discover our creative fusion dishes like Veg Hot Garlic and Spring Rolls that redefine global flavors.",
+    img: gourmetSaladImg,
+    bgImage: punBg,
+    bg: "#000000",
+    cardBg: "rgba(255, 125, 41, 0.15)",
+    cardBgAlt: "rgba(255, 125, 41, 0.2)",
+    border: "#FF7D29",
+    glow: "rgba(255, 125, 41, 0.4)",
+    textColor: "#ffffff",
+    map: null,
+    items: []
   }
 ]
 

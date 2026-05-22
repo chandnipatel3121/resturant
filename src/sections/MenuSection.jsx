@@ -559,8 +559,19 @@ const MenuSection = () => {
 
   // Mount/Dismount effect for scroll snap on the Menu page
   React.useEffect(() => {
-    document.documentElement.classList.add("menu-snap-page");
+    // Force scroll to top before enabling snap to prevent unwanted jumping
+    window.scrollTo(0, 0);
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    }
+    
+    // Slight delay to ensure ScrollToTop and Lenis have completed their resets
+    const timer = setTimeout(() => {
+      document.documentElement.classList.add("menu-snap-page");
+    }, 100);
+
     return () => {
+      clearTimeout(timer);
       document.documentElement.classList.remove("menu-snap-page");
     };
   }, []);
@@ -1122,6 +1133,64 @@ const MenuSection = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Terms and Conditions */}
+      <div className="max-w-[1200px] mx-auto px-[var(--container-px)] mt-24 mb-12">
+        <div className="bg-white/5 border border-[var(--accent)]/30 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-md">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full blur-[100px] opacity-10"></div>
+          
+          <div className="text-center mb-8">
+            <h3 className="text-editorial !text-[var(--accent)] text-2xl md:text-3xl mb-2">Terms and Conditions</h3>
+            <div className="w-16 h-1 bg-[var(--accent)]/50 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-sm text-[var(--text)]/80">
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Taxes Applicable As Per Govt. Rules</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Party Orders Are Accepted</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Parcel Service Available</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Jain Food Is Available</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>We Serve Purified Drinking Water</span>
+              </li>
+            </ul>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Order Once Placed Will Not Be Cancelled</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Preparation Time Is Min. 15 Minutes After The Order Is Placed</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Outside Eatables Not Allowed. Except Birthday Cakes Food Items Available Will Be Served.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>Cold Drink And Ice Cream Rates Are As Per Prevailing MRP & Quantity As Printed By The Company</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>All Items Are Prepared Manually Hence Slight Variation In Weight May Occur Inspite Of Utmost Care.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

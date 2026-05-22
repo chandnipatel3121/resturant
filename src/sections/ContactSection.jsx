@@ -74,7 +74,7 @@ const ContactSection = () => {
               <div className="contact-item-label">RESERVATIONS</div>
               <div className="contact-item-value">
                 Monday — Sunday <br />
-                11:00 AM - 11:00 PM
+                1:00 PM - 11:00 PM
               </div>
             </motion.div>
 

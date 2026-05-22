@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useNav } from "../utils/NavContext"
+import { useNavigate } from "react-router-dom"
 import "../styles/pages/ChefPage.css"
 
 import {
@@ -158,58 +159,76 @@ const SECTIONS = ['hero', 'story', 'philosophy', 'chefs', 'experience']
 const SECTION_LABELS = ['Hero', 'Our Story', 'Philosophy', 'Master Chefs', 'Experience']
 
 const ChefPage = () => {
-  const { setNavTheme } = useNav()
-
-  // ─── Full-Page Scroll State ───────────────────────────────────────────────
   const [currentSection, setCurrentSection] = useState(0)
+  const { setNavTheme } = useNav()
+  const navigate = useNavigate()
   const [isTransitioning, setIsTransitioning] = useState(false)
   const portfolioRef = useRef(null)
   const totalSections = SECTIONS.length
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const goToSection = (index) => {
-    if (isTransitioning || index === currentSection || index < 0 || index >= totalSections) return
+    if (index < 0 || index >= totalSections) return;
     setIsTransitioning(true)
     setCurrentSection(index)
     setTimeout(() => setIsTransitioning(false), 900) // match CSS transition duration
   }
 
+  const lastInteractionTime = useRef(0)
+
   // Wheel handler
   useEffect(() => {
-    let lastWheelTime = 0
     const onWheel = (e) => {
       e.preventDefault()
       const now = Date.now()
-      if (now - lastWheelTime < 900) return // throttle
-      lastWheelTime = now
+      if (now - lastInteractionTime.current < 1000) return // throttle
+      lastInteractionTime.current = now
       if (e.deltaY > 0) goToSection(currentSection + 1)
       else goToSection(currentSection - 1)
     }
     const el = portfolioRef.current
     if (el) el.addEventListener('wheel', onWheel, { passive: false })
     return () => { if (el) el.removeEventListener('wheel', onWheel) }
-  }, [currentSection, isTransitioning])
+  }, [currentSection, isMobile])
 
   // Keyboard handler
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSection(currentSection + 1)
-      if (e.key === 'ArrowUp' || e.key === 'PageUp') goToSection(currentSection - 1)
+      const now = Date.now()
+      if (now - lastInteractionTime.current < 1000) return
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        lastInteractionTime.current = now
+        goToSection(currentSection + 1)
+      }
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        lastInteractionTime.current = now
+        goToSection(currentSection - 1)
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [currentSection, isTransitioning])
+  }, [currentSection, isMobile])
 
   // Touch handler
   useEffect(() => {
     let touchStartY = 0
-    let lastTouchTime = 0
-    const onTouchStart = (e) => { touchStartY = e.touches[0].clientY }
+    const onTouchStart = (e) => { 
+      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
+      touchStartY = e.touches[0].clientY 
+    }
     const onTouchEnd = (e) => {
+      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
       const now = Date.now()
-      if (now - lastTouchTime < 900) return
+      if (now - lastInteractionTime.current < 1000) return
       const delta = touchStartY - e.changedTouches[0].clientY
       if (Math.abs(delta) < 50) return
-      lastTouchTime = now
+      lastInteractionTime.current = now
       if (delta > 0) goToSection(currentSection + 1)
       else goToSection(currentSection - 1)
     }
@@ -224,10 +243,10 @@ const ChefPage = () => {
         el.removeEventListener('touchend', onTouchEnd)
       }
     }
-  }, [currentSection, isTransitioning])
+  }, [currentSection, isMobile])
 
   useEffect(() => {
-    setNavTheme("yellow")
+    setNavTheme("green")
     document.body.classList.add("journey-page-active")
     return () => { document.body.classList.remove("journey-page-active") }
   }, [setNavTheme])
@@ -264,17 +283,17 @@ const ChefPage = () => {
         {/* ==========================================================================
           1. HERO SECTION (Advanced Centered Layout)
           ========================================================================== */}
-        <section className={`journey-hero-advanced${currentSection === 0 ? ' is-active' : ''}`}>
+        <section className={`journey-hero-advanced${isMobile || currentSection === 0 ? ' is-active' : ''}`}>
 
           {/* Massive Vertical Background Text */}
           <motion.div className="hero-bg-vertical left"
             initial={{ opacity: 0, y: -20 }}
-            animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            animate={isMobile || currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
             transition={{ duration: 1, delay: 0.1 }}
           >ANANDO</motion.div>
           <motion.div className="hero-bg-vertical right"
             initial={{ opacity: 0, y: -20 }}
-            animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            animate={isMobile || currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
             transition={{ duration: 1, delay: 0.15 }}
           >LEGACY</motion.div>
           <div className="hero-center-wrapper">
@@ -282,7 +301,7 @@ const ChefPage = () => {
             <motion.div
               className="hero-top-pill"
               initial={{ opacity: 0, y: -20 }}
-              animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+              animate={isMobile || currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               <div className="pill-item active">EST. 1970</div>
@@ -294,7 +313,7 @@ const ChefPage = () => {
             <motion.div
               className="hero-center-image-frame"
               initial={{ opacity: 0, scale: 0.93 }}
-              animate={currentSection === 0 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.93 }}
+              animate={isMobile || currentSection === 0 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.93 }}
               transition={{ duration: 0.9, delay: 0.2 }}
             >
               <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop" alt="Master Kitchen" />
@@ -305,7 +324,7 @@ const ChefPage = () => {
             <motion.div
               className="hero-dark-info-card"
               initial={{ opacity: 0, x: 40, y: 20 }}
-              animate={currentSection === 0 ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 40, y: 20 }}
+              animate={isMobile || currentSection === 0 ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 40, y: 20 }}
               transition={{ duration: 0.8, delay: 0.45 }}
             >
               <div className="dic-label">
@@ -341,10 +360,10 @@ const ChefPage = () => {
         {/* ==========================================================================
           2. OUR STORY SECTION (Interactive Accordion Timeline)
           ========================================================================== */}
-        <section className={`journey-story-accordion${currentSection === 1 ? ' is-active' : ''}`} id="story-section">
+        <section className={`journey-story-accordion${isMobile || currentSection === 1 ? ' is-active' : ''}`} id="story-section">
           <motion.div className="accordion-header center"
             initial={{ opacity: 0, y: -25 }}
-            animate={currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+            animate={isMobile || currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             <div className="dic-label justify-center flex items-center">
@@ -362,7 +381,7 @@ const ChefPage = () => {
                 className={`accordion-panel ${activeAccordion === idx ? 'active' : ''}`}
                 key={idx}
                 initial={{ opacity: 0, y: 50 }}
-                animate={currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                animate={isMobile || currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 0.7, delay: 0.25 + idx * 0.12 }}
                 onMouseEnter={() => setActiveAccordion(idx)}
                 onClick={() => setActiveAccordion(idx)}
@@ -399,7 +418,7 @@ const ChefPage = () => {
         {/* ==========================================================================
           3. CHEF PHILOSOPHY SECTION (Advanced Split Layout)
           ========================================================================== */}
-        <section className={`journey-philosophy-advanced${currentSection === 2 ? ' is-active' : ''}`} id="philosophy-section">
+        <section className={`journey-philosophy-advanced${isMobile || currentSection === 2 ? ' is-active' : ''}`} id="philosophy-section">
           {/* Massive Background Text */}
           <div className="phil-bg-text">PHILOSOPHY</div>
 
@@ -409,7 +428,7 @@ const ChefPage = () => {
             <div className="phil-header-split">
               <motion.div className="phil-header-left"
                 initial={{ opacity: 0, x: -40 }}
-                animate={currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                animate={isMobile || currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <div className="dic-label flex items-center">
@@ -422,7 +441,7 @@ const ChefPage = () => {
               </motion.div>
               <motion.div className="phil-header-right"
                 initial={{ opacity: 0, x: 40 }}
-                animate={currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+                animate={isMobile || currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
                 transition={{ duration: 0.8, delay: 0.35 }}
               >
                 <div className="phil-quote-line"></div>
@@ -439,7 +458,7 @@ const ChefPage = () => {
                   className="phil-card-advanced glass-panel"
                   key={card.id}
                   initial={{ opacity: 0, y: 35 }}
-                  animate={currentSection === 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+                  animate={isMobile || currentSection === 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
                   transition={{ duration: 0.7, delay: 0.45 + idx * 0.12 }}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
                 >
@@ -461,10 +480,10 @@ const ChefPage = () => {
         {/* ==========================================================================
           4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
           ========================================================================== */}
-        <section className={`journey-signature${currentSection === 3 ? ' is-active' : ''}`} id="signature-section">
+        <section className={`journey-signature${isMobile || currentSection === 3 ? ' is-active' : ''}`} id="signature-section">
           <motion.div className="accordion-header center" style={{ marginBottom: '1rem' }}
             initial={{ opacity: 0, y: -25 }}
-            animate={currentSection === 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+            animate={isMobile || currentSection === 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             <div className="dic-label justify-center flex items-center">
@@ -480,7 +499,7 @@ const ChefPage = () => {
             {/* Left: Chef Selector */}
             <motion.div className="ims-left"
               initial={{ opacity: 0, x: -40 }}
-              animate={currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+              animate={isMobile || currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
               transition={{ duration: 0.8, delay: 0.35 }}
             >
               <div className="ims-chef-list">
@@ -506,7 +525,7 @@ const ChefPage = () => {
             {/* Right: Live Chef & Dish Preview */}
             <motion.div className="ims-right"
               initial={{ opacity: 0, x: 40 }}
-              animate={currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              animate={isMobile || currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <AnimatePresence mode="wait">
@@ -577,26 +596,30 @@ const ChefPage = () => {
         {/* ==========================================================================
           5. THE EXPERIENCE SECTION (Light Theme)
           ========================================================================== */}
-        <section className={`journey-experience${currentSection === 4 ? ' is-active' : ''}`} id="experience-section">
+        <section className={`journey-experience${isMobile || currentSection === 4 ? ' is-active' : ''}`} id="experience-section">
           <div className="experience-content">
-            <motion.div className="section-header center"
+            <motion.div className="accordion-header center" style={{ marginBottom: '3rem' }}
               initial={{ opacity: 0, y: -25 }}
-              animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+              animate={isMobile || currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
               transition={{ duration: 0.7, delay: 0.15 }}
             >
-              <div className="sec-label">✦ THE EXPERIENCE</div>
-              <h2>A place where comfort, flavor, and togetherness meet.</h2>
+              <div className="dic-label justify-center flex items-center">
+                <Star size={12} className="inline-block mr-2 mb-[2px]" />
+                THE EXPERIENCE
+              </div>
+              <h2 className="accordion-hero-title" style={{ color: 'var(--text-primary)' }}>
+                A place where comfort, flavor, and <br /><span>togetherness meet.</span>
+              </h2>
             </motion.div>
 
             <div className="experience-grid">
               {experienceCards.map((card, idx) => (
                 <motion.div
-                  className="exp-card glass-panel"
+                  className="exp-card"
                   key={idx}
                   initial={{ opacity: 0, y: 35 }}
-                  animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+                  animate={isMobile || currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
                   transition={{ duration: 0.7, delay: 0.3 + idx * 0.12 }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
                 >
                   <div className="exp-img-wrapper">
                     <img src={card.img} alt={card.title} />
@@ -605,7 +628,6 @@ const ChefPage = () => {
                     <h3>{card.title}</h3>
                     <p>{card.desc}</p>
                   </div>
-                  <div className="exp-card-border"></div>
                 </motion.div>
               ))}
             </div>
@@ -613,11 +635,14 @@ const ChefPage = () => {
             <motion.div
               className="experience-cta"
               initial={{ opacity: 0, y: 20 }}
-              animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={isMobile || currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.7, delay: 0.85 }}
             >
               <p>Join us to create your own memories at Anando Foods.</p>
-              <button className="primary-btn gold-btn">
+              <button 
+                className="primary-btn gold-btn"
+                onClick={() => navigate('/reservation')}
+              >
                 Reserve a Table <ArrowRight size={16} />
               </button>
             </motion.div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, X, Grid } from "lucide-react"
 import "../styles/pages/Gallery.css"
+import { useNav } from "../utils/NavContext"
 
 // Import assets for categories
 import dining from "../assets/dining.jpg"
@@ -113,6 +114,14 @@ const Gallery = () => {
   const [inMasonry, setInMasonry] = useState(false)
   const [activeSubGallery, setActiveSubGallery] = useState(null)
   const isAnimating = useRef(false)
+  
+  const { setNavTheme } = useNav()
+
+  // Enforce green theme for the navbar on this specific page
+  useEffect(() => {
+    setNavTheme("green")
+    return () => setNavTheme("light")
+  }, [setNavTheme])
   const touchStartY = useRef(0)
 
   const moreMoments = [
