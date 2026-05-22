@@ -33,6 +33,10 @@ const Navbar = () => {
           <div className="nav-logo-wrapper">
             <Link
               to="/"
+              onClick={() => {
+                setMobileOpen(false);
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}
               className={`nav-logo nav-logo-${navTheme}`}
             >
               anandofoods

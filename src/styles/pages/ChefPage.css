@@ -1,3667 +1,1141 @@
 /* ==========================================================================
-   🌿 AWWWARDS-STYLE EDITORIAL DESIGN SYSTEM: CHEF PORTFOLIO
+   JOURNEY PAGE (CHEF PAGE) - AWWWARDS STORYTELLING STYLE
    ========================================================================== */
 
-/* ── CRITICAL OVERRIDES FOR SMOOTH SCROLL & SNAP DEACTIVATION ── */
-.chef-portfolio section {
-  min-height: unset !important;
-  height: auto !important;
-  overflow: visible !important;
-  scroll-snap-align: none !important;
+html.journey-page-active {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
-/* ── GLOBAL CONTAINER & STYLING DEFINITIONS ── */
-.chef-portfolio {
-  background-color: var(--bg);
-  color: var(--text);
+.journey-portfolio {
+  --bg-primary: var(--bg);
+  --text-primary: var(--text);
+  --accent: var(--accent);
+  --accent-dark: #b8962e;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  position: relative;
-  width: 100%;
-  padding-bottom: 0;
-  padding-top: 80px; /* Offset for sticky Navbar */
+  width: 100vw;
 }
 
-/* ── BASE REUSABLE STYLES ── */
-.italic-accent {
-  font-family: var(--font-serif);
-  font-style: italic;
+/* Generic Section Typography */
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.section-header.center {
+  text-align: center;
+}
+
+.sec-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
   color: var(--accent);
-  font-weight: 400;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
-.eyebrow-accent {
+.section-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Buttons */
+.primary-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.eyebrow-accent svg {
-  color: var(--accent);
-  animation: pulse-glow 2s infinite ease-in-out;
-}
-
-/* ── STUNNING HOVER BUTTONS ── */
-.btn-luxury-primary {
-  position: relative;
-  background: var(--text);
-  border: 1px solid var(--text);
-  color: var(--bg);
-  padding: 1.25rem 2.5rem;
-  border-radius: 100px;
-  font-weight: 600;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background-color: var(--text-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
   font-size: 0.9rem;
   letter-spacing: 0.05em;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  overflow: hidden;
-  transition: var(--transition-smooth);
-  z-index: 1;
+  transition: all 0.3s ease;
 }
 
-.btn-luxury-primary::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--accent);
-  transform: translateY(100%);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: -1;
+.primary-btn:hover {
+  background-color: var(--accent);
+  color: #fff;
 }
 
-.btn-luxury-primary:hover {
-  color: var(--text);
-  border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(224, 169, 75, 0.2);
+.primary-btn.gold-btn {
+  background-color: var(--accent);
 }
 
-.btn-luxury-primary:hover::before {
-  transform: translateY(0);
-}
-
-.btn-luxury-primary svg {
-  transition: transform 0.4s ease;
-}
-
-.btn-luxury-primary:hover svg {
-  transform: translate(3px, -3px);
+.primary-btn.gold-btn:hover {
+  background-color: var(--accent-dark);
 }
 
 /* ==========================================================================
-   SECTION 1: HERO - THE ALCHEMIST
-   ========================================================================== */
-/* ==========================================================================
-   SECTION 1: HERO - THE CULINARY ALCHEMIST (Inspired by root-food.com)
-   ========================================================================== */
-.portfolio-hero {
+     1. HERO SECTION (Advanced Centered Layout)
+     ========================================================================== */
+.journey-hero-advanced {
   position: relative;
-  height: 100vh !important;
-  min-height: 700px !important;
   width: 100vw;
-  overflow: hidden;
+  height: 100vh;
+  min-height: 800px;
+  background-color: #f0f7f7;
+  /* Very light, elegant teal/mint tint */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg);
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Giant background typography vertical-layered */
-.hero-giant-word-wrapper {
-  position: absolute;
-  pointer-events: none;
-  user-select: none;
-  z-index: 1;
-  white-space: nowrap;
-}
-
-.hero-giant-word-wrapper.left-wrap {
-  left: 2vw;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  transform-origin: center center;
-}
-
-.hero-giant-word-wrapper.right-wrap {
-  right: 2vw;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-  transform-origin: center center;
-}
-
-.hero-giant-word {
-  font-family: var(--font-serif);
-  font-size: clamp(8rem, 16vh, 22vh);
-  font-weight: 900;
-  text-transform: uppercase;
-  color: rgba(15, 92, 92, 0.05); /* Soft, low-opacity luxury tint */
-  letter-spacing: -0.02em;
-  display: flex;
-  gap: 0.08em;
-}
-
-.char-overflow-wrapper {
-  display: inline-block;
   overflow: hidden;
-  line-height: 0.9;
-  vertical-align: bottom;
+  padding: 80px 5vw 0;
+  /* offset navbar */
 }
 
-.hero-center-container {
+/* Massive Vertical Background Text */
+.hero-bg-vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-serif);
+  font-size: clamp(60px, 13vh, 160px);
+  /* Scales with screen height! */
+  font-weight: 300;
+  color: rgba(35, 93, 86, 0.08);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  line-height: 1;
+  letter-spacing: -0.15em;
+  /* Tighter vertical spacing */
+  pointer-events: none;
+  z-index: 0;
+  text-transform: uppercase;
+}
+
+.hero-bg-vertical.left {
+  left: 12%;
+}
+
+.hero-bg-vertical.right {
+  right: 3%;
+}
+
+.hero-center-wrapper {
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
-
-/* Floating portrait wrapper in the center (Handles parallax boundaries, allowing overflow) */
-.hero-portrait-wrapper {
-  position: relative;
-  width: 32vw;
-  max-width: 440px;
-  min-width: 290px;
-  height: 72vh;
-  z-index: 2;
-  overflow: visible; /* Outlines float outside freely! */
-}
-
-/* Central portrait frame (clipped with overflow-hidden for curtain reveal & image scaling) */
-.hero-portrait-frame {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 35px 90px rgba(10, 10, 10, 0.25);
-  background: #111;
-  z-index: 2;
-}
-
-.hero-center-chef-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.05);
-  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.hero-portrait-wrapper:hover .hero-center-chef-img {
-  transform: scale(1.1);
-}
-
-.hero-portrait-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 10, 0.85) 0%,
-    rgba(10, 10, 10, 0.5) 45%,
-    rgba(10, 10, 10, 0) 100%
-  );
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* Golden luxury outline frameworks */
-.hero-frame-outline {
-  position: absolute;
-  inset: -12px;
-  border: 1px solid var(--accent);
-  opacity: 0.25;
-  border-radius: 12px;
-  pointer-events: none;
-  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: 1; /* Renders behind the portrait frame */
-}
-
-.hero-frame-outline-inner {
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-  pointer-events: none;
-  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: 4; /* Renders in front of image inside the portrait frame */
-}
-
-.hero-portrait-wrapper:hover .hero-frame-outline {
-  inset: -6px;
-  opacity: 0.45;
-  border-color: var(--accent);
-}
-
-.hero-portrait-wrapper:hover .hero-frame-outline-inner {
-  inset: 18px;
-  border-color: var(--accent);
-}
-
-/* Floating Content overlaying the center portrait at the bottom */
-/* Floating Content overlaying the center portrait at the bottom - Styled as a gorgeous high-contrast luxury card */
-.hero-overlay-content {
-  position: absolute;
-  bottom: 5vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  max-width: 580px;
-  z-index: 10;
-  text-align: center;
-  background: rgba(15, 92, 92, 0.85); /* Deep luxury Forest Teal */
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(224, 169, 75, 0.35); /* Subtle gold border border-highlight */
-  border-radius: 20px;
-  padding: 2.2rem 2.4rem 2rem;
-  box-shadow: 0 30px 70px rgba(10, 30, 30, 0.35);
-  color: #ffffff;
-}
-
-.hero-overlay-content .eyebrow-accent {
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 0.6rem;
-}
-
-.hero-editorial-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.05;
-  text-transform: uppercase;
-  margin: 0.2rem 0 1rem;
-  letter-spacing: -0.01em;
-  font-weight: 400;
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.hero-editorial-title .italic-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--accent);
-}
-
-.hero-editorial-subtext {
-  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
-  line-height: 1.55;
-  opacity: 0.85;
-  max-width: 480px;
-  margin: 0 auto 1.8rem;
-  font-weight: 300;
-  text-shadow: none;
-}
-
-.hero-stamp-and-badges {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.hero-badge-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(224, 169, 75, 0.25);
-  color: #ffffff;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition: all 0.4s ease;
-}
-
-.hero-badge-item svg {
-  color: var(--accent);
-}
-
-.hero-badge-item:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.hero-buttons-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.8rem;
-  flex-wrap: wrap;
-}
-
-/* Warm gold high-contrast button */
-.btn-hero-luxury-primary {
-  position: relative;
-  background: #e0a94b;
-  border: 1px solid #e0a94b;
-  color: #0f5c5c;
-  padding: 1rem 2.2rem;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.88rem;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  overflow: hidden;
-  transition: var(--transition-smooth);
-  z-index: 1;
-}
-
-.btn-hero-luxury-primary::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  transform: translateY(100%);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: -1;
-}
-
-.btn-hero-luxury-primary:hover {
-  color: #0f5c5c;
-  border-color: #ffffff;
-  box-shadow: 0 10px 30px rgba(224, 169, 75, 0.35);
-}
-
-.btn-hero-luxury-primary:hover::before {
-  transform: translateY(0);
-}
-
-.btn-hero-luxury-primary svg {
-  transition: transform 0.4s ease;
-}
-
-.btn-hero-luxury-primary:hover svg {
-  transform: translate(3px, -3px);
-}
-
-.hero-social-links-wrap {
-  display: flex;
-  gap: 10px;
-}
-
-.hero-circle-social {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.hero-circle-social:hover {
-  background: #ffffff;
-  color: #0f5c5c;
-  border-color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
-}
-
-/* ── LUXURY FLOATING CHEF SELECTOR BAR ── */
-.chef-selector-bar {
-  display: flex;
-  gap: 12px;
-  padding: 6px 8px;
-  background: rgba(15, 92, 92, 0.45); /* Forest Teal Glassmorphism */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(224, 169, 75, 0.28); /* Subtle Kashmiri Gold accent */
-  border-radius: 100px;
-  position: absolute;
-  top: 100px; /* Sit perfectly below navigation overlay */
-  z-index: 100;
-  box-shadow: 0 20px 45px rgba(10, 30, 30, 0.3);
-  max-width: 90%;
-}
-
-.chef-selector-btn {
-  background: transparent;
-  border: 1px solid transparent;
-  padding: 8px 20px;
-  border-radius: 100px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  color: rgba(255, 255, 255, 0.7);
-  text-align: center;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.chef-selector-role {
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0.65;
-  transition:
-    opacity 0.4s ease,
-    color 0.4s ease;
-}
-
-.chef-selector-name {
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  margin-top: 1px;
-  transition: color 0.4s ease;
-}
-
-/* Hover State */
-.chef-selector-btn:hover:not(.active) {
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.chef-selector-btn:hover:not(.active) .chef-selector-role {
-  opacity: 0.95;
-}
-
-/* Active State - Kashmiri Gold Theme */
-.chef-selector-btn.active {
-  background: rgba(224, 169, 75, 0.16);
-  border-color: rgba(224, 169, 75, 0.6);
-  box-shadow: inset 0 0 10px rgba(224, 169, 75, 0.15);
-  color: #e0a94b;
-}
-
-.chef-selector-btn.active .chef-selector-role {
-  color: #e0a94b;
-  opacity: 1;
-}
-
-.chef-selector-btn.active .chef-selector-name {
-  color: #ffffff;
-}
-
-/* Micro spinning star keyframes */
-.rotating-star {
-  animation: rotation-spin 8s infinite linear;
-}
-
-@keyframes rotation-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE DESIGN FOR CHEF HERO
-   ========================================================================== */
-
-/* Shorter Wide Viewports like 1195x585 */
-@media (max-height: 650px) and (min-width: 901px) {
-  .portfolio-hero {
-    height: 100vh !important;
-    min-height: 520px !important;
-  }
-
-  .hero-center-container {
-    height: 94vh;
-  }
-
-  .hero-portrait-wrapper {
-    width: 25vw;
-    height: 60vh;
-    min-width: 230px;
-  }
-
-  .hero-giant-word {
-    font-size: 15vh;
-  }
-
-  .hero-overlay-content {
-    bottom: 5vh;
-  }
-
-  .hero-editorial-title {
-    font-size: 2.2rem;
-    margin: 0.2rem 0 0.8rem;
-  }
-
-  .hero-editorial-subtext {
-    font-size: 0.88rem;
-    margin-bottom: 1.5rem;
-    max-width: 480px;
-  }
-
-  .hero-stamp-and-badges {
-    margin-bottom: 1.5rem;
-    gap: 1rem;
-  }
-
-  .hero-badge-item {
-    padding: 6px 14px;
-    font-size: 0.7rem;
-  }
-}
-
-/* Tablet viewports */
-@media (max-width: 900px) {
-  .chef-selector-bar {
-    position: relative;
-    top: 0;
-    margin: 0 auto 1.5rem;
-    max-width: 100%;
-    width: max-content;
-  }
-
-  .portfolio-hero {
-    height: auto !important;
-    min-height: 100vh !important;
-    padding: 6rem 2rem 3rem;
-  }
-
-  .hero-center-container {
-    flex-direction: column;
-    height: auto;
-    gap: 2rem;
-    padding: 0;
-  }
-
-  .hero-giant-word {
-    display: none; /* Hide background text on smaller viewports */
-  }
-
-  .hero-portrait-wrapper {
-    width: 60vw;
-    height: 50vh;
-    min-width: 260px;
-  }
-
-  .hero-overlay-content {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 1.5rem;
-    padding: 1.8rem 1.6rem 1.6rem;
-  }
-}
-
-/* Mobile viewports */
-@media (max-width: 480px) {
-  .chef-selector-bar {
-    max-width: 95vw;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 6px 12px;
-    border-radius: 20px;
-    gap: 8px;
-  }
-
-  .chef-selector-bar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .chef-selector-btn {
-    padding: 6px 14px;
-  }
-
-  .chef-selector-role {
-    font-size: 0.6rem;
-  }
-
-  .chef-selector-name {
-    font-size: 0.78rem;
-  }
-
-  .portfolio-hero {
-    padding: 4rem 1.5rem 2.2rem;
-  }
-
-  .hero-portrait-wrapper {
-    width: 80vw;
-    height: 40vh;
-  }
-
-  .hero-overlay-content {
-    padding: 1.4rem 1.2rem 1.1rem;
-  }
-
-  .hero-editorial-title {
-    font-size: 2rem;
-  }
-
-  .hero-editorial-subtext {
-    font-size: 0.85rem;
-  }
-
-  .hero-stamp-and-badges {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .hero-badge-item {
-    width: 100%;
-    max-width: 240px;
-    justify-content: center;
-  }
-
-  .hero-buttons-row {
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .hero-social-links-wrap {
-    justify-content: center;
-  }
-}
-
-/* ==========================================================================
-   SECTION 2: PHILOSOPHY - SYMPHONY OF FLAVORS
-   ========================================================================== */
-.portfolio-philosophy {
-  position: relative;
-  padding: calc(var(--section-padding) * 1.35) var(--container-px);
-  background: linear-gradient(to bottom, #fcfbf9 0%, #f5efeb 100%);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
-  overflow: hidden;
-}
-
-.philosophy-watermark {
-  position: absolute;
-  left: -3vw;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  font-family: var(--font-serif);
-  font-size: clamp(6rem, 13vw, 11rem);
-  font-weight: 900;
-  text-transform: uppercase;
-  color: rgba(15, 92, 92, 0.02);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  letter-spacing: 0.15em;
-  z-index: 0;
-}
-
-.philosophy-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: clamp(3rem, 6vw, 7rem);
-  align-items: start; /* critical for sticky */
-  position: relative;
-  z-index: 2;
-}
-
-.philosophy-visual-block {
-  position: sticky;
-  top: 140px; /* Offset for header spacing */
-  height: calc(100vh - 200px);
-  min-height: 480px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
-/* New rotating floating gold ring */
-.philosophy-floating-circle {
-  position: absolute;
-  width: 82%;
-  height: 84%;
-  border: 1px dashed rgba(224, 169, 75, 0.28);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  transition: border-color 0.4s ease;
-}
-
-.philosophy-visual-block:hover .philosophy-floating-circle {
-  border-color: rgba(224, 169, 75, 0.55);
-  border-style: solid;
-}
-
-/* Gold floating backdrop frame */
-.philosophy-accent-frame {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  width: 78%;
   height: 80%;
-  border: 1.5px solid var(--accent);
-  opacity: 0.22;
-  border-radius: 24px;
-  pointer-events: none;
-  z-index: 0;
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.philosophy-visual-block:hover .philosophy-accent-frame {
-  opacity: 0.45;
-  transform: scale(1.02);
-  border-color: var(--accent);
-}
-
-.overlapping-frame-large {
-  width: 78%;
-  height: 80%;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 35px 80px rgba(15, 92, 92, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.95);
-  z-index: 1;
-  transition: box-shadow 0.6s ease;
-}
-
-.philosophy-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.08);
-  transition: transform 0.4s ease-out;
-}
-
-.overlapping-frame-small {
-  position: absolute;
-  width: 46%;
-  aspect-ratio: 0.82;
-  bottom: 4%;
-  right: 4%;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 40px 85px rgba(10, 30, 30, 0.25);
-  border: 5px solid var(--bg);
-  z-index: 2;
-  transition:
-    border-color 0.5s ease,
-    box-shadow 0.6s ease;
-}
-
-.philosophy-detail-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.05);
-  transition: transform 0.4s ease-out;
-}
-
-.philosophy-visual-block:hover .philosophy-bg-img {
-  transform: scale(1.12);
-}
-
-.philosophy-visual-block:hover .philosophy-detail-img {
-  transform: scale(1.15) rotate(1deg);
-}
-
-.philosophy-content-block {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
-}
-
-.philosophy-title {
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
-  line-height: 1.05;
-  font-family: var(--font-serif);
-  color: var(--text);
-  margin-bottom: 1.5rem; /* Tighter margins with the new divider line */
-}
-
-.title-line-wrapper {
-  overflow: hidden;
-  display: block;
-  line-height: 1.2;
-}
-
-.philosophy-divider {
-  width: 140px;
-  height: 2px;
-  background: linear-gradient(90deg, #e0a94b 0%, rgba(224, 169, 75, 0) 100%);
-  margin-bottom: 2.5rem;
-  transform-origin: left center;
-}
-
-.philosophy-pullquote {
-  position: relative;
-  padding: 1.5rem 0 1.5rem 2.8rem;
-  border-left: 2px solid var(--accent);
-  margin-bottom: 3.5rem;
-}
-
-.quote-author {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  text-transform: uppercase;
-  margin-top: 1rem;
-  font-family: var(--font-sans);
-}
-
-.philosophy-pullquote .quote-mark {
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  color: var(--accent);
-  opacity: 0.15;
-  width: 48px;
-  height: 48px;
-  pointer-events: none;
-}
-
-.philosophy-pullquote p {
-  font-family: var(--font-serif);
-  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
-  line-height: 1.75;
-  color: var(--text);
-  font-style: italic;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-}
-
-.philosophy-pillars-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-}
-
-.philosophy-pillar-card {
-  display: flex;
-  position: relative;
-  gap: 20px;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid rgba(224, 169, 75, 0.18);
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  overflow: hidden;
-  box-shadow: 0 12px 35px rgba(15, 92, 92, 0.02);
-}
-
-.philosophy-pillar-card::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.philosophy-pillar-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  background: var(--text);
-  border-color: var(--accent);
-  box-shadow: 0 25px 55px rgba(15, 92, 92, 0.18);
-}
-
-.philosophy-pillar-card:hover::before {
-  transform: scaleX(1);
-}
-
-.pillar-number {
-  position: absolute;
-  right: 2rem;
-  top: 1.6rem;
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.14;
-  letter-spacing: -0.01em;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-.philosophy-pillar-card:hover .pillar-number {
-  opacity: 0.85;
-  transform: scale(1.12) translateY(-2px);
-}
-
-.pillar-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(224, 169, 75, 0.1);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  z-index: 1;
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.philosophy-pillar-card:hover .pillar-icon-box {
-  background: var(--accent);
-  color: var(--text);
-  transform: rotate(360deg);
-}
-
-.pillar-icon-box svg {
-  width: 20px;
-  height: 20px;
-}
-
-.pillar-info {
-  z-index: 1;
-}
-
-.pillar-info h3 {
-  font-size: 1.25rem;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.4rem;
-  transition: color 0.4s ease;
-}
-
-.philosophy-pillar-card:hover .pillar-info h3 {
-  color: #ffffff;
-}
-
-.pillar-info p {
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: var(--muted);
-  transition: color 0.4s ease;
-}
-
-.philosophy-pillar-card:hover .pillar-info p {
-  color: rgba(255, 255, 255, 0.78);
-}
-
-/* ==========================================================================
-   SECTION 3: INTERACTIVE SHOWCASE - SIGNATURE MASTERPIECES
-   ========================================================================== */
-.portfolio-showcase {
-  padding: var(--section-padding) var(--container-px);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
-  background-color: var(--bg);
-}
-
-.section-title-wrapper {
-  max-width: 800px;
-  margin: 0 auto 4rem auto;
-}
-
-.center-eyebrow {
-  justify-content: center;
-  display: flex;
-}
-
-.showcase-title {
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  font-family: var(--font-serif);
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-}
-
-.showcase-lead {
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.text-center {
-  text-align: center;
-}
-
-/* Showcase Grid Layout */
-.interactive-showcase-grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: clamp(2rem, 4vw, 5rem);
-  align-items: start;
-}
-
-/* Left panel: Vertical selector rows */
-.showcase-selector-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-.selector-list-header {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(15, 92, 92, 0.1);
-  margin-bottom: 1.5rem;
-}
-
-.selector-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.selector-row-item {
-  width: 100%;
-  background: white;
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  text-align: left;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  overflow: hidden;
-  z-index: 1;
-}
-
-/* Kinetic Border around active row */
-.selector-row-item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  padding: 1.5px;
-  background: linear-gradient(90deg, #e0a94b, #0f5c5c, #e0a94b, #0f5c5c);
-  background-size: 300% 100%;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Micro-interaction glare swipe */
-.selector-row-item::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-  transform: skewX(-25deg);
-  transition: none;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.selector-row-item .row-number {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-  margin-right: 1.5rem;
-  opacity: 0.8;
-  transition: all 0.4s ease;
-}
-
-.selector-row-item .row-title {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: var(--text);
-  flex-grow: 1;
-  transition: all 0.4s ease;
-}
-
-.selector-row-item .row-arrow {
-  color: var(--accent);
-  transform: translateX(-10px);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Hover & Active Selector Row classes */
-.selector-row-item:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 12px 25px rgba(15, 92, 92, 0.04);
-  border-color: rgba(15, 92, 92, 0.18);
-}
-
-.selector-row-item:hover::after {
-  left: 150%;
-  transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.selector-row-item:hover .row-arrow {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.selector-row-item.active-row {
-  background: var(--text);
-  border-color: transparent;
-  box-shadow:
-    0 20px 40px rgba(15, 92, 92, 0.15),
-    0 0 25px rgba(224, 169, 75, 0.08);
-}
-
-.selector-row-item.active-row::before {
-  opacity: 1;
-  animation: border-gradient-shift 4s infinite linear;
-}
-
-.selector-row-item.active-row .row-title {
-  color: var(--bg);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-.selector-row-item.active-row .row-number {
-  color: var(--accent);
-  transform: scale(1.1);
-}
-
-.selector-row-item.active-row .row-arrow {
-  color: var(--accent);
-  transform: translateX(0);
-  opacity: 1;
-}
-
-@keyframes border-gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Right panel: Showcase Presentation Cards */
-.showcase-presentation-panel {
-  background: white;
-  border-radius: 20px;
-  border: 1px solid rgba(15, 92, 92, 0.08);
-  padding: clamp(2rem, 3.5vw, 4rem);
-  box-shadow: 0 30px 70px rgba(15, 92, 92, 0.06);
-}
-
-.presentation-layout {
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: clamp(2rem, 3.5vw, 4rem);
-  align-items: center;
-}
-
-/* Presentation Image */
-.presentation-visual-frame {
-  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
-.visual-outer-card {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 0.85;
-  border-radius: 16px;
-  overflow: visible !important; /* Extremely critical: allows spinning seal and elements to overflow outer border cleanly */
-  box-shadow: 0 30px 65px rgba(15, 92, 92, 0.15);
-  border: 1px solid rgba(15, 92, 92, 0.05);
-}
-
-.clip-reveal-overlay {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 16px;
-  display: block;
-}
-
-.presentation-dish-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.visual-outer-card:hover .presentation-dish-img {
-  transform: scale(1.06);
-}
-
-/* Custom Spinning Luxury Badge Seal (Awwwards design) */
-.luxury-spinning-seal {
+/* Top Pill Nav/Badge */
+.hero-top-pill {
   position: absolute;
-  top: -38px;
-  left: -38px;
-  width: 95px;
-  height: 95px;
+  top: -25px;
   z-index: 20;
-  pointer-events: none;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.luxury-spinning-seal svg {
-  width: 100%;
-  height: 100%;
-  animation: rotation-spin 18s infinite linear;
-}
-
-.luxury-spinning-seal text {
-  font-family: var(--font-sans);
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  fill: #e0a94b !important;
-  animation: gold-shimmer-text 4s infinite alternate ease-in-out;
-}
-
-.luxury-spinning-seal .seal-star {
-  position: absolute;
-  font-size: 14px;
-  color: #e0a94b;
-  text-shadow: 0 0 10px rgba(224, 169, 75, 0.9);
-  animation: pulse-glow-star 2.2s infinite ease-in-out;
-}
-
-@keyframes gold-shimmer-text {
-  0% {
-    fill: #e0a94b;
-    filter: drop-shadow(0 0 1px rgba(224, 169, 75, 0.4));
-  }
-  100% {
-    fill: #fff2d5;
-    filter: drop-shadow(0 0 8px rgba(224, 169, 75, 0.85));
-  }
-}
-
-@keyframes pulse-glow-star {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.3) rotate(180deg);
-    opacity: 1;
-    color: #ffffff;
-  }
-}
-
-.dish-stamp-tag {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(15, 92, 92, 0.85);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 7px 16px;
-  border-radius: 50px;
-  color: #e0a94b;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  border: 1px solid rgba(224, 169, 75, 0.35);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 100px;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Presentation Detail Column */
-.presentation-detail-card {
-  display: flex;
-  flex-direction: column;
-  animation: slide-up-fade 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.active-tag-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.signature-badge {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  background: rgba(224, 169, 75, 0.08);
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.dish-index-tag {
+.pill-item {
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
   font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-}
-
-.active-dish-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-  color: var(--text);
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
-}
-
-.active-dish-desc {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--muted);
-  margin-bottom: 2rem;
-}
-
-/* Sensory Flavor Metrics (Taste Bars) */
-.dish-taste-profile {
-  margin-bottom: 2.2rem;
-}
-
-.details-sub-heading {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text);
-  margin-bottom: 1.2rem;
-  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
-  padding-bottom: 6px;
-}
-
-.details-sub-heading svg {
-  color: var(--accent);
-}
-
-.taste-bars-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.taste-bar-row {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.taste-label-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--text);
+  letter-spacing: 0.1em;
+  color: rgba(35, 93, 86, 0.6);
+  text-transform: uppercase;
+  cursor: default;
 }
 
-.taste-bar-bg {
+.pill-item.active {
+  background: #eaa43b;
+  color: #fff;
+}
+
+/* Central Image Frame */
+.hero-center-image-frame {
+  position: relative;
   width: 100%;
-  height: 6px;
-  background: rgba(15, 92, 92, 0.06);
-  border-radius: 100px;
-  overflow: visible !important; /* Extremely critical: allows glowing bubble tip to overflow and breathe */
-  position: relative;
-}
-
-.taste-bar-fill {
+  max-width: 600px;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--text) 0%,
-    var(--accent) 50%,
-    var(--text) 100%
-  );
-  background-size: 200% 100%;
-  border-radius: 100px;
-  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-  position: relative;
-  animation: taste-bar-flow 3s infinite linear;
-}
-
-@keyframes taste-bar-flow {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: -200% 0%;
-  }
-}
-
-.taste-bar-fill::after {
-  content: "";
-  position: absolute;
-  right: -5px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow:
-    0 0 8px var(--accent),
-    0 0 18px var(--accent);
-  animation: pulse-glow-tip 1.6s infinite ease-in-out;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
   z-index: 5;
 }
 
-@keyframes pulse-glow-tip {
-  0%,
-  100% {
-    transform: translateY(-50%) scale(1);
-    box-shadow:
-      0 0 6px var(--accent),
-      0 0 12px var(--accent);
-  }
-  50% {
-    transform: translateY(-50%) scale(1.35);
-    box-shadow:
-      0 0 14px var(--accent),
-      0 0 24px var(--accent);
-  }
+.hero-center-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) brightness(0.9);
 }
 
-/* Key Botanical Ingredients */
-.dish-ingredients-row {
-  margin-bottom: 2.2rem;
+.hero-image-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 40%);
+  z-index: 1;
 }
 
-.ingredients-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+/* Dark Info Card (Overlapping bottom right) */
+.hero-dark-info-card {
+  position: absolute;
+  bottom: 5%;
+  right: -5%;
+  width: 480px;
+  background: rgba(35, 93, 86, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 3rem;
+  color: #fff;
+  z-index: 20;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
-.ing-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(15, 92, 92, 0.03);
-  border: 1px solid rgba(15, 92, 92, 0.1);
-  padding: 6px 12px;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text);
-  transition: var(--transition-fast);
+.dic-label {
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: #eaa43b;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
-.ing-pill:hover {
-  background: rgba(224, 169, 75, 0.08);
-  border-color: var(--accent);
-  transform: translateY(-2px);
+.dic-title {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
 }
 
-.pill-star {
-  color: var(--accent);
-}
-
-/* Chef's Emotional Note Box */
-.dish-chef-quote {
-  display: flex;
-  gap: 14px;
-  background: rgba(224, 169, 75, 0.05);
-  border-left: 3px solid var(--accent);
-  padding: 1.25rem 1.5rem;
-  border-radius: 0 12px 12px 0;
-}
-
-.dish-chef-quote .heart-icon {
-  color: var(--accent);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.dish-chef-quote h5 {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
-}
-
-.dish-chef-quote p {
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: var(--muted);
+.dic-title span {
+  color: #eaa43b;
   font-style: italic;
 }
 
-/* ==========================================================================
-   SECTION 4: THE ATELIER TOOLKIT
-   ========================================================================== */
-.portfolio-toolkit {
-  padding: 8rem var(--container-px);
-  background:
-    radial-gradient(
-      ellipse 75% 55% at 15% 35%,
-      rgba(15, 92, 92, 0.055) 0%,
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 55% 70% at 88% 72%,
-      rgba(224, 169, 75, 0.045) 0%,
-      transparent 65%
-    ),
-    linear-gradient(180deg, #f7f9f8 0%, #ffffff 48%, #f6f8f7 100%);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
-  position: relative;
-  overflow: hidden;
+.dic-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2.5rem;
 }
 
-/* Giant editorial watermark */
-.portfolio-toolkit::before {
-  content: "ATELIER";
-  position: absolute;
-  bottom: -2rem;
-  right: 2rem;
-  font-family: var(--font-serif);
-  font-size: 16vw;
-  font-weight: 900;
-  color: rgba(15, 92, 92, 0.022);
-  letter-spacing: -0.05em;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-/* Radial dot-grid texture overlay */
-.portfolio-toolkit::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle,
-    rgba(15, 92, 92, 0.045) 1px,
-    transparent 1px
-  );
-  background-size: 34px 34px;
-  pointer-events: none;
-  z-index: 0;
-  mask-image: radial-gradient(
-    ellipse 90% 85% at 50% 50%,
-    black 20%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 90% 85% at 50% 50%,
-    black 20%,
-    transparent 100%
-  );
-}
-
-.toolkit-header {
-  margin-bottom: 5rem;
-  position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 1024px) {
-  .toolkit-header {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: flex-end;
-    max-width: 100%;
-  }
-}
-
-.toolkit-header-left {
+.dic-stats {
   display: flex;
-  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.toolkit-header-right {
-  display: flex;
-  align-items: flex-end;
-}
-
-.toolkit-lead {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--muted);
-  font-weight: 400;
-  max-width: 540px;
-  position: relative;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--accent);
-}
-
-.toolkit-title {
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  font-family: var(--font-serif);
-  color: var(--text);
-  line-height: 1.1;
-  margin-top: 0.5rem;
-}
-
-.toolkit-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.5rem, 3vw, 3rem);
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 991px) {
-  .toolkit-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .toolkit-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── GLASSMORPHIC TOOLKIT CARD ── */
-.toolkit-card {
-  padding: 3.5rem 2.8rem;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  box-shadow:
-    0 8px 28px rgba(15, 92, 92, 0.045),
-    0 1px 0 rgba(255, 255, 255, 0.85) inset,
-    0 -1px 0 rgba(15, 92, 92, 0.04) inset;
-  transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Inner top-left radial gold glow – reveals on hover */
-.toolkit-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(
-    ellipse at 0% 0%,
-    rgba(224, 169, 75, 0.1) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
-  border-radius: 24px 0 0 0;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-/* Animated floating gold star badge */
-.toolkit-card::before {
-  content: "✦";
-  position: absolute;
-  top: 2rem;
-  right: 2.5rem;
-  font-size: 1.35rem;
-  color: rgba(224, 169, 75, 0.32);
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 1;
-  animation: toolkit-star-drift 7s infinite ease-in-out;
-}
-
-@keyframes toolkit-star-drift {
-  0%,
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-  35% {
-    transform: rotate(18deg) scale(1.1);
-  }
-  70% {
-    transform: rotate(-12deg) scale(0.92);
-  }
-}
-
-.card-top-accent {
+.dic-stat-pill {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 1;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: #fff;
 }
 
-/* Pill-shaped index badge */
-.card-index {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-  background: rgba(224, 169, 75, 0.1);
-  border: 1px solid rgba(224, 169, 75, 0.28);
-  padding: 4px 10px;
-  border-radius: 50px;
-  flex-shrink: 0;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  white-space: nowrap;
-}
-
-.card-line {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(15, 92, 92, 0.12) 0%,
-    transparent 100%
-  );
-  flex-grow: 1;
-  transition: all 0.5s ease;
-}
-
-.toolkit-card .card-title {
-  font-size: 1.6rem;
-  font-family: var(--font-serif);
-  color: var(--text);
-  margin-bottom: 0.3em;
-  font-weight: 500;
-  position: relative;
-  z-index: 1;
-  transition: color 0.4s ease;
-}
-
-.toolkit-card .card-subtitle {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.toolkit-card .card-description {
-  font-size: 0.94rem;
-  line-height: 1.75;
-  color: var(--muted);
-  position: relative;
-  z-index: 1;
-  transition: color 0.4s ease;
-}
-
-/* ── HOVER STATE ── */
-.toolkit-card:hover {
-  transform: translateY(-14px);
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(224, 169, 75, 0.5);
-  box-shadow:
-    0 28px 60px rgba(15, 92, 92, 0.1),
-    0 0 0 1px rgba(224, 169, 75, 0.2),
-    0 1px 0 rgba(255, 255, 255, 1) inset;
-}
-
-/* Star: stop drift, snap to glow state */
-.toolkit-card:hover::before {
-  color: var(--accent);
-  transform: rotate(72deg) scale(1.5);
-  text-shadow:
-    0 0 12px rgba(224, 169, 75, 0.6),
-    0 0 28px rgba(224, 169, 75, 0.3);
-  animation: none;
-}
-
-/* Reveal inner radial glow */
-.toolkit-card:hover::after {
-  opacity: 1;
-}
-
-.toolkit-card:hover .card-index {
-  background: rgba(224, 169, 75, 0.18);
-  border-color: rgba(224, 169, 75, 0.55);
-  color: #c8922a;
-  transform: scale(1.06);
-}
-
-.toolkit-card:hover .card-line {
-  background: linear-gradient(
-    90deg,
-    var(--accent) 0%,
-    rgba(224, 169, 75, 0.1) 100%
-  );
-}
-
-/* ==========================================================================
-   SECTION 5: TIMELINE & ACCOLADES (STAGGERED CHRONICLES)
-   ========================================================================== */
-.portfolio-timeline {
-  padding: var(--section-padding) var(--container-px);
-  background: rgba(255, 255, 255, 0.25);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
-}
-
-.timeline-grid-layout {
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: clamp(3rem, 6vw, 6rem);
-}
-
-.timeline-left-intro {
-  position: relative;
-}
-
-.sticky-intro-content {
-  position: sticky;
-  top: 130px;
-}
-
-.timeline-section-title {
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  font-family: var(--font-serif);
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 1.8rem;
-}
-
-.timeline-lead {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  line-height: 1.7;
-  color: var(--muted);
-  margin-bottom: 3.5rem;
-  max-width: 520px;
-}
-
-/* Awards sidebar */
-.timeline-awards-block h3 {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid rgba(15, 92, 92, 0.1);
-  padding-bottom: 8px;
-}
-
-.awards-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.award-item {
+.dic-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: white;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  transition: var(--transition-fast);
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
 }
 
-.award-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(15, 92, 92, 0.03);
-  border-color: rgba(224, 169, 75, 0.2);
-}
-
-.award-star-icon {
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.award-info {
+.dic-primary-btn {
   display: flex;
-  flex-direction: column;
-}
-
-.award-title-text {
+  align-items: center;
+  gap: 0.75rem;
+  background: #eaa43b;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 100px;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.award-source {
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-top: 2px;
+.dic-primary-btn:hover {
+  background: #d4af37;
+  transform: translateY(-2px);
 }
 
-/* Right-side timeline milestones track */
-.timeline-right-scrollable {
+.dic-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dic-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dic-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #eaa43b;
+  color: #eaa43b;
+}
+
+/* ==========================================================================
+     2. OUR STORY (INTERACTIVE ACCORDION TIMELINE)
+     ========================================================================== */
+.journey-story-accordion {
   position: relative;
-  padding-left: 2.5rem;
+  background-color: var(--bg-primary);
+  height: 100vh;
+  width: 100vw;
+  padding: 100px 2vw 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  overflow: hidden;
 }
 
-.vertical-timeline-track {
+.accordion-header {
+  margin-bottom: 3rem;
+  padding: 0 3vw;
+  text-align: center;
+  width: 100%;
+}
+
+.accordion-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  line-height: 1.1;
+  font-weight: 300;
+  color: var(--text-primary);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.accordion-hero-title span {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.accordion-container {
+  display: flex;
+  width: 100%;
+  height: 70vh;
+  gap: 12px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.accordion-panel {
   position: relative;
+  flex: 1;
+  /* Default equal distribution */
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  background-color: rgba(15, 92, 92, 0.05);
 }
 
-/* Timeline Vertical Line */
-.vertical-timeline-track::before {
-  content: "";
+.accordion-panel.active {
+  flex: 6;
+  /* Active panel expands massively */
+  cursor: default;
+}
+
+.ap-bg-img {
   position: absolute;
-  left: 0;
-  top: 15px;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    var(--accent) 0%,
-    rgba(15, 92, 92, 0.06) 100%
-  );
-}
-
-.timeline-milestone-item {
-  position: relative;
-  padding-bottom: 3.5rem;
-}
-
-.timeline-milestone-item:last-child {
-  padding-bottom: 0;
-}
-
-.milestone-line-indicator {
-  position: absolute;
-  left: -2.5rem;
-  top: 15px;
-  width: 2px;
+  inset: 0;
+  width: 100%;
   height: 100%;
 }
 
-.milestone-dot {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ap-bg-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  /* Dim inactive */
+  filter: grayscale(100%);
+  transition: all 0.8s ease;
+}
+
+.accordion-panel.active .ap-bg-img img {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+.ap-overlay {
   position: absolute;
-  left: -12px;
-  top: 0;
-  color: var(--accent);
-  box-shadow: 0 0 0 6px white;
-  transition: var(--transition-fast);
-  z-index: 10;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%);
 }
 
-.timeline-milestone-item:hover .milestone-dot {
-  background: var(--accent);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(224, 169, 75, 0.6);
-}
-
-.milestone-content-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2.2rem;
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  box-shadow: 0 10px 30px rgba(15, 92, 92, 0.02);
-  transition: var(--transition-smooth);
-}
-
-.milestone-content-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(15, 92, 92, 0.12);
-  box-shadow: 0 20px 40px rgba(15, 92, 92, 0.05);
-}
-
-.milestone-meta-row {
+.ap-tab {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
+  transition: opacity 0.4s ease;
+  width: 100%;
+  padding: 0 1rem;
 }
 
-.milestone-year {
+.ap-tab h3 {
   font-family: var(--font-serif);
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--accent);
-  line-height: 1;
+  font-size: 1.6rem;
+  color: #fff;
+  white-space: nowrap;
 }
 
-.milestone-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+.ap-tab-title {
+  font-size: 0.75rem;
   text-transform: uppercase;
-  color: var(--text);
-  background: rgba(15, 92, 92, 0.05);
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.milestone-title {
-  font-size: 1.3rem;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.8rem;
-}
-
-.milestone-desc {
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-/* ==========================================================================
-   SECTION 6: INVITATION CTA
-   ========================================================================== */
-.portfolio-cta {
-  padding: var(--section-padding) var(--container-px);
-  background: white;
-}
-
-.cta-framed-card {
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-  background: var(--text); /* Beautiful forest teal overlay background */
-  border-radius: 24px;
-  padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  color: rgba(255, 255, 255, 0.75);
+  /* Better visibility on dark overlay */
+  letter-spacing: 0.15em;
   text-align: center;
-  overflow: hidden;
-  box-shadow: 0 40px 90px rgba(15, 92, 92, 0.2);
 }
 
-.cta-border-decoration {
-  position: absolute;
-  inset: 15px;
-  border: 1px solid rgba(224, 169, 75, 0.35);
-  border-radius: 16px;
+.accordion-panel.active .ap-tab {
+  opacity: 0;
   pointer-events: none;
 }
 
-.cta-content-wrapper {
-  position: relative;
-  z-index: 2;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.cta-icon-badge {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(224, 169, 75, 0.4);
-  color: var(--accent);
+.ap-content {
+  position: absolute;
+  inset: 0;
+  padding: 4rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 2rem auto;
+  align-items: flex-end;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+  pointer-events: none;
 }
 
-.cta-title {
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+.accordion-panel.active .ap-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ap-content-inner {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.ap-year-bg {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
   font-family: var(--font-serif);
-  color: var(--bg);
+  font-size: 15rem;
+  color: rgba(255, 255, 255, 0.18);
+  /* INCREASED OPACITY from 0.06 */
+  line-height: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ap-text-content {
+  position: relative;
+  z-index: 10;
+}
+
+.ap-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.ap-desc {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 450px;
+}
+
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--accent);
+  /* Solid gold background */
+  color: #fff;
+  border: none;
+  /* Remove outline */
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ap-btn:hover {
+  background: #d4af37;
+  /* Darker gold */
+  gap: 1.25rem;
+}
+
+/* TABLET/MOBILE RESPONSIVENESS */
+@media (max-width: 900px) {
+  .accordion-container {
+    flex-direction: column;
+    height: 75vh;
+  }
+
+  .ap-tab {
+    flex-direction: row;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .ap-content {
+    padding: 2rem;
+  }
+
+  .ap-year-bg {
+    font-size: 8rem;
+    left: 0;
+  }
+
+  .ap-title {
+    font-size: 2.2rem;
+  }
+
+  .ap-desc {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+     3. CHEF PHILOSOPHY (ADVANCED AWWWARDS LAYOUT)
+     ========================================================================== */
+.journey-philosophy-advanced {
+  position: relative;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  width: 100vw;
+  padding: 120px 5vw 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.phil-bg-text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 8rem);
+  color: rgba(15, 92, 92, 0.03);
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.phil-advanced-wrapper {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 10;
+}
+
+.phil-header-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6rem;
+  gap: 4rem;
+}
+
+.phil-header-left {
+  flex: 1;
+  max-width: 600px;
+}
+
+.phil-title-main {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   line-height: 1.1;
+  font-weight: 300;
+  color: var(--text-primary);
+}
+
+.phil-title-main span {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.phil-header-right {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  gap: 2rem;
+  padding-top: 2rem;
+  /* Align nicely with the title */
+}
+
+.phil-quote-line {
+  width: 2px;
+  background-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.phil-quote-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(15, 92, 92, 0.75);
+}
+
+/* CARDS ROW */
+.phil-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.phil-card-advanced {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(15, 92, 92, 0.08);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(15, 92, 92, 0.03);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.phil-card-advanced:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(15, 92, 92, 0.08);
+}
+
+.pc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(15, 92, 92, 0.1);
+}
+
+.pc-number {
+  background: rgba(224, 169, 75, 0.15);
+  /* Light gold pill */
+  color: #c78d26;
+  /* Darker gold text */
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.pc-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pc-subtitle {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
-.cta-desc {
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  line-height: 1.7;
-  color: var(--bg);
-  opacity: 0.8;
-  margin-bottom: 3rem;
+.pc-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(15, 92, 92, 0.7);
 }
 
-.cta-button-holder {
-  display: flex;
-  justify-content: center;
-}
-
-.cta-framed-card .btn-luxury-primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.cta-framed-card .btn-luxury-primary::before {
-  background: var(--bg);
-}
-
-.cta-framed-card .btn-luxury-primary:hover {
-  color: var(--text);
-  border-color: var(--bg);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
-}
-
-/* ==========================================================================
-   ANIMATIONS & TRANSITIONS
-   ========================================================================== */
-@keyframes pulse-glow {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-}
-
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(2deg);
-  }
-}
-
-@keyframes scale-in-fade {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up-fade {
-  from {
-    transform: translateY(15px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ==========================================================================
-   📱 MOBILE RESPONSIVE VIEWS & MEDIA QUERIES
-   ========================================================================== */
-
-@media (max-width: 1200px) {
-  .interactive-showcase-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 900px) {
+  .phil-header-split {
+    flex-direction: column;
     gap: 3rem;
   }
 
-  .showcase-selector-panel {
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
+  .phil-header-right {
+    padding-top: 0;
   }
 
-  .showcase-presentation-panel {
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
+  .phil-bg-text {
+    font-size: 20vw;
+  }
+}
+
+/* ==========================================================================
+     4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
+     ========================================================================== */
+.journey-signature {
+  background-color: var(--bg-primary);
+  /* Fixed: returned to light theme */
+  height: 100vh;
+  width: 100vw;
+  padding: 100px 5vw 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.interactive-chef-showcase {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  /* Wider right side */
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 1rem auto 0;
+}
+
+/* Left Sidebar: Chefs */
+.ims-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.ims-chef-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ims-chef-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ims-chef-item:hover,
+.ims-chef-item.active {
+  background: #fff;
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+}
+
+.chef-selector-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chef-selector-info {
+  flex: 1;
+}
+
+.chef-selector-info h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.chef-selector-info span {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chef-selector-arrow {
+  color: rgba(15, 92, 92, 0.2);
+  transition: color 0.3s ease;
+}
+
+.ims-chef-item.active .chef-selector-arrow {
+  color: var(--accent);
+}
+
+/* Right Preview: Chef + Dish */
+.ims-right {
+  position: relative;
+}
+
+.ims-preview-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: #fff;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+  height: 550px;
+  /* Increased from 640px to safely contain all text */
+}
+
+.ims-img-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ims-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.ims-preview-card:hover .ims-img-container img {
+  transform: scale(1.03);
+}
+
+.ims-chef-overlay-badge {
+  position: absolute;
+  bottom: 5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.mini-portrait {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.badge-text span {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(15, 92, 92, 0.6);
+  text-transform: uppercase;
+}
+
+.badge-text strong {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.ims-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.chef-phil-quote {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.dish-showcase-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 2rem;
+}
+
+.ims-details h3 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.ims-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.ims-tag {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid rgba(15, 92, 92, 0.2);
+  border-radius: 100px;
+  color: var(--text-primary);
+  background: rgba(15, 92, 92, 0.03);
+  font-weight: 500;
+}
+
+.ims-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.metric-label {
+  width: 120px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.metric-bar-bg {
+  flex: 1;
+  height: 4px;
+  background: rgba(15, 92, 92, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.metric-val {
+  width: 40px;
+  font-size: 0.95rem;
+  text-align: right;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.ims-note {
+  background: rgba(224, 169, 75, 0.1);
+  padding: 1rem 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  margin-top: auto;
+}
+
+.note-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.ims-note p {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+     5. THE EXPERIENCE (Fixed to Light Theme)
+     ========================================================================== */
+.journey-experience {
+  position: relative;
+  background-color: #fff;
+  height: 100vh;
+  width: 100vw;
+  padding: 100px 5vw 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.experience-content {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.exp-card {
+  padding: 0;
+  /* Remove padding to fit image nicely */
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-img-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.exp-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.exp-card:hover .exp-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.exp-text-content {
+  padding: 2rem;
+  flex: 1;
+  background: var(--bg-primary);
+}
+
+.exp-text-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.exp-text-content p {
+  color: rgba(15, 92, 92, 0.7);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.exp-card-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  border-radius: 12px;
+  pointer-events: none;
+  transition: border-color 0.4s ease;
+}
+
+.exp-card:hover .exp-card-border {
+  border-color: var(--accent);
+}
+
+.experience-cta {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.experience-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: rgba(15, 92, 92, 0.8);
+}
+
+/* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+@media (max-width: 1200px) {
+  .experience-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
-  .hero-grid-layout {
+  .hero-content-wrapper {
     grid-template-columns: 1fr;
-    gap: 4rem;
   }
 
-  .hero-right-gallery {
-    order: -1; /* Display chef photo first on tablets */
+  .hero-right-col {
+    order: -1;
+    margin-bottom: 2rem;
   }
 
-  .hero-image-frame {
-    max-width: 380px;
-  }
-
-  .philosophy-grid {
+  .interactive-chef-showcase {
     grid-template-columns: 1fr;
-    gap: 4rem;
-    align-items: start;
   }
 
-  .philosophy-visual-block {
-    position: relative !important;
-    top: 0 !important;
-    height: auto !important;
-    min-height: unset !important;
-    aspect-ratio: 0.95 !important;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .toolkit-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .timeline-grid-layout {
+  .ims-preview-card {
     grid-template-columns: 1fr;
-    gap: 4rem;
   }
 
-  .sticky-intro-content {
-    position: relative;
-    top: 0;
-  }
-
-  .timeline-awards-block {
-    display: none; /* Hide award lists on vertical layouts to reduce length */
+  .ims-img-container {
+    min-height: 300px;
   }
 }
 
 @media (max-width: 768px) {
-  .chef-portfolio {
-    padding-top: 60px;
+
+  .philosophy-grid,
+  .experience-grid {
+    grid-template-columns: 1fr;
   }
 
-  .hero-vertical-tag {
-    display: none; /* Hide rotated typography on small phones */
+  .hero-subtle-bg-text {
+    font-size: 25vw;
   }
 
-  .hero-grid-layout {
-    margin-left: 0;
-  }
-
-  .hero-action-row {
-    flex-direction: column;
-    align-items: flex-start;
+  .h-timeline-scroll-container {
     gap: 1.5rem;
   }
 
-  .btn-luxury-primary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .hero-large-title {
-    font-size: 3.8rem;
-  }
-
-  .overlapping-frame-small {
-    bottom: -10px;
-    right: -10px;
-  }
-
-  .presentation-layout {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .toolkit-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .timeline-right-scrollable {
-    padding-left: 1.5rem;
-  }
-
-  .timeline-milestone-item {
-    padding-bottom: 2.5rem;
-  }
-
-  .milestone-dot {
-    left: -8px;
-    width: 16px;
-    height: 16px;
-  }
-
-  .milestone-dot svg {
-    display: none; /* Hide small star icon in mobile dot */
-  }
-
-  .timeline-right-scrollable .vertical-timeline-track::before {
-    left: 0px;
-  }
-
-  .milestone-line-indicator {
-    left: -1.5rem;
-  }
-
-  .milestone-content-card {
-    padding: 1.5rem;
-  }
-
-  .milestone-year {
-    font-size: 1.6rem;
-  }
-
-  .milestone-title {
-    font-size: 1.15rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-large-title {
-    font-size: 3rem;
-  }
-
-  .floating-badge-1 {
-    left: -10px;
-  }
-
-  .floating-badge-2 {
-    right: -10px;
-  }
-
-  .philosophy-pillar-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .selector-row-item {
-    padding: 1.2rem;
-  }
-
-  .selector-row-item .row-title {
-    font-size: 1.15rem;
-  }
-
-  .taste-label-row {
-    font-size: 0.72rem;
-  }
-}
-
-/* ==========================================================================
-   🌊 ELITE AWWWARDS FULL-PAGE SCROLL SNAPPING & LAYOUT OPTIMIZATIONS (DESKTOP)
-   ========================================================================== */
-@media (min-width: 1024px) {
-  /* Enforce smooth root snap-scrolling */
-  html.chef-page {
-    scroll-snap-type: none !important;
-    scroll-behavior: auto !important;
-    height: 100% !important;
-    overflow-y: scroll !important;
-    scrollbar-width: none !important;
-  }
-
-  html.chef-page::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  /* strict 100vh viewport sections on desktop */
-  html.chef-page .chef-portfolio {
-    height: auto !important;
-    min-height: 100% !important;
-    padding-top: 0 !important;
-  }
-
-  html.chef-page .chef-portfolio section {
-    height: 100vh !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    scroll-snap-align: start !important;
-    scroll-snap-stop: always !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    padding-top: 85px !important; /* Offset for navbar */
-    padding-bottom: 2rem !important;
-    box-sizing: border-box !important;
-  }
-
-  /* 🌿 SECTION 2: PHILOSOPHY GRID ADJUSTMENT (3-COLUMN PILLARS) */
-  html.chef-page .portfolio-philosophy {
-    background: linear-gradient(to bottom, #fcfbf9 0%, #f4efeb 100%) !important;
-  }
-
-  html.chef-page .philosophy-grid {
-    grid-template-columns: 1fr 1.25fr !important;
-    align-items: center !important;
-    height: calc(100vh - 120px) !important;
-  }
-
-  html.chef-page .philosophy-visual-block {
-    position: relative !important;
-    top: 0 !important;
-    height: 85% !important;
-    min-height: unset !important;
-    aspect-ratio: 0.95 !important;
-  }
-
-  html.chef-page .philosophy-content-block {
-    height: auto !important;
-    justify-content: center !important;
-  }
-
-  html.chef-page .philosophy-title {
-    margin-bottom: 1rem !important;
-    font-size: 2.8rem !important;
-  }
-
-  html.chef-page .philosophy-pullquote {
-    padding: 0.8rem 0 0.8rem 2rem !important;
-    margin-bottom: 1.8rem !important;
-  }
-
-  html.chef-page .philosophy-pullquote p {
-    font-size: 1.2rem !important;
-    line-height: 1.6 !important;
-  }
-
-  html.chef-page .philosophy-pillars-list {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 1.2rem !important;
-    width: 100% !important;
-  }
-
-  html.chef-page .philosophy-pillar-card {
-    padding: 1.4rem 1.2rem !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 12px !important;
-    height: 100% !important;
-    border-radius: 16px !important;
-  }
-
-  html.chef-page .pillar-number {
-    right: 1.2rem !important;
-    top: 1.2rem !important;
-    font-size: 1.8rem !important;
-  }
-
-  html.chef-page .pillar-icon-box {
-    width: 42px !important;
-    height: 42px !important;
-  }
-
-  html.chef-page .pillar-info h3 {
-    font-size: 1.1rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  html.chef-page .pillar-info p {
-    font-size: 0.82rem !important;
-    line-height: 1.5 !important;
-  }
-
-  /* 🌌 SECTION 3: CURATED SHOWCASE HEIGHT OPTIMIZATION */
-  html.chef-page .portfolio-showcase {
-    padding: 85px var(--container-px) 1.5rem var(--container-px) !important;
-    background-color: #ffffff !important;
-  }
-
-  html.chef-page .section-title-wrapper {
-    margin-bottom: 1.2rem !important;
-  }
-
-  html.chef-page .showcase-title {
-    font-size: 2.5rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-
-  html.chef-page .showcase-lead {
-    font-size: 0.9rem !important;
-    max-width: 600px !important;
-    margin: 0 auto !important;
-  }
-
-  html.chef-page .interactive-showcase-grid {
-    height: calc(100vh - 240px) !important;
-    align-items: stretch !important;
-    gap: 2rem !important;
-  }
-
-  html.chef-page .showcase-selector-panel {
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-
-  html.chef-page .selector-list {
-    gap: 8px !important;
-  }
-
-  html.chef-page .selector-row-item {
-    padding: 1.1rem 1.5rem !important;
-  }
-
-  html.chef-page .showcase-presentation-panel {
-    height: 100% !important;
-    padding: 1.5rem !important; /* Reduced from default clamp to save massive vertical space */
-  }
-
-  html.chef-page .presentation-layout {
-    height: 100% !important;
-    align-items: stretch !important;
-    gap: 2rem !important;
-  }
-
-  html.chef-page .presentation-visual-frame {
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  html.chef-page .visual-outer-card {
-    height: 100% !important;
-    max-height: 480px !important; /* Prevents visual card from pushing grid out of bounds */
-    aspect-ratio: 0.85 !important;
-    overflow: visible !important;
-  }
-
-  html.chef-page .presentation-detail-card {
-    padding: 0 0.5rem !important; /* Cleared large nested padding */
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    overflow-y: auto !important;
-    scrollbar-width: none !important;
-  }
-
-  html.chef-page .presentation-detail-card::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  html.chef-page .active-dish-title {
-    font-size: 1.8rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-
-  html.chef-page .active-dish-desc {
-    font-size: 0.85rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1rem !important;
-  }
-
-  html.chef-page .dish-taste-profile {
-    margin-bottom: 1rem !important;
-  }
-
-  html.chef-page .taste-bars-grid {
-    gap: 0.5rem !important;
-  }
-
-  html.chef-page .taste-bar-row {
-    gap: 2px !important;
-  }
-
-  html.chef-page .dish-ingredients-row {
-    margin-bottom: 1rem !important;
-  }
-
-  html.chef-page .dish-chef-quote {
-    padding: 10px 14px !important;
-    margin-top: 0.5rem !important;
-  }
-
-  html.chef-page .dish-chef-quote p {
-    font-size: 0.8rem !important;
-  }
-
-  /* 🌿 SECTION 4: GASTRO-TOOLKIT VIEWPORT FITTING */
-  html.chef-page .portfolio-toolkit {
-    padding: 85px var(--container-px) 2rem var(--container-px) !important;
-    background-color: var(--bg) !important;
-  }
-
-  html.chef-page .toolkit-header {
-    margin-bottom: 2rem !important;
-  }
-
-  html.chef-page .toolkit-title {
-    font-size: 2.8rem !important;
-  }
-
-  html.chef-page .toolkit-cards-grid {
-    gap: 1.5rem !important;
-  }
-
-  html.chef-page .toolkit-card {
-    padding: 2.2rem 2rem !important;
-  }
-
-  html.chef-page .toolkit-card .card-title {
-    font-size: 1.4rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-
-  html.chef-page .toolkit-card .card-description {
-    font-size: 0.88rem !important;
-    line-height: 1.6 !important;
-  }
-
-  /* 🗺️ SECTION 5: TIMELINE ROADMAP HORIZONTAL TRANSFORMATION */
-  html.chef-page .portfolio-timeline {
-    padding: 85px var(--container-px) 2rem var(--container-px) !important;
-    background-color: #ffffff !important;
-  }
-
-  html.chef-page .timeline-grid-layout {
-    grid-template-columns: 1fr !important; /* Full width row */
-    gap: 2rem !important;
-    height: calc(100vh - 120px) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-
-  html.chef-page .timeline-left-intro {
-    width: 100% !important;
-    border-bottom: 1px solid rgba(15, 92, 92, 0.08) !important;
-    padding-bottom: 1.5rem !important;
-  }
-
-  html.chef-page .sticky-intro-content {
-    position: relative !important;
-    top: 0 !important;
-    display: grid !important;
-    grid-template-columns: 1.2fr 1fr !important;
-    gap: 4rem !important;
-    width: 100% !important;
-    align-items: center !important;
-  }
-
-  html.chef-page .timeline-section-title {
-    margin-bottom: 0 !important;
-    font-size: 2.6rem !important;
-  }
-
-  html.chef-page .timeline-lead {
-    margin-bottom: 0 !important;
-    font-size: 0.95rem !important;
-    line-height: 1.6 !important;
-  }
-
-  html.chef-page .timeline-awards-block {
-    display: none !important; /* Hide vertical list items to preserve layout height */
-  }
-
-  html.chef-page .timeline-right-scrollable {
-    width: 100% !important;
-    overflow: visible !important;
-    padding-left: 0 !important;
-  }
-
-  /* Convert timeline roadmap to beautiful horizontal row */
-  html.chef-page .vertical-timeline-track {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 1.5rem !important;
-    padding-top: 1.2rem !important;
-    width: 100% !important;
-  }
-
-  /* Horizontal connecting node path */
-  html.chef-page .vertical-timeline-track::before {
-    top: 15px !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: 2px !important;
-    background: linear-gradient(
-      90deg,
-      var(--accent) 0%,
-      rgba(15, 92, 92, 0.06) 100%
-    ) !important;
-  }
-
-  html.chef-page .timeline-milestone-item {
-    padding-bottom: 0 !important;
-    padding-top: 2.2rem !important;
-  }
-
-  html.chef-page .milestone-line-indicator {
-    left: 0 !important;
-    top: -2.2rem !important;
-    width: 100% !important;
-    height: 2px !important;
-  }
-
-  html.chef-page .milestone-dot {
-    left: 0 !important;
-    top: -11px !important;
-    background: #ffffff !important;
-    box-shadow: 0 0 0 6px #ffffff !important;
-  }
-
-  html.chef-page .timeline-milestone-item:hover .milestone-dot {
-    background: var(--accent) !important;
-    box-shadow: 0 0 15px rgba(224, 169, 75, 0.6) !important;
-  }
-
-  html.chef-page .milestone-content-card {
-    padding: 1.5rem !important;
-    border-radius: 12px !important;
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-  }
-
-  html.chef-page .milestone-year {
-    font-size: 1.8rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-
-  html.chef-page .milestone-tag {
-    font-size: 0.65rem !important;
-    padding: 3px 8px !important;
-  }
-
-  html.chef-page .milestone-title {
-    font-size: 1.1rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-
-  html.chef-page .milestone-desc {
-    font-size: 0.85rem !important;
-    line-height: 1.55 !important;
-  }
-
-  /* ✉️ SECTION 6: INVITATION CTA CENTERING */
-  html.chef-page .portfolio-cta {
-    padding: 85px var(--container-px) 2rem var(--container-px) !important;
-    background-color: var(--bg) !important;
-  }
-
-  html.chef-page .cta-framed-card {
-    max-height: 76vh !important;
-    padding: 3.5rem clamp(1.5rem, 5vw, 4rem) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  html.chef-page .cta-icon-badge {
-    margin-bottom: 1.5rem !important;
-  }
-
-  html.chef-page .cta-title {
-    font-size: 2.8rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  html.chef-page .cta-desc {
-    font-size: 0.95rem !important;
-    margin-bottom: 2rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  html.chef-page,
-  html.chef-page body {
-    scroll-snap-type: y mandatory !important;
-    scroll-behavior: smooth !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
-  }
-
-  html.chef-page .chef-portfolio {
-    height: auto !important;
-    min-height: 100% !important;
-    padding-top: 0 !important;
-  }
-
-  html.chef-page .chef-portfolio section {
-    min-height: 100vh !important;
-    height: auto !important;
-    max-height: none !important;
-    scroll-snap-align: start !important;
-    scroll-snap-stop: always !important;
-    overflow: visible !important;
-    display: block !important;
-    padding: clamp(4rem, 8vw, 5.5rem) 0 clamp(2rem, 6vw, 3rem) !important;
-    box-sizing: border-box !important;
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE — 1366 × 768 STANDARD LAPTOP
-   ========================================================================== */
-@media (min-width: 1200px) and (max-height: 800px) {
-  /* Hero */
-  .hero-editorial-title {
-    font-size: 2rem;
-    margin: 0.3rem 0 0.8rem;
-  }
-
-  .hero-editorial-subtext {
-    font-size: 0.88rem;
-    margin-bottom: 1.5rem;
-    max-width: 440px;
-  }
-
-  .hero-stamp-and-badges {
-    margin-bottom: 1.5rem;
-    gap: 0.8rem;
-  }
-
-  .hero-badge-item {
-    padding: 6px 14px;
-    font-size: 0.72rem;
-  }
-
-  /* Philosophy */
-  .portfolio-philosophy {
-    padding: 5rem var(--container-px);
-  }
-
-  .philosophy-title {
-    font-size: 2.6rem;
-    margin-bottom: 1rem;
-  }
-
-  .philosophy-pullquote {
-    margin-bottom: 2rem;
-    padding: 1rem 0 1rem 2rem;
-  }
-
-  .philosophy-pullquote p {
-    font-size: 1.1rem;
-    line-height: 1.65;
-  }
-
-  .philosophy-pillars-list {
-    gap: 1.2rem;
-  }
-
-  .philosophy-pillar-card {
-    padding: 1.5rem;
-    gap: 14px;
-  }
-
-  .pillar-info h3 {
-    font-size: 1.1rem;
-  }
-
-  .pillar-info p {
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  /* Showcase */
-  .portfolio-showcase {
-    padding: 4rem var(--container-px);
-  }
-
-  .section-title-wrapper {
-    margin-bottom: 2.5rem;
-  }
-
-  .showcase-title {
-    font-size: 2.8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .selector-row-item {
-    padding: 1.2rem 1.8rem;
-  }
-
-  .selector-row-item .row-title {
-    font-size: 1.2rem;
-  }
-
-  .showcase-presentation-panel {
-    padding: 2rem 2.5rem;
-  }
-
-  .active-dish-title {
-    font-size: 1.9rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .active-dish-desc {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Toolkit */
-  .portfolio-toolkit {
-    padding: 5rem var(--container-px);
-  }
-
-  .toolkit-header {
-    margin-bottom: 3rem;
-  }
-
-  .toolkit-title {
-    font-size: 2.8rem;
-  }
-
-  .toolkit-card {
-    padding: 2.5rem 2.2rem;
-  }
-
-  .toolkit-card .card-title {
-    font-size: 1.4rem;
-  }
-
-  .toolkit-card .card-description {
-    font-size: 0.88rem;
-    line-height: 1.65;
-  }
-
-  /* Timeline */
-  .portfolio-timeline {
-    padding: 5rem var(--container-px);
-  }
-
-  .timeline-section-title {
-    font-size: 2.6rem;
-  }
-
-  .milestone-content-card {
-    padding: 1.8rem;
-  }
-
-  .milestone-year {
-    font-size: 1.7rem;
-  }
-
-  .milestone-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .milestone-desc {
-    font-size: 0.88rem;
-    line-height: 1.6;
-  }
-
-  /* CTA */
-  .portfolio-cta {
-    padding: 5rem var(--container-px);
-  }
-
-  .cta-framed-card {
-    padding: 3.5rem 4rem;
-  }
-
-  .cta-title {
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .cta-desc {
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE — 1195 × 585 SHORT WIDE — HERO & SECTION COMPACT FIXES
-   ========================================================================== */
-@media (max-height: 650px) and (min-width: 901px) {
-  .hero-portrait-wrapper {
-    width: 22vw;
-    height: 55vh;
-    min-width: 200px;
-  }
-
-  .hero-badge-item {
-    padding: 4px 11px;
-    font-size: 0.68rem;
-  }
-
-  .hero-social-links-wrap {
-    gap: 8px;
-  }
-
-  .hero-circle-social {
-    width: 38px;
-    height: 38px;
-  }
-
-  .btn-hero-luxury-primary {
-    padding: 0.85rem 1.8rem;
-    font-size: 0.82rem;
-  }
-
-  .milestone-content-card {
-    padding: 1.4rem;
-  }
-
-  .milestone-year {
-    font-size: 1.5rem;
-  }
-
-  .milestone-title {
-    font-size: 1rem;
-  }
-
-  .milestone-desc {
-    font-size: 0.82rem;
-    line-height: 1.5;
-  }
-
-  .toolkit-card {
-    padding: 1rem 1.8rem;
-  }
-
-  .toolkit-card .card-title {
-    font-size: 1.3rem;
-  }
-
-  .cta-title {
-    font-size: 2.4rem;
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE — TABLET LANDSCAPE (769px – 1024px) — SECTION FIXES
-   ========================================================================== */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .portfolio-philosophy {
-    padding: 4rem var(--container-px);
-  }
-
-  .philosophy-title {
-    font-size: 2.5rem;
-  }
-
-  .philosophy-pullquote p {
-    font-size: 1.1rem;
-  }
-
-  .portfolio-toolkit {
-    padding: 5rem var(--container-px);
-  }
-
-  .toolkit-header {
-    margin-bottom: 3rem;
-  }
-
-  .toolkit-title {
-    font-size: 2.5rem;
-  }
-
-  .toolkit-card {
-    padding: 2.8rem 2.2rem;
-  }
-
-  .portfolio-timeline {
-    padding: 5rem var(--container-px);
-  }
-
-  .timeline-grid-layout {
-    gap: 3rem;
-  }
-
-  .portfolio-cta {
-    padding: 5rem var(--container-px);
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE — TABLET PORTRAIT (≤ 768px) — ADDITIONAL SECTION FIXES
-   ========================================================================== */
-@media (max-width: 768px) {
-  .philosophy-pullquote {
-    margin-bottom: 2.5rem;
-  }
-
-  .portfolio-toolkit {
-    padding: 5rem var(--container-px);
-  }
-
-  .toolkit-header {
-    margin-bottom: 3rem;
-  }
-
-  .toolkit-title {
-    font-size: 2.2rem;
-  }
-
-  .toolkit-lead {
-    font-size: 0.95rem;
-    max-width: 100%;
-  }
-
-  .toolkit-card {
-    padding: 2.5rem 2rem;
-  }
-
-  .portfolio-cta {
-    padding: 4rem var(--container-px);
-  }
-
-  .cta-title {
-    font-size: 2.2rem;
-  }
-
-  .cta-framed-card {
-    padding: 3rem 2rem;
-  }
-
-  .award-item {
-    padding: 0.8rem 1.2rem;
-  }
-
-  .milestone-content-card {
-    padding: 1.5rem;
-  }
-
-  .timeline-awards-block {
-    display: none;
-  }
-}
-
-/* ==========================================================================
-   RESPONSIVE — MOBILE (≤ 480px) — CHEF PAGE FULL MOBILE REFINEMENTS
-   ========================================================================== */
-@media (max-width: 480px) {
-  /* Chef selector bar */
-  .chef-selector-btn {
-    padding: 5px 12px;
-    min-width: 80px;
-  }
-
-  /* Philosophy pillar cards */
-  .philosophy-pillar-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .pillar-number {
-    font-size: 1.5rem;
-  }
-
-  .pillar-info h3 {
-    font-size: 1.1rem;
-  }
-
-  .pillar-info p {
-    font-size: 0.85rem;
-  }
-
-  /* Showcase section */
-  .selector-row-item {
-    padding: 1rem 1.2rem;
-  }
-
-  .selector-row-item .row-title {
-    font-size: 1.1rem;
-  }
-
-  .selector-row-item .row-number {
-    font-size: 0.78rem;
-    margin-right: 1rem;
-  }
-
-  .showcase-title {
-    font-size: 1.9rem;
-  }
-
-  /* Toolkit */
-  .portfolio-toolkit {
-    padding: 4rem var(--container-px);
-  }
-
-  .toolkit-title {
-    font-size: 2rem;
-  }
-
-  .toolkit-card {
-    padding: 2.2rem 1.8rem;
-  }
-
-  /* Timeline */
-  .timeline-section-title {
-    font-size: 2rem;
-  }
-
-  .milestone-content-card {
-    padding: 1.2rem;
-  }
-
-  .milestone-year {
-    font-size: 1.5rem;
-  }
-
-  .milestone-title {
-    font-size: 1.05rem;
-  }
-
-  .milestone-desc {
-    font-size: 0.85rem;
-  }
-
-  /* CTA */
-  .cta-title {
-    font-size: 1.9rem;
-  }
-
-  .cta-framed-card {
-    padding: 2.5rem 1.5rem;
-    border-radius: 16px;
-  }
-}
-
-/* ==========================================================================
-   💻 SPECIFIC FIX FOR 1366x768 LAPTOP VIEWPORT (And similar short screens)
-   Forces sections to compress beautifully without overflowing or cutting off.
-   ========================================================================== */
-@media (min-width: 1200px) and (max-height: 800px) {
-  html.chef-page .chef-portfolio section {
-    padding-top: 65px !important;
-    padding-bottom: 1rem !important;
-  }
-  
-  /* --- Philosophy Section 1366x768 --- */
-  html.chef-page .philosophy-title {
-    font-size: 2.2rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  html.chef-page .philosophy-pullquote {
-    padding: 0.5rem 0 0.5rem 1.5rem !important;
-    margin-bottom: 1rem !important;
-  }
-  
-  html.chef-page .philosophy-pullquote p {
-    font-size: 1.05rem !important;
-    line-height: 1.4 !important;
-  }
-  
-  html.chef-page .philosophy-grid {
-    height: calc(100vh - 85px) !important;
-    gap: 2rem !important;
-  }
-  
-  html.chef-page .philosophy-visual-block {
-    height: 75% !important;
-  }
-  
-  html.chef-page .philosophy-pillar-card {
-    padding: 1rem !important;
-    gap: 8px !important;
-  }
-  
-  html.chef-page .pillar-number {
-    font-size: 1.2rem !important;
-    top: 0.8rem !important;
-    right: 0.8rem !important;
-  }
-  
-  html.chef-page .pillar-icon-box {
-    width: 32px !important;
-    height: 32px !important;
-    margin-bottom: 4px !important;
-  }
-  
-  html.chef-page .pillar-info h3 {
-    font-size: 0.95rem !important;
-  }
-  
-  html.chef-page .pillar-info p {
-    font-size: 0.75rem !important;
-    line-height: 1.3 !important;
-  }
-  
-  /* --- Showcase Section 1366x768 --- */
-  html.chef-page .portfolio-showcase {
-    padding: 65px var(--container-px) 1rem var(--container-px) !important;
-  }
-  
-  html.chef-page .showcase-title {
-    font-size: 2rem !important;
-  }
-  
-  html.chef-page .interactive-showcase-grid {
-    height: calc(100vh - 180px) !important;
-    gap: 1.5rem !important;
-  }
-  
-  html.chef-page .visual-outer-card {
-    max-height: 400px !important;
-  }
-  
-  html.chef-page .selector-row-item {
-    padding: 0.8rem 1rem !important;
-  }
-  
-  html.chef-page .showcase-presentation-panel {
-    padding: 1rem !important;
-  }
-  
-  html.chef-page .active-dish-title {
-    font-size: 1.5rem !important;
-  }
-  
-  html.chef-page .active-dish-desc {
-    font-size: 0.8rem !important;
-    margin-bottom: 0.5rem !important;
-    line-height: 1.4 !important;
-  }
-
-  html.chef-page .taste-bars-grid {
-    gap: 0.2rem !important;
-  }
-
-  html.chef-page .taste-bar-row {
-    font-size: 0.65rem !important;
-  }
-  
-  /* --- Toolkit & Timeline Compression 1366x768 --- */
-  html.chef-page .toolkit-title {
-    font-size: 2.2rem !important;
-    margin-bottom: 0 !important;
-  }
-  
-  html.chef-page .toolkit-header {
-    margin-bottom: 1rem !important;
-  }
-  
-  html.chef-page .toolkit-card {
-    padding: 1.5rem 1.2rem !important;
-  }
-  
-  html.chef-page .timeline-section-title {
-    font-size: 2.2rem !important;
-  }
-  
-  html.chef-page .timeline-grid-layout {
-    height: calc(100vh - 90px) !important;
-    gap: 1rem !important;
-  }
-  
-  html.chef-page .milestone-content-card {
-    padding: 1rem !important;
-  }
-  
-  html.chef-page .milestone-year {
-    font-size: 1.5rem !important;
-  }
-  
-  html.chef-page .milestone-title {
-    font-size: 1rem !important;
-  }
-  
-  html.chef-page .milestone-desc {
-    font-size: 0.75rem !important;
-    line-height: 1.4 !important;
-  }
-}
-
-/* ==========================================================================
-   📱 SPECIFIC FIX FOR 1195x585 & ULTRA-SHORT VIEWPORTS (e.g. max-height: 700px)
-   Aggressively compress margins, paddings, and font-sizes to fit everything.
-   ========================================================================== */
-@media (max-height: 700px) {
-  html.chef-page .chef-portfolio section {
-    padding-top: 56px !important; /* Matches short navbar height */
-    padding-bottom: 0.5rem !important;
-  }
-
-  /* --- Philosophy Section 1195x585 --- */
-  html.chef-page .philosophy-grid {
-    flex: 1 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    gap: 1rem !important;
-  }
-
-  html.chef-page .philosophy-title {
-    font-size: 1.75rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  html.chef-page .philosophy-pullquote {
-    padding: 0.25rem 0 0.25rem 1rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  html.chef-page .philosophy-pullquote p {
-    font-size: 0.9rem !important;
-    line-height: 1.3 !important;
-  }
-
-  html.chef-page .philosophy-visual-block {
-    height: 70% !important;
-  }
-
-  html.chef-page .philosophy-pillar-card {
-    padding: 0.75rem !important;
-    gap: 4px !important;
-    border-radius: 10px !important;
-  }
-
-  html.chef-page .pillar-number {
-    font-size: 1rem !important;
-    top: 0.5rem !important;
-    right: 0.5rem !important;
-  }
-
-  html.chef-page .pillar-icon-box {
-    width: 24px !important;
-    height: 24px !important;
-    margin-bottom: 2px !important;
-  }
-
-  html.chef-page .pillar-info h3 {
-    font-size: 0.8rem !important;
-    margin-bottom: 0 !important;
-  }
-
-  html.chef-page .pillar-info p {
-    font-size: 0.65rem !important;
-    line-height: 1.2 !important;
-  }
-
-  /* --- Showcase Section 1195x585 --- */
-  html.chef-page .portfolio-showcase {
-    padding: 56px var(--container-px) 0.5rem var(--container-px) !important;
-  }
-
-  html.chef-page .section-title-wrapper {
-    margin-bottom: 0.5rem !important;
-  }
-
-  html.chef-page .showcase-title {
-    font-size: 1.6rem !important;
-  }
-
-  html.chef-page .showcase-lead {
-    font-size: 0.75rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  html.chef-page .interactive-showcase-grid {
-    flex: 1 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    gap: 1rem !important;
-  }
-
-  html.chef-page .visual-outer-card {
-    max-height: 280px !important;
-  }
-
-  html.chef-page .showcase-presentation-panel {
-    padding: 1rem !important;
-  }
-
-  html.chef-page .presentation-layout {
-    gap: 1rem !important;
-  }
-
-  html.chef-page .selector-row-item {
-    padding: 0.6rem 0.8rem !important;
-  }
-
-  html.chef-page .selector-row-item .row-title {
-    font-size: 0.85rem !important;
-  }
-
-  html.chef-page .active-dish-title {
-    font-size: 1.2rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  html.chef-page .active-dish-desc {
-    font-size: 0.7rem !important;
-    margin-bottom: 0.2rem !important;
-    line-height: 1.3 !important;
-  }
-
-  html.chef-page .selector-list-header {
-    margin-bottom: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-  }
-
-  html.chef-page .dish-ingredients-row {
-    margin-bottom: 0.8rem !important;
-  }
-
-  html.chef-page .taste-bars-grid {
-    gap: 0.1rem !important;
-  }
-  
-  html.chef-page .taste-bar-row {
-    font-size: 0.55rem !important;
-    gap: 1px !important;
-  }
-
-  html.chef-page .dish-chef-quote {
-    padding: 0.6rem 0.8rem !important;
-  }
-
-  html.chef-page .dish-chef-quote p {
-    font-size: 0.6rem !important;
-  }
-
-  /* --- Toolkit & Timeline Compression 1195x585 --- */
-  html.chef-page .portfolio-toolkit {
-    padding: 56px var(--container-px) 1rem var(--container-px) !important;
-  }
-
-  html.chef-page .toolkit-title {
-    font-size: 1.6rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-  
-  html.chef-page .toolkit-header {
-    margin-bottom: 0.5rem !important;
-  }
-  
-  html.chef-page .toolkit-lead {
-    font-size: 0.75rem !important;
-  }
-
-  html.chef-page .toolkit-cards-grid {
-    gap: 0.8rem !important;
-  }
-
-  html.chef-page .toolkit-card {
-    padding: 1rem 0.8rem !important;
-  }
-
-  html.chef-page .card-title {
-    font-size: 1rem !important;
-  }
-  
-  html.chef-page .card-subtitle {
-    font-size: 0.7rem !important;
-  }
-
-  html.chef-page .card-description {
-    font-size: 0.65rem !important;
-  }
-  
-  html.chef-page .portfolio-timeline {
-    padding: 56px var(--container-px) 1rem var(--container-px) !important;
-  }
-
-  html.chef-page .timeline-section-title {
-    font-size: 1.6rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-  
-  html.chef-page .timeline-grid-layout {
-    flex: 1 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    gap: 0.5rem !important;
-  }
-  
-  html.chef-page .milestone-content-card {
-    padding: 0.8rem !important;
-    border-radius: 12px !important;
-  }
-  
-  html.chef-page .milestone-year {
-    font-size: 1.2rem !important;
-  }
-  
-  html.chef-page .milestone-title {
-    font-size: 0.85rem !important;
-  }
-  
-  html.chef-page .milestone-desc {
-    font-size: 0.65rem !important;
-    line-height: 1.3 !important;
-  }
-
-  /* --- Hero Compression 1195x585 --- */
-  html.chef-page .hero-text-content h1 {
-    font-size: 3.5rem !important;
-  }
-  html.chef-page .hero-subtitle {
-    font-size: 1rem !important;
-    margin-bottom: 1rem !important;
-  }
-  html.chef-page .hero-location {
-    font-size: 0.75rem !important;
-  }
-  html.chef-page .chef-name-title {
-    font-size: 3.5rem !important;
+  .h-timeline-node {
+    min-width: 280px;
   }
 }

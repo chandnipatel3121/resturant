@@ -490,7 +490,7 @@
 .premium-cuisine-tagline {
   font-family: var(--font-serif), Georgia, serif;
   font-style: italic;
-  font-size: clamp(0.75rem, 1.3vw, 0.88rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
   color: rgba(15, 92, 92, 0.82); /* High contrast readable color for light state */
   margin: 0;
   transition: all 0.4s ease;
@@ -528,19 +528,19 @@
 
 /* Gracefully Faded Inactive Cards when another card is active/hovered */
 .cuisine-section.is-hovered .narrative-item:not(.is-active) {
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: none !important;
-  opacity: 0.45 !important;
+  opacity: 0.8 !important;
 }
 
 .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-name {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   text-shadow: none !important;
 }
 
 .cuisine-section.is-hovered .narrative-item:not(.is-active) .premium-cuisine-tagline {
-  color: rgba(255, 255, 255, 0.32) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
   text-shadow: none !important;
 }
 

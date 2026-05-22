@@ -197,10 +197,10 @@ const CUISINES = [
     img: chinImg,
     bgImage: chinBg,
     bg: "#000000",
-    cardBg: "rgba(255, 77, 77, 0.15)",
-    cardBgAlt: "rgba(255, 77, 77, 0.2)",
-    border: "#FF4D4D",
-    glow: "rgba(255, 77, 77, 0.5)",
+    cardBg: "rgba(255, 252, 77, 0.15)",
+    cardBgAlt: "rgba(255, 252, 77, 0.2)",
+    border: "#fcff4dff",
+    glow: "rgba(255, 252, 77, 0.5)",
     textColor: "#ffffff",
     map: chinMap,
     items: [
@@ -571,11 +571,11 @@ const CuisineSection = () => {
                           ? '#0F5C5C'
                           : displayIndex === idx
                             ? (cuisine.border || '#2ECC71')
-                            : 'rgba(255, 255, 255, 0.6)'
+                            : 'rgba(255, 255, 255, 0.9)'
                       }}>
                         {cuisine.name}
                       </h4>
-                      
+
                       {/* Horizontal gold ornament divider (Only on mobile!) */}
                       {isMobile && (
                         <div className="mobile-gold-divider">
@@ -590,7 +590,7 @@ const CuisineSection = () => {
                           ? 'rgba(15, 92, 92, 0.9)'
                           : displayIndex === idx
                             ? '#ffffff'
-                            : 'rgba(255, 255, 255, 0.35)'
+                            : 'rgba(255, 255, 255, 0.75)'
                       }}>
                         {cuisine.tagline}
                       </p>

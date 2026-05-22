@@ -124,7 +124,7 @@ const ChefMascot = () => {
                 transition={{ type: "spring", stiffness: 250, damping: 20 }}
                 className="bg-white px-4 py-2 rounded-full shadow-lg"
               >
-                <p className="text-[11px] text-[#0F5C5C] whitespace-nowrap">
+                <p className="text-[13px] text-[#0F5C5C] whitespace-nowrap">
                   {displayedText}
                   <span className="animate-pulse ml-[2px]">|</span>
                 </p>

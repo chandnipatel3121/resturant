@@ -52,6 +52,18 @@ const categories = [
   }
 ]
 
+const masonryImages = [
+  "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop"
+];
+
 // Framer Motion Variants for the sleek mask wipe effect
 const slideVariants = {
   enter: (direction) => {
@@ -98,6 +110,7 @@ const Gallery = () => {
   const [[page, direction], setPage] = useState([0, 0])
   const [hPage, setHPage] = useState(0)
   const [inHorizontal, setInHorizontal] = useState(false)
+  const [inMasonry, setInMasonry] = useState(false)
   const [activeSubGallery, setActiveSubGallery] = useState(null)
   const isAnimating = useRef(false)
   const touchStartY = useRef(0)
@@ -185,6 +198,8 @@ const Gallery = () => {
     } else if (newHPage < 0) {
       setInHorizontal(false)
       setPage([categories.length - 1, -1])
+    } else if (newHPage >= moreMoments.length) {
+      setInMasonry(true)
     }
   }
 
@@ -207,7 +222,8 @@ const Gallery = () => {
   // Wheel event for desktop scrolling
   useEffect(() => {
     const handleWheel = (e) => {
-      if (activeSubGallery) return // Skip when active sub gallery is open
+      if (activeSubGallery || inMasonry) return // Skip native wheel intercept if sub-gallery or masonry is open
+
       e.preventDefault()
       if (Math.abs(e.deltaY) > 20) {
         if (e.deltaY > 0) handleScrollAction(1)
@@ -217,7 +233,7 @@ const Gallery = () => {
 
     window.addEventListener("wheel", handleWheel, { passive: false })
     return () => window.removeEventListener("wheel", handleWheel)
-  }, [page, hPage, inHorizontal, activeSubGallery])
+  }, [page, hPage, inHorizontal, activeSubGallery, inMasonry])
 
   // Touch events for mobile swiping
   useEffect(() => {
@@ -225,11 +241,11 @@ const Gallery = () => {
       touchStartY.current = e.touches[0].clientY
     }
     const handleTouchMove = (e) => {
-      if (activeSubGallery) return // Skip when active sub gallery is open
+      if (activeSubGallery || inMasonry) return
       e.preventDefault() // prevent all native scrolling
     }
     const handleTouchEnd = (e) => {
-      if (activeSubGallery) return // Skip when active sub gallery is open
+      if (activeSubGallery || inMasonry) return
       const touchEndY = e.changedTouches[0].clientY
       const distance = touchStartY.current - touchEndY
       if (Math.abs(distance) > 50) {
@@ -246,7 +262,7 @@ const Gallery = () => {
       window.removeEventListener("touchmove", handleTouchMove)
       window.removeEventListener("touchend", handleTouchEnd)
     }
-  }, [page, hPage, inHorizontal])
+  }, [page, hPage, inHorizontal, activeSubGallery, inMasonry])
 
 
 
@@ -415,6 +431,95 @@ const Gallery = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Animated Masonry Gallery Section */}
+      <AnimatePresence>
+        {inMasonry && (
+          <motion.div
+            className="masonry-scroll-container"
+            initial={{ y: "100vh" }}
+            animate={{ y: "0vh" }}
+            exit={{ y: "100vh" }}
+            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100lvh",
+              overflowY: "auto",
+              backgroundColor: "var(--bg-primary)",
+              zIndex: 90
+            }}
+            onWheel={(e) => {
+              if (e.currentTarget.scrollTop <= 0 && e.nativeEvent.deltaY < -20) {
+                if (!isAnimating.current) {
+                  isAnimating.current = true
+                  setInMasonry(false)
+                  setTimeout(() => { isAnimating.current = false }, 1200)
+                }
+              }
+            }}
+            onTouchMove={(e) => {
+               if (e.currentTarget.scrollTop <= 0) {
+                 const touchEndY = e.touches[0].clientY
+                 const distance = touchStartY.current - touchEndY
+                 if (distance < -30) {
+                    if (!isAnimating.current) {
+                      isAnimating.current = true
+                      setInMasonry(false)
+                      setTimeout(() => { isAnimating.current = false }, 1200)
+                    }
+                 }
+               }
+            }}
+            onTouchStart={(e) => {
+               touchStartY.current = e.touches[0].clientY
+            }}
+          >
+            <section className="animated-masonry-gallery">
+              <div className="masonry-header">
+                <motion.h2 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                  The Anando Experience
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+                >
+                  Explore the culinary art and sophisticated spaces that define our restaurant.
+                </motion.p>
+              </div>
+              
+              <div className="masonry-grid">
+                {masonryImages.map((src, idx) => (
+                  <motion.div 
+                    key={idx} 
+                    className={`masonry-item masonry-item-${idx}`}
+                    initial={{ opacity: 0, y: 60 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: [0.25, 0.1, 0.25, 1],
+                      delay: (idx % 3) * 0.15 
+                    }}
+                    whileHover={{ scale: 0.98, filter: "brightness(0.9)" }}
+                  >
+                    <img src={src} alt={`Gallery visual ${idx + 1}`} loading="lazy" />
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Expanded Sub-Gallery Overlay */}
       <AnimatePresence>

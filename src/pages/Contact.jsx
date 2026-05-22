@@ -57,7 +57,7 @@ const ContactPage = () => {
   
   // Enforce green/dark text theme for the light navbar on mount
   useEffect(() => {
-    setNavTheme('green');
+    setNavTheme('yellow');
   }, [setNavTheme]);
 
   const { scrollYProgress } = useScroll();

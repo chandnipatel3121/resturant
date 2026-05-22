@@ -14,6 +14,8 @@ import mobileVideoSrc from "../assets/mobilehero.mp4"
 import img1 from "../assets/resturent4.jpg"
 import "../styles/sections/HeroSection.css"
 
+let globalHasSeenPopup = false;
+
 const HeroSection = () => {
   const navigate = useNavigate()
   const [showPopup, setShowPopup] = useState(false)
@@ -81,7 +83,10 @@ const HeroSection = () => {
     // Popup fires only AFTER Scene 1 is fully gone (desktop: 0.65, mobile: 0.58)
     const popupTrigger = isMobile ? 0.59 : 0.66
     if (v >= popupTrigger && !hasShownPopup.current) {
-      setShowPopup(true)
+      if (!globalHasSeenPopup) {
+        setShowPopup(true)
+        globalHasSeenPopup = true;
+      }
       hasShownPopup.current = true
     }
   })

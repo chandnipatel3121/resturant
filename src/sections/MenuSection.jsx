@@ -1,4 +1,5 @@
 import React, { useState, useRef, useMemo, memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Search, Plus, Star, Clock, Users, ArrowRight, Flame, Pizza, Soup, Fish, Utensils, Leaf, Sun, Coffee, X, ShoppingBag, MapPin, Info } from 'lucide-react';
 import menuData from '../data/menuData';
@@ -73,6 +74,14 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
               decoding="async"
               style={{ width: '100%' }}
             />
+          </div>
+        )}
+
+        {/* Special Badge (Bestseller, Chef's Special) */}
+        {dish.badge && (
+          <div className="dish-badge-premium">
+            <Star size={12} className="inline-block mr-1 mb-[2px]" />
+            {dish.badge}
           </div>
         )}
 
@@ -165,6 +174,7 @@ const LeftPageContent = ({ dish }) => {
 };
 
 const RightPageContent = ({ dish, onAddToCart }) => {
+  const navigate = useNavigate();
   if (!dish) return null;
   return (
     <div className="page-inner">
@@ -215,10 +225,13 @@ const RightPageContent = ({ dish, onAddToCart }) => {
       </div>
 
       <div className="book-actions">
-        <button className="book-add-cart-btn" onClick={() => onAddToCart(dish, 1)}>
+        <div 
+          className="book-add-cart-btn" 
+          style={{ cursor: 'default', pointerEvents: 'none' }}
+        >
           <ShoppingBag size={20} />
           <span>Experience this Flavor</span>
-        </button>
+        </div>
       </div>
     </div>
   );
@@ -624,21 +637,28 @@ const MenuSection = () => {
   const SGST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal]);
   const cartTotal = useMemo(() => cartSubtotal + GST + SGST, [cartSubtotal, GST, SGST]);
 
+  // Automatically close cart drawer if it becomes empty
+  React.useEffect(() => {
+    if (cartItemCount === 0 && cartOpen) {
+      setCartOpen(false);
+    }
+  }, [cartItemCount, cartOpen]);
+
   // Expanded categories with better visuals
   const cuisinies = [
-    { name: "Indian", icon: <Flame size={20} /> },
-    { name: "Italian", icon: <Pizza size={20} /> },
+    { name: "South Indian", icon: <Flame size={20} /> },
     { name: "Chinese", icon: <Soup size={20} /> },
-    { name: "Japanese", icon: <Fish size={20} /> },
-    { name: "Mexican", icon: <Utensils size={20} /> },
-    { name: "Thai", icon: <Leaf size={20} /> },
-    { name: "Mediterranean", icon: <Sun size={20} /> },
-    { name: "French", icon: <Coffee size={20} /> }
+    { name: "Fusion Food", icon: <Utensils size={20} /> },
+    { name: "Fast Food", icon: <Pizza size={20} /> },
+    { name: "Street Food", icon: <Leaf size={20} /> },
+    { name: "Pizza & Sandwich", icon: <Pizza size={20} /> },
+    { name: "Indo-Chinese", icon: <Soup size={20} /> },
+    { name: "Vegetarian Specials", icon: <Sun size={20} /> }
   ];
 
   const meals = ['All', 'Breakfast', 'Lunch', 'Dinner'];
-  const diets = ['All', 'Veg', 'Vegan'];
-  const courses = ['All', 'Starter', 'Main Course', 'Dessert', 'Drinks', 'Beverages', 'Soups', 'Specials'];
+  const diets = ['All', 'Veg', 'Vegan', 'Jain'];
+  const courses = ['All', 'Starters', 'Main Course', 'Desserts', 'Soups', 'Drinks', 'Beverages', 'Chef Specials'];
 
   const filteredItems = useMemo(() => {
     return menuData.filter(item => {
@@ -666,7 +686,7 @@ const MenuSection = () => {
       return prevCart;
     });
 
-    if (delta > 0 && !cart.find(item => item.id === dish.id)) {
+    if (delta > 0) {
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     }
@@ -693,7 +713,7 @@ const MenuSection = () => {
             initial={{ opacity: 0, y: 50, x: '-50%' }}
             animate={{ opacity: 1, y: 0, x: '-50%' }}
             exit={{ opacity: 0, y: 20, x: '-50%' }}
-            className="fixed bottom-10 left-1/2 z-50 bg-[var(--text)] text-white px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 font-bold"
+            className="fixed bottom-36 left-1/2 z-[100] bg-[var(--text)] text-white px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 font-bold"
           >
             <div className="bg-[var(--accent)] rounded-full p-1"><Plus size={16} /></div>
             Flavor added to your collection!

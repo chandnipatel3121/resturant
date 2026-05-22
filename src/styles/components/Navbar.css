@@ -23,12 +23,14 @@ body:has(.subpage-layout) .navbar {
 
 /* INNER PAGE NAVBAR - GALLERY, CHEF, CONTACT */
 html:not(.home-page) body:has(.gallery-page) .navbar,
-html:not(.home-page) body:has(.chef-portfolio) .navbar,
-html:not(.home-page) body:has(.contact-section) .navbar {
-  background: rgba(237, 247, 247, 0.88); /* Brand --bg with high opacity */
+html:not(.home-page) body:has(.journey-portfolio) .navbar,
+html:not(.home-page) body:has(.contact-page) .navbar {
+  background: rgba(237, 247, 247, 0.88);
+  /* Brand --bg with high opacity */
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(224, 169, 75, 0.25); /* Elegant gold border border-highlight */
+  border-bottom: 1px solid rgba(224, 169, 75, 0.25);
+  /* Elegant gold border border-highlight */
   box-shadow: 0 10px 30px rgba(10, 30, 30, 0.05);
 }
 
