@@ -238,10 +238,8 @@ const RightPageContent = ({ dish, onAddToCart }) => {
 };
 
 const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) => {
-  if (!dish) return null;
-
-  // Track page index
-  const initialIndex = dishes.findIndex(d => d.id === dish.id);
+  // Track page index safely
+  const initialIndex = dish ? dishes.findIndex(d => d.id === dish.id) : 0;
   const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
 
   // Real page flipping animation states
@@ -319,10 +317,12 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
       stationaryLeftDish = dishes[currentIndex]; // holds old image
       stationaryRightDish = dishes[currentIndex + 1]; // reveals new details
     } else {
-      stationaryLeftDish = dishes[currentIndex - 1]; // reveals new image
-      stationaryRightDish = dishes[currentIndex]; // holds old details
+      stationaryLeftDish = dishes[currentIndex - 1]; // reveals new details
+      stationaryRightDish = dishes[currentIndex]; // holds old image
     }
   }
+
+  if (!dish) return null;
 
   return (
     <motion.div
