@@ -154,363 +154,477 @@ const experienceCards = [
   }
 ]
 
+const SECTIONS = ['hero', 'story', 'philosophy', 'chefs', 'experience']
+const SECTION_LABELS = ['Hero', 'Our Story', 'Philosophy', 'Master Chefs', 'Experience']
+
 const ChefPage = () => {
   const { setNavTheme } = useNav()
 
+  // ─── Full-Page Scroll State ───────────────────────────────────────────────
+  const [currentSection, setCurrentSection] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const portfolioRef = useRef(null)
+  const totalSections = SECTIONS.length
+
+  const goToSection = (index) => {
+    if (isTransitioning || index === currentSection || index < 0 || index >= totalSections) return
+    setIsTransitioning(true)
+    setCurrentSection(index)
+    setTimeout(() => setIsTransitioning(false), 900) // match CSS transition duration
+  }
+
+  // Wheel handler
+  useEffect(() => {
+    let lastWheelTime = 0
+    const onWheel = (e) => {
+      e.preventDefault()
+      const now = Date.now()
+      if (now - lastWheelTime < 900) return // throttle
+      lastWheelTime = now
+      if (e.deltaY > 0) goToSection(currentSection + 1)
+      else goToSection(currentSection - 1)
+    }
+    const el = portfolioRef.current
+    if (el) el.addEventListener('wheel', onWheel, { passive: false })
+    return () => { if (el) el.removeEventListener('wheel', onWheel) }
+  }, [currentSection, isTransitioning])
+
+  // Keyboard handler
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSection(currentSection + 1)
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') goToSection(currentSection - 1)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [currentSection, isTransitioning])
+
+  // Touch handler
+  useEffect(() => {
+    let touchStartY = 0
+    let lastTouchTime = 0
+    const onTouchStart = (e) => { touchStartY = e.touches[0].clientY }
+    const onTouchEnd = (e) => {
+      const now = Date.now()
+      if (now - lastTouchTime < 900) return
+      const delta = touchStartY - e.changedTouches[0].clientY
+      if (Math.abs(delta) < 50) return
+      lastTouchTime = now
+      if (delta > 0) goToSection(currentSection + 1)
+      else goToSection(currentSection - 1)
+    }
+    const el = portfolioRef.current
+    if (el) {
+      el.addEventListener('touchstart', onTouchStart, { passive: true })
+      el.addEventListener('touchend', onTouchEnd, { passive: true })
+    }
+    return () => {
+      if (el) {
+        el.removeEventListener('touchstart', onTouchStart)
+        el.removeEventListener('touchend', onTouchEnd)
+      }
+    }
+  }, [currentSection, isTransitioning])
+
   useEffect(() => {
     setNavTheme("yellow")
-    document.documentElement.classList.add("journey-page-active")
-    window.scrollTo(0, 0)
-
-    return () => {
-      document.documentElement.classList.remove("journey-page-active")
-    }
+    document.body.classList.add("journey-page-active")
+    return () => { document.body.classList.remove("journey-page-active") }
   }, [setNavTheme])
-
-  // Parallax Setup
-  const { scrollY } = useScroll()
-  const bgTextY = useTransform(scrollY, [0, 1000], [0, 100])
 
   // Interactive Dishes State
   const [activeChefId, setActiveChefId] = useState(masterChefs[0].id)
   const [activeAccordion, setActiveAccordion] = useState(3)
   const activeChef = masterChefs.find(c => c.id === activeChefId)
 
-  // Timeline Scroll Animation
-  const timelineRef = useRef(null)
-  const { scrollYProgress: timelineProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start end", "end center"]
-  })
-  const lineWidth = useTransform(timelineProgress, [0, 1], ["0%", "100%"])
-
   return (
-    <div className="journey-portfolio">
+    <div className="journey-portfolio" ref={portfolioRef}>
 
-      {/* ==========================================================================
+      {/* ─── Side Navigation Dots ──────────────────────────────────────────── */}
+      <div className="fp-nav-dots">
+        {SECTIONS.map((_, i) => (
+          <button
+            key={i}
+            className={`fp-dot ${i === currentSection ? 'active' : ''}`}
+            onClick={() => goToSection(i)}
+            title={SECTION_LABELS[i]}
+          >
+            <span className="fp-dot-tooltip">{SECTION_LABELS[i]}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* ─── Slide Track ───────────────────────────────────────────────────── */}
+      <div
+        className="fp-slide-track"
+        style={{ transform: `translateY(-${currentSection * 100}vh)` }}
+      >
+
+
+        {/* ==========================================================================
           1. HERO SECTION (Advanced Centered Layout)
           ========================================================================== */}
-      <section className="journey-hero-advanced">
+        <section className={`journey-hero-advanced${currentSection === 0 ? ' is-active' : ''}`}>
 
-        {/* Massive Vertical Background Text */}
-        <div className="hero-bg-vertical left">ANANDO</div>
-        <div className="hero-bg-vertical right">LEGACY</div>
-        <div className="hero-center-wrapper">
-          {/* Top Pill / Badge */}
-          <motion.div
-            className="hero-top-pill"
+          {/* Massive Vertical Background Text */}
+          <motion.div className="hero-bg-vertical left"
             initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="pill-item active">EST. 1970</div>
-            <div className="pill-item">PURE VEGETARIAN</div>
-            <div className="pill-item">BHUJ CITY</div>
-          </motion.div>
+            animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            transition={{ duration: 1, delay: 0.1 }}
+          >ANANDO</motion.div>
+          <motion.div className="hero-bg-vertical right"
+            initial={{ opacity: 0, y: -20 }}
+            animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            transition={{ duration: 1, delay: 0.15 }}
+          >LEGACY</motion.div>
+          <div className="hero-center-wrapper">
+            {/* Top Pill / Badge */}
+            <motion.div
+              className="hero-top-pill"
+              initial={{ opacity: 0, y: -20 }}
+              animate={currentSection === 0 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
+              <div className="pill-item active">EST. 1970</div>
+              <div className="pill-item">PURE VEGETARIAN</div>
+              <div className="pill-item">BHUJ CITY</div>
+            </motion.div>
 
-          {/* Main Portrait Image */}
-          <motion.div
-            className="hero-center-image-frame"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop" alt="Master Kitchen" />
-            <div className="hero-image-overlay-gradient"></div>
-          </motion.div>
+            {/* Main Portrait Image */}
+            <motion.div
+              className="hero-center-image-frame"
+              initial={{ opacity: 0, scale: 0.93 }}
+              animate={currentSection === 0 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.93 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+            >
+              <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop" alt="Master Kitchen" />
+              <div className="hero-image-overlay-gradient"></div>
+            </motion.div>
 
-          {/* Overlapping Dark Info Card */}
-          <motion.div
-            className="hero-dark-info-card"
-            initial={{ opacity: 0, x: 30, y: 30 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <div className="dic-label">
-              <Star size={12} className="inline-block mr-1 mb-[2px]" />
-              THE ARCHITECTS OF FLAVOR
-            </div>
-            <h1 className="dic-title">A LEGACY OF <br /><span>EXCELLENCE</span></h1>
-            <p className="dic-desc">
-              For over 50 years, crafting unforgettable sensory experiences where traditional
-              Indian flavors converge with comforting hospitality. A pioneer in pure vegetarian dining.
-            </p>
-
-            <div className="dic-stats">
-              <div className="dic-stat-pill"><Award size={14} className="inline-block mr-1" /> 50+ Years</div>
-              <div className="dic-stat-pill"><Clock size={14} className="inline-block mr-1" /> 100+ Dishes</div>
-            </div>
-
-            <div className="dic-actions">
-              <button className="dic-primary-btn" onClick={() => {
-                document.getElementById("signature-section").scrollIntoView({ behavior: "smooth" })
-              }}>
-                Discover Masterpieces <ArrowRight size={16} />
-              </button>
-              <div className="dic-socials">
-                <button className="dic-icon-btn"><Heart size={16} /></button>
-                <button className="dic-icon-btn"><Share2 size={16} /></button>
+            {/* Overlapping Dark Info Card */}
+            <motion.div
+              className="hero-dark-info-card"
+              initial={{ opacity: 0, x: 40, y: 20 }}
+              animate={currentSection === 0 ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 40, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+            >
+              <div className="dic-label">
+                <Star size={12} className="inline-block mr-1 mb-[2px]" />
+                THE ARCHITECTS OF ANDADOFOODS
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              <h1 className="dic-title">A LEGACY OF <br /><span>EXCELLENCE</span></h1>
+              <p className="dic-desc">
+                For over 50 years, crafting unforgettable sensory experiences where traditional
+                Indian flavors converge with comforting hospitality. A pioneer in pure vegetarian dining.
+              </p>
 
-      {/* ==========================================================================
+              <div className="dic-stats">
+                <div className="dic-stat-pill"><Award size={14} className="inline-block mr-1" /> 50+ Years</div>
+                <div className="dic-stat-pill"><Clock size={14} className="inline-block mr-1" /> 100+ Dishes</div>
+              </div>
+
+              <div className="dic-actions">
+                <button className="dic-primary-btn" onClick={() => {
+                  document.getElementById("signature-section").scrollIntoView({ behavior: "smooth" })
+                }}>
+                  Discover Masterpieces <ArrowRight size={16} />
+                </button>
+                <div className="dic-socials">
+                  <button className="dic-icon-btn"><Heart size={16} /></button>
+                  <button className="dic-icon-btn"><Share2 size={16} /></button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
           2. OUR STORY SECTION (Interactive Accordion Timeline)
           ========================================================================== */}
-      <section className="journey-story-accordion" id="story-section">
-        <div className="accordion-header center">
-          <div className="dic-label justify-center flex items-center">
-            <Star size={12} className="inline-block mr-2 mb-[2px]" />
-            OUR LEGACY
-          </div>
-          <h2 className="accordion-hero-title">
-            From a humble food corner to <br/><span>Bhuj’s beloved vegetarian destination.</span>
-          </h2>
-        </div>
-
-        <div className="accordion-container">
-          {timelineData.map((item, idx) => (
-            <div 
-              className={`accordion-panel ${activeAccordion === idx ? 'active' : ''}`} 
-              key={idx}
-              onMouseEnter={() => setActiveAccordion(idx)}
-              onClick={() => setActiveAccordion(idx)}
-            >
-              <div className="ap-bg-img">
-                <img src={item.img} alt={item.title} />
-                <div className="ap-overlay"></div>
-              </div>
-              
-              {/* Always visible year / title tab (Vertical on desktop) */}
-              <div className="ap-tab">
-                <h3>{item.year}</h3>
-                <span className="ap-tab-title">{item.title}</span>
-              </div>
-
-              {/* Content revealed on expansion */}
-              <div className="ap-content">
-                <div className="ap-content-inner">
-                  <div className="ap-year-bg">{item.year}</div>
-                  <div className="ap-text-content">
-                    <h3 className="ap-title">{item.title}</h3>
-                    <p className="ap-desc">{item.desc}</p>
-                    <button className="ap-btn">
-                      DISCOVER THE ERA <ArrowRight size={14}/>
-                    </button>
-                  </div>
-                </div>
-              </div>
+        <section className={`journey-story-accordion${currentSection === 1 ? ' is-active' : ''}`} id="story-section">
+          <motion.div className="accordion-header center"
+            initial={{ opacity: 0, y: -25 }}
+            animate={currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            <div className="dic-label justify-center flex items-center">
+              <Star size={12} className="inline-block mr-2 mb-[2px]" />
+              OUR LEGACY
             </div>
-          ))}
-        </div>
-      </section>
+            <h2 className="accordion-hero-title">
+              From a humble food corner to <br /><span>Bhuj’s beloved vegetarian destination.</span>
+            </h2>
+          </motion.div>
 
-      {/* ==========================================================================
-          3. CHEF PHILOSOPHY SECTION (Advanced Split Layout)
-          ========================================================================== */}
-      <section className="journey-philosophy-advanced" id="philosophy-section">
-        {/* Massive Background Text */}
-        <div className="phil-bg-text">PHILOSOPHY</div>
-
-        <div className="phil-advanced-wrapper">
-          
-          {/* Header Row (Split Left/Right) */}
-          <div className="phil-header-split">
-            <div className="phil-header-left">
-              <div className="dic-label flex items-center">
-                <Star size={12} className="inline-block mr-2 mb-[2px]" />
-                THE KITCHEN PHILOSOPHY
-              </div>
-              <h2 className="phil-title-main">
-                The core principles <br/>of our <span>culinary artistry</span>
-              </h2>
-            </div>
-            <div className="phil-header-right">
-              <div className="phil-quote-line"></div>
-              <p className="phil-quote-text">
-                "We don’t simply cook meals — we craft experiences that bring warmth, nostalgia, and joy to every table. Every dish carries tradition, emotion, and artistry."
-              </p>
-            </div>
-          </div>
-
-          {/* Cards Row */}
-          <div className="phil-cards-row">
-            {philosophyCards.map((card, idx) => (
-              <motion.div 
-                className="phil-card-advanced glass-panel" 
-                key={card.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: idx * 0.1, duration: 0.8 }}
-                whileHover={{ y: -5 }}
+          <div className="accordion-container">
+            {timelineData.map((item, idx) => (
+              <motion.div
+                className={`accordion-panel ${activeAccordion === idx ? 'active' : ''}`}
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                animate={currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                transition={{ duration: 0.7, delay: 0.25 + idx * 0.12 }}
+                onMouseEnter={() => setActiveAccordion(idx)}
+                onClick={() => setActiveAccordion(idx)}
               >
-                <div className="pc-top">
-                  <div className="pc-number">/0{idx + 1}</div>
-                  <Star size={14} className="pc-star text-[#eaa43b]" />
+                <div className="ap-bg-img">
+                  <img src={item.img} alt={item.title} />
+                  <div className="ap-overlay"></div>
                 </div>
-                <div className="pc-content">
-                  <h3>{card.title}</h3>
-                  <div className="pc-subtitle">GUIDING PRINCIPLE</div>
-                  <p>{card.desc}</p>
+
+                {/* Always visible year / title tab (Vertical on desktop) */}
+                <div className="ap-tab">
+                  <h3>{item.year}</h3>
+                  <span className="ap-tab-title">{item.title}</span>
+                </div>
+
+                {/* Content revealed on expansion */}
+                <div className="ap-content">
+                  <div className="ap-content-inner">
+                    <div className="ap-year-bg">{item.year}</div>
+                    <div className="ap-text-content">
+                      <h3 className="ap-title">{item.title}</h3>
+                      <p className="ap-desc">{item.desc}</p>
+                      <button className="ap-btn">
+                        DISCOVER THE ERA <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ==========================================================================
-          4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
+        {/* ==========================================================================
+          3. CHEF PHILOSOPHY SECTION (Advanced Split Layout)
           ========================================================================== */}
-      <section className="journey-signature" id="signature-section">
-        <div className="accordion-header center" style={{ marginBottom: '1rem' }}>
-          <div className="dic-label justify-center flex items-center">
-            <Star size={12} className="inline-block mr-2 mb-[2px]" />
-            MASTER CHEFS
-          </div>
-          <h2 className="accordion-hero-title">
-            Meet the artisans behind our <br/><span>signature collection.</span>
-          </h2>
-        </div>
+        <section className={`journey-philosophy-advanced${currentSection === 2 ? ' is-active' : ''}`} id="philosophy-section">
+          {/* Massive Background Text */}
+          <div className="phil-bg-text">PHILOSOPHY</div>
 
-        <div className="interactive-chef-showcase">
-          {/* Left: Chef Selector */}
-          <div className="ims-left">
-            <div className="ims-chef-list">
-              {masterChefs.map(chef => (
-                <div
-                  key={chef.id}
-                  className={`ims-chef-item ${activeChefId === chef.id ? 'active' : ''}`}
-                  onClick={() => setActiveChefId(chef.id)}
-                >
-                  <div className="chef-selector-avatar">
-                    <img src={chef.portrait} alt={chef.name} />
-                  </div>
-                  <div className="chef-selector-info">
-                    <h3>{chef.name}</h3>
-                    <span>{chef.role}</span>
-                  </div>
-                  <ChevronRight className="chef-selector-arrow" />
+          <div className="phil-advanced-wrapper">
+
+            {/* Header Row (Split Left/Right) */}
+            <div className="phil-header-split">
+              <motion.div className="phil-header-left"
+                initial={{ opacity: 0, x: -40 }}
+                animate={currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <div className="dic-label flex items-center">
+                  <Star size={12} className="inline-block mr-2 mb-[2px]" />
+                  THE KITCHEN PHILOSOPHY
                 </div>
+                <h2 className="phil-title-main">
+                  The core principles <br />of our <span>culinary artistry</span>
+                </h2>
+              </motion.div>
+              <motion.div className="phil-header-right"
+                initial={{ opacity: 0, x: 40 }}
+                animate={currentSection === 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+                transition={{ duration: 0.8, delay: 0.35 }}
+              >
+                <div className="phil-quote-line"></div>
+                <p className="phil-quote-text">
+                  "We don’t simply cook meals — we craft experiences that bring warmth, nostalgia, and joy to every table. Every dish carries tradition, emotion, and artistry."
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Cards Row */}
+            <div className="phil-cards-row">
+              {philosophyCards.map((card, idx) => (
+                <motion.div
+                  className="phil-card-advanced glass-panel"
+                  key={card.id}
+                  initial={{ opacity: 0, y: 35 }}
+                  animate={currentSection === 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+                  transition={{ duration: 0.7, delay: 0.45 + idx * 0.12 }}
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                >
+                  <div className="pc-top">
+                    <div className="pc-number">/0{idx + 1}</div>
+                    <Star size={14} className="pc-star text-[#eaa43b]" />
+                  </div>
+                  <div className="pc-content">
+                    <h3>{card.title}</h3>
+                    <div className="pc-subtitle">GUIDING PRINCIPLE</div>
+                    <p>{card.desc}</p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* Right: Live Chef & Dish Preview */}
-          <div className="ims-right">
-            <AnimatePresence mode="wait">
-              {activeChef && (
-                <motion.div
-                  className="ims-preview-card"
-                  key={activeChef.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <div className="ims-img-container">
-                    <img src={activeChef.signatureDish.image} alt={activeChef.signatureDish.name} />
-                    <div className="ims-chef-overlay-badge glass-panel">
-                      <img src={activeChef.portrait} alt={activeChef.name} className="mini-portrait" />
-                      <div className="badge-text">
-                        <span>Crafted by</span>
-                        <strong>{activeChef.name}</strong>
+        {/* ==========================================================================
+          4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
+          ========================================================================== */}
+        <section className={`journey-signature${currentSection === 3 ? ' is-active' : ''}`} id="signature-section">
+          <motion.div className="accordion-header center" style={{ marginBottom: '1rem' }}
+            initial={{ opacity: 0, y: -25 }}
+            animate={currentSection === 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            <div className="dic-label justify-center flex items-center">
+              <Star size={12} className="inline-block mr-2 mb-[2px]" />
+              MASTER CHEFS
+            </div>
+            <h2 className="accordion-hero-title">
+              Meet the artisans behind our <br /><span>signature collection.</span>
+            </h2>
+          </motion.div>
+
+          <div className="interactive-chef-showcase">
+            {/* Left: Chef Selector */}
+            <motion.div className="ims-left"
+              initial={{ opacity: 0, x: -40 }}
+              animate={currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+            >
+              <div className="ims-chef-list">
+                {masterChefs.map(chef => (
+                  <div
+                    key={chef.id}
+                    className={`ims-chef-item ${activeChefId === chef.id ? 'active' : ''}`}
+                    onClick={() => setActiveChefId(chef.id)}
+                  >
+                    <div className="chef-selector-avatar">
+                      <img src={chef.portrait} alt={chef.name} />
+                    </div>
+                    <div className="chef-selector-info">
+                      <h3>{chef.name}</h3>
+                      <span>{chef.role}</span>
+                    </div>
+                    <ChevronRight className="chef-selector-arrow" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right: Live Chef & Dish Preview */}
+            <motion.div className="ims-right"
+              initial={{ opacity: 0, x: 40 }}
+              animate={currentSection === 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <AnimatePresence mode="wait">
+                {activeChef && (
+                  <motion.div
+                    className="ims-preview-card"
+                    key={activeChef.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <div className="ims-img-container">
+                      <img src={activeChef.signatureDish.image} alt={activeChef.signatureDish.name} />
+                      <div className="ims-chef-overlay-badge glass-panel">
+                        <img src={activeChef.portrait} alt={activeChef.name} className="mini-portrait" />
+                        <div className="badge-text">
+                          <span>Crafted by</span>
+                          <strong>{activeChef.name}</strong>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="ims-details">
-                    <div className="chef-phil-quote">
-                      "{activeChef.philosophy}"
-                    </div>
+                    <div className="ims-details">
+                      <div className="chef-phil-quote">
+                        "{activeChef.philosophy}"
+                      </div>
 
-                    <div className="dish-showcase-divider"></div>
+                      <div className="dish-showcase-divider"></div>
 
-                    <div className="note-label">Signature Dish</div>
-                    <h3>{activeChef.signatureDish.name}</h3>
+                      <div className="note-label">Signature Dish</div>
+                      <h3>{activeChef.signatureDish.name}</h3>
 
-                    <div className="ims-tags">
-                      {activeChef.signatureDish.tags.map((tag, i) => (
-                        <span key={i} className="ims-tag">{tag}</span>
-                      ))}
-                    </div>
+                      <div className="ims-tags">
+                        {activeChef.signatureDish.tags.map((tag, i) => (
+                          <span key={i} className="ims-tag">{tag}</span>
+                        ))}
+                      </div>
 
-                    <div className="ims-metrics">
-                      {activeChef.signatureDish.metrics.map((m, i) => (
-                        <div key={i} className="metric-row">
-                          <span className="metric-label">{m.icon} {m.label}</span>
-                          <div className="metric-bar-bg">
-                            <motion.div
-                              className="metric-bar-fill"
-                              initial={{ width: 0 }}
-                              animate={{ width: `${m.value}%` }}
-                              transition={{ duration: 1, delay: 0.2 + (i * 0.1) }}
-                            ></motion.div>
+                      <div className="ims-metrics">
+                        {activeChef.signatureDish.metrics.map((m, i) => (
+                          <div key={i} className="metric-row">
+                            <span className="metric-label">{m.icon} {m.label}</span>
+                            <div className="metric-bar-bg">
+                              <motion.div
+                                className="metric-bar-fill"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${m.value}%` }}
+                                transition={{ duration: 1, delay: 0.2 + (i * 0.1) }}
+                              ></motion.div>
+                            </div>
+                            <span className="metric-val">{m.value}%</span>
                           </div>
-                          <span className="metric-val">{m.value}%</span>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
 
-                    <div className="ims-note">
-                      <p>"{activeChef.signatureDish.note}"</p>
+                      <div className="ims-note">
+                        <p>"{activeChef.signatureDish.note}"</p>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ==========================================================================
+        {/* ==========================================================================
           5. THE EXPERIENCE SECTION (Light Theme)
           ========================================================================== */}
-      <section className="journey-experience" id="experience-section">
-        <div className="experience-content">
-          <div className="section-header center">
-            <div className="sec-label">✦ THE EXPERIENCE</div>
-            <h2>A place where comfort, flavor, and togetherness meet.</h2>
-          </div>
+        <section className={`journey-experience${currentSection === 4 ? ' is-active' : ''}`} id="experience-section">
+          <div className="experience-content">
+            <motion.div className="section-header center"
+              initial={{ opacity: 0, y: -25 }}
+              animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+            >
+              <div className="sec-label">✦ THE EXPERIENCE</div>
+              <h2>A place where comfort, flavor, and togetherness meet.</h2>
+            </motion.div>
 
-          <div className="experience-grid">
-            {experienceCards.map((card, idx) => (
-              <motion.div
-                className="exp-card glass-panel"
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: idx * 0.15, duration: 0.8 }}
-              >
-                <div className="exp-img-wrapper">
-                  <img src={card.img} alt={card.title} />
-                </div>
-                <div className="exp-text-content">
-                  <h3>{card.title}</h3>
-                  <p>{card.desc}</p>
-                </div>
-                <div className="exp-card-border"></div>
-              </motion.div>
-            ))}
-          </div>
+            <div className="experience-grid">
+              {experienceCards.map((card, idx) => (
+                <motion.div
+                  className="exp-card glass-panel"
+                  key={idx}
+                  initial={{ opacity: 0, y: 35 }}
+                  animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+                  transition={{ duration: 0.7, delay: 0.3 + idx * 0.12 }}
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                >
+                  <div className="exp-img-wrapper">
+                    <img src={card.img} alt={card.title} />
+                  </div>
+                  <div className="exp-text-content">
+                    <h3>{card.title}</h3>
+                    <p>{card.desc}</p>
+                  </div>
+                  <div className="exp-card-border"></div>
+                </motion.div>
+              ))}
+            </div>
 
-          <motion.div
-            className="experience-cta"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <p>Join us to create your own memories at Anando Foods.</p>
-            <button className="primary-btn gold-btn">
-              Reserve a Table <ArrowRight size={16} />
-            </button>
-          </motion.div>
-        </div>
-      </section>
+            <motion.div
+              className="experience-cta"
+              initial={{ opacity: 0, y: 20 }}
+              animate={currentSection === 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.7, delay: 0.85 }}
+            >
+              <p>Join us to create your own memories at Anando Foods.</p>
+              <button className="primary-btn gold-btn">
+                Reserve a Table <ArrowRight size={16} />
+              </button>
+            </motion.div>
+          </div>
+        </section>
+
+      </div>{/* fp-slide-track */}
 
     </div>
   )
