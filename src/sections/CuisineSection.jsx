@@ -256,13 +256,17 @@ const CuisineSection = () => {
 
   const handleEnter = (i) => {
     clearTimeout(hoverTimeout.current)
-    setHoveredIndex(i)
-  }
 
+    requestAnimationFrame(() => {
+      setHoveredIndex(i)
+    })
+  }
   const handleLeave = () => {
+    clearTimeout(hoverTimeout.current)
+
     hoverTimeout.current = setTimeout(() => {
       setHoveredIndex(null)
-    }, 150) // Increased to 150ms to absorb micro-stutters and prevent flickering
+    }, 220)
   }
   const handleDishClick = (e, i) => {
     e.stopPropagation()
@@ -383,14 +387,16 @@ const CuisineSection = () => {
                 <div key={i} className={`cuisine-dish-wrapper-round dish-round-${i}`}>
                   <motion.div
                     className="cuisine-dish-motion-wrapper"
-                    onMouseEnter={() => handleEnter(i)}
-                    onMouseLeave={handleLeave}
+                    onPointerEnter={() => handleEnter(i)}
+                    onPointerLeave={handleLeave}
                     onClick={(e) => handleDishClick(e, i)}
                     animate={{
                       y: activeIndex === i ? -25 : 0,
                     }}
                     transition={{
-                      y: { duration: 0.5 },
+                      type: "spring",
+                      stiffness: 180,
+                      damping: 18,
                     }}
                     variants={{
                       hidden: {
@@ -414,7 +420,8 @@ const CuisineSection = () => {
                       }
                     }}
                     whileHover={{
-                      scale: 1.05,
+                      scale: 1.03,
+                      y: -6,
                       zIndex: 100
                     }}
                   >
