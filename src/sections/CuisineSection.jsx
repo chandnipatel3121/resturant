@@ -161,7 +161,7 @@ const CUISINES = [
     border: "#4D79FF",
     glow: "rgba(77, 121, 255, 0.5)",
     textColor: "#ffffff",
-    map: null,
+    map: italMap,
     items: []
   },
   {
@@ -177,7 +177,7 @@ const CUISINES = [
     border: "#d97706",
     glow: "rgba(224, 169, 75, 0.4)",
     textColor: "#ffffff",
-    map: null,
+    map: gujMap,
     items: []
   },
   {
@@ -193,7 +193,7 @@ const CUISINES = [
     border: "#FF7D29",
     glow: "rgba(255, 125, 41, 0.4)",
     textColor: "#ffffff",
-    map: null,
+    map: punMap,
     items: []
   }
 ]

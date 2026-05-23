@@ -156,3 +156,38 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+
+/* 📱 SMALL MOBILE (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 3rem 1rem;
+  }
+
+  .footer-container {
+    gap: 2rem;
+  }
+
+  .footer-nav {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-logo {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-address {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-email {
+    font-size: 0.95rem;
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    gap: 1rem;
+  }
+}

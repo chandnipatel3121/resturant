@@ -363,3 +363,28 @@
     background-color: var(--accent); /* Luxurious theme accent color */
   }
 }
+
+/* 📱 SMALL MOBILE (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  .testimonials-title {
+    font-size: 1.8rem !important;
+  }
+
+  .testimonials-rating-num {
+    font-size: 1.4rem !important;
+  }
+
+  .testimonials-mobile-slide .testimonial-card {
+    padding: 1.2rem !important;
+  }
+
+  .testimonials-mobile-slide .testimonial-quote {
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .testimonial-avatar-wrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

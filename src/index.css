@@ -339,3 +339,52 @@ section {
     right: 0.75rem !important;
   }
 }
+
+/* 📱 SMALL MOBILE OPTIMIZATIONS (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  :root {
+    --fs-h1: clamp(2rem, 10vw, 3rem);
+    --fs-h2: clamp(1.5rem, 8vw, 2.5rem);
+    --section-padding: clamp(2rem, 8vh, 4rem);
+    --container-px: clamp(1rem, 4vw, 2rem);
+  }
+
+  html {
+    font-size: 14px;
+    /* Ensure base font is manageable on small screens */
+  }
+}
+/* Dietary Marks */
+.diet-mark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  flex-shrink: 0;
+}
+
+.diet-mark-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.diet-mark.veg {
+  border-color: #2e7d32;
+  color: #2e7d32;
+}
+
+.diet-mark.non-veg {
+  border-color: #c62828;
+  color: #c62828;
+}
+
+.diet-mark.jain, .diet-mark.vegan {
+  border-color: #f5b041;
+  color: #f5b041;
+}

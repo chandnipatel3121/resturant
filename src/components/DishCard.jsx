@@ -14,7 +14,9 @@ export default function DishCard({
   onAddToCart,
 }) {
 
-  const isVeg = dish.diet === "Veg"
+  const isVeg = dish.diet === "Veg";
+  const dietType = dish.diet?.toLowerCase() || 'veg';
+  const dietClass = dietType === 'non-veg' ? 'non-veg' : (dietType === 'vegan' || dietType === 'jain' ? 'jain' : 'veg');
 
   const getCardClass = () => {
 
@@ -66,8 +68,8 @@ export default function DishCard({
       <div className="card-media">
         <motion.img src={dish.image} alt={dish.title} loading="lazy" />
         <div className="media-actions-top">
-          <div className={`diet-indicator-pill ${isVeg ? 'veg' : 'non-veg'}`}>
-            <span>{isVeg ? 'VEG' : 'NON-VEG'}</span>
+          <div className={`diet-mark ${dietClass}`} title={dish.diet}>
+            <div className="diet-mark-circle"></div>
           </div>
           <div className="spice-indicator-pill">
             {[...Array(3)].map((_, i) => (

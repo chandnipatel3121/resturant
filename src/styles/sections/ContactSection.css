@@ -253,3 +253,34 @@
     font-size: 0.8rem;
   }
 }
+
+/* 📱 SMALL MOBILE (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  .contact-info-panel {
+    padding: 2rem 1.2rem 1rem 1.2rem;
+  }
+
+  .contact-map-panel {
+    padding: 0 1.2rem 2rem 1.2rem;
+  }
+
+  .contact-brand-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-details-list {
+    gap: 1rem;
+  }
+
+  .contact-item-value {
+    font-size: 0.9rem;
+  }
+
+  .luxury-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.75rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -36,7 +36,7 @@ const CuisineGlobe = ({
                     fetch("/data/countries.geo.json"),
                     fetch("/data/india_state.json")
                 ])
-                
+
                 if (!countriesRes.ok || !indiaRes.ok) {
                     throw new Error(`HTTP error! status: ${countriesRes.status} or ${indiaRes.status}`);
                 }
@@ -63,7 +63,7 @@ const CuisineGlobe = ({
 
                 cachedPolygons = allFeatures;
                 setPolygons(allFeatures);
-                
+
                 // Notify other instances waiting for data
                 while (fetchCallbacks.length > 0) {
                     const cb = fetchCallbacks.shift();

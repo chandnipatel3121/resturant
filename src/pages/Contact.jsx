@@ -117,7 +117,7 @@ const ContactPage = () => {
           </motion.div>
 
           {/* RIGHT: INFO GRID */}
-          <motion.div 
+          <motion.div
             className="contact-info-grid"
             variants={containerVariants}
             initial="hidden"
@@ -127,8 +127,8 @@ const ContactPage = () => {
             <motion.div className="info-card-premium" variants={itemVariants} whileHover={{ y: -5 }}>
               <div className="icon-wrapper"><MapPin size={28} /></div>
               <h3>Location</h3>
-              <p>123 Gastronomy Blvd</p>
-              <span className="subtext">Bapa Sitaram Madhuli, Shivkrupa Nagar, Bhuj</span>
+              <p></p>
+              <span className="subtext">Bapa Sitaram Madhuli, Shivkrupa Nagar, Bhuj, Mirjapar Part, Gujarat 370040</span>
             </motion.div>
 
             <motion.div className="info-card-premium" variants={itemVariants} whileHover={{ y: -5 }}>

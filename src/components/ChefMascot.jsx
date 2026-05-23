@@ -122,9 +122,9 @@ const ChefMascot = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 20, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 250, damping: 20 }}
-                className="bg-white px-4 py-2 rounded-full shadow-lg"
+                className="hidden md:block bg-white px-4 py-2.5 rounded-2xl shadow-lg max-w-[55vw] sm:max-w-xs"
               >
-                <p className="text-[13px] text-[#0F5C5C] whitespace-nowrap">
+                <p className="text-[13px] text-[#0F5C5C] leading-snug break-words">
                   {displayedText}
                   <span className="animate-pulse ml-[2px]">|</span>
                 </p>

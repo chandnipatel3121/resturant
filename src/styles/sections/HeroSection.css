@@ -311,3 +311,37 @@
     font-size: 0.75rem;
   }
 }
+
+/* 📱 SMALL MOBILE OPTIMIZATIONS (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  .hero-section {
+    height: 250vh;
+  }
+
+  .tagline-display {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .tagline-badge {
+    font-size: 0.85rem;
+    padding: 2px 8px;
+    margin-bottom: -10px;
+  }
+
+  .hero-btn-group {
+    gap: 0.5rem;
+    max-width: 280px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .tagline-legacy {
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+  }
+}

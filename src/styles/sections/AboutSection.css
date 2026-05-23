@@ -3,7 +3,7 @@
   position: relative;
   background-color: var(--bg);
   overflow: hidden;
-   height: 100lvh;
+  height: 100lvh;
   min-height: 600px;
   display: flex;
   align-items: center;
@@ -226,7 +226,7 @@
 /* ── RESPONSIVE: Tablet (768px – 1023px) ── */
 @media (min-width: 768px) and (max-width: 1023px) {
   .about-section {
-     height: 100lvh;
+    height: 100lvh;
     padding: 0;
     align-items: center;
   }
@@ -318,5 +318,40 @@
 
   .about-flex-container {
     gap: 2.5rem;
+  }
+}
+
+/* 📱 SMALL MOBILE (e.g. 360px - 412px widths) */
+@media (max-width: 480px) {
+  .about-section {
+    padding: 2.5rem 0 1rem !important;
+  }
+
+  .about-ghost-text {
+    font-size: 26vw;
+    top: 3%;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+  }
+
+  .about-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0 0.5rem;
+  }
+
+  .about-image-collage {
+    height: 240px;
+    margin-top: 1rem;
+  }
+
+  .about-img-main {
+    border-radius: 1rem;
+  }
+
+  .about-img-secondary {
+    border-radius: 0.75rem;
   }
 }

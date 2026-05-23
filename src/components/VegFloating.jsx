@@ -7,27 +7,16 @@ const Badge = ({ color, innerColor, label }) => {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="relative"
         >
-            {/* glow */}
+            {/* rounded square border container */}
             <div
-                className="absolute inset-0 blur-lg rounded-full"
-                style={{ background: color + "33" }}
-            />
-
-            {/* box */}
-            <div
-                className="relative w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/80 backdrop-blur-md
-        border shadow-md flex items-center justify-center"
-                style={{ borderColor: color + "55" }}
+                className="w-5 h-5 md:w-6 md:h-6 border-[1.5px] md:border-2 rounded-[4px] md:rounded-[6px] flex items-center justify-center bg-white/90 backdrop-blur-md shadow-sm"
+                style={{ borderColor: color }}
             >
+                {/* inner solid dot */}
                 <div
-                    className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 border-2 flex items-center justify-center"
-                    style={{ borderColor: color }}
-                >
-                    <div
-                        className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full"
-                        style={{ background: innerColor }}
-                    />
-                </div>
+                    className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full"
+                    style={{ background: innerColor }}
+                />
             </div>
 
             {/* label */}

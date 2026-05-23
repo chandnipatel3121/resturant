@@ -14,6 +14,7 @@
 }
 
 @media (max-width: 768px) {
+
   /* Remove top padding so hero is full-bleed; hero handles navbar offset internally */
   .subpage-layout {
     padding-top: 0;
@@ -60,7 +61,7 @@ html.menu-snap-page .menu-main-layout {
   will-change: transform;
 }
 
-.enhanced-menu-hero > div:not(.hero-bg-media) {
+.enhanced-menu-hero>div:not(.hero-bg-media) {
   width: 100%;
 }
 
@@ -155,12 +156,10 @@ html.menu-snap-page .menu-main-layout {
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
 }
 
 .hero-floating-elements {
@@ -345,9 +344,7 @@ html.menu-snap-page .menu-main-layout {
   }
 }
 
-.general-search-container:focus-within
-  ~ .search-stats
-  .search-status-dot::after {
+.general-search-container:focus-within~.search-stats .search-status-dot::after {
   animation-duration: 1s;
 }
 
@@ -488,7 +485,7 @@ html.menu-snap-page .menu-main-layout {
   transition: all 0.3s ease;
 }
 
-.sidebar-search-input:focus + .sidebar-search-icon {
+.sidebar-search-input:focus+.sidebar-search-icon {
   color: #d4af37;
   opacity: 1;
 }
@@ -660,11 +657,9 @@ html.menu-snap-page .menu-main-layout {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: linear-gradient(
-      to bottom,
-      var(--bg) 80%,
-      rgba(15, 92, 92, 0.02)
-    );
+    background: linear-gradient(to bottom,
+        var(--bg) 80%,
+        rgba(15, 92, 92, 0.02));
     position: static;
   }
 
@@ -738,22 +733,22 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .menu-sidebar {
-    width: 68px !important;
-    min-width: 68px !important;
-    max-width: 68px !important;
+    width: 76px !important;
+    min-width: 76px !important;
+    max-width: 76px !important;
     flex-shrink: 0 !important;
-    height: calc(100vh - 49px) !important;
+    height: calc(100dvh - 49px) !important;
     position: sticky !important;
     top: 49px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    padding: 10px 6px 20px !important;
+    padding: 10px 0 20px !important;
     border-right: 1px solid rgba(15, 92, 92, 0.1) !important;
     border-bottom: none !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
-    background: rgba(255, 255, 255, 0.97) !important;
+    gap: 0px !important;
+    background: rgba(244, 247, 247, 0.97) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     scrollbar-width: none !important;
@@ -777,7 +772,7 @@ html.menu-snap-page .menu-main-layout {
     overflow-x: hidden !important;
     overflow-y: visible !important;
     white-space: normal !important;
-    gap: 4px !important;
+    gap: 0 !important;
     padding-bottom: 0 !important;
     scrollbar-width: none !important;
   }
@@ -786,12 +781,22 @@ html.menu-snap-page .menu-main-layout {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 8px 4px !important;
-    gap: 4px !important;
+    padding: 12px 4px !important;
+    gap: 8px !important;
     width: 100% !important;
-    border-radius: 12px !important;
+    border-radius: 0 !important;
     margin-bottom: 0 !important;
-    min-height: 60px;
+    min-height: 85px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+  }
+
+  .sidebar-cat-item.active {
+    background: rgba(255, 255, 255, 1) !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   /* Hide color pill and text on mobile sidebar */
@@ -804,13 +809,25 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .sidebar-cat-icon-container {
-    width: 36px !important;
-    height: 36px !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50% !important;
+    background: #f0f4f4 !important;
+    box-shadow: none !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .sidebar-cat-item.active .sidebar-cat-icon-container {
+    background: var(--accent) !important;
+    box-shadow: 0 4px 10px rgba(224, 169, 75, 0.35) !important;
+    border-color: transparent !important;
   }
 
   .sidebar-cat-icon-container svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
+    stroke-width: 1.5px !important;
   }
 
   /* Show short cuisine name as tiny label below icon */
@@ -823,16 +840,20 @@ html.menu-snap-page .menu-main-layout {
 
   .sidebar-cat-item .sidebar-cat-label {
     display: block !important;
-    font-size: 0.46rem !important; /* Slightly smaller for premium narrow layouts */
+    font-size: 0.65rem !important;
     font-weight: 700 !important;
-    color: #555 !important;
+    color: var(--text) !important;
     text-align: center !important;
     line-height: 1.15 !important;
     white-space: normal !important;
-    max-width: 52px !important;
-    word-break: normal !important; /* Respect word break opportunities like <wbr> */
-    overflow-wrap: break-word !important; /* Break long words if no opportunities present */
-    letter-spacing: -0.02em !important; /* Premium condensed spacing */
+    max-width: 68px !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    letter-spacing: 0 !important;
+  }
+
+  .sidebar-cat-item.active .sidebar-cat-label {
+    color: var(--accent) !important;
   }
 
   .sidebar-cat-item .sidebar-cat-desc {
@@ -840,14 +861,14 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .sidebar-active-indicator {
-    right: -1px !important;
-    left: auto !important;
+    right: auto !important;
+    left: 0 !important;
     bottom: auto !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 3px !important;
-    height: 50% !important;
-    border-radius: 4px !important;
+    top: 0 !important;
+    transform: none !important;
+    width: 4px !important;
+    height: 100% !important;
+    border-radius: 0 4px 4px 0 !important;
   }
 
   /* Content area takes remaining space */
@@ -1092,6 +1113,7 @@ html.menu-snap-page .menu-main-layout {
 }
 
 @media (max-width: 768px) {
+
   /* Sticky filter bar: solid white with border and overlap under navbar */
   .menu-filters-sticky {
     top: 49px !important;
@@ -1102,11 +1124,12 @@ html.menu-snap-page .menu-main-layout {
     padding-top: 14px !important;
     padding-bottom: 14px !important;
     border-bottom: 1px solid rgba(15, 92, 92, 0.06) !important;
-    z-index: 120 !important; /* Critical override: float cleanly over card GPU stacking contexts */
+    z-index: 120 !important;
+    /* Critical override: float cleanly over card GPU stacking contexts */
   }
 
   /* Minimize direct child margins/padding to make sticky area vertically compact */
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
@@ -1124,16 +1147,15 @@ html.menu-snap-page .menu-main-layout {
 
   .general-search-container {
     max-width: 100%;
-    height: 50px !important;
-    /* Premium slight increase for better finger tap target and layout balance */
-    padding-left: 20px !important;
+    height: 60px !important;
+    padding-left: 10px !important;
     padding-right: 16px !important;
     background: #f8fafc;
     border: 1px solid rgba(15, 92, 92, 0.08);
   }
 
   .general-search-input {
-    font-size: 0.82rem;
+    font-size: 0.99rem;
   }
 
   /* Meal pills and stats row */
@@ -1155,7 +1177,8 @@ html.menu-snap-page .menu-main-layout {
     -ms-overflow-style: none !important;
     -webkit-overflow-scrolling: touch !important;
     padding: 0 !important;
-    border-radius: 100px !important; /* Forces rounded clipping of scrollable gray track background */
+    border-radius: 100px !important;
+    /* Forces rounded clipping of scrollable gray track background */
   }
 
   .meal-stats-row .meal-times-group::-webkit-scrollbar {
@@ -1174,8 +1197,10 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .meal-pill-modern {
-    padding: 4px 9px !important; /* Compact padding to fit without scroll on narrow screens */
-    font-size: 0.65rem !important; /* Slightly smaller text for pristine legibility */
+    padding: 4px 9px !important;
+    /* Compact padding to fit without scroll on narrow screens */
+    font-size: 0.65rem !important;
+    /* Slightly smaller text for pristine legibility */
     white-space: nowrap;
   }
 
@@ -1190,8 +1215,10 @@ html.menu-snap-page .menu-main-layout {
   /* Premium gold statistical badge side-by-side with meal pills */
   .meal-stats-row .search-stats {
     display: inline-flex !important;
-    padding: 4px 8px !important; /* Premium compact padding */
-    font-size: 0.62rem !important; /* Elegant compact text */
+    padding: 4px 8px !important;
+    /* Premium compact padding */
+    font-size: 0.62rem !important;
+    /* Elegant compact text */
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
@@ -1269,7 +1296,8 @@ html.menu-snap-page .menu-main-layout {
 
   /* Grid container margin adjustments */
   .menu-grid-container {
-    padding-top: 24px !important; /* Premium generous spacing to offset sticky header */
+    padding-top: 24px !important;
+    /* Premium generous spacing to offset sticky header */
   }
 
   /* Grid: two compact cards per row on mobile */
@@ -1592,11 +1620,9 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .course-chip.active {
-  background: linear-gradient(
-    135deg,
-    var(--chip-grad-1),
-    var(--chip-grad-2)
-  ) !important;
+  background: linear-gradient(135deg,
+      var(--chip-grad-1),
+      var(--chip-grad-2)) !important;
   border-color: transparent !important;
   color: #ffffff !important;
   transform: translateY(-3px) scale(1.02);
@@ -1697,7 +1723,7 @@ html.menu-snap-page .menu-main-layout {
     border-top: 1px solid #edf7f7 !important;
   }
 
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
     margin-bottom: 0 !important;
@@ -1900,7 +1926,8 @@ html.menu-snap-page .menu-main-layout {
   .menu-sidebar {
     width: 300px !important;
     padding: 15px 20px 10px !important;
-    top: 70px !important; /* Perfect align under 70px navbar */
+    top: 70px !important;
+    /* Perfect align under 70px navbar */
     height: calc(100vh - 70px) !important;
     overflow-y: auto !important;
     scrollbar-width: none !important;
@@ -1969,7 +1996,8 @@ html.menu-snap-page .menu-main-layout {
 
   /* STICKY FILTERS: Clean touch align under 70px navbar */
   .menu-filters-sticky {
-    top: 70px !important; /* Perfect align under 70px navbar - NO OVERLAP */
+    top: 70px !important;
+    /* Perfect align under 70px navbar - NO OVERLAP */
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     background: #edf7f7 !important;
@@ -1980,7 +2008,7 @@ html.menu-snap-page .menu-main-layout {
     border-top: 1px solid #edf7f7 !important;
   }
 
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     margin-bottom: 0 !important;
@@ -2451,12 +2479,10 @@ html.menu-snap-page .menu-main-layout {
 
 .grid-divider-kiosk {
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   height: 80%;
   align-self: center;
 }
@@ -2701,6 +2727,7 @@ html.menu-snap-page .menu-main-layout {
 
 /* --- ANIMATIONS --- */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -2821,13 +2848,11 @@ html.menu-snap-page .menu-main-layout {
   right: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    -135deg,
-    #d4af37 0%,
-    #f9e272 2%,
-    #d4af37 4%,
-    transparent 4.5%
-  );
+  background: linear-gradient(-135deg,
+      #d4af37 0%,
+      #f9e272 2%,
+      #d4af37 4%,
+      transparent 4.5%);
   pointer-events: none;
   z-index: 10;
 }
@@ -2855,22 +2880,18 @@ html.menu-snap-page .menu-main-layout {
   width: 100%;
   height: 100%;
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       transparent 96%,
       #d4af37 96.5%,
       #f9e272 97.5%,
       #d4af37 98.5%,
-      transparent 99%
-    ),
-    linear-gradient(
-      -135deg,
+      transparent 99%),
+    linear-gradient(-135deg,
       transparent 96%,
       #d4af37 96.5%,
       #f9e272 97.5%,
       #d4af37 98.5%,
-      transparent 99%
-    );
+      transparent 99%);
   pointer-events: none;
   z-index: 5;
 }
@@ -3420,12 +3441,10 @@ html.menu-snap-page .menu-main-layout {
 .flipping-shadow-sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0) 40%,
-    rgba(0, 0, 0, 0.2) 100%
-  );
+  background: linear-gradient(to left,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.2) 100%);
   pointer-events: none;
   animation: sweep-shadow 1.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
 }
@@ -3501,11 +3520,9 @@ html.menu-snap-page .menu-main-layout {
   background-color: #0e2929;
   background-image:
     url("https://www.transparenttextures.com/patterns/black-leather.png"),
-    radial-gradient(
-      circle at center,
+    radial-gradient(circle at center,
       rgba(255, 255, 255, 0.05) 0%,
-      transparent 80%
-    );
+      transparent 80%);
   background-size: 250px, auto;
   border-radius: 4px 0 0 4px;
   border-right: 15px solid #081d1d;
@@ -3558,13 +3575,11 @@ html.menu-snap-page .menu-main-layout {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    #d4af37 0%,
-    #f9e272 2%,
-    #d4af37 4%,
-    transparent 4.5%
-  );
+  background: linear-gradient(135deg,
+      #d4af37 0%,
+      #f9e272 2%,
+      #d4af37 4%,
+      transparent 4.5%);
   pointer-events: none;
   z-index: 10;
 }
@@ -4302,6 +4317,7 @@ html.menu-snap-page .menu-main-layout {
 
 /* --- 📱 MOBILE VIEW COMPACT OVERRIDES (<= 480px) --- */
 @media (max-width: 480px) {
+
   /* Remove side padding from content area - sidebar + content fill screen */
   .menu-content-area {
     width: calc(100% - 56px) !important;
@@ -4536,9 +4552,8 @@ html.menu-snap-page .menu-main-layout {
     width: 780px !important;
     max-width: 95vw !important;
     max-height: 90vh !important;
-    transform: rotateX(
-      4deg
-    ) !important; /* Flattened slightly for better vertical space */
+    transform: rotateX(4deg) !important;
+    /* Flattened slightly for better vertical space */
   }
 
   .book-close-btn {
@@ -4696,9 +4711,9 @@ html.menu-snap-page .menu-main-layout {
   padding: 4px 10px;
   border-radius: 8px;
   z-index: 10;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   letter-spacing: 1px;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(4px);
 }
