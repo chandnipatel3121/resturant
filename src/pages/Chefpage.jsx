@@ -218,32 +218,40 @@ const ChefPage = () => {
   // Touch handler
   useEffect(() => {
     let touchStartY = 0
-    const onTouchStart = (e) => { 
+    const onTouchStart = (e) => {
       if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
-      touchStartY = e.touches[0].clientY 
+      touchStartY = e.touches[0].clientY
+    }
+    const onTouchMove = (e) => {
+      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
+      e.preventDefault();
     }
     const onTouchEnd = (e) => {
       if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
       const now = Date.now()
       if (now - lastInteractionTime.current < 1000) return
-      const delta = touchStartY - e.changedTouches[0].clientY
-      if (Math.abs(delta) < 50) return
-      lastInteractionTime.current = now
-      if (delta > 0) goToSection(currentSection + 1)
-      else goToSection(currentSection - 1)
-    }
-    const el = portfolioRef.current
-    if (el) {
-      el.addEventListener('touchstart', onTouchStart, { passive: true })
-      el.addEventListener('touchend', onTouchEnd, { passive: true })
-    }
-    return () => {
-      if (el) {
-        el.removeEventListener('touchstart', onTouchStart)
-        el.removeEventListener('touchend', onTouchEnd)
+      
+      const touchEndY = e.changedTouches[0].clientY
+      const distance = touchStartY - touchEndY
+      
+      if (distance > 50) { // Swipe up -> scroll down
+        lastInteractionTime.current = now
+        setCurrentSection(p => Math.min(p + 1, totalSections - 1))
+      } else if (distance < -50) { // Swipe down -> scroll up
+        lastInteractionTime.current = now
+        setCurrentSection(p => Math.max(p - 1, 0))
       }
     }
-  }, [currentSection, isMobile])
+
+    window.addEventListener('touchstart', onTouchStart, { passive: false })
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('touchend', onTouchEnd, { passive: false })
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [totalSections])
 
   useEffect(() => {
     setNavTheme("green")
@@ -276,7 +284,7 @@ const ChefPage = () => {
       {/* ─── Slide Track ───────────────────────────────────────────────────── */}
       <div
         className="fp-slide-track"
-        style={{ transform: `translateY(-${currentSection * 100}vh)` }}
+        style={{ transform: `translateY(-${currentSection * 100}dvh)` }}
       >
 
 
@@ -639,7 +647,7 @@ const ChefPage = () => {
               transition={{ duration: 0.7, delay: 0.85 }}
             >
               <p>Join us to create your own memories at Anando Foods.</p>
-              <button 
+              <button
                 className="primary-btn gold-btn"
                 onClick={() => navigate('/reservation')}
               >

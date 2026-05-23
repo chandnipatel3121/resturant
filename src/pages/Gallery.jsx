@@ -114,7 +114,7 @@ const Gallery = () => {
   const [inMasonry, setInMasonry] = useState(false)
   const [activeSubGallery, setActiveSubGallery] = useState(null)
   const isAnimating = useRef(false)
-  
+
   const { setNavTheme } = useNav()
 
   // Enforce green theme for the navbar on this specific page
@@ -231,7 +231,20 @@ const Gallery = () => {
   // Wheel event for desktop scrolling
   useEffect(() => {
     const handleWheel = (e) => {
-      if (activeSubGallery || inMasonry) return // Skip native wheel intercept if sub-gallery or masonry is open
+      if (activeSubGallery) return // Skip native wheel intercept if sub-gallery is open
+
+      if (inMasonry) {
+        const masonryEl = document.querySelector('.masonry-scroll-container')
+        if (masonryEl && masonryEl.scrollTop <= 1 && e.deltaY < 0) {
+          e.preventDefault()
+          if (!isAnimating.current) {
+            isAnimating.current = true
+            setInMasonry(false)
+            setTimeout(() => { isAnimating.current = false }, 1200)
+          }
+        }
+        return
+      }
 
       e.preventDefault()
       if (Math.abs(e.deltaY) > 20) {
@@ -250,7 +263,29 @@ const Gallery = () => {
       touchStartY.current = e.touches[0].clientY
     }
     const handleTouchMove = (e) => {
-      if (activeSubGallery || inMasonry) return
+      if (activeSubGallery) return
+      
+      if (inMasonry) {
+        const masonryEl = document.querySelector('.masonry-scroll-container')
+        if (masonryEl) {
+          if (masonryEl.scrollTop <= 1) {
+            const currentY = e.touches[0].clientY
+            const distance = touchStartY.current - currentY
+            if (distance < -30) {
+              e.preventDefault() // Crucial: Stop browser pull-to-refresh
+              if (!isAnimating.current) {
+                isAnimating.current = true
+                setInMasonry(false)
+                setTimeout(() => { isAnimating.current = false }, 1200)
+              }
+            }
+          } else {
+            touchStartY.current = e.touches[0].clientY
+          }
+        }
+        return
+      }
+
       e.preventDefault() // prevent all native scrolling
     }
     const handleTouchEnd = (e) => {
@@ -310,7 +345,7 @@ const Gallery = () => {
 
       <motion.div
         className="gallery-main-wrapper"
-        animate={{ y: inHorizontal ? "-100vh" : "0vh" }}
+        animate={{ y: inHorizontal ? "-100dvh" : "0dvh" }}
         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
       >
         <div className="gallery-hero-section">
@@ -372,12 +407,12 @@ const Gallery = () => {
             className="horizontal-track"
             animate={{ x: `-${hPage * 100}vw` }}
             transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            style={{ display: "flex", width: `${moreMoments.length * 100}vw`, height: "100vh" }}
+            style={{ display: "flex", width: `${moreMoments.length * 100}vw`, height: "100dvh" }}
           >
             {moreMoments.map((item, index) => {
               const isActive = (hPage === index && inHorizontal);
               return (
-                <div key={item.id} className="h-slide" style={{ width: "100vw", height: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: item.bg, transition: "background-color 1.2s ease" }}>
+                <div key={item.id} className="h-slide" style={{ width: "100vw", height: "100dvh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: item.bg, transition: "background-color 1.2s ease" }}>
 
                   {/* Content Container (3 Columns) */}
                   <div className="h-slide-content-container">
@@ -446,9 +481,9 @@ const Gallery = () => {
         {inMasonry && (
           <motion.div
             className="masonry-scroll-container"
-            initial={{ y: "100vh" }}
-            animate={{ y: "0vh" }}
-            exit={{ y: "100vh" }}
+            initial={{ y: "100dvh" }}
+            animate={{ y: "0dvh" }}
+            exit={{ y: "100dvh" }}
             transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
             style={{
               position: "fixed",
@@ -460,35 +495,10 @@ const Gallery = () => {
               backgroundColor: "var(--bg-primary)",
               zIndex: 90
             }}
-            onWheel={(e) => {
-              if (e.currentTarget.scrollTop <= 0 && e.nativeEvent.deltaY < -20) {
-                if (!isAnimating.current) {
-                  isAnimating.current = true
-                  setInMasonry(false)
-                  setTimeout(() => { isAnimating.current = false }, 1200)
-                }
-              }
-            }}
-            onTouchMove={(e) => {
-               if (e.currentTarget.scrollTop <= 0) {
-                 const touchEndY = e.touches[0].clientY
-                 const distance = touchStartY.current - touchEndY
-                 if (distance < -30) {
-                    if (!isAnimating.current) {
-                      isAnimating.current = true
-                      setInMasonry(false)
-                      setTimeout(() => { isAnimating.current = false }, 1200)
-                    }
-                 }
-               }
-            }}
-            onTouchStart={(e) => {
-               touchStartY.current = e.touches[0].clientY
-            }}
           >
             <section className="animated-masonry-gallery">
               <div className="masonry-header">
-                <motion.h2 
+                <motion.h2
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -505,19 +515,19 @@ const Gallery = () => {
                   Explore the culinary art and sophisticated spaces that define our restaurant.
                 </motion.p>
               </div>
-              
+
               <div className="masonry-grid">
                 {masonryImages.map((src, idx) => (
-                  <motion.div 
-                    key={idx} 
+                  <motion.div
+                    key={idx}
                     className={`masonry-item masonry-item-${idx}`}
                     initial={{ opacity: 0, y: 60 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ 
-                      duration: 0.8, 
+                    transition={{
+                      duration: 0.8,
                       ease: [0.25, 0.1, 0.25, 1],
-                      delay: (idx % 3) * 0.15 
+                      delay: (idx % 3) * 0.15
                     }}
                     whileHover={{ scale: 0.98, filter: "brightness(0.9)" }}
                   >

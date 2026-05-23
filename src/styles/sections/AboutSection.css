@@ -244,7 +244,7 @@
 /* ── RESPONSIVE: Mobile (< 768px) ── */
 @media (max-width: 767px) {
   .about-section {
-    height: 100vh !important;
+    height: 100dvh !important;
     min-height: 100svh !important;
     padding: 3.5rem 0 2rem !important;
     display: flex !important;
@@ -293,8 +293,8 @@
 /* ── SHORT VIEWPORT (e.g. 1195×585) ── */
 @media (max-height: 700px) and (min-width: 1024px) {
   .about-section {
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
     overflow: hidden !important;
     padding: 0 !important;
     margin: 0 !important;

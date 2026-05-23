@@ -33,6 +33,13 @@
   box-sizing: border-box;
 }
 
+*:focus,
+*:focus-visible,
+*:active {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Disable selection and dragging on all images globally */
 img {
   user-select: none;
@@ -98,7 +105,7 @@ p {
 /* SECTION DEFAULTS */
 section,
 footer {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   position: relative;
 }
@@ -241,9 +248,9 @@ footer {
   transition-delay: 0.5s;
 }
 
-/* All sections: strict 100vh height on desktop for forced snap */
+/* All sections: strict 100dvh height on desktop for forced snap */
 section {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   position: relative;
 }
@@ -312,8 +319,8 @@ section {
 
   html.home-page section:not(.hero-section),
   html.home-page footer {
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
     overflow: hidden !important;
   }
 }

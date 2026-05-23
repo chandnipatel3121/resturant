@@ -5,7 +5,7 @@
 .contact-page {
   position: relative;
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #f8fbf9;
   overflow-x: hidden;
   display: flex;
@@ -132,7 +132,7 @@
 .contact-page {
   position: relative;
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #f8fbf9;
   overflow-x: hidden;
   display: flex;

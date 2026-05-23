@@ -18,7 +18,7 @@ body.journey-page-active {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -158,7 +158,7 @@ body.journey-page-active {
 .journey-hero-advanced {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   background-color: #f0f7f7;
   display: flex;
@@ -176,7 +176,7 @@ body.journey-page-active {
   top: 20%;
   transform: translateY(-50%);
   font-family: var(--font-serif);
-  font-size: clamp(60px, 13vh, 160px);
+  font-size: clamp(60px, 13dvh, 160px);
   font-weight: 300;
   color: rgba(35, 93, 86, 0.08);
   writing-mode: vertical-rl;
@@ -274,7 +274,7 @@ body.journey-page-active {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(1.5rem, 4dvh, 3rem);
   color: #fff;
   z-index: 20;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
@@ -303,16 +303,16 @@ body.journey-page-active {
 }
 
 .dic-desc {
-  font-size: clamp(0.85rem, 1.5vh, 1rem);
+  font-size: clamp(0.85rem, 1.5dvh, 1rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: clamp(1rem, 3vh, 2.5rem);
+  margin-bottom: clamp(1rem, 3dvh, 2.5rem);
 }
 
 .dic-stats {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: clamp(1rem, 3vh, 2.5rem);
+  margin-bottom: clamp(1rem, 3dvh, 2.5rem);
 }
 
 .dic-stat-pill {
@@ -386,7 +386,7 @@ body.journey-page-active {
 .journey-story-accordion {
   position: relative;
   background-color: var(--bg-primary);
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   width: 100vw;
   padding: 80px 2vw 2vw;
@@ -423,7 +423,7 @@ body.journey-page-active {
 .accordion-container {
   display: flex;
   width: 100%;
-  height: clamp(350px, 60vh, 70vh);
+  height: clamp(350px, 60dvh, 70dvh);
   gap: 12px;
   max-width: 1600px;
   margin: 0 auto;
@@ -556,14 +556,14 @@ body.journey-page-active {
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 4vw, 4rem);
   color: #fff;
-  margin-bottom: clamp(0.5rem, 2vh, 1rem);
+  margin-bottom: clamp(0.5rem, 2dvh, 1rem);
 }
 
 .ap-desc {
-  font-size: clamp(0.85rem, 1.5vh, 1.1rem);
+  font-size: clamp(0.85rem, 1.5dvh, 1.1rem);
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
-  margin-bottom: clamp(1rem, 3vh, 2.5rem);
+  margin-bottom: clamp(1rem, 3dvh, 2.5rem);
   max-width: 450px;
 }
 
@@ -595,7 +595,7 @@ body.journey-page-active {
 @media (max-width: 900px) {
   .accordion-container {
     flex-direction: column;
-    height: 75vh;
+    height: 75dvh;
   }
 
   .ap-tab {
@@ -629,7 +629,7 @@ body.journey-page-active {
 .journey-philosophy-advanced {
   position: relative;
   background-color: var(--bg-primary);
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   width: 100vw;
   padding: 80px 5vw 60px;
@@ -668,7 +668,7 @@ body.journey-page-active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: clamp(2rem, 6vh, 6rem);
+  margin-bottom: clamp(2rem, 6dvh, 6rem);
   gap: clamp(1.5rem, 4vw, 4rem);
 }
 
@@ -722,7 +722,7 @@ body.journey-page-active {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(15, 92, 92, 0.08);
   border-radius: 12px;
-  padding: clamp(1.2rem, 3vh, 2.5rem);
+  padding: clamp(1.2rem, 3dvh, 2.5rem);
   box-shadow: 0 20px 40px rgba(15, 92, 92, 0.03);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   display: flex;
@@ -797,7 +797,7 @@ body.journey-page-active {
      ========================================================================== */
 .journey-signature {
   background-color: var(--bg-primary);
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   width: 100vw;
   padding: 70px 5vw 2rem;
@@ -815,7 +815,7 @@ body.journey-page-active {
   /* Wider right side */
   gap: clamp(1rem, 3vw, 4rem);
   max-width: 1400px;
-  margin: clamp(0.5rem, 2vh, 1rem) auto 0;
+  margin: clamp(0.5rem, 2dvh, 1rem) auto 0;
 }
 
 /* Left Sidebar: Chefs */
@@ -894,7 +894,7 @@ body.journey-page-active {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-  height: clamp(400px, 60vh, 600px); /* Responsive height for all chefs */
+  height: clamp(400px, 60dvh, 600px); /* Responsive height for all chefs */
 }
 
 .ims-img-container {
@@ -947,7 +947,7 @@ body.journey-page-active {
 }
 
 .ims-details {
-  padding: clamp(1rem, 2vh, 1.5rem);
+  padding: clamp(1rem, 2dvh, 1.5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -997,8 +997,8 @@ body.journey-page-active {
 .ims-metrics {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.5vh, 1.25rem);
-  margin-bottom: clamp(1rem, 2vh, 2.5rem);
+  gap: clamp(0.5rem, 1.5dvh, 1.25rem);
+  margin-bottom: clamp(1rem, 2dvh, 2.5rem);
 }
 
 .metric-row {
@@ -1066,7 +1066,7 @@ body.journey-page-active {
 .journey-experience {
   position: relative;
   background: radial-gradient(circle at top right, #f8fbf9, #f0f5f4);
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   width: 100vw;
   padding: 80px 5vw 2rem;
@@ -1088,7 +1088,7 @@ body.journey-page-active {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(1rem, 2vw, 2rem);
-  margin: clamp(1.5rem, 4vh, 4rem) 0;
+  margin: clamp(1.5rem, 4dvh, 4rem) 0;
 }
 
 .exp-card {
@@ -1113,7 +1113,7 @@ body.journey-page-active {
 
 .exp-img-wrapper {
   width: 100%;
-  height: clamp(120px, 20vh, 200px);
+  height: clamp(120px, 20dvh, 200px);
   overflow: hidden;
 }
 
@@ -1129,7 +1129,7 @@ body.journey-page-active {
 }
 
 .exp-text-content {
-  padding: clamp(1rem, 2vh, 2rem);
+  padding: clamp(1rem, 2dvh, 2rem);
   flex: 1;
   background: transparent;
   display: flex;
@@ -1153,7 +1153,7 @@ body.journey-page-active {
 /* Removed redundant exp-card-border since we applied border directly to exp-card */
 
 .experience-cta {
-  margin-top: clamp(1.5rem, 4vh, 5rem);
+  margin-top: clamp(1.5rem, 4dvh, 5rem);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1230,7 +1230,7 @@ body.journey-page-active {
   .ims-preview-card {
     grid-template-columns: 1fr;
     height: auto; /* Allows stacking to fit details on iPad portrait */
-    max-height: 80vh;
+    max-height: 80dvh;
     overflow-y: auto;
   }
 
@@ -1245,7 +1245,7 @@ body.journey-page-active {
     display: none !important;
   }
 
-  /* Adjust grids to fit strictly inside 100vh */
+  /* Adjust grids to fit strictly inside 100dvh */
   .philosophy-grid,
   .experience-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1351,14 +1351,14 @@ body.journey-page-active {
   }
   
   .ims-preview-card {
-    height: 55vh;
-    max-height: 55vh;
+    height: 55dvh;
+    max-height: 55dvh;
     overflow-y: auto;
     overflow-x: hidden;
   }
   
   .ims-img-container {
-    height: 25vh;
+    height: 25dvh;
     min-height: 150px;
   }
 

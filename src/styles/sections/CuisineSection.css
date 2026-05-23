@@ -1096,8 +1096,8 @@
     /* Pull content up to vertically center it nicely */
     padding: 4.8rem 2.5rem 1.5rem 2.5rem !important;
     /* Perfect sticky navbar clearance on laptops */
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
   }
 
   /* 2. Style the header and tagline elegantly */
@@ -1301,8 +1301,8 @@
     /* Pull everything up to prevent bottom cutoffs */
     padding: 4.5rem 2.5rem 1rem 2.5rem !important;
     /* Perfect top nav clearance (72px) to maximize content height */
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
   }
 
   /* 2. Style the header and tagline elegantly */
@@ -1331,7 +1331,7 @@
     /* Snugs the table up right below the title */
   }
 
-  /* Physically scale the 3D rotating wooden table to fit vertically within the 100vh height */
+  /* Physically scale the 3D rotating wooden table to fit vertically within the 100dvh height */
   .cuisine-table-topview {
     width: 310px !important;
     height: 310px !important;
@@ -1651,8 +1651,8 @@
   .cuisine-section {
     padding: 6.5rem 1rem 0.5rem 1rem !important;
     /* Increased top padding to completely prevent nav bar overlap */
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -1948,7 +1948,7 @@
   position: fixed !important;
   inset: 0 !important;
   width: 100vw !important;
-  height: 100vh !important;
+  height: 100dvh !important;
   background: rgba(0, 0, 0, 0.65) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
