@@ -1246,17 +1246,47 @@ body.journey-page-active {
 
 @media (max-width: 768px) {
 
+  /* Enable NATIVE CSS scroll snapping for mobile to perfectly support pull-to-refresh! */
+  body.journey-page-active {
+    overflow: auto !important; /* Makes body scrollable for native pull-to-refresh */
+    scroll-snap-type: y mandatory;
+  }
+
+  .journey-portfolio {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .fp-slide-track {
+    transform: none !important;
+    height: auto !important;
+  }
+
+  .journey-hero-advanced,
+  .journey-story-accordion,
+  .journey-philosophy-advanced,
+  .journey-signature,
+  .journey-experience {
+    height: 100vh !important;
+    min-height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative !important;
+    opacity: 1 !important; /* Override JS animation opacity */
+  }
+
   /* Restore snap scroll: Hide dots since they overlap */
   .fp-nav-dots {
     display: none !important;
   }
 
   /* Adjust grids to fit strictly inside 100vh */
-  .philosophy-grid,
+  .phil-cards-row,
   .experience-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
-    margin: 1rem 0 !important;
+    gap: 0.5rem !important;
+    margin: 0.5rem 0 !important;
   }
 
   .exp-text-content {
@@ -1269,7 +1299,7 @@ body.journey-page-active {
   }
 
   .exp-text-content p {
-    font-size: 0.7rem !important;
+    font-size: 1rem !important;
   }
 
   .exp-img-wrapper {
@@ -1300,6 +1330,7 @@ body.journey-page-active {
     padding-bottom: 5px;
     gap: 0.5rem;
     width: 100%;
+    touch-action: pan-x; /* Allow native horizontal scrolling */
   }
 
   .ims-chef-item {
@@ -1339,12 +1370,12 @@ body.journey-page-active {
   }
 
   .phil-card-advanced {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .pc-top {
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
   }
 
   .pc-content h3 {
@@ -1361,6 +1392,7 @@ body.journey-page-active {
     max-height: 55vh;
     overflow-y: auto;
     overflow-x: hidden;
+    touch-action: pan-y; /* Allow native vertical scrolling */
   }
 
   .ims-img-container {
@@ -1425,8 +1457,8 @@ body.journey-page-active {
     right: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 1rem;
-    padding: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
   }
 
   .hero-center-wrapper {

@@ -78,7 +78,7 @@ const DishShowcase = () => {
               {DISHES[activeIndex].name}
             </h2>
             <div className="showcase-desc-wrapper absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4vh, 60px))" }}>
-              <p className="showcase-desc-text font-serif text-[15px] md:text-[18px] font-light tracking-wide leading-relaxed drop-shadow-md opacity-90">
+              <p className="showcase-desc-text font-serif text-[15px] md:text-[18px] font-extrabold tracking-wide leading-relaxed drop-shadow-md opacity-100">
                 {DISHES[activeIndex].description}
               </p>
             </div>

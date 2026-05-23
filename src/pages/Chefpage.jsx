@@ -193,7 +193,7 @@ const ChefPage = () => {
       else goToSection(currentSection - 1)
     }
     const el = portfolioRef.current
-    if (el) el.addEventListener('wheel', onWheel, { passive: false })
+    if (el && !isMobile) el.addEventListener('wheel', onWheel, { passive: false })
     return () => { if (el) el.removeEventListener('wheel', onWheel) }
   }, [currentSection, isMobile])
 
@@ -211,16 +211,21 @@ const ChefPage = () => {
         goToSection(currentSection - 1)
       }
     }
-    window.addEventListener('keydown', onKey)
+    if (!isMobile) window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [currentSection, isMobile])
 
   // Touch handler
   useEffect(() => {
     let touchStartY = 0
-    const onTouchStart = (e) => { 
+    const onTouchStart = (e) => {
       if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
-      touchStartY = e.touches[0].clientY 
+      touchStartY = e.touches[0].clientY
+    }
+    const onTouchMove = (e) => {
+      // Prevent browser from doing native scrolling, which causes touchcancel and breaks our swipe logic!
+      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
+      e.preventDefault();
     }
     const onTouchEnd = (e) => {
       if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
@@ -233,13 +238,15 @@ const ChefPage = () => {
       else goToSection(currentSection - 1)
     }
     const el = portfolioRef.current
-    if (el) {
+    if (el && !isMobile) {
       el.addEventListener('touchstart', onTouchStart, { passive: true })
+      el.addEventListener('touchmove', onTouchMove, { passive: false })
       el.addEventListener('touchend', onTouchEnd, { passive: true })
     }
     return () => {
       if (el) {
         el.removeEventListener('touchstart', onTouchStart)
+        el.removeEventListener('touchmove', onTouchMove)
         el.removeEventListener('touchend', onTouchEnd)
       }
     }
@@ -276,7 +283,7 @@ const ChefPage = () => {
       {/* ─── Slide Track ───────────────────────────────────────────────────── */}
       <div
         className="fp-slide-track"
-        style={{ transform: `translateY(-${currentSection * 100}vh)` }}
+        style={{ transform: isMobile ? 'none' : `translateY(-${currentSection * 100}vh)` }}
       >
 
 
@@ -639,7 +646,7 @@ const ChefPage = () => {
               transition={{ duration: 0.7, delay: 0.85 }}
             >
               <p>Join us to create your own memories at Anando Foods.</p>
-              <button 
+              <button
                 className="primary-btn gold-btn"
                 onClick={() => navigate('/reservation')}
               >

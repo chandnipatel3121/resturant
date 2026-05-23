@@ -418,8 +418,8 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .sidebar-header {
-  margin-bottom: 30px;
-  padding-bottom: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .sidebar-title {
@@ -493,18 +493,15 @@ html.menu-snap-page .menu-main-layout {
 .sidebar-cuisines-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  /* Compacted gap */
-  padding-bottom: 100px;
-  /* Room for last item */
+  gap: 4px;
+  padding-bottom: 20px;
 }
 
 .sidebar-cat-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 15px;
-  /* Compacted padding */
+  gap: 10px;
+  padding: 8px 12px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
@@ -580,9 +577,8 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .sidebar-cat-icon-container {
-  width: 40px;
-  /* Compacted */
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #f8f9fa;
   display: flex;
@@ -733,9 +729,9 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .menu-sidebar {
-    width: 76px !important;
-    min-width: 76px !important;
-    max-width: 76px !important;
+    width: 96px !important;
+    min-width: 96px !important;
+    max-width: 96px !important;
     flex-shrink: 0 !important;
     height: calc(100dvh - 49px) !important;
     position: sticky !important;
@@ -769,8 +765,9 @@ html.menu-snap-page .menu-main-layout {
   .sidebar-cuisines-list {
     flex-direction: column !important;
     width: 100% !important;
-    overflow-x: hidden !important;
-    overflow-y: visible !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    justify-content: space-evenly !important;
     white-space: normal !important;
     gap: 0 !important;
     padding-bottom: 0 !important;
@@ -781,12 +778,13 @@ html.menu-snap-page .menu-main-layout {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 12px 4px !important;
-    gap: 8px !important;
+    padding: 2px !important;
+    gap: 2px !important;
     width: 100% !important;
     border-radius: 0 !important;
     margin-bottom: 0 !important;
-    min-height: 85px;
+    min-height: 0 !important;
+    flex: 1 !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -809,8 +807,8 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .sidebar-cat-icon-container {
-    width: 52px !important;
-    height: 52px !important;
+    width: min(64px, 7.5vh) !important;
+    height: min(64px, 7.5vh) !important;
     border-radius: 50% !important;
     background: #f0f4f4 !important;
     box-shadow: none !important;
@@ -825,8 +823,8 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .sidebar-cat-icon-container svg {
-    width: 24px !important;
-    height: 24px !important;
+    width: min(34px, 4.5vh) !important;
+    height: min(34px, 4.5vh) !important;
     stroke-width: 1.5px !important;
   }
 
@@ -840,13 +838,13 @@ html.menu-snap-page .menu-main-layout {
 
   .sidebar-cat-item .sidebar-cat-label {
     display: block !important;
-    font-size: 0.65rem !important;
+    font-size: min(0.65rem, 1.4vh) !important;
     font-weight: 700 !important;
     color: var(--text) !important;
     text-align: center !important;
-    line-height: 1.15 !important;
+    line-height: 1.1 !important;
     white-space: normal !important;
-    max-width: 68px !important;
+    max-width: 86px !important;
     word-break: normal !important;
     overflow-wrap: break-word !important;
     letter-spacing: 0 !important;
@@ -875,7 +873,7 @@ html.menu-snap-page .menu-main-layout {
   .menu-content-area {
     flex: 1 !important;
     min-width: 0 !important;
-    width: calc(100% - 68px) !important;
+    width: calc(100% - 96px) !important;
     overflow: visible !important;
     /* Fix: must be visible to allow sticky children to stick cleanly */
   }
@@ -4716,4 +4714,17 @@ html.menu-snap-page .menu-main-layout {
   letter-spacing: 1px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(4px);
+}
+
+/* SYNC STICKY TOP WITH DYNAMIC NAVBAR HEIGHTS */
+@media (max-height: 700px) {
+  .menu-filters-sticky {
+    top: 56px !important;
+  }
+}
+
+@media (min-width: 1241px) and (max-width: 1400px) and (max-height: 800px) {
+  .menu-filters-sticky {
+    top: 70px !important;
+  }
 }

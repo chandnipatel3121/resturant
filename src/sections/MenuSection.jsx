@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Search, Plus, Star, Clock, Users, ArrowRight, Flame, Pizza, Soup, Fish, Utensils, Leaf, Sun, Coffee, X, ShoppingBag, MapPin, Info } from 'lucide-react';
+import { Search, Plus, Star, Clock, Users, ArrowRight, Flame, Pizza, Soup, Fish, Utensils, Leaf, Sun, Coffee, X, ShoppingBag, MapPin, Info, UtensilsCrossed, Store, Sandwich, ChefHat, Carrot, Globe } from 'lucide-react';
 import menuData from '../data/menuData';
 import gourmetSalad from '../assets/gourmet_salad.png';
 import hero2 from '../assets/hero2.jpg';
@@ -225,8 +225,8 @@ const RightPageContent = ({ dish, onAddToCart }) => {
       </div>
 
       <div className="book-actions">
-        <div 
-          className="book-add-cart-btn" 
+        <div
+          className="book-add-cart-btn"
           style={{ cursor: 'default', pointerEvents: 'none' }}
         >
           <ShoppingBag size={20} />
@@ -564,7 +564,7 @@ const MenuSection = () => {
     if (window.lenis) {
       window.lenis.scrollTo(0, { immediate: true });
     }
-    
+
     // Slight delay to ensure ScrollToTop and Lenis have completed their resets
     const timer = setTimeout(() => {
       document.documentElement.classList.add("menu-snap-page");
@@ -635,6 +635,15 @@ const MenuSection = () => {
     }
     setActiveMeals(prev => prev.includes(value) ? [] : [value]);
   };
+
+  // Helper to reset all filters simultaneously
+  const resetAllFilters = () => {
+    setSearchQuery('');
+    setActiveCuisines([]);
+    setActiveCourses([]);
+    setActiveMeals([]);
+  };
+
   const [cart, setCart] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
@@ -657,14 +666,15 @@ const MenuSection = () => {
 
   // Expanded categories with better visuals
   const cuisinies = [
-    { name: "South Indian", icon: <Flame size={20} /> },
-    { name: "Chinese", icon: <Soup size={20} /> },
-    { name: "Fusion Food", icon: <Utensils size={20} /> },
-    { name: "Fast Food", icon: <Pizza size={20} /> },
-    { name: "Street Food", icon: <Leaf size={20} /> },
-    { name: "Pizza & Sandwich", icon: <Pizza size={20} /> },
-    { name: "Indo-Chinese", icon: <Soup size={20} /> },
-    { name: "Vegetarian Specials", icon: <Sun size={20} /> }
+    { name: "All", icon: <Globe size={30} /> },
+    { name: "South Indian", icon: <Flame size={30} /> },
+    { name: "Chinese", icon: <Soup size={30} /> },
+    { name: "Fusion Food", icon: <UtensilsCrossed size={30} /> },
+    { name: "Fast Food", icon: <Pizza size={30} /> },
+    { name: "Street Food", icon: <Store size={30} /> },
+    { name: "Pizza & Sandwich", icon: <Sandwich size={30} /> },
+    { name: "Indo-Chinese", icon: <ChefHat size={30} /> },
+    { name: "Vegetarian Specials", icon: <Carrot size={30} /> }
   ];
 
   const meals = ['All', 'Breakfast', 'Lunch', 'Dinner'];
@@ -796,7 +806,7 @@ const MenuSection = () => {
                 <button
                   key={cat.name}
                   onClick={() => toggleCuisineFilter(cat.name)}
-                  className={`sidebar-cat-item ${activeCuisines.includes(cat.name) ? 'active' : ''}`}
+                  className={`sidebar-cat-item ${(cat.name === 'All' && activeCuisines.length === 0) || activeCuisines.includes(cat.name) ? 'active' : ''}`}
                 >
                   <div className={`sidebar-cat-pill color-${(idx % 4) + 1}`}></div>
                   <div className="sidebar-cat-icon-container">
@@ -806,7 +816,7 @@ const MenuSection = () => {
                     <span className="sidebar-cat-label">{renderCuisineLabel(cat.name)}</span>
                     <p className="sidebar-cat-desc">Explore {cat.name} flavors</p>
                   </div>
-                  {activeCuisines.includes(cat.name) && (
+                  {((cat.name === 'All' && activeCuisines.length === 0) || activeCuisines.includes(cat.name)) && (
                     <motion.div
                       layoutId="sidebar-active"
                       className="sidebar-active-indicator"
@@ -861,9 +871,16 @@ const MenuSection = () => {
                       </div>
                     </div>
 
-                    <div className="search-stats text-editorial">
-                      <span className="desktop-stats-text">{filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available</span>
-                      <span className="mobile-stats-text">{filteredItems.length} available</span>
+                    <div className="search-stats text-editorial flex items-center gap-4">
+                      <div>
+                        <span className="desktop-stats-text">{filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available</span>
+                        <span className="mobile-stats-text">{filteredItems.length} available</span>
+                      </div>
+                      {(searchQuery || activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0) && (
+                        <button onClick={resetAllFilters} className="text-sm font-medium text-[var(--accent)] hover:underline cursor-pointer border-none bg-transparent p-0 m-0 leading-none">
+                          Clear All
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1137,12 +1154,12 @@ const MenuSection = () => {
       <div className="max-w-[1200px] mx-auto px-[var(--container-px)] mt-24 mb-12">
         <div className="bg-white/5 border border-[var(--accent)]/30 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-md">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full blur-[100px] opacity-10"></div>
-          
+
           <div className="text-center mb-8">
             <h3 className="text-editorial !text-[var(--accent)] text-2xl md:text-3xl mb-2">Terms and Conditions</h3>
             <div className="w-16 h-1 bg-[var(--accent)]/50 mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-sm text-[var(--text)]/80">
             <ul className="space-y-4">
               <li className="flex items-start gap-3">

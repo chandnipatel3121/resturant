@@ -6,6 +6,7 @@ const Menu = () => {
   const { setNavTheme } = useNav();
   useEffect(() => {
     setNavTheme('green');
+    window.scrollTo(0, 0);
   }, [setNavTheme]);
 
   return <MenuSection />;
