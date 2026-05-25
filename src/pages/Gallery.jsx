@@ -490,7 +490,7 @@ const Gallery = () => {
               top: 0,
               left: 0,
               width: "100vw",
-              height: "100lvh",
+              height: "100dvh",
               overflowY: "auto",
               backgroundColor: "var(--bg-primary)",
               zIndex: 90

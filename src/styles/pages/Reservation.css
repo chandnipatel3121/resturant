@@ -33,7 +33,7 @@
   grid-template-columns: 1fr 1fr;
   width: 100%;
   max-width: 1400px;
-  height: 85vh;
+  height: 85dvh;
   /* fixed height */
   min-height: 700px;
   max-height: 900px;

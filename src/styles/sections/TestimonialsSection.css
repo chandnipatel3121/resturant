@@ -2,8 +2,8 @@
 .testimonials-section {
   position: relative;
   background-color: var(--bg);
-   height: 100lvh;
-   min-height: 100lvh;
+   height: 100dvh;
+   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,7 +261,7 @@
 @media (max-height: 700px) {
   .testimonials-section {
     padding-top: 5rem;
-    min-height: 110vh;
+    min-height: 110dvh;
   }
 
   .testimonials-header {

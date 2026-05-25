@@ -576,6 +576,10 @@ const MenuSection = () => {
     };
   }, []);
 
+  const hasActiveFilters = useMemo(() => {
+    return activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0 || searchQuery !== '';
+  }, [activeCuisines, activeCourses, activeMeals, searchQuery]);
+
   // Smart dynamic scroll management to bypass all filter layout jumps
   React.useEffect(() => {
     if (mainLayoutRef.current) {
@@ -584,7 +588,6 @@ const MenuSection = () => {
       const targetScroll = Math.max(0, absoluteTop - 76); // Align perfectly below navbar
 
       const currentScroll = window.scrollY;
-      const hasActiveFilters = activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0 || searchQuery !== '';
 
       if (hasActiveFilters) {
         if (currentScroll < targetScroll - 10) {
@@ -603,7 +606,7 @@ const MenuSection = () => {
         // If already in the sweet spot (sticky filter header is active & pinned), do not trigger any scroll adjustments!
       }
     }
-  }, [activeCuisines, activeCourses, activeMeals, searchQuery]);
+  }, [hasActiveFilters, activeCuisines, activeCourses, activeMeals, searchQuery]);
 
   // Helper to toggle Cuisine (sidebar) - single selection only, preserves other category filters
   const toggleCuisineFilter = (value) => {
@@ -743,8 +746,9 @@ const MenuSection = () => {
       </AnimatePresence>
 
       <div className="min-h-screen bg-transparent">
-        {/* Full-Width Hero */}
-        <div className="enhanced-menu-hero pattern-variant">
+        {/* Full-Width Hero conditionally rendered */}
+        {!hasActiveFilters && (
+          <div className="enhanced-menu-hero pattern-variant">
           <div className="hero-bg-media">
             <img src={patternBg} alt="" className="hero-bg-img pattern-img" />
             <div className="hero-bg-overlay pattern-overlay"></div>
@@ -787,6 +791,7 @@ const MenuSection = () => {
             </div>
           </div>
         </div>
+        )}
 
         {/* Content Area with Sidebar and Grid */}
         <div className="menu-main-layout" ref={mainLayoutRef}>

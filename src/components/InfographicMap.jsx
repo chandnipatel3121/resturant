@@ -20,7 +20,7 @@ const InfographicMap = () => {
 
         {/* Unified Precision SVG Grid */}
         <svg
-          viewBox="0 0 1000 1000"
+          viewBox="-80 -80 1160 1160"
           className="w-full h-full z-20"
           style={{ overflow: 'visible' }}
         >

@@ -173,85 +173,96 @@ const ChefPage = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const goToSection = (index) => {
-    if (index < 0 || index >= totalSections) return;
-    setIsTransitioning(true)
-    setCurrentSection(index)
-    setTimeout(() => setIsTransitioning(false), 900) // match CSS transition duration
-  }
-
+  const sectionRefs = useRef([])
   const lastInteractionTime = useRef(0)
 
-  // Wheel handler
+  // Mobile scroll observer
   useEffect(() => {
-    const onWheel = (e) => {
-      e.preventDefault()
-      const now = Date.now()
-      if (now - lastInteractionTime.current < 1000) return // throttle
-      lastInteractionTime.current = now
-      if (e.deltaY > 0) goToSection(currentSection + 1)
-      else goToSection(currentSection - 1)
-    }
-    const el = portfolioRef.current
-    if (el) el.addEventListener('wheel', onWheel, { passive: false })
-    return () => { if (el) el.removeEventListener('wheel', onWheel) }
-  }, [currentSection, isMobile])
+    if (!isMobile) return;
+    let scrollTimeout;
+    const container = portfolioRef.current;
 
-  // Keyboard handler
-  useEffect(() => {
-    const onKey = (e) => {
-      const now = Date.now()
-      if (now - lastInteractionTime.current < 1000) return
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        lastInteractionTime.current = now
-        goToSection(currentSection + 1)
-      }
-      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        lastInteractionTime.current = now
-        goToSection(currentSection - 1)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [currentSection, isMobile])
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        let closestIndex = 0;
+        let minDistance = Infinity;
+        sectionRefs.current.forEach((ref, index) => {
+          if (!ref) return;
+          const rect = ref.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+          }
+        });
+        setCurrentSection(closestIndex);
+      }, 150);
+    };
 
-  // Touch handler
-  useEffect(() => {
-    let touchStartY = 0
-    const onTouchStart = (e) => {
-      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
-      touchStartY = e.touches[0].clientY
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
     }
-    const onTouchMove = (e) => {
-      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
-      e.preventDefault();
-    }
-    const onTouchEnd = (e) => {
-      if (e.target.closest('.ims-preview-card, .ims-chef-list')) return;
-      const now = Date.now()
-      if (now - lastInteractionTime.current < 1000) return
-      
-      const touchEndY = e.changedTouches[0].clientY
-      const distance = touchStartY - touchEndY
-      
-      if (distance > 50) { // Swipe up -> scroll down
-        lastInteractionTime.current = now
-        setCurrentSection(p => Math.min(p + 1, totalSections - 1))
-      } else if (distance < -50) { // Swipe down -> scroll up
-        lastInteractionTime.current = now
-        setCurrentSection(p => Math.max(p - 1, 0))
-      }
-    }
+    handleScroll();
 
-    window.addEventListener('touchstart', onTouchStart, { passive: false })
-    window.addEventListener('touchmove', onTouchMove, { passive: false })
-    window.addEventListener('touchend', onTouchEnd, { passive: false })
     return () => {
-      window.removeEventListener('touchstart', onTouchStart)
-      window.removeEventListener('touchmove', onTouchMove)
-      window.removeEventListener('touchend', onTouchEnd)
+      if (container) container.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
     }
-  }, [totalSections])
+  }, [isMobile])
+
+  // Desktop wheel & key handlers
+  useEffect(() => {
+    if (isMobile) return;
+    
+    const onWheel = (e) => {
+      e.preventDefault();
+      const now = Date.now();
+      if (now - lastInteractionTime.current < 1200) return; // ignore trackpad inertia tail
+      if (Math.abs(e.deltaY) < 25) return; // ignore tiny resting movements
+      
+      lastInteractionTime.current = now;
+      if (e.deltaY > 0) goToSectionDesktop(currentSection + 1);
+      else goToSectionDesktop(currentSection - 1);
+    };
+
+    const onKey = (e) => {
+      const now = Date.now();
+      if (now - lastInteractionTime.current < 1200) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        lastInteractionTime.current = now;
+        goToSectionDesktop(currentSection + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        lastInteractionTime.current = now;
+        goToSectionDesktop(currentSection - 1);
+      }
+    };
+    
+    const el = portfolioRef.current;
+    if (el) el.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('keydown', onKey);
+    
+    return () => { 
+      if (el) el.removeEventListener('wheel', onWheel);
+      window.removeEventListener('keydown', onKey);
+    }
+  }, [currentSection, isMobile, totalSections])
+
+  const goToSectionDesktop = (index) => {
+    if (index < 0 || index >= totalSections) return;
+    setIsTransitioning(true);
+    setCurrentSection(index);
+    setTimeout(() => setIsTransitioning(false), 900);
+  }
+
+  const goToSection = (index) => {
+    if (index < 0 || index >= totalSections) return;
+    if (isMobile) {
+      sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      goToSectionDesktop(index);
+    }
+  }
 
   useEffect(() => {
     setNavTheme("green")
@@ -282,16 +293,16 @@ const ChefPage = () => {
       </div>
 
       {/* ─── Slide Track ───────────────────────────────────────────────────── */}
-      <div
+      <div 
         className="fp-slide-track"
-        style={{ transform: `translateY(-${currentSection * 100}dvh)` }}
+        style={{ transform: isMobile ? 'none' : `translateY(-${currentSection * 100}dvh)` }}
       >
 
 
         {/* ==========================================================================
           1. HERO SECTION (Advanced Centered Layout)
           ========================================================================== */}
-        <section className={`journey-hero-advanced${isMobile || currentSection === 0 ? ' is-active' : ''}`}>
+        <section ref={el => sectionRefs.current[0] = el} className={`journey-hero-advanced${isMobile || currentSection === 0 ? ' is-active' : ''}`}>
 
           {/* Massive Vertical Background Text */}
           <motion.div className="hero-bg-vertical left"
@@ -368,7 +379,7 @@ const ChefPage = () => {
         {/* ==========================================================================
           2. OUR STORY SECTION (Interactive Accordion Timeline)
           ========================================================================== */}
-        <section className={`journey-story-accordion${isMobile || currentSection === 1 ? ' is-active' : ''}`} id="story-section">
+        <section ref={el => sectionRefs.current[1] = el} className={`journey-story-accordion${isMobile || currentSection === 1 ? ' is-active' : ''}`} id="story-section">
           <motion.div className="accordion-header center"
             initial={{ opacity: 0, y: -25 }}
             animate={isMobile || currentSection === 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
@@ -426,7 +437,7 @@ const ChefPage = () => {
         {/* ==========================================================================
           3. CHEF PHILOSOPHY SECTION (Advanced Split Layout)
           ========================================================================== */}
-        <section className={`journey-philosophy-advanced${isMobile || currentSection === 2 ? ' is-active' : ''}`} id="philosophy-section">
+        <section ref={el => sectionRefs.current[2] = el} className={`journey-philosophy-advanced${isMobile || currentSection === 2 ? ' is-active' : ''}`} id="philosophy-section">
           {/* Massive Background Text */}
           <div className="phil-bg-text">PHILOSOPHY</div>
 
@@ -488,7 +499,7 @@ const ChefPage = () => {
         {/* ==========================================================================
           4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
           ========================================================================== */}
-        <section className={`journey-signature${isMobile || currentSection === 3 ? ' is-active' : ''}`} id="signature-section">
+        <section ref={el => sectionRefs.current[3] = el} className={`journey-signature${isMobile || currentSection === 3 ? ' is-active' : ''}`} id="signature-section">
           <motion.div className="accordion-header center" style={{ marginBottom: '1rem' }}
             initial={{ opacity: 0, y: -25 }}
             animate={isMobile || currentSection === 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: -25 }}
@@ -604,7 +615,7 @@ const ChefPage = () => {
         {/* ==========================================================================
           5. THE EXPERIENCE SECTION (Light Theme)
           ========================================================================== */}
-        <section className={`journey-experience${isMobile || currentSection === 4 ? ' is-active' : ''}`} id="experience-section">
+        <section ref={el => sectionRefs.current[4] = el} className={`journey-experience${isMobile || currentSection === 4 ? ' is-active' : ''}`} id="experience-section">
           <div className="experience-content">
             <motion.div className="accordion-header center" style={{ marginBottom: '3rem' }}
               initial={{ opacity: 0, y: -25 }}

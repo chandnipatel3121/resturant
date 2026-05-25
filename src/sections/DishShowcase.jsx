@@ -71,13 +71,13 @@ const DishShowcase = () => {
             animate={{ opacity: isShort ? 0.95 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`showcase-text-container absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12vh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18vh)]'}`}
+            className={`showcase-text-container absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${isShort ? 'top-[26%] md:top-[30%] md:-translate-y-[min(100px,12dvh)]' : 'top-[28%] md:top-[35%] md:-translate-y-[min(150px,18dvh)]'}`}
             style={{ color: currentTheme.accent }}
           >
             <h2 className="dish-name text-[clamp(2rem,6vw,5rem)] text-center transition-colors duration-500 scale-y-[1.6] md:scale-y-[2] origin-bottom max-w-[90vw] md:max-w-[60vw] leading-[1]">
               {DISHES[activeIndex].name}
             </h2>
-            <div className="showcase-desc-wrapper absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4vh, 60px))" }}>
+            <div className="showcase-desc-wrapper absolute left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] text-center" style={{ top: "calc(100% + clamp(20px, 4dvh, 60px))" }}>
               <p className="showcase-desc-text font-serif text-[15px] md:text-[18px] font-extrabold tracking-wide leading-relaxed drop-shadow-md opacity-100">
                 {DISHES[activeIndex].description}
               </p>
@@ -88,7 +88,7 @@ const DishShowcase = () => {
 
 
       {/* The Rotation Wheel at Bottom */}
-      <div className={`absolute ${isShort ? 'bottom-[-30%]' : 'bottom-[-28%] md:bottom-[-35%]'} w-full h-[72vh] flex items-center justify-center overflow-visible`}>
+      <div className={`absolute ${isShort ? 'bottom-[-30%]' : 'bottom-[-28%] md:bottom-[-35%]'} w-full h-[72dvh] flex items-center justify-center overflow-visible`}>
         {DISHES.map((dish, i) => {
           let distance = i - activeIndex
           if (distance > DISHES.length / 2) distance -= DISHES.length

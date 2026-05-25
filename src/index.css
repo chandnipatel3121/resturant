@@ -22,7 +22,7 @@
   --fs-small: clamp(0.75rem, 0.85vw, 0.95rem);
 
   /* 📏 FLUID SPACING TOKENS */
-  --section-padding: clamp(3rem, 10vh, 8rem);
+  --section-padding: clamp(3rem, 10dvh, 8rem);
   --container-px: clamp(1.5rem, 6vw, 8rem);
 }
 
@@ -279,18 +279,13 @@ section {
 
   html.home-page.snap-peak-only section,
   html.home-page.snap-peak-only footer,
-  html.home-page.snap-peak-only #hero-snap-mid {
+  html.home-page.snap-peak-only #hero-snap-peak {
     scroll-snap-align: none !important;
   }
 
   /* Snapping active only when snap-mid-only is dynamically added */
   html.home-page.snap-mid-only {
     scroll-snap-type: y mandatory;
-  }
-
-  html.home-page.snap-mid-only #hero-snap-mid {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 
   html.home-page.snap-mid-only section,
@@ -306,8 +301,7 @@ section {
 
   html.home-page.snap-all-sections section:not(.hero-section),
   html.home-page.snap-all-sections footer,
-  html.home-page.snap-all-sections #hero-snap-peak,
-  html.home-page.snap-all-sections #hero-snap-mid {
+  html.home-page.snap-all-sections #hero-snap-peak {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -352,7 +346,7 @@ section {
   :root {
     --fs-h1: clamp(2rem, 10vw, 3rem);
     --fs-h2: clamp(1.5rem, 8vw, 2.5rem);
-    --section-padding: clamp(2rem, 8vh, 4rem);
+    --section-padding: clamp(2rem, 8dvh, 4rem);
     --container-px: clamp(1rem, 4vw, 2rem);
   }
 
@@ -361,6 +355,7 @@ section {
     /* Ensure base font is manageable on small screens */
   }
 }
+
 /* Dietary Marks */
 .diet-mark {
   width: 18px;
@@ -391,7 +386,8 @@ section {
   color: #c62828;
 }
 
-.diet-mark.jain, .diet-mark.vegan {
+.diet-mark.jain,
+.diet-mark.vegan {
   border-color: #f5b041;
   color: #f5b041;
 }
