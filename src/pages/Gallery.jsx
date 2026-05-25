@@ -16,53 +16,53 @@ const categories = [
     id: "01",
     title: "Ambience",
     desc: "Step behind the curtain and explore the grand architecture and vibrant atmosphere of our main dining halls and intimate spaces.",
-    img: dining,
+    img: "/gallery/ambience.png",
     link: "#ambience",
     subImages: [
-      dining,
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop"
+      "/gallery/ambience.png",
+      "/gallery/private.png",
+      "/gallery/bar.png",
+      restro2
     ]
   },
   {
     id: "02",
     title: "Craft",
     desc: "Witness the precision and passion of our master chefs as they orchestrate culinary perfection in the heart of the kitchen.",
-    img: chef1,
+    img: "/gallery/chef.png",
     link: "#craft",
     subImages: [
+      "/gallery/chef.png",
+      "/gallery/kitchen.png",
       chef1,
-      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=600&auto=format&fit=crop"
+      dish1
     ]
   },
   {
     id: "03",
     title: "Signatures",
     desc: "A visual tasting menu. Explore our most iconic and meticulously plated signature dishes that define the Anando experience.",
-    img: dish1,
+    img: "/gallery/signature.png",
     link: "#signatures",
     subImages: [
+      "/gallery/signature.png",
       dish1,
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop"
+      "/gallery/chef.png",
+      restro3
     ]
   }
 ]
 
 const masonryImages = [
-  "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop"
+  "/gallery/ambience.png",
+  "/gallery/signature.png",
+  "/gallery/bar.png",
+  restro2,
+  "/gallery/kitchen.png",
+  dish1,
+  "/gallery/private.png",
+  chef1,
+  "/gallery/chef.png"
 ];
 
 // Framer Motion Variants for the sleek mask wipe effect
@@ -135,9 +135,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         restro2,
-        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop"
+        "/gallery/private.png",
+        "/gallery/kitchen.png",
+        chef1
       ]
     },
     {
@@ -150,9 +150,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         restro3,
-        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop"
+        "/gallery/private.png",
+        "/gallery/ambience.png",
+        "/gallery/bar.png"
       ]
     },
     {
@@ -165,9 +165,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         dining,
-        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1560512823-829485b8bf24?q=80&w=600&auto=format&fit=crop"
+        "/gallery/bar.png",
+        "/gallery/signature.png",
+        dish1
       ]
     },
     {
@@ -180,9 +180,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         chef1,
-        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=600&auto=format&fit=crop"
+        "/gallery/chef.png",
+        "/gallery/kitchen.png",
+        "/gallery/signature.png"
       ]
     }
   ]

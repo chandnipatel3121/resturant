@@ -554,6 +554,7 @@ const MenuSection = () => {
   const [activeDiets, setActiveDiets] = useState([]);
   const [activeCourses, setActiveCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const mainLayoutRef = useRef(null);
 
@@ -610,6 +611,7 @@ const MenuSection = () => {
 
   // Helper to toggle Cuisine (sidebar) - single selection only, preserves other category filters
   const toggleCuisineFilter = (value) => {
+    setHasInteracted(true);
     if (value === 'All') {
       setActiveCuisines([]);
       return;
@@ -621,6 +623,7 @@ const MenuSection = () => {
 
   // Helper to toggle Cuisine Segment (course chips) - single selection only, preserves other category filters
   const toggleCourseFilter = (value) => {
+    setHasInteracted(true);
     if (value === 'All') {
       setActiveCourses([]);
       return;
@@ -632,6 +635,7 @@ const MenuSection = () => {
 
   // Helper to toggle Service Session (meal pills) - single selection only, preserves other category filters
   const toggleMealFilter = (value) => {
+    setHasInteracted(true);
     if (value === 'All') {
       setActiveMeals([]);
       return;
@@ -641,6 +645,7 @@ const MenuSection = () => {
 
   // Helper to reset all filters simultaneously
   const resetAllFilters = () => {
+    setHasInteracted(true);
     setSearchQuery('');
     setActiveCuisines([]);
     setActiveCourses([]);
@@ -746,9 +751,17 @@ const MenuSection = () => {
       </AnimatePresence>
 
       <div className="min-h-screen bg-transparent">
-        {/* Full-Width Hero conditionally rendered */}
-        {!hasActiveFilters && (
-          <div className="enhanced-menu-hero pattern-variant">
+        {/* Full-Width Hero conditionally rendered with smooth animation */}
+        <AnimatePresence initial={false}>
+          {!hasInteracted && !hasActiveFilters && (
+            <motion.div 
+              className="enhanced-menu-hero pattern-variant"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{ overflow: 'hidden' }}
+            >
           <div className="hero-bg-media">
             <img src={patternBg} alt="" className="hero-bg-img pattern-img" />
             <div className="hero-bg-overlay pattern-overlay"></div>
@@ -790,8 +803,9 @@ const MenuSection = () => {
               </div>
             </div>
           </div>
-        </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Content Area with Sidebar and Grid */}
         <div className="menu-main-layout" ref={mainLayoutRef}>
@@ -847,7 +861,7 @@ const MenuSection = () => {
                       placeholder="Search across all cuisines and dishes..."
                       className="general-search-input"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => { setHasInteracted(true); setSearchQuery(e.target.value); }}
                     />
                     {searchQuery && (
                       <button

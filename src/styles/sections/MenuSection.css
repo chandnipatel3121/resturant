@@ -1518,7 +1518,7 @@ html.menu-snap-page .menu-main-layout {
 
 /* --- PREMIUM GLOWING ARTISANAL COURSE CHIPS --- */
 /* Category Specific Color Definitions */
-.course-chip.starter {
+.course-chip.starters {
   --chip-rgb: 245, 158, 11;
   --chip-grad-1: #ffb74d;
   --chip-grad-2: #f59e0b;
@@ -1530,7 +1530,7 @@ html.menu-snap-page .menu-main-layout {
   --chip-grad-2: #10b981;
 }
 
-.course-chip.dessert {
+.course-chip.desserts {
   --chip-rgb: 236, 72, 153;
   --chip-grad-1: #f472b6;
   --chip-grad-2: #ec4899;
@@ -1554,7 +1554,7 @@ html.menu-snap-page .menu-main-layout {
   --chip-grad-2: #f97316;
 }
 
-.course-chip.specials {
+.course-chip.chef-specials {
   --chip-rgb: 139, 92, 246;
   --chip-grad-1: #a78bfa;
   --chip-grad-2: #8b5cf6;

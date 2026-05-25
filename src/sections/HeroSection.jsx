@@ -266,7 +266,11 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
-      {/* <div id="hero-snap-peak" style={{ bottom: "60dvh" }} className="absolute left-0 right-0 h-[1px] pointer-events-none" /> */}
+      {/* Native mid-point snap target: Prevents stopping in the middle of the transition */}
+      <div 
+        style={{ top: isMobile ? "100dvh" : "150dvh", scrollSnapAlign: "start", scrollSnapStop: "normal" }} 
+        className="absolute left-0 right-0 h-[1px] pointer-events-none" 
+      />
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </section>
   )
