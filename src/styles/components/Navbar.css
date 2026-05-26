@@ -91,7 +91,7 @@ html:not(.home-page) body:has(.contact-page) .navbar {
   gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .nav-links {
     display: flex;
   }
@@ -147,7 +147,7 @@ html:not(.home-page) body:has(.contact-page) .navbar {
   justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .nav-cta-wrapper {
     display: flex;
   }
@@ -193,7 +193,7 @@ html:not(.home-page) body:has(.contact-page) .navbar {
   justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .mobile-toggle {
     display: none;
   }

@@ -11,17 +11,24 @@ import dish1 from "../assets/dish1.jpg"
 import restro3 from "../assets/resturent3.jpg"
 import restro2 from "../assets/resturent2.jpg"
 
+import ambienceImg from "../assets/gallery/ambience.png"
+import privateImg from "../assets/gallery/private.png"
+import barImg from "../assets/gallery/bar.png"
+import chefImg from "../assets/gallery/chef.png"
+import kitchenImg from "../assets/gallery/kitchen.png"
+import signatureImg from "../assets/gallery/signature.png"
+
 const categories = [
   {
     id: "01",
     title: "Ambience",
     desc: "Step behind the curtain and explore the grand architecture and vibrant atmosphere of our main dining halls and intimate spaces.",
-    img: "/gallery/ambience.png",
+    img: ambienceImg,
     link: "#ambience",
     subImages: [
-      "/gallery/ambience.png",
-      "/gallery/private.png",
-      "/gallery/bar.png",
+      ambienceImg,
+      privateImg,
+      barImg,
       restro2
     ]
   },
@@ -29,11 +36,11 @@ const categories = [
     id: "02",
     title: "Craft",
     desc: "Witness the precision and passion of our master chefs as they orchestrate culinary perfection in the heart of the kitchen.",
-    img: "/gallery/chef.png",
+    img: chefImg,
     link: "#craft",
     subImages: [
-      "/gallery/chef.png",
-      "/gallery/kitchen.png",
+      chefImg,
+      kitchenImg,
       chef1,
       dish1
     ]
@@ -42,27 +49,27 @@ const categories = [
     id: "03",
     title: "Signatures",
     desc: "A visual tasting menu. Explore our most iconic and meticulously plated signature dishes that define the Anando experience.",
-    img: "/gallery/signature.png",
+    img: signatureImg,
     link: "#signatures",
     subImages: [
-      "/gallery/signature.png",
+      signatureImg,
       dish1,
-      "/gallery/chef.png",
+      chefImg,
       restro3
     ]
   }
 ]
 
 const masonryImages = [
-  "/gallery/ambience.png",
-  "/gallery/signature.png",
-  "/gallery/bar.png",
+  ambienceImg,
+  signatureImg,
+  barImg,
   restro2,
-  "/gallery/kitchen.png",
+  kitchenImg,
   dish1,
-  "/gallery/private.png",
+  privateImg,
   chef1,
-  "/gallery/chef.png"
+  chefImg
 ];
 
 // Framer Motion Variants for the sleek mask wipe effect
@@ -135,8 +142,8 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         restro2,
-        "/gallery/private.png",
-        "/gallery/kitchen.png",
+        privateImg,
+        kitchenImg,
         chef1
       ]
     },
@@ -150,9 +157,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         restro3,
-        "/gallery/private.png",
-        "/gallery/ambience.png",
-        "/gallery/bar.png"
+        privateImg,
+        ambienceImg,
+        barImg
       ]
     },
     {
@@ -165,8 +172,8 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         dining,
-        "/gallery/bar.png",
-        "/gallery/signature.png",
+        barImg,
+        signatureImg,
         dish1
       ]
     },
@@ -180,9 +187,9 @@ const Gallery = () => {
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
         chef1,
-        "/gallery/chef.png",
-        "/gallery/kitchen.png",
-        "/gallery/signature.png"
+        chefImg,
+        kitchenImg,
+        signatureImg
       ]
     }
   ]

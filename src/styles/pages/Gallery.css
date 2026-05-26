@@ -68,10 +68,11 @@
 .slide-image-wrapper {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: calc(100% - clamp(380px, 42vw, 42vw));
   height: 100%;
   overflow: hidden;
+  border-radius: 20px 0 0 20px; /* Optional: adds a nice curve where it meets the glass */
 }
 
 .slide-image-wrapper::after {
@@ -105,14 +106,9 @@
   left: 0;
   bottom: 0;
   z-index: 10;
-  width: 42vw;
-  min-width: 380px;
-  background: rgba(237, 247, 247, 0.88);
-  /* Web theme --bg with high opacity */
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  width: clamp(380px, 42vw, 42vw);
+  background: var(--bg-primary); /* Remove blur since it doesn't overlap image anymore */
   border-right: 1px solid rgba(224, 169, 75, 0.35);
-  /* Subtle gold border border-highlight */
   padding: 0 4.5vw;
   display: flex;
   flex-direction: column;
@@ -350,11 +346,16 @@
 /* ── TABLET PORTRAIT (≤ 768px) ── */
 @media (max-width: 768px) {
 
-  /* Slide content panel — compact width */
+  /* Slide content panel — clean 50/50 split on tablet */
   .slide-content {
-    width: 65vw;
-    min-width: unset;
+    width: 50vw;
+    background: var(--bg-primary);
     padding: 0 4vw;
+  }
+
+  .slide-image-wrapper {
+    width: 50vw;
+    border-radius: 0;
   }
 
   .slide-title {
@@ -369,7 +370,7 @@
   }
 
   .gallery-global-ui {
-    padding: 85px 4vw 2rem;
+    padding: 110px 4vw 2rem;
   }
 
   .gallery-top-bar {
@@ -379,8 +380,8 @@
   /* Pagination moves to bottom row */
   .gallery-pagination {
     right: auto;
-    bottom: 3rem;
-    left: 5vw;
+    bottom: 5.5rem;
+    left: 4vw;
     top: auto;
     transform: none;
     flex-direction: row;
@@ -854,6 +855,10 @@
     padding: 0 3.5vw;
   }
 
+  .slide-image-wrapper {
+    width: 50vw;
+  }
+
   .slide-title {
     font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: 1.5rem;
@@ -866,7 +871,7 @@
   }
 
   .gallery-global-ui {
-    padding: 95px 5vw 2rem;
+    padding: 115px 5vw 2rem;
   }
 
   .h-slide-img-wrapper {

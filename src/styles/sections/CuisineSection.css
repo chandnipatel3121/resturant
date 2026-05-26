@@ -1534,23 +1534,99 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .cuisine-section {
-    padding: 80px 20px !important;
-    height: auto;
-    min-height: 100dvh;
+    padding: 85px 20px 20px !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .cuisine-header {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .cuisine-main-title {
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 3rem !important;
   }
 
   .cuisine-menu-container,
   .cuisine-info-container {
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto 30px;
+    max-width: 650px !important;
+    width: 100% !important;
+    margin: 0 auto 10px auto !important;
+    pointer-events: auto !important;
+    order: 1 !important;
+  }
+
+  .cuisine-floating-narrative {
+    padding: 0 !important;
+  }
+
+  .narrative-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    padding: 0 !important;
+  }
+
+  .narrative-item-container {
+    display: flex !important;
+    width: 100% !important;
+  }
+
+  .narrative-item-container:nth-child(5) {
+    grid-column: 1 / -1 !important;
+    justify-content: center !important;
+  }
+
+  .narrative-item-container:nth-child(5) .narrative-item {
+    max-width: 50% !important;
+  }
+
+  .narrative-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    min-height: 60px !important;
+    width: 100% !important;
   }
 
   .cuisine-table-perspective {
-    margin: 20px 0;
-    transform: scale(0.8);
+    margin: 0 !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-grow: 1 !important;
+  }
+
+  .cuisine-table-topview {
+    width: 300px !important;
+    height: 300px !important;
+    margin-bottom: 0 !important;
+    order: 2 !important;
+  }
+
+  .cuisine-table-surface-round {
+    width: 315px !important;
+    height: 315px !important;
+  }
+
+  .table-center-logo-top {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .cuisine-dish-wrapper-round {
+    width: 85px !important;
+    height: 85px !important;
   }
 
   /* Mobile-style typography overrides for tablet view where leaf SVG & gold divider show */
