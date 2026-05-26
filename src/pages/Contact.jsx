@@ -54,6 +54,7 @@ const MagneticButton = ({ children, className, onClick }) => {
 
 const ContactPage = () => {
   const { setNavTheme } = useNav();
+  const containerRef = useRef(null);
 
   // Enforce green theme for the navbar on mount
   useEffect(() => {
@@ -61,7 +62,9 @@ const ContactPage = () => {
     return () => setNavTheme('light'); // reset on unmount
   }, [setNavTheme]);
 
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({
+    container: containerRef
+  });
   const yMap = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   // Framer Motion Variants
@@ -86,7 +89,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="contact-page">
+    <div className="contact-page" ref={containerRef}>
       {/* Background Ambience */}
       <div className="bg-glow glow-1"></div>
       <div className="bg-glow glow-2"></div>
