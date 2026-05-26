@@ -16,61 +16,117 @@ import onion from "../assets/ingredients/onion.png"
 import kiwi from "../assets/ingredients/kiwi.png"
 
 const INGREDIENT_GROUPS = {
-  0: [thali, thali2, bayLeaf],      // Gujarati Thali
-  1: [paneerCube, coriander],      // Shahi Paneer
-  2: [pav, onion, lemon],          // Pav Bhaji
-  3: [chili, lemon, coriander],    // Dragon Platter
-  4: [strawberry, kiwi],           // Desert
-  5: [carrot, beetroot],           // Halwa (Mix Veg)
+  0: [thali, thali2, bayLeaf], // Gujarati Thali
+  1: [paneerCube, coriander], // Shahi Paneer
+  2: [pav, onion, lemon], // Pav Bhaji
+  3: [chili, lemon, coriander], // Dragon Platter
+  4: [strawberry, kiwi], // Desert
+  5: [carrot, beetroot], // Halwa (Mix Veg)
+}
+
+const generateFloatingItems = (isMobile, isShort) => {
+  const zones = [
+    { x: [2, 12], y: [2, 10] },
+    { x: [88, 98], y: [2, 10] },
+    { x: [2, 12], y: [85, 98] },
+    { x: [88, 98], y: [85, 98] },
+    { x: [0, 10], y: [25, 65] },
+    { x: [90, 100], y: [15, 45] },
+    { x: [20, 40], y: [80, 95] },
+    { x: [60, 80], y: [80, 95] },
+    { x: [40, 60], y: [75, 90] },
+    { x: [15, 35], y: [25, 45] },
+    { x: [65, 85], y: [35, 75] },
+  ]
+
+  // For small/mobile viewports we use deterministic positions
+  // (previous mobileZones approach produced inconsistent overlaps)
+
+  // viewport-aware sizing so items scale nicely across devices
+  const vw =
+    typeof window !== "undefined" ? Math.max(window.innerWidth, 320) : 1024
+  const vh =
+    typeof window !== "undefined" ? Math.max(window.innerHeight, 320) : 800
+  const minDim = Math.min(vw, vh)
+  // Larger base sizes on small devices to ensure visibility
+  // Make ingredients more visible on phones while preventing excessive overlap
+  const baseSize = isMobile
+    ? Math.round(minDim * 0.40)
+    : Math.round(minDim * 0.12)
+  const scaleFactor = isMobile ? 0.95 : isShort ? 0.98 : 1
+  const minSizePx = Math.max(64, Math.round(minDim * 0.12))
+  const maxSizePx = Math.max(220, Math.round(minDim * 0.55))
+
+  // Deterministic mobile positions (more reliable than random zones)
+  const mobileFixedPositions = [
+    { x: 10, y: 12 }, // top-left
+    { x: 90, y: 12 }, // top-right
+    { x: 8, y: 42 },  // left-middle (avoid center)
+    { x: 92, y: 42 }, // right-middle (avoid center)
+    { x: 50, y: 22 }, // top-center moved slightly lower
+    { x: 26, y: 78 }, // bottom-left
+    { x: 74, y: 78 }, // bottom-right
+  ]
+
+  // For mobile return deterministic positions to avoid overlap with center dish
+  if (isMobile) {
+    const items = mobileFixedPositions.map((p, i) => ({
+      id: i,
+      x: p.x,
+      y: p.y,
+      // compute size and clamp to min/max so items remain visible but not huge
+      size: (() => {
+        const raw = Math.round((baseSize + Math.random() * baseSize * 0.4) * scaleFactor)
+        return Math.max(minSizePx, Math.min(maxSizePx, raw))
+      })(),
+      duration: 22 + Math.random() * 18,
+      delay: Math.random() * -8,
+      rotate: Math.random() * 360,
+      floatX: (Math.random() - 0.5) * 12,
+      floatY: (Math.random() - 0.5) * 10,
+      entryX: (Math.random() - 0.5) * 120,
+      entryY: (Math.random() - 0.5) * 120,
+      entryRotate: (Math.random() - 0.5) * 360,
+      blur: i % 5 === 0 ? "blur(1px)" : "blur(0px)",
+      opacity: 0.7 + Math.random() * 0.25,
+    }))
+
+    return items
+  }
+
+  let chosenZones = zones
+
+  return chosenZones.map((zone, i) => ({
+    id: i,
+    x: zone.x[0] + Math.random() * (zone.x[1] - zone.x[0]),
+    y: zone.y[0] + Math.random() * (zone.y[1] - zone.y[0]),
+    // compute size and clamp to min/max so items remain visible but not huge
+    size: (() => {
+      const raw = Math.round(
+        (baseSize + Math.random() * baseSize * 0.6) * scaleFactor,
+      )
+      return Math.max(minSizePx, Math.min(maxSizePx, raw))
+    })(),
+    duration: 28 + Math.random() * 24,
+    delay: Math.random() * -14,
+    rotate: Math.random() * 360,
+    floatX: (Math.random() - 0.5) * (isMobile ? 22 : 48),
+    floatY: (Math.random() - 0.5) * (isMobile ? 18 : 40),
+    entryX: (Math.random() - 0.5) * (isMobile ? 200 : 640),
+    entryY: (Math.random() - 0.5) * (isMobile ? 200 : 640),
+    entryRotate: (Math.random() - 0.5) * 720,
+    blur: i % 6 === 0 ? "blur(1.5px)" : "blur(0px)",
+    opacity: 0.65 + Math.random() * 0.3,
+  }))
 }
 
 const FloatingIngredients = ({ activeIndex, bgColor, isMobile, isShort }) => {
   const currentGroup = INGREDIENT_GROUPS[activeIndex] || [coriander]
-
-  // Generate scattered positions across the whole background, avoiding the center
-  const fixedItems = useMemo(() => {
-    // 12 specific zones to ensure 'all side cover' without clustering
-    const zones = [
-      // 🔲 Corner Zones
-      { x: [2, 12], y: [2, 10] },      // Far Top Left
-      { x: [88, 98], y: [2, 10] },     // Far Top Right
-      { x: [2, 12], y: [85, 98] },     // Far Bottom Left
-      { x: [88, 98], y: [85, 98] },    // Far Bottom Right
-
-      // ↔️ Side Mid Zones
-      { x: [0, 10], y: [25, 65] },     // Extreme Left Edge
-      { x: [90, 100], y: [15, 45] },   // Extreme Right Edge
-
-      // 🔻 Bottom Zones
-      { x: [20, 40], y: [80, 95] },    // Bottom Left Mid
-      { x: [60, 80], y: [80, 95] },    // Bottom Right Mid
-      { x: [40, 60], y: [75, 90] },    // Bottom Center
-
-      // ↙️ ↘️ Side Fillers
-      { x: [15, 35], y: [25, 45] },    // Left Mid Filler
-      { x: [65, 85], y: [35, 75] },    // Right Mid Filler
-    ]
-
-    const scaleFactor = isMobile ? 0.5 : (isShort ? 0.75 : 1)
-
-    return zones.map((zone, i) => ({
-      id: i,
-      x: zone.x[0] + Math.random() * (zone.x[1] - zone.x[0]),
-      y: zone.y[0] + Math.random() * (zone.y[1] - zone.y[0]),
-      size: (150 + Math.random() * 80) * scaleFactor,
-      duration: 35 + Math.random() * 25,
-      delay: Math.random() * -30,
-      rotate: Math.random() * 360,
-      floatX: (Math.random() - 0.5) * 60,
-      floatY: (Math.random() - 0.5) * 60,
-      // Random starting positions for the 'fly-in' effect
-      entryX: (Math.random() - 0.5) * 1000,
-      entryY: (Math.random() - 0.5) * 1000,
-      entryRotate: (Math.random() - 0.5) * 720,
-      blur: i % 5 === 0 ? "blur(2px)" : "blur(0px)",
-      opacity: 0.6 + Math.random() * 0.3,
-    }))
-  }, [isMobile, isShort])
+  // regenerate positions when device characteristics change
+  const fixedItems = useMemo(
+    () => generateFloatingItems(isMobile, isShort),
+    [isMobile, isShort],
+  )
 
   return (
     <div
@@ -104,6 +160,7 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile, isShort }) => {
                 top: `${item.y}%`,
                 width: item.size,
                 height: item.size,
+                transform: "translate(-50%, -50%)",
                 filter: item.blur,
                 opacity: item.opacity,
               }}
@@ -128,28 +185,28 @@ const FloatingIngredients = ({ activeIndex, bgColor, isMobile, isShort }) => {
                     scale: 0.3,
                     x: item.entryX,
                     y: item.entryY,
-                    rotate: item.entryRotate
+                    rotate: item.entryRotate,
                   }}
                   animate={{
                     opacity: 1,
                     scale: 1,
                     x: 0,
                     y: 0,
-                    rotate: 0
+                    rotate: 0,
                   }}
                   exit={{
                     opacity: 0,
                     scale: 0.5,
                     x: -item.entryX / 2,
                     y: -item.entryY / 2,
-                    transition: { duration: 0.8 }
+                    transition: { duration: 0.8 },
                   }}
                   transition={{
                     type: "spring",
                     stiffness: 40,
                     damping: 12,
                     mass: 1,
-                    opacity: { duration: 0.6 }
+                    opacity: { duration: 0.6 },
                   }}
                   alt="ingredient"
                   className="w-full h-full object-contain"
