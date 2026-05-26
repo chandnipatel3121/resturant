@@ -1026,13 +1026,13 @@
   cursor: default;
 }
 
-/* Pause BOTH the grid orbit and the dish counter-orbit simultaneously */
-.table-hover-detector:hover ~ .cuisine-dishes-round-grid,
+/* Pause both rotations while the pointer is anywhere over the table surface. */
+.cuisine-table-surface-round:hover .cuisine-dishes-round-grid,
 .cuisine-dishes-round-grid.is-paused {
   animation-play-state: paused !important;
 }
 
-.table-hover-detector:hover ~ .cuisine-dishes-round-grid .cuisine-dish-motion-wrapper,
+.cuisine-table-surface-round:hover .cuisine-dishes-round-grid .cuisine-dish-motion-wrapper,
 .cuisine-dishes-round-grid.is-paused .cuisine-dish-motion-wrapper {
   animation-play-state: paused !important;
 }

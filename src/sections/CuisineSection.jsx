@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValueEvent,
+} from "framer-motion"
 import { Plus } from "lucide-react"
 import anandoLogo from "../assets/logo.png"
 import gujImg from "../assets/thali1.jpg"
@@ -35,11 +42,14 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
       exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="cuisine-glass-card" style={{
-        '--theme-color': cuisine.border,
-        '--card-bg': cuisine.cardBg,
-        '--card-text': cuisine.textColor
-      }}>
+      <div
+        className="cuisine-glass-card"
+        style={{
+          "--theme-color": cuisine.border,
+          "--card-bg": cuisine.cardBg,
+          "--card-text": cuisine.textColor,
+        }}
+      >
         {/* Optical Glass Flare & Glowing Effects */}
         <div className="glass-reflection-top" />
         <div className="glass-inner-glow" />
@@ -49,25 +59,67 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
           <div className="glass-corner-flare-dot" />
         </div>
 
-        {isMobile && <button className="mobile-close-btn" onClick={onClose}>✕</button>}
+        {isMobile && (
+          <button className="mobile-close-btn" onClick={onClose}>
+            ✕
+          </button>
+        )}
 
         <div className="glass-card-content">
           <header className="glass-card-header">
             {/* Circular Map Preview on Mobile Modal */}
             {isMobile && cuisine.map && (
               <div className="modal-plate-preview modal-map-preview">
-                <img src={cuisine.map} alt={`${cuisine.name} origin map`} className="modal-map-img" />
+                <img
+                  src={cuisine.map}
+                  alt={`${cuisine.name} origin map`}
+                  className="modal-map-img"
+                />
               </div>
             )}
 
             {/* Steaming Pot/Bowl Icon */}
-            <div className="glass-card-icon-container" style={{ color: cuisine.border }}>
+            <div
+              className="glass-card-icon-container"
+              style={{ color: cuisine.border }}
+            >
               <svg className="glass-card-bowl-svg" viewBox="0 0 100 100">
-                <path d="M35 30 Q38 20 35 10" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-1" />
-                <path d="M50 25 Q53 15 50 5" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-2" />
-                <path d="M65 30 Q68 20 65 10" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" className="steam-line-3" />
-                <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
-                <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
+                <path
+                  d="M35 30 Q38 20 35 10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="5.5"
+                  strokeLinecap="round"
+                  className="steam-line-1"
+                />
+                <path
+                  d="M50 25 Q53 15 50 5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="5.5"
+                  strokeLinecap="round"
+                  className="steam-line-2"
+                />
+                <path
+                  d="M65 30 Q68 20 65 10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="5.5"
+                  strokeLinecap="round"
+                  className="steam-line-3"
+                />
+                <path
+                  d="M20 50 L80 50 C80 75 20 75 20 50 Z"
+                  fill="currentColor"
+                />
+                <rect
+                  x="35"
+                  y="75"
+                  width="30"
+                  height="6"
+                  rx="2"
+                  fill="currentColor"
+                />
               </svg>
             </div>
 
@@ -82,7 +134,9 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
 
             <div className="luxury-ornament">
               <span className="ornament-line" />
-              <span className="ornament-star" style={{ color: cuisine.border }}>✦</span>
+              <span className="ornament-star" style={{ color: cuisine.border }}>
+                ✦
+              </span>
               <span className="ornament-line" />
             </div>
           </header>
@@ -102,7 +156,13 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
             <div className="glass-footer-divider" />
             <div className="glass-footer-brand-text">
               <span className="brand-name-main">ANANDOFOODS</span>
-              <span className="brand-name-sub" style={{ color: cuisine.border }}> Fine</span>
+              <span
+                className="brand-name-sub"
+                style={{ color: cuisine.border }}
+              >
+                {" "}
+                Fine
+              </span>
             </div>
             <div className="brand-tagline">Dining Excellence</div>
           </div>
@@ -119,8 +179,10 @@ const CUISINES = [
   {
     name: "South Indian",
     tagline: "Light, fermented & aromatic",
-    specialty: "Stone-ground fermented batter and cold-pressed coconut oil are the heart of our coastal preparations.",
-    description: "A celebration of coastal flavors. Crispy Dosas, fluffy Idlis, and tangy Sambars prepared with fresh coconut, curry leaves, and secret spice blends.",
+    specialty:
+      "Stone-ground fermented batter and cold-pressed coconut oil are the heart of our coastal preparations.",
+    description:
+      "A celebration of coastal flavors. Crispy Dosas, fluffy Idlis, and tangy Sambars prepared with fresh coconut, curry leaves, and secret spice blends.",
     img: southImg,
     bgImage: southBg,
     bg: "#000000",
@@ -130,13 +192,15 @@ const CUISINES = [
     glow: "rgba(46, 204, 113, 0.5)",
     textColor: "#ffffff",
     map: southMap,
-    items: []
+    items: [],
   },
   {
     name: "Chinese",
     tagline: "Spicy, tangy & sizzling",
-    specialty: "High-heat wok artistry combined with artisanal soy sauces and freshly picked Szechuan peppers.",
-    description: "A fusion of fire and flavor. Wok-tossed delicacies featuring perfectly balanced sauces, crunchy vegetables, and the irresistible kick of Szechuan peppers.",
+    specialty:
+      "High-heat wok artistry combined with artisanal soy sauces and freshly picked Szechuan peppers.",
+    description:
+      "A fusion of fire and flavor. Wok-tossed delicacies featuring perfectly balanced sauces, crunchy vegetables, and the irresistible kick of Szechuan peppers.",
     img: chinImg,
     bgImage: chinBg,
     bg: "#000000",
@@ -146,13 +210,15 @@ const CUISINES = [
     glow: "rgba(255, 252, 77, 0.5)",
     textColor: "#ffffff",
     map: chinMap,
-    items: []
+    items: [],
   },
   {
     name: "Fast Food",
     tagline: "Quick, cheesy & irresistible",
-    specialty: "Freshly baked pizzas and golden fries prepared with our signature seasoning and premium cheese.",
-    description: "Indulge in our classic fast food collection. From perfectly crispy French Fries to gourmet Pizzas loaded with fresh ingredients, every bite is a joy.",
+    specialty:
+      "Freshly baked pizzas and golden fries prepared with our signature seasoning and premium cheese.",
+    description:
+      "Indulge in our classic fast food collection. From perfectly crispy French Fries to gourmet Pizzas loaded with fresh ingredients, every bite is a joy.",
     img: italImg,
     bgImage: italBg,
     bg: "#000000",
@@ -162,13 +228,15 @@ const CUISINES = [
     glow: "rgba(77, 121, 255, 0.5)",
     textColor: "#ffffff",
     map: italMap,
-    items: []
+    items: [],
   },
   {
     name: "Street Food",
     tagline: "Spicy, tangy & local",
-    specialty: "Authentic chaats and vibrant flavors that bring the essence of Indian street culture to your plate.",
-    description: "Experience the vibrant hustle of the streets. Spicy Pav Bhaji, tangy chaats, and crispy delights that burst with sweet, spicy, and sour flavors.",
+    specialty:
+      "Authentic chaats and vibrant flavors that bring the essence of Indian street culture to your plate.",
+    description:
+      "Experience the vibrant hustle of the streets. Spicy Pav Bhaji, tangy chaats, and crispy delights that burst with sweet, spicy, and sour flavors.",
     img: pavBhajiImg,
     bgImage: gujBg,
     bg: "#000000",
@@ -178,13 +246,15 @@ const CUISINES = [
     glow: "rgba(224, 169, 75, 0.4)",
     textColor: "#ffffff",
     map: gujMap,
-    items: []
+    items: [],
   },
   {
     name: "Fusion Food",
     tagline: "Modern, creative & bold",
-    specialty: "A unique blend of traditional spices with contemporary culinary techniques for a modern palate.",
-    description: "Where tradition meets innovation. Discover our creative fusion dishes like Veg Hot Garlic and Spring Rolls that redefine global flavors.",
+    specialty:
+      "A unique blend of traditional spices with contemporary culinary techniques for a modern palate.",
+    description:
+      "Where tradition meets innovation. Discover our creative fusion dishes like Veg Hot Garlic and Spring Rolls that redefine global flavors.",
     img: gourmetSaladImg,
     bgImage: punBg,
     bg: "#000000",
@@ -194,8 +264,8 @@ const CUISINES = [
     glow: "rgba(255, 125, 41, 0.4)",
     textColor: "#ffffff",
     map: punMap,
-    items: []
-  }
+    items: [],
+  },
 ]
 
 const CuisineSection = () => {
@@ -222,35 +292,55 @@ const CuisineSection = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   })
 
   // Smooth out the scroll value
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   })
   useEffect(() => {
-    CUISINES.forEach(c => {
+    CUISINES.forEach((c) => {
       const img = new Image()
       img.src = c.bgImage
     })
   }, [])
 
   // 🎭 Dynamic 3D Transforms based on scroll
-  const tableRotateX = useTransform(smoothProgress, [0, 0.5, 1], isSideBySide ? [12, 6, 0] : [18, 10, 0])
+  const tableRotateX = useTransform(
+    smoothProgress,
+    [0, 0.5, 1],
+    isSideBySide ? [12, 6, 0] : [18, 10, 0],
+  )
   const tableScale = useTransform(
     smoothProgress,
     [0, 0.3, 0.5, 1],
-    isMobile ? [0.9, 1, 1, 0.9] : (isSideBySide ? [0.9, 0.98, 1.0, 0.98] : (isShort ? [0.85, 0.95, 1.0, 0.95] : [0.8, 0.9, 1, 0.9]))
+    isMobile
+      ? [0.9, 1, 1, 0.9]
+      : isSideBySide
+        ? [0.9, 0.98, 1.0, 0.98]
+        : isShort
+          ? [0.85, 0.95, 1.0, 0.95]
+          : [0.8, 0.9, 1, 0.9],
   )
   const tableY = useTransform(
     smoothProgress,
     [0, 0.5, 1],
-    isSideBySide ? [0, 0, 0] : (isMobile ? [0, -15, -30] : (isShort ? [0, -20, -50] : [50, -50, -150]))
+    isSideBySide
+      ? [0, 0, 0]
+      : isMobile
+        ? [0, -15, -30]
+        : isShort
+          ? [0, -20, -50]
+          : [50, -50, -150],
   )
-  const tableOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const tableOpacity = useTransform(
+    smoothProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0],
+  )
 
   const hoverTimeout = React.useRef(null)
 
@@ -294,13 +384,17 @@ const CuisineSection = () => {
     { name: "Truffle Pasta", desc: "Italian handmade luxury", price: "580" },
     { name: "Surati Ghari", desc: "Sweet Gujarati delicacy", price: "320" },
     { name: "Butter Chicken", desc: "Iconic North Indian gravy", price: "550" },
-    { name: "Mutton Rogan Josh", desc: "Kashmiri lamb specialty", price: "650" }
+    {
+      name: "Mutton Rogan Josh",
+      desc: "Kashmiri lamb specialty",
+      price: "650",
+    },
   ]
 
   return (
     <section
       id="cuisine-section"
-      className={`cuisine-section relative ${displayIndex !== null ? 'is-hovered' : ''}`}
+      className={`cuisine-section relative ${displayIndex !== null ? "is-hovered" : ""}`}
       ref={containerRef}
       style={{
         backgroundColor: activeCuisine ? activeCuisine.bg : "var(--bg)",
@@ -315,11 +409,11 @@ const CuisineSection = () => {
           className="cuisine-bg-image-layer"
           initial={{ opacity: 0 }}
           animate={{
-            opacity: displayIndex !== null ? 0.4 : 0
+            opacity: displayIndex !== null ? 0.4 : 0,
           }}
           transition={{
             duration: 0.8,
-            ease: "easeOut"
+            ease: "easeOut",
           }}
           style={{
             backgroundImage: displayCuisine
@@ -327,7 +421,7 @@ const CuisineSection = () => {
               : "none",
             willChange: "opacity, transform",
             backfaceVisibility: "hidden",
-            transform: "translateZ(0)"
+            transform: "translateZ(0)",
           }}
         />
       </div>
@@ -338,7 +432,7 @@ const CuisineSection = () => {
         animate={{
           background: activeCuisine
             ? `radial-gradient(circle at 50% 50%, ${activeCuisine.glow}, transparent 70%)`
-            : 'radial-gradient(circle at 50% 50%, transparent, transparent)'
+            : "radial-gradient(circle at 50% 50%, transparent, transparent)",
         }}
         transition={{ duration: 1 }}
       />
@@ -350,11 +444,20 @@ const CuisineSection = () => {
           viewport={{ once: true }}
           className="cuisine-main-title"
         >
-          Signature <span className="cuisine-title-italic" style={{ color: activeCuisine ? activeCuisine.border : 'inherit' }}>Experiences</span>
+          Signature{" "}
+          <span
+            className="cuisine-title-italic"
+            style={{ color: activeCuisine ? activeCuisine.border : "inherit" }}
+          >
+            Experiences
+          </span>
         </motion.h2>
       </div>
       <div className="cuisine-footer-info">
-        <p className="cuisine-footer-text"> a cuisine to explore our authentic flavors</p>
+        <p className="cuisine-footer-text">
+          {" "}
+          a cuisine to explore our authentic flavors
+        </p>
       </div>
 
       <div className="cuisine-table-perspective">
@@ -364,7 +467,7 @@ const CuisineSection = () => {
             rotateX: tableRotateX,
             scale: tableScale,
             y: tableY,
-            opacity: tableOpacity
+            opacity: tableOpacity,
           }}
         >
           <div className="cuisine-table-surface-round">
@@ -374,11 +477,17 @@ const CuisineSection = () => {
             <div className="cuisine-table-leg" />
 
             <div className="table-center-logo-top">
-              <img src={anandoLogo} alt="anandofoods" className="table-center-img" />
+              <img
+                src={anandoLogo}
+                alt="anandofoods"
+                className="table-center-img"
+              />
             </div>
 
+            <div className="table-hover-detector" />
+
             <motion.div
-              className={`cuisine-dishes-round-grid ${isCurrentlyPaused ? 'is-paused' : ''}`}
+              className={`cuisine-dishes-round-grid ${isCurrentlyPaused ? "is-paused" : ""}`}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
@@ -393,14 +502,23 @@ const CuisineSection = () => {
                 >
                   <motion.div
                     className="cuisine-dish-entrance-wrapper"
-                    style={{ width: "100%", height: "100%", position: "relative" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "relative",
+                    }}
                     variants={{
                       hidden: {
                         opacity: 0,
-                        x: i === 0 || i === 4 ? -400 : (i === 1 || i === 2 ? 400 : 0),
-                        y: i === 0 || i === 1 ? -400 : (i === 3 ? 400 : 200),
+                        x:
+                          i === 0 || i === 4
+                            ? -400
+                            : i === 1 || i === 2
+                              ? 400
+                              : 0,
+                        y: i === 0 || i === 1 ? -400 : i === 3 ? 400 : 200,
                         scale: 0.5,
-                        rotate: -120
+                        rotate: -120,
                       },
                       visible: {
                         opacity: 1,
@@ -411,30 +529,37 @@ const CuisineSection = () => {
                           type: "spring",
                           stiffness: 50,
                           damping: 20,
-                          delay: 0.2 + (i * 0.12)
-                        }
-                      }
+                          delay: 0.2 + i * 0.12,
+                        },
+                      },
                     }}
                   >
                     <motion.div
                       className="cuisine-dish-motion-wrapper"
                       animate={{
-                        y: activeIndex === i ? -25 : (hoveredIndex === i ? -6 : 0),
-                        scale: hoveredIndex === i ? 1.03 : 1
+                        y:
+                          activeIndex === i ? -25 : hoveredIndex === i ? -6 : 0,
+                        scale: hoveredIndex === i ? 1.03 : 1,
                       }}
                       transition={{
                         type: "spring",
                         stiffness: 180,
-                        damping: 18
+                        damping: 18,
                       }}
                       style={{
-                        zIndex: hoveredIndex === i ? 100 : 1
+                        zIndex: hoveredIndex === i ? 100 : 1,
                       }}
                     >
-                      <div className={`cuisine-dish-plate-premium ${activeIndex === i ? 'active-plate' : ''}`}>
+                      <div
+                        className={`cuisine-dish-plate-premium ${activeIndex === i ? "active-plate" : ""}`}
+                      >
                         <div className="plate-rim-gold">
                           <div className="plate-inner-content">
-                            <img src={cuisine.img} alt={cuisine.name} className="dish-img-topview" />
+                            <img
+                              src={cuisine.img}
+                              alt={cuisine.name}
+                              className="dish-img-topview"
+                            />
                           </div>
                         </div>
                       </div>
@@ -450,17 +575,19 @@ const CuisineSection = () => {
           <div className="cuisine-table-shadow-floor" />
         </motion.div>
 
-
-        <div className="cuisine-menu-container" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="cuisine-menu-container"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="cuisine-floating-narrative">
             {/* Premium Narrative Menu Items - Styled exactly like the image! */}
             <div className="narrative-items">
               {CUISINES.map((cuisine, idx) => (
                 <div key={idx} className="narrative-item-container">
                   <motion.div
-                    className={`narrative-item ${displayIndex === idx ? 'is-active' : ''}`}
+                    className={`narrative-item ${displayIndex === idx ? "is-active" : ""}`}
                     style={{
-                      '--theme-color': cuisine.border
+                      "--theme-color": cuisine.border,
                     }}
                     onMouseEnter={() => handleEnter(idx)}
                     onMouseLeave={handleLeave}
@@ -473,77 +600,157 @@ const CuisineSection = () => {
                         transition: {
                           duration: 0.8,
                           ease: "easeOut",
-                          delay: idx * 0.1
-                        }
-                      }
+                          delay: idx * 0.1,
+                        },
+                      },
                     }}
-                    animate={displayIndex === idx ? { x: 12, scale: 1.02 } : { x: 0, scale: 1 }}
+                    animate={
+                      displayIndex === idx
+                        ? { x: 12, scale: 1.02 }
+                        : { x: 0, scale: 1 }
+                    }
                   >
                     {/* Left: Premium Icon Group (Steaming Bowl on desktop, Botanical Leaf on mobile) */}
                     <div className="premium-icon-group">
                       <div className="premium-bowl-container">
                         {isMobile ? (
-                          <svg className="premium-leaf-svg" viewBox="0 0 100 100" style={{
-                            color: displayIndex === null
-                              ? '#76885B' // Elegant botanical sage green for light backgrounds
-                              : displayIndex === idx
-                                ? (cuisine.border || '#ebc51f')
-                                : 'rgba(255, 255, 255, 0.45)',
-                            transition: 'all 0.4s ease',
-                            width: '100%',
-                            height: '100%'
-                          }}>
+                          <svg
+                            className="premium-leaf-svg"
+                            viewBox="0 0 100 100"
+                            style={{
+                              color:
+                                displayIndex === null
+                                  ? "#76885B" // Elegant botanical sage green for light backgrounds
+                                  : displayIndex === idx
+                                    ? cuisine.border || "#ebc51f"
+                                    : "rgba(255, 255, 255, 0.45)",
+                              transition: "all 0.4s ease",
+                              width: "100%",
+                              height: "100%",
+                            }}
+                          >
                             {/* Curved Stem */}
-                            <path d="M30 90 Q38 60 52 20" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                            <path
+                              d="M30 90 Q38 60 52 20"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                            />
                             {/* Left Side Leaves */}
-                            <path d="M33 78 Q20 75 25 65 Q35 68 38 73 Z" fill="currentColor" />
-                            <path d="M40 58 Q25 53 30 43 Q40 46 44 52 Z" fill="currentColor" />
-                            <path d="M48 38 Q33 33 38 23 Q48 26 51 32 Z" fill="currentColor" />
+                            <path
+                              d="M33 78 Q20 75 25 65 Q35 68 38 73 Z"
+                              fill="currentColor"
+                            />
+                            <path
+                              d="M40 58 Q25 53 30 43 Q40 46 44 52 Z"
+                              fill="currentColor"
+                            />
+                            <path
+                              d="M48 38 Q33 33 38 23 Q48 26 51 32 Z"
+                              fill="currentColor"
+                            />
                             {/* Right Side Leaves */}
-                            <path d="M38 80 Q52 82 48 72 Q38 70 37 77 Z" fill="currentColor" />
-                            <path d="M44 60 Q58 60 55 50 Q45 50 43 56 Z" fill="currentColor" />
-                            <path d="M51 40 Q65 38 61 28 Q51 30 50 36 Z" fill="currentColor" />
+                            <path
+                              d="M38 80 Q52 82 48 72 Q38 70 37 77 Z"
+                              fill="currentColor"
+                            />
+                            <path
+                              d="M44 60 Q58 60 55 50 Q45 50 43 56 Z"
+                              fill="currentColor"
+                            />
+                            <path
+                              d="M51 40 Q65 38 61 28 Q51 30 50 36 Z"
+                              fill="currentColor"
+                            />
                             {/* Top Leaf */}
-                            <path d="M52 20 Q55 8 59 12 Q55 24 52 20 Z" fill="currentColor" />
+                            <path
+                              d="M52 20 Q55 8 59 12 Q55 24 52 20 Z"
+                              fill="currentColor"
+                            />
                           </svg>
                         ) : (
-                          <svg className="premium-bowl-svg" viewBox="0 0 100 100" style={{
-                            color: displayIndex === null
-                              ? '#0F5C5C'
-                              : displayIndex === idx
-                                ? (cuisine.border || '#ebc51f')
-                                : 'rgba(255, 255, 255, 0.4)'
-                          }}>
+                          <svg
+                            className="premium-bowl-svg"
+                            viewBox="0 0 100 100"
+                            style={{
+                              color:
+                                displayIndex === null
+                                  ? "#0F5C5C"
+                                  : displayIndex === idx
+                                    ? cuisine.border || "#ebc51f"
+                                    : "rgba(255, 255, 255, 0.4)",
+                            }}
+                          >
                             {/* Steam lines */}
-                            <path d="M35 30 Q38 20 35 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-1" />
-                            <path d="M50 25 Q53 15 50 5" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-2" />
-                            <path d="M65 30 Q68 20 65 10" fill="none" stroke="#ebc51f" strokeWidth="4.5" strokeLinecap="round" className="steam-line-3" />
+                            <path
+                              d="M35 30 Q38 20 35 10"
+                              fill="none"
+                              stroke="#ebc51f"
+                              strokeWidth="4.5"
+                              strokeLinecap="round"
+                              className="steam-line-1"
+                            />
+                            <path
+                              d="M50 25 Q53 15 50 5"
+                              fill="none"
+                              stroke="#ebc51f"
+                              strokeWidth="4.5"
+                              strokeLinecap="round"
+                              className="steam-line-2"
+                            />
+                            <path
+                              d="M65 30 Q68 20 65 10"
+                              fill="none"
+                              stroke="#ebc51f"
+                              strokeWidth="4.5"
+                              strokeLinecap="round"
+                              className="steam-line-3"
+                            />
                             {/* Bowl */}
-                            <path d="M20 50 L80 50 C80 75 20 75 20 50 Z" fill="currentColor" />
-                            <rect x="35" y="75" width="30" height="6" rx="2" fill="currentColor" />
+                            <path
+                              d="M20 50 L80 50 C80 75 20 75 20 50 Z"
+                              fill="currentColor"
+                            />
+                            <rect
+                              x="35"
+                              y="75"
+                              width="30"
+                              height="6"
+                              rx="2"
+                              fill="currentColor"
+                            />
                           </svg>
                         )}
                       </div>
                     </div>
 
                     {/* Vertical Divider Line (Hidden on mobile) */}
-                    <div className="premium-vertical-divider" style={{
-                      background: displayIndex === null
-                        ? 'rgba(15, 92, 92, 0.2)'
-                        : displayIndex === idx
-                          ? (cuisine.border || '#2ECC71')
-                          : 'rgba(255, 255, 255, 0.15)'
-                    }} />
+                    <div
+                      className="premium-vertical-divider"
+                      style={{
+                        background:
+                          displayIndex === null
+                            ? "rgba(15, 92, 92, 0.2)"
+                            : displayIndex === idx
+                              ? cuisine.border || "#2ECC71"
+                              : "rgba(255, 255, 255, 0.15)",
+                      }}
+                    />
 
                     {/* Right: Cuisine Title & Italic Tagline */}
                     <div className="premium-text-group">
-                      <h4 className="premium-cuisine-name" style={{
-                        color: displayIndex === null
-                          ? '#0F5C5C'
-                          : displayIndex === idx
-                            ? (cuisine.border || '#2ECC71')
-                            : 'rgba(255, 255, 255, 0.9)'
-                      }}>
+                      <h4
+                        className="premium-cuisine-name"
+                        style={{
+                          color:
+                            displayIndex === null
+                              ? "#0F5C5C"
+                              : displayIndex === idx
+                                ? cuisine.border || "#2ECC71"
+                                : "rgba(255, 255, 255, 0.9)",
+                        }}
+                      >
                         {cuisine.name}
                       </h4>
 
@@ -556,33 +763,59 @@ const CuisineSection = () => {
                         </div>
                       )}
 
-                      <p className="premium-cuisine-tagline" style={{
-                        color: displayIndex === null
-                          ? 'rgba(15, 92, 92, 0.9)'
-                          : displayIndex === idx
-                            ? '#ffffff'
-                            : 'rgba(255, 255, 255, 0.75)'
-                      }}>
+                      <p
+                        className="premium-cuisine-tagline"
+                        style={{
+                          color:
+                            displayIndex === null
+                              ? "rgba(15, 92, 92, 0.9)"
+                              : displayIndex === idx
+                                ? "#ffffff"
+                                : "rgba(255, 255, 255, 0.75)",
+                        }}
+                      >
                         {cuisine.tagline}
                       </p>
                     </div>
                   </motion.div>
 
                   {/* Horizontal dotted separator with golden traditional motif */}
-                  <div className="premium-horizontal-divider" style={{
-                    color: displayIndex === null
-                      ? 'rgba(15, 92, 92, 0.2)'
-                      : 'rgba(255, 255, 255, 0.1)'
-                  }}>
+                  <div
+                    className="premium-horizontal-divider"
+                    style={{
+                      color:
+                        displayIndex === null
+                          ? "rgba(15, 92, 92, 0.2)"
+                          : "rgba(255, 255, 255, 0.1)",
+                    }}
+                  >
                     <span className="divider-dots">····················</span>
-                    <span className="divider-motif" style={{
-                      color: displayIndex === idx ? (cuisine.border || '#2ECC71') : '#ebc51f'
-                    }}>
+                    <span
+                      className="divider-motif"
+                      style={{
+                        color:
+                          displayIndex === idx
+                            ? cuisine.border || "#2ECC71"
+                            : "#ebc51f",
+                      }}
+                    >
                       <svg viewBox="0 0 24 24">
-                        <path d="M12 2 C11.5 5 9 8 12 11 C15 8 12.5 5 12 2 Z" fill="currentColor" />
-                        <path d="M12 22 C11.5 19 9 16 12 13 C15 16 12.5 19 12 22 Z" fill="currentColor" />
-                        <path d="M2 12 C5 11.5 8 9 11 12 C8 15 5 12.5 2 12 Z" fill="currentColor" />
-                        <path d="M22 12 C19 11.5 16 9 13 12 C16 15 19 12.5 22 12 Z" fill="currentColor" />
+                        <path
+                          d="M12 2 C11.5 5 9 8 12 11 C15 8 12.5 5 12 2 Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M12 22 C11.5 19 9 16 12 13 C15 16 12.5 19 12 22 Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M2 12 C5 11.5 8 9 11 12 C8 15 5 12.5 2 12 Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M22 12 C19 11.5 16 9 13 12 C16 15 19 12.5 22 12 Z"
+                          fill="currentColor"
+                        />
                         <circle cx="12" cy="12" r="2.5" fill="#ffffff" />
                       </svg>
                     </span>
@@ -615,20 +848,34 @@ const CuisineSection = () => {
         </AnimatePresence>
 
         {isMobile ? (
-          activeIndex !== null && activeCuisine && createPortal(
-            <div className="cuisine-info-container-mobile-modal" onClick={() => { setActiveIndex(null); setIsPaused(false); }}>
+          activeIndex !== null &&
+          activeCuisine &&
+          createPortal(
+            <div
+              className="cuisine-info-container-mobile-modal"
+              onClick={() => {
+                setActiveIndex(null)
+                setIsPaused(false)
+              }}
+            >
               <AnimatePresence>
                 <InternalCuisineCard
                   cuisine={CUISINES[activeIndex]}
                   isMobile={true}
-                  onClose={() => { setActiveIndex(null); setIsPaused(false); }}
+                  onClose={() => {
+                    setActiveIndex(null)
+                    setIsPaused(false)
+                  }}
                 />
               </AnimatePresence>
             </div>,
-            document.body
+            document.body,
           )
         ) : (
-          <div className="cuisine-info-container" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="cuisine-info-container"
+            onClick={(e) => e.stopPropagation()}
+          >
             <AnimatePresence mode="wait">
               {displayIndex !== null && displayCuisine && (
                 <InternalCuisineCard
