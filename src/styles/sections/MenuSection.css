@@ -9,14 +9,19 @@
 }
 
 /* SUBPAGE SAFE AREA */
-.subpage-layout {
+section#menu.subpage-layout {
   padding-top: 76px;
 }
 
-@media (max-width: 768px) {
+@media (max-height: 700px) {
+  section#menu.subpage-layout {
+    padding-top: 56px;
+  }
+}
 
+@media (max-width: 768px) {
   /* Remove top padding so hero is full-bleed; hero handles navbar offset internally */
-  .subpage-layout {
+  section#menu.subpage-layout {
     padding-top: 0;
   }
 }
