@@ -51,7 +51,7 @@ const generateFloatingItems = (isMobile, isShort) => {
   // Larger base sizes on small devices to ensure visibility
   // Make ingredients more visible on phones while preventing excessive overlap
   const baseSize = isMobile
-    ? Math.round(minDim * 0.40)
+    ? Math.round(minDim * 0.4)
     : Math.round(minDim * 0.12)
   const scaleFactor = isMobile ? 0.95 : isShort ? 0.98 : 1
   const minSizePx = Math.max(64, Math.round(minDim * 0.12))
@@ -61,7 +61,7 @@ const generateFloatingItems = (isMobile, isShort) => {
   const mobileFixedPositions = [
     { x: 10, y: 12 }, // top-left
     { x: 90, y: 12 }, // top-right
-    { x: 8, y: 42 },  // left-middle (avoid center)
+    { x: 8, y: 42 }, // left-middle (avoid center)
     { x: 92, y: 42 }, // right-middle (avoid center)
     { x: 50, y: 22 }, // top-center moved slightly lower
     { x: 26, y: 78 }, // bottom-left
@@ -76,7 +76,9 @@ const generateFloatingItems = (isMobile, isShort) => {
       y: p.y,
       // compute size and clamp to min/max so items remain visible but not huge
       size: (() => {
-        const raw = Math.round((baseSize + Math.random() * baseSize * 0.4) * scaleFactor)
+        const raw = Math.round(
+          (baseSize + Math.random() * baseSize * 0.4) * scaleFactor,
+        )
         return Math.max(minSizePx, Math.min(maxSizePx, raw))
       })(),
       duration: 22 + Math.random() * 18,
