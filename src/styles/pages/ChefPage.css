@@ -1304,6 +1304,9 @@ body.journey-page-active {
     overflow-y: auto;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
   }
 
   .fp-slide-track {
@@ -1532,8 +1535,8 @@ body.journey-page-active {
   .journey-experience {
     padding-top: 60px !important;
     padding-bottom: 40px !important;
-    min-height: auto !important;
-    height: auto !important;
+    min-height: 100dvh !important;
+    height: 100dvh !important;
     justify-content: flex-start !important;
   }
 

@@ -218,6 +218,7 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+  border-radius: 50% !important;
 }
 
 .cuisine-dish-motion-wrapper {
@@ -227,11 +228,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  contain: layout paint;
   isolation: isolate;
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+  border-radius: 50% !important;
 }
 
 /* Dish Positions - Perfect Circle (Radius ~33%) */
@@ -1015,13 +1016,23 @@
   animation-play-state: running;
 }
 
+.table-hover-detector {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
+  z-index: 5;
+  pointer-events: auto;
+  cursor: default;
+}
+
 /* Pause BOTH the grid orbit and the dish counter-orbit simultaneously */
-.cuisine-table-surface-round:hover .cuisine-dishes-round-grid,
+.table-hover-detector:hover ~ .cuisine-dishes-round-grid,
 .cuisine-dishes-round-grid.is-paused {
   animation-play-state: paused !important;
 }
 
-.cuisine-table-surface-round:hover .cuisine-dish-motion-wrapper,
+.table-hover-detector:hover ~ .cuisine-dishes-round-grid .cuisine-dish-motion-wrapper,
 .cuisine-dishes-round-grid.is-paused .cuisine-dish-motion-wrapper {
   animation-play-state: paused !important;
 }

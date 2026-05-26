@@ -2,20 +2,21 @@
 .scrollTransitionWrapper {
   position: relative;
   width: 100%;
-  height: 20dvh; /* Real physical space — no more dark gap */
+  height: 0; /* 0 height so it takes no scroll space */
   z-index: 20;
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible; /* Let the banner overflow */
 }
 
 .overlay {
   position: absolute;
-  top: 0;       /* Sits cleanly inside the wrapper */
+  top: -10dvh; /* Centered exactly at the boundary line */
   left: 0;
   width: 100%;
-  height: 100%; /* Fills the wrapper exactly */
+  height: 20dvh; /* Fills the visual height */
 
   display: flex;
   align-items: center;
@@ -82,7 +83,14 @@
   padding: 0; /* Let flex centering manage the top/bottom spacing perfectly */
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   z-index: 10;
+  
+  /* Brand background image replacement */
+  background-image: url('../../assets/anan (1).png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 
 .horizontalRow {
   display: flex;
@@ -108,12 +116,13 @@
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .scrollTransitionWrapper {
-    height: 16dvh;
+    height: 0;
+    overflow: visible;
   }
 
   .overlay {
-    top: 0;
-    height: 100%;
+    top: -8dvh;
+    height: 16dvh;
   }
 
   .unifiedSegment {
@@ -144,12 +153,13 @@
 /* Specific fix for 1195x585 or similar short desktop screens */
 @media (max-width: 1200px) and (max-height: 600px) {
   .scrollTransitionWrapper {
-    height: 14dvh;
+    height: 0;
+    overflow: visible;
   }
 
   .overlay {
-    top: 0;
-    height: 100%;
+    top: -7dvh;
+    height: 14dvh;
   }
 
   .unifiedSegment {

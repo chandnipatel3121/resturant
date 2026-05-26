@@ -19,8 +19,9 @@ const ScrollTransition = () => {
     restDelta: 0.001
   })
 
-  // Fade and Scale effects using the smooth progress
-  const opacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
+  // Only show the banner "in between" sections (during scroll) and hide at resting snap points
+  const opacity = useTransform(scrollYProgress, [0.05, 0.25, 0.75, 0.95], [0, 1, 1, 0])
+
 
   // Parallax for the 2 moving lines (expanded range to fit continuous marquee)
   const x1 = useTransform(smoothProgress, [0, 1], [-180, 180])
@@ -36,32 +37,9 @@ const ScrollTransition = () => {
         className={styles.overlay}
         style={{ opacity }}
       >
-        {/* Unified Green Segment with Scrolling Text Marquees */}
-        <div className={styles.unifiedSegment}>
-          {/* Row 1 (Moving left-to-right) */}
-          <motion.div
-            className={styles.horizontalRow}
-            style={{ x: x1 }}
-          >
-            {[...Array(15)].map((_, i) => (
-              <span key={`r1-${i}`} className={styles.boldText}>
-                anandofoods
-              </span>
-            ))}
-          </motion.div>
+        {/* Unified Green Segment with Brand Background Image */}
+        <div className={styles.unifiedSegment} />
 
-          {/* Row 2 (Moving right-to-left) */}
-          <motion.div
-            className={styles.horizontalRow}
-            style={{ x: x2 }}
-          >
-            {[...Array(15)].map((_, i) => (
-              <span key={`r2-${i}`} className={styles.boldText}>
-                anandofoods
-              </span>
-            ))}
-          </motion.div>
-        </div>
 
         {/* 2. Central Logo Container (Centering in pure CSS, scaling/rotation on child logoCircle) */}
         <div className={styles.contentWrapper}>
