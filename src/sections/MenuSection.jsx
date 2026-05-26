@@ -1,35 +1,58 @@
-import React, { useState, useRef, useMemo, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Search, Plus, Star, Clock, Users, ArrowRight, Flame, Pizza, Soup, Fish, Utensils, Leaf, Sun, Coffee, X, ShoppingBag, MapPin, Info, UtensilsCrossed, Store, Sandwich, ChefHat, Carrot, Globe } from 'lucide-react';
-import menuData from '../data/menuData';
-import gourmetSalad from '../assets/gourmet_salad.png';
-import hero2 from '../assets/hero2.jpg';
-import leafShadow from '../assets/leaf_shadow.png';
-import chili from '../assets/ingredients/chili.png';
-import lemon from '../assets/ingredients/lemon.png';
-import coriander from '../assets/ingredients/coriander.png';
-import bayLeaf from '../assets/ingredients/bay_leaf.png';
-import patternBg from '../assets/pattern_bg.png';
-import anandoLogo from '../assets/logo.png';
-import '../styles/sections/MenuSection.css';
+import React, { useState, useRef, useMemo, memo } from "react"
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  animate,
+} from "framer-motion"
+import {
+  Search,
+  Plus,
+  Star,
+  Clock,
+  Users,
+  ArrowRight,
+  Flame,
+  Pizza,
+  Soup,
+  Fish,
+  Utensils,
+  Leaf,
+  Sun,
+  Coffee,
+  X,
+  ShoppingBag,
+  MapPin,
+  Info,
+  UtensilsCrossed,
+  Store,
+  Sandwich,
+  ChefHat,
+  Carrot,
+  Globe,
+} from "lucide-react"
+import menuData from "../data/menuData"
+import patternBg from "../assets/pattern_bg.png"
+import anandoLogo from "../assets/logo.png"
+import "../styles/sections/MenuSection.css"
 
 const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState(0)
 
-  const images = dish.images && dish.images.length > 0 ? dish.images : [dish.image];
+  const images =
+    dish.images && dish.images.length > 0 ? dish.images : [dish.image]
 
   React.useEffect(() => {
     if (!isHovered || images.length <= 1) {
-      setHoveredIndex(0);
-      return;
+      return
     }
     const interval = setInterval(() => {
-      setHoveredIndex((prev) => (prev + 1) % images.length);
-    }, 1800);
-    return () => clearInterval(interval);
-  }, [isHovered, images]);
+      setHoveredIndex((prev) => (prev + 1) % images.length)
+    }, 1800)
+    return () => clearInterval(interval)
+  }, [isHovered, images])
 
   return (
     <motion.div
@@ -38,10 +61,13 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="dish-card-premium-kiosk"
-      style={{ '--card-bg': dish.cardBg || '#1a1a1a' }}
+      style={{ "--card-bg": dish.cardBg || "#1a1a1a" }}
       onClick={() => onOpenDetail(dish)}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => { setIsHovered(false); setHoveredIndex(0); }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+        setHoveredIndex(0)
+      }}
     >
       <div className="card-media-wrapper">
         {images.length > 1 ? (
@@ -50,7 +76,7 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
             className="carousel-track"
             style={{
               transform: `translateX(-${hoveredIndex * (100 / images.length)}%)`,
-              width: `${images.length * 100}%`
+              width: `${images.length * 100}%`,
             }}
           >
             {images.map((imgUrl, i) => (
@@ -58,7 +84,7 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
                 key={i}
                 src={imgUrl}
                 alt={`${dish.title} - view ${i + 1}`}
-                className={`card-img-main carousel-img ${hoveredIndex === i ? 'active-slide' : 'peeking-slide'}`}
+                className={`card-img-main carousel-img ${hoveredIndex === i ? "active-slide" : "peeking-slide"}`}
                 decoding="async"
                 style={{ width: `${100 / images.length}%` }}
               />
@@ -66,13 +92,13 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
           </div>
         ) : (
           /* Static Single Image inside matching track structure for stable DOM zoom */
-          <div className="carousel-track" style={{ width: '100%' }}>
+          <div className="carousel-track" style={{ width: "100%" }}>
             <img
               src={images[0]}
               alt={dish.title}
               className="card-img-main carousel-img active-slide"
               decoding="async"
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             />
           </div>
         )}
@@ -87,8 +113,10 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
 
         {/* Ingredients Tags Kiosk positioned beautifully at the bottom of the image */}
         <div className="dish-tags-kiosk-on-image">
-          {(dish.ingredients || []).slice(0, 3).map(ing => (
-            <span key={ing} className="tag-pill-kiosk-image">{ing}</span>
+          {(dish.ingredients || []).slice(0, 3).map((ing) => (
+            <span key={ing} className="tag-pill-kiosk-image">
+              {ing}
+            </span>
           ))}
         </div>
 
@@ -98,7 +126,7 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
             {images.map((_, i) => (
               <div
                 key={i}
-                className={`indicator-dot ${hoveredIndex === i ? 'active' : ''}`}
+                className={`indicator-dot ${hoveredIndex === i ? "active" : ""}`}
               />
             ))}
           </div>
@@ -108,7 +136,9 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
       <div className="card-content-grid">
         <div className="grid-left-side">
           <h3 className="dish-name-kiosk">{dish.title}</h3>
-          <p className="dish-desc-kiosk">{dish.shortDescription || dish.description}</p>
+          <p className="dish-desc-kiosk">
+            {dish.shortDescription || dish.description}
+          </p>
           <div className="origin-badge-kiosk">
             <span className="dot-small"></span>
             {dish.origin || "International"}
@@ -120,7 +150,10 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
         <div className="grid-right-side">
           <div className="price-tag-kiosk">₹{dish.price}</div>
 
-          <div className="action-area-kiosk" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="action-area-kiosk"
+            onClick={(e) => e.stopPropagation()}
+          >
             {quantity === 0 ? (
               <button
                 className="add-btn-kiosk"
@@ -143,18 +176,20 @@ const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
               <Flame
                 key={i}
                 size={12}
-                className={i < (dish.spiceLevel || 1) ? 'flame-active' : 'flame-inactive'}
+                className={
+                  i < (dish.spiceLevel || 1) ? "flame-active" : "flame-inactive"
+                }
               />
             ))}
           </div>
         </div>
       </div>
     </motion.div>
-  );
-});
+  )
+})
 
 const LeftPageContent = ({ dish }) => {
-  if (!dish) return null;
+  if (!dish) return null
   return (
     <div className="w-full h-full flex flex-col justify-between">
       <div className="book-image-container">
@@ -170,12 +205,11 @@ const LeftPageContent = ({ dish }) => {
         <span className="brand-text">Est. 2026</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const RightPageContent = ({ dish, onAddToCart }) => {
-  const navigate = useNavigate();
-  if (!dish) return null;
+const RightPageContent = ({ dish }) => {
+  if (!dish) return null
   return (
     <div className="page-inner">
       <div className="detail-header">
@@ -209,7 +243,10 @@ const RightPageContent = ({ dish, onAddToCart }) => {
             <Flame size={15} />
             <span className="spice-dots">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className={`spice-dot ${i < dish.spiceLevel ? 'active' : ''}`} />
+                <div
+                  key={i}
+                  className={`spice-dot ${i < dish.spiceLevel ? "active" : ""}`}
+                />
               ))}
             </span>
           </span>
@@ -227,102 +264,119 @@ const RightPageContent = ({ dish, onAddToCart }) => {
       <div className="book-actions">
         <div
           className="book-add-cart-btn"
-          style={{ cursor: 'default', pointerEvents: 'none' }}
+          style={{ cursor: "default", pointerEvents: "none" }}
         >
           <ShoppingBag size={20} />
           <span>Experience this Flavor</span>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) => {
+const BookDetailView = ({
+  dish,
+  dishes = [],
+  onClose,
+  onAddToCart,
+  cart = [],
+}) => {
   // Track page index safely
-  const initialIndex = dish ? dishes.findIndex(d => d.id === dish.id) : 0;
-  const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+  const initialIndex = dish ? dishes.findIndex((d) => d.id === dish.id) : 0
+  const [currentIndex, setCurrentIndex] = useState(
+    initialIndex >= 0 ? initialIndex : 0,
+  )
 
   // Real page flipping animation states
-  const [isFlipping, setIsFlipping] = useState(false);
-  const [flipDirection, setFlipDirection] = useState('next'); // 'next' or 'prev'
+  const [isFlipping, setIsFlipping] = useState(false)
+  const [flipDirection, setFlipDirection] = useState("next") // 'next' or 'prev'
 
   // Framer Motion synchronized 3D page flip transition values
-  const rotateY = useMotionValue(flipDirection === 'next' ? 0 : -180);
-  const opacityFront = useTransform(rotateY, [-180, -90.1, -90, 0], [0, 0, 1, 1]);
-  const opacityBack = useTransform(rotateY, [-180, -90.1, -90, 0], [1, 1, 0, 0]);
-  const transform = useTransform(rotateY, (r) => `perspective(2000px) rotateY(${r}deg)`);
+  const rotateY = useMotionValue(flipDirection === "next" ? 0 : -180)
+  const opacityFront = useTransform(
+    rotateY,
+    [-180, -90.1, -90, 0],
+    [0, 0, 1, 1],
+  )
+  const opacityBack = useTransform(rotateY, [-180, -90.1, -90, 0], [1, 1, 0, 0])
+  const transform = useTransform(
+    rotateY,
+    (r) => `perspective(2000px) rotateY(${r}deg)`,
+  )
 
   React.useEffect(() => {
     if (isFlipping) {
-      const startValue = flipDirection === 'next' ? 0 : -180;
-      const endValue = flipDirection === 'next' ? -180 : 0;
-      rotateY.set(startValue);
+      const startValue = flipDirection === "next" ? 0 : -180
+      const endValue = flipDirection === "next" ? -180 : 0
+      rotateY.set(startValue)
       const controls = animate(rotateY, endValue, {
         duration: 0.85,
         ease: [0.25, 1, 0.5, 1],
         onComplete: () => {
-          setCurrentIndex(flipDirection === 'next' ? currentIndex + 1 : currentIndex - 1);
-          setIsFlipping(false);
-        }
-      });
-      return () => controls.stop();
+          setCurrentIndex(
+            flipDirection === "next" ? currentIndex + 1 : currentIndex - 1,
+          )
+          setIsFlipping(false)
+        },
+      })
+      return () => controls.stop()
     }
-  }, [isFlipping, flipDirection, rotateY, currentIndex]);
+  }, [isFlipping, flipDirection, rotateY, currentIndex])
 
   const handlePrev = (e) => {
     if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
     }
-    if (isFlipping) return;
+    if (isFlipping) return
     if (currentIndex > 0) {
-      setFlipDirection('prev');
-      setIsFlipping(true);
+      setFlipDirection("prev")
+      setIsFlipping(true)
     }
-  };
+  }
 
   const handleNext = (e) => {
     if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
     }
-    if (isFlipping) return;
+    if (isFlipping) return
     if (currentIndex < dishes.length - 1) {
-      setFlipDirection('next');
-      setIsFlipping(true);
+      setFlipDirection("next")
+      setIsFlipping(true)
     }
-  };
+  }
 
   // Keyboard accessibility support
   React.useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') {
-        handlePrev();
-      } else if (e.key === 'ArrowRight') {
-        handleNext();
-      } else if (e.key === 'Escape') {
-        onClose();
+      if (e.key === "ArrowLeft") {
+        handlePrev()
+      } else if (e.key === "ArrowRight") {
+        handleNext()
+      } else if (e.key === "Escape") {
+        onClose()
       }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, dishes, isFlipping]);
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [currentIndex, dishes, isFlipping])
 
   // Determine stationary page contents during the active flip
-  let stationaryLeftDish = dishes[currentIndex];
-  let stationaryRightDish = dishes[currentIndex];
+  let stationaryLeftDish = dishes[currentIndex]
+  let stationaryRightDish = dishes[currentIndex]
 
   if (isFlipping) {
-    if (flipDirection === 'next') {
-      stationaryLeftDish = dishes[currentIndex]; // holds old image
-      stationaryRightDish = dishes[currentIndex + 1]; // reveals new details
+    if (flipDirection === "next") {
+      stationaryLeftDish = dishes[currentIndex] // holds old image
+      stationaryRightDish = dishes[currentIndex + 1] // reveals new details
     } else {
-      stationaryLeftDish = dishes[currentIndex - 1]; // reveals new details
-      stationaryRightDish = dishes[currentIndex]; // holds old image
+      stationaryLeftDish = dishes[currentIndex - 1] // reveals new details
+      stationaryRightDish = dishes[currentIndex] // holds old image
     }
   }
 
-  if (!dish) return null;
+  if (!dish) return null
 
   return (
     <motion.div
@@ -331,7 +385,7 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
       exit={{ opacity: 0 }}
       className="book-detail-overlay"
       onClick={onClose}
-      style={{ pointerEvents: 'auto', zIndex: 10000 }}
+      style={{ pointerEvents: "auto", zIndex: 10000 }}
     >
       <motion.div
         className="book-detail-container"
@@ -345,15 +399,22 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
         <div
           className="book-close-btn"
           onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onClose();
+            e.preventDefault()
+            e.stopPropagation()
+            onClose()
           }}
           aria-label="Close book"
         >
           <X size={16} />
         </div>
-        <div className="book-content-wrapper" style={{ position: 'relative', transformStyle: 'preserve-3d', perspective: '2000px' }}>
+        <div
+          className="book-content-wrapper"
+          style={{
+            position: "relative",
+            transformStyle: "preserve-3d",
+            perspective: "2000px",
+          }}
+        >
           {/* Left Page: Boxy structural reveal acting as folding front cover */}
           <motion.div
             className="book-page left-page folding-cover"
@@ -396,7 +457,10 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
           >
-            <RightPageContent dish={stationaryRightDish} onAddToCart={onAddToCart} />
+            <RightPageContent
+              dish={stationaryRightDish}
+              onAddToCart={onAddToCart}
+            />
           </motion.div>
 
           {/* Real 3D Physical Page Sheet in motion */}
@@ -405,57 +469,77 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
               className="book-page middle-flipping-page"
               key={`${currentIndex}-${flipDirection}`}
               style={{
-                position: 'absolute',
-                left: '50%',
+                position: "absolute",
+                left: "50%",
                 top: 0,
-                width: '50%',
-                height: '100%',
-                transformOrigin: 'left center',
+                width: "50%",
+                height: "100%",
+                transformOrigin: "left center",
                 zIndex: 15,
-                transformStyle: 'preserve-3d',
-                pointerEvents: 'none',
+                transformStyle: "preserve-3d",
+                pointerEvents: "none",
                 padding: 0,
                 margin: 0,
-                boxShadow: 'none',
-                border: 'none',
+                boxShadow: "none",
+                border: "none",
                 borderRadius: 0,
-                background: 'transparent',
-                transform
+                background: "transparent",
+                transform,
               }}
             >
-              <div className="flipping-inner" style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d' }}>
+              <div
+                className="flipping-inner"
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  transformStyle: "preserve-3d",
+                }}
+              >
                 {/* Front of the flipping page: shows details of old (next) or new (prev) */}
                 <motion.div
                   className="flipping-page-front"
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     inset: 0,
-                    backfaceVisibility: 'visible',
-                    WebkitBackfaceVisibility: 'visible',
-                    transform: 'rotateY(0deg) translateZ(1px)',
-                    transformStyle: 'preserve-3d',
-                    overflow: 'hidden',
-                    opacity: opacityFront
+                    backfaceVisibility: "visible",
+                    WebkitBackfaceVisibility: "visible",
+                    transform: "rotateY(0deg) translateZ(1px)",
+                    transformStyle: "preserve-3d",
+                    overflow: "hidden",
+                    opacity: opacityFront,
                   }}
                 >
-                  <RightPageContent dish={flipDirection === 'next' ? dishes[currentIndex] : dishes[currentIndex - 1]} />
+                  <RightPageContent
+                    dish={
+                      flipDirection === "next"
+                        ? dishes[currentIndex]
+                        : dishes[currentIndex - 1]
+                    }
+                  />
                 </motion.div>
 
                 {/* Back of the flipping page: shows image of new (next) or old (prev) */}
                 <motion.div
                   className="flipping-page-back"
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     inset: 0,
-                    backfaceVisibility: 'visible',
-                    WebkitBackfaceVisibility: 'visible',
-                    transform: 'rotateY(180deg) translateZ(1px)',
-                    transformStyle: 'preserve-3d',
-                    overflow: 'hidden',
-                    opacity: opacityBack
+                    backfaceVisibility: "visible",
+                    WebkitBackfaceVisibility: "visible",
+                    transform: "rotateY(180deg) translateZ(1px)",
+                    transformStyle: "preserve-3d",
+                    overflow: "hidden",
+                    opacity: opacityBack,
                   }}
                 >
-                  <LeftPageContent dish={flipDirection === 'next' ? dishes[currentIndex + 1] : dishes[currentIndex]} />
+                  <LeftPageContent
+                    dish={
+                      flipDirection === "next"
+                        ? dishes[currentIndex + 1]
+                        : dishes[currentIndex]
+                    }
+                  />
                 </motion.div>
               </div>
             </motion.div>
@@ -484,29 +568,24 @@ const BookDetailView = ({ dish, dishes = [], onClose, onAddToCart, cart = [] }) 
         </div>
       </motion.div>
     </motion.div>
-  );
-};
+  )
+}
 
 const CartAvatar = ({ item, index }) => {
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(false)
   const initials = useMemo(() => {
-    if (!item.title) return '';
-    const words = item.title.trim().split(/\s+/);
+    if (!item.title) return ""
+    const words = item.title.trim().split(/\s+/)
     if (words.length >= 2) {
-      return (words[0][0] + words[1][0]).toUpperCase();
+      return (words[0][0] + words[1][0]).toUpperCase()
     }
-    return item.title.substring(0, 2).toUpperCase();
-  }, [item.title]);
+    return item.title.substring(0, 2).toUpperCase()
+  }, [item.title])
 
   return (
-    <div
-      className="cart-bar-avatar-ring"
-      style={{ zIndex: 10 - index }}
-    >
+    <div className="cart-bar-avatar-ring" style={{ zIndex: 10 - index }}>
       {hasError || !item.image ? (
-        <div className="cart-bar-avatar-fallback">
-          {initials}
-        </div>
+        <div className="cart-bar-avatar-fallback">{initials}</div>
       ) : (
         <img
           src={item.image}
@@ -516,26 +595,24 @@ const CartAvatar = ({ item, index }) => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const CartItemImage = ({ item }) => {
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(false)
   const initials = useMemo(() => {
-    if (!item.title) return '';
-    const words = item.title.trim().split(/\s+/);
+    if (!item.title) return ""
+    const words = item.title.trim().split(/\s+/)
     if (words.length >= 2) {
-      return (words[0][0] + words[1][0]).toUpperCase();
+      return (words[0][0] + words[1][0]).toUpperCase()
     }
-    return item.title.substring(0, 2).toUpperCase();
-  }, [item.title]);
+    return item.title.substring(0, 2).toUpperCase()
+  }, [item.title])
 
   return (
     <div className="cart-item-img-wrapper">
       {hasError || !item.image ? (
-        <div className="cart-item-img-fallback">
-          {initials}
-        </div>
+        <div className="cart-item-img-fallback">{initials}</div>
       ) : (
         <img
           src={item.image}
@@ -545,132 +622,152 @@ const CartItemImage = ({ item }) => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const MenuSection = () => {
-  const [activeCuisines, setActiveCuisines] = useState([]);
-  const [activeMeals, setActiveMeals] = useState([]);
-  const [activeDiets, setActiveDiets] = useState([]);
-  const [activeCourses, setActiveCourses] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [activeCuisines, setActiveCuisines] = useState([])
+  const [activeMeals, setActiveMeals] = useState([])
+  const [activeDiets, setActiveDiets] = useState([])
+  const [activeCourses, setActiveCourses] = useState([])
+  const [searchQuery, setSearchQuery] = useState("")
+  const [hasInteracted, setHasInteracted] = useState(false)
 
-  const mainLayoutRef = useRef(null);
+  const mainLayoutRef = useRef(null)
 
   // Mount/Dismount effect for scroll snap on the Menu page
   React.useEffect(() => {
     // Force scroll to top before enabling snap to prevent unwanted jumping
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
     if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true });
+      window.lenis.scrollTo(0, { immediate: true })
     }
 
     // Slight delay to ensure ScrollToTop and Lenis have completed their resets
     const timer = setTimeout(() => {
-      document.documentElement.classList.add("menu-snap-page");
-    }, 100);
+      document.documentElement.classList.add("menu-snap-page")
+    }, 100)
 
     return () => {
-      clearTimeout(timer);
-      document.documentElement.classList.remove("menu-snap-page");
-    };
-  }, []);
+      clearTimeout(timer)
+      document.documentElement.classList.remove("menu-snap-page")
+    }
+  }, [])
 
   const hasActiveFilters = useMemo(() => {
-    return activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0 || searchQuery !== '';
-  }, [activeCuisines, activeCourses, activeMeals, searchQuery]);
+    return (
+      activeCuisines.length > 0 ||
+      activeCourses.length > 0 ||
+      activeMeals.length > 0 ||
+      searchQuery !== ""
+    )
+  }, [activeCuisines, activeCourses, activeMeals, searchQuery])
 
   // Smart dynamic scroll management to bypass all filter layout jumps
   React.useEffect(() => {
     if (mainLayoutRef.current) {
-      const rect = mainLayoutRef.current.getBoundingClientRect();
-      const absoluteTop = window.pageYOffset + rect.top;
-      const targetScroll = Math.max(0, absoluteTop - 76); // Align perfectly below navbar
+      const rect = mainLayoutRef.current.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const targetScroll = Math.max(0, absoluteTop - 76) // Align perfectly below navbar
 
-      const currentScroll = window.scrollY;
+      const currentScroll = window.scrollY
 
       if (hasActiveFilters) {
         if (currentScroll < targetScroll - 10) {
           // Scrolled above the menu content (hero visible): scroll down smoothly to target content
           window.scrollTo({
             top: targetScroll,
-            behavior: 'smooth'
-          });
+            behavior: "smooth",
+          })
         } else if (currentScroll > targetScroll + 150) {
           // Scrolled deep into the grid: scroll back up to the top of the grid smoothly
           window.scrollTo({
             top: targetScroll,
-            behavior: 'smooth'
-          });
+            behavior: "smooth",
+          })
         }
         // If already in the sweet spot (sticky filter header is active & pinned), do not trigger any scroll adjustments!
       }
     }
-  }, [hasActiveFilters, activeCuisines, activeCourses, activeMeals, searchQuery]);
+  }, [
+    hasActiveFilters,
+    activeCuisines,
+    activeCourses,
+    activeMeals,
+    searchQuery,
+  ])
 
   // Helper to toggle Cuisine (sidebar) - single selection only, preserves other category filters
   const toggleCuisineFilter = (value) => {
-    setHasInteracted(true);
-    if (value === 'All') {
-      setActiveCuisines([]);
-      return;
+    setHasInteracted(true)
+    if (value === "All") {
+      setActiveCuisines([])
+      return
     }
-    setActiveCuisines(prev =>
-      prev.includes(value) ? [] : [value]
-    );
-  };
+    setActiveCuisines((prev) => (prev.includes(value) ? [] : [value]))
+  }
 
   // Helper to toggle Cuisine Segment (course chips) - single selection only, preserves other category filters
   const toggleCourseFilter = (value) => {
-    setHasInteracted(true);
-    if (value === 'All') {
-      setActiveCourses([]);
-      return;
+    setHasInteracted(true)
+    if (value === "All") {
+      setActiveCourses([])
+      return
     }
-    setActiveCourses(prev =>
-      prev.includes(value) ? [] : [value]
-    );
-  };
+    setActiveCourses((prev) => (prev.includes(value) ? [] : [value]))
+  }
 
   // Helper to toggle Service Session (meal pills) - single selection only, preserves other category filters
   const toggleMealFilter = (value) => {
-    setHasInteracted(true);
-    if (value === 'All') {
-      setActiveMeals([]);
-      return;
+    setHasInteracted(true)
+    if (value === "All") {
+      setActiveMeals([])
+      return
     }
-    setActiveMeals(prev => prev.includes(value) ? [] : [value]);
-  };
+    setActiveMeals((prev) => (prev.includes(value) ? [] : [value]))
+  }
 
   // Helper to reset all filters simultaneously
   const resetAllFilters = () => {
-    setHasInteracted(true);
-    setSearchQuery('');
-    setActiveCuisines([]);
-    setActiveCourses([]);
-    setActiveMeals([]);
-  };
+    setHasInteracted(true)
+    setSearchQuery("")
+    setActiveCuisines([])
+    setActiveCourses([])
+    setActiveMeals([])
+  }
 
-  const [cart, setCart] = useState([]);
-  const [showToast, setShowToast] = useState(false);
-  const [selectedDish, setSelectedDish] = useState(null);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [cart, setCart] = useState([])
+  const [showToast, setShowToast] = useState(false)
+  const [selectedDish, setSelectedDish] = useState(null)
+  const [cartOpen, setCartOpen] = useState(false)
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false)
 
   // Cart calculations for totals and item counts
-  const cartItemCount = useMemo(() => cart.reduce((total, item) => total + item.quantity, 0), [cart]);
-  const cartSubtotal = useMemo(() => cart.reduce((total, item) => total + (Number(item.price) * item.quantity), 0), [cart]);
-  const GST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal]);
-  const SGST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal]);
-  const cartTotal = useMemo(() => cartSubtotal + GST + SGST, [cartSubtotal, GST, SGST]);
+  const cartItemCount = useMemo(
+    () => cart.reduce((total, item) => total + item.quantity, 0),
+    [cart],
+  )
+  const cartSubtotal = useMemo(
+    () =>
+      cart.reduce(
+        (total, item) => total + Number(item.price) * item.quantity,
+        0,
+      ),
+    [cart],
+  )
+  const GST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal])
+  const SGST = useMemo(() => Math.round(cartSubtotal * 0.05), [cartSubtotal])
+  const cartTotal = useMemo(
+    () => cartSubtotal + GST + SGST,
+    [cartSubtotal, GST, SGST],
+  )
 
   // Automatically close cart drawer if it becomes empty
   React.useEffect(() => {
     if (cartItemCount === 0 && cartOpen) {
-      setCartOpen(false);
+      setCartOpen(false)
     }
-  }, [cartItemCount, cartOpen]);
+  }, [cartItemCount, cartOpen])
 
   // Expanded categories with better visuals
   const cuisinies = [
@@ -682,54 +779,86 @@ const MenuSection = () => {
     { name: "Street Food", icon: <Store size={30} /> },
     { name: "Pizza & Sandwich", icon: <Sandwich size={30} /> },
     { name: "Indo-Chinese", icon: <ChefHat size={30} /> },
-    { name: "Vegetarian Specials", icon: <Carrot size={30} /> }
-  ];
+    { name: "Vegetarian Specials", icon: <Carrot size={30} /> },
+  ]
 
-  const meals = ['All', 'Breakfast', 'Lunch', 'Dinner'];
-  const diets = ['All', 'Veg', 'Vegan', 'Jain'];
-  const courses = ['All', 'Starters', 'Main Course', 'Desserts', 'Soups', 'Drinks', 'Beverages', 'Chef Specials'];
+  const meals = ["All", "Breakfast", "Lunch", "Dinner"]
+  const diets = ["All", "Veg", "Vegan", "Jain"]
+  const courses = [
+    "All",
+    "Starters",
+    "Main Course",
+    "Desserts",
+    "Soups",
+    "Drinks",
+    "Beverages",
+    "Chef Specials",
+  ]
 
   const filteredItems = useMemo(() => {
-    return menuData.filter(item => {
-      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return menuData.filter((item) => {
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase())
 
-      const matchesCuisine = activeCuisines.length === 0 || activeCuisines.includes(item.cuisine);
-      const matchesCourse = activeCourses.length === 0 || activeCourses.includes(item.course);
-      const matchesMeal = activeMeals.length === 0 || activeMeals.some(m => item.mealTime?.includes(m));
-      const matchesDiet = activeDiets.length === 0 || activeDiets.includes(item.diet);
+      const matchesCuisine =
+        activeCuisines.length === 0 || activeCuisines.includes(item.cuisine)
+      const matchesCourse =
+        activeCourses.length === 0 || activeCourses.includes(item.course)
+      const matchesMeal =
+        activeMeals.length === 0 ||
+        activeMeals.some((m) => item.mealTime?.includes(m))
+      const matchesDiet =
+        activeDiets.length === 0 || activeDiets.includes(item.diet)
 
-      return matchesSearch && matchesCuisine && matchesCourse && matchesMeal && matchesDiet;
-    });
-  }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery]);
+      return (
+        matchesSearch &&
+        matchesCuisine &&
+        matchesCourse &&
+        matchesMeal &&
+        matchesDiet
+      )
+    })
+  }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery])
 
   const handleUpdateCart = (dish, delta) => {
-    setCart(prevCart => {
-      const existing = prevCart.find(item => item.id === dish.id);
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item.id === dish.id)
       if (existing) {
-        const newQty = (existing.quantity || 1) + delta;
-        if (newQty <= 0) return prevCart.filter(item => item.id !== dish.id);
-        return prevCart.map(item => item.id === dish.id ? { ...item, quantity: newQty } : item);
+        const newQty = (existing.quantity || 1) + delta
+        if (newQty <= 0) return prevCart.filter((item) => item.id !== dish.id)
+        return prevCart.map((item) =>
+          item.id === dish.id ? { ...item, quantity: newQty } : item,
+        )
       }
-      if (delta > 0) return [...prevCart, { ...dish, quantity: 1 }];
-      return prevCart;
-    });
+      if (delta > 0) return [...prevCart, { ...dish, quantity: 1 }]
+      return prevCart
+    })
 
     if (delta > 0) {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 2000);
+      setShowToast(true)
+      setTimeout(() => setShowToast(false), 2000)
     }
-  };
+  }
 
   const renderCuisineLabel = (name) => {
     if (name === "Mediterranean") {
-      return <>Mediter<wbr />ranean</>;
+      return (
+        <>
+          Mediter
+          <wbr />
+          ranean
+        </>
+      )
     }
-    return name;
-  };
+    return name
+  }
 
   return (
-    <section className="subpage-layout w-full min-h-screen bg-[var(--bg)] pb-24 relative is-visible" id="menu">
+    <section
+      className="subpage-layout w-full min-h-screen bg-[var(--bg)] pb-24 relative is-visible"
+      id="menu"
+    >
       {/* Optimized Background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-[var(--accent)] rounded-full blur-[80px] opacity-5"></div>
@@ -739,12 +868,14 @@ const MenuSection = () => {
       <AnimatePresence>
         {showToast && (
           <motion.div
-            initial={{ opacity: 0, y: 50, x: '-50%' }}
-            animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: 20, x: '-50%' }}
+            initial={{ opacity: 0, y: 50, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 20, x: "-50%" }}
             className="fixed bottom-36 left-1/2 z-[100] bg-[var(--text)] text-white px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 font-bold"
           >
-            <div className="bg-[var(--accent)] rounded-full p-1"><Plus size={16} /></div>
+            <div className="bg-[var(--accent)] rounded-full p-1">
+              <Plus size={16} />
+            </div>
             Flavor added to your collection!
           </motion.div>
         )}
@@ -760,49 +891,67 @@ const MenuSection = () => {
               animate={{ height: 400, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ overflow: 'hidden' }}
+              style={{ overflow: "hidden" }}
             >
-          <div className="hero-bg-media">
-            <img src={patternBg} alt="" className="hero-bg-img pattern-img" />
-            <div className="hero-bg-overlay pattern-overlay"></div>
-          </div>
-
-          <div className="w-full max-w-[1800px] mx-auto px-[var(--container-px)] relative z-20 h-full flex flex-col justify-center py-8">
-            <motion.div
-              className="hero-panel-header flex justify-between items-center mb-4"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="brand-group">
-                <span className="text-editorial !text-[var(--accent)] block leading-none mb-1">anandofoods</span>
+              <div className="hero-bg-media">
+                <img
+                  src={patternBg}
+                  alt=""
+                  className="hero-bg-img pattern-img"
+                />
+                <div className="hero-bg-overlay pattern-overlay"></div>
               </div>
-              <div className="menu-year text-editorial !text-white/60">Collection '26</div>
-            </motion.div>
 
-            <div className="hero-panel-content flex flex-col items-center justify-center text-center w-full max-w-[800px] mx-auto py-8">
-              <div className="text-center overflow-hidden">
-                <motion.h1
-                  className="hero-title-main !text-white text-center"
-                  initial={{ y: "80px", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              <div className="w-full max-w-[1800px] mx-auto px-[var(--container-px)] relative z-20 h-full flex flex-col justify-center py-8">
+                <motion.div
+                  className="hero-panel-header flex justify-between items-center mb-4"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  A <span className="italic-serif text-[var(--accent)]">Symphony</span> of <br />
-                  Culinary Art.
-                </motion.h1>
+                  <div className="brand-group">
+                    <span className="text-editorial !text-[var(--accent)] block leading-none mb-1">
+                      anandofoods
+                    </span>
+                  </div>
+                  <div className="menu-year text-editorial !text-white/60">
+                    Collection '26
+                  </div>
+                </motion.div>
 
-                <motion.p
-                  className="hero-subtitle-text mt-6 !text-white/70 text-center"
-                  initial={{ y: "40px", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-                >
-                  Discover our hand-picked selection of gourmet masterpieces, where every plate is a canvas of tradition and innovation.
-                </motion.p>
+                <div className="hero-panel-content flex flex-col items-center justify-center text-center w-full max-w-[800px] mx-auto py-8">
+                  <div className="text-center overflow-hidden">
+                    <motion.h1
+                      className="hero-title-main !text-white text-center"
+                      initial={{ y: "80px", opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      A{" "}
+                      <span className="italic-serif text-[var(--accent)]">
+                        Symphony
+                      </span>{" "}
+                      of <br />
+                      Culinary Art.
+                    </motion.h1>
+
+                    <motion.p
+                      className="hero-subtitle-text mt-6 !text-white/70 text-center"
+                      initial={{ y: "40px", opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 1.4,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: 0.25,
+                      }}
+                    >
+                      Discover our hand-picked selection of gourmet
+                      masterpieces, where every plate is a canvas of tradition
+                      and innovation.
+                    </motion.p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -816,7 +965,9 @@ const MenuSection = () => {
               <div className="sidebar-blob blob-2"></div>
             </div>
             <div className="sidebar-header">
-              <span className="text-editorial !text-[var(--accent)]">Cuisines</span>
+              <span className="text-editorial !text-[var(--accent)]">
+                Cuisines
+              </span>
               <h2 className="sidebar-title">Global Flavors</h2>
               <div className="sidebar-line"></div>
             </div>
@@ -825,17 +976,22 @@ const MenuSection = () => {
                 <button
                   key={cat.name}
                   onClick={() => toggleCuisineFilter(cat.name)}
-                  className={`sidebar-cat-item ${(cat.name === 'All' && activeCuisines.length === 0) || activeCuisines.includes(cat.name) ? 'active' : ''}`}
+                  className={`sidebar-cat-item ${(cat.name === "All" && activeCuisines.length === 0) || activeCuisines.includes(cat.name) ? "active" : ""}`}
                 >
-                  <div className={`sidebar-cat-pill color-${(idx % 4) + 1}`}></div>
-                  <div className="sidebar-cat-icon-container">
-                    {cat.icon}
-                  </div>
+                  <div
+                    className={`sidebar-cat-pill color-${(idx % 4) + 1}`}
+                  ></div>
+                  <div className="sidebar-cat-icon-container">{cat.icon}</div>
                   <div className="sidebar-cat-info">
-                    <span className="sidebar-cat-label">{renderCuisineLabel(cat.name)}</span>
-                    <p className="sidebar-cat-desc">Explore {cat.name} flavors</p>
+                    <span className="sidebar-cat-label">
+                      {renderCuisineLabel(cat.name)}
+                    </span>
+                    <p className="sidebar-cat-desc">
+                      Explore {cat.name} flavors
+                    </p>
                   </div>
-                  {((cat.name === 'All' && activeCuisines.length === 0) || activeCuisines.includes(cat.name)) && (
+                  {((cat.name === "All" && activeCuisines.length === 0) ||
+                    activeCuisines.includes(cat.name)) && (
                     <motion.div
                       layoutId="sidebar-active"
                       className="sidebar-active-indicator"
@@ -861,12 +1017,15 @@ const MenuSection = () => {
                       placeholder="Search across all cuisines and dishes..."
                       className="general-search-input"
                       value={searchQuery}
-                      onChange={(e) => { setHasInteracted(true); setSearchQuery(e.target.value); }}
+                      onChange={(e) => {
+                        setHasInteracted(true)
+                        setSearchQuery(e.target.value)
+                      }}
                     />
                     {searchQuery && (
                       <button
                         className="general-search-clear"
-                        onClick={() => setSearchQuery('')}
+                        onClick={() => setSearchQuery("")}
                         aria-label="Clear search"
                       >
                         <X size={16} />
@@ -881,8 +1040,12 @@ const MenuSection = () => {
                           <button
                             key={meal}
                             onClick={() => toggleMealFilter(meal)}
-                            className={`meal-pill-modern ${(meal === 'All' && activeMeals.length === 0) || activeMeals.includes(meal) ? 'active' : ''
-                              }`}
+                            className={`meal-pill-modern ${
+                              (meal === "All" && activeMeals.length === 0) ||
+                              activeMeals.includes(meal)
+                                ? "active"
+                                : ""
+                            }`}
                           >
                             {meal}
                           </button>
@@ -892,11 +1055,23 @@ const MenuSection = () => {
 
                     <div className="search-stats text-editorial flex items-center gap-4">
                       <div>
-                        <span className="desktop-stats-text">{filteredItems.length} {filteredItems.length === 1 ? 'dish' : 'dishes'} available</span>
-                        <span className="mobile-stats-text">{filteredItems.length} available</span>
+                        <span className="desktop-stats-text">
+                          {filteredItems.length}{" "}
+                          {filteredItems.length === 1 ? "dish" : "dishes"}{" "}
+                          available
+                        </span>
+                        <span className="mobile-stats-text">
+                          {filteredItems.length} available
+                        </span>
                       </div>
-                      {(searchQuery || activeCuisines.length > 0 || activeCourses.length > 0 || activeMeals.length > 0) && (
-                        <button onClick={resetAllFilters} className="text-sm font-medium text-[var(--accent)] hover:underline cursor-pointer border-none bg-transparent p-0 m-0 leading-none">
+                      {(searchQuery ||
+                        activeCuisines.length > 0 ||
+                        activeCourses.length > 0 ||
+                        activeMeals.length > 0) && (
+                        <button
+                          onClick={resetAllFilters}
+                          className="text-sm font-medium text-[var(--accent)] hover:underline cursor-pointer border-none bg-transparent p-0 m-0 leading-none"
+                        >
                           Clear All
                         </button>
                       )}
@@ -908,15 +1083,21 @@ const MenuSection = () => {
                 <div className="filters-bottom-line">
                   <div className="filter-group course-group full-width-course">
                     <div className="course-header-row">
-                      <span className="search-stats-inline">{filteredItems.length} available</span>
+                      <span className="search-stats-inline">
+                        {filteredItems.length} available
+                      </span>
                     </div>
                     <div className="course-chips">
                       {courses.map((course) => (
                         <button
                           key={course}
                           onClick={() => toggleCourseFilter(course)}
-                          className={`course-chip ${course.toLowerCase().replace(' ', '-')} ${(course === 'All' && activeCourses.length === 0) || activeCourses.includes(course) ? 'active' : ''
-                            }`}
+                          className={`course-chip ${course.toLowerCase().replace(" ", "-")} ${
+                            (course === "All" && activeCourses.length === 0) ||
+                            activeCourses.includes(course)
+                              ? "active"
+                              : ""
+                          }`}
                         >
                           {course}
                         </button>
@@ -931,8 +1112,8 @@ const MenuSection = () => {
             <div className="menu-grid-container max-w-[1900px] mx-auto px-4 md:px-12 pt-6 md:pt-10 pb-24">
               <div className="explorer-grid">
                 {filteredItems.map((dish) => {
-                  const cartItem = cart.find(item => item.id === dish.id);
-                  const quantity = cartItem ? cartItem.quantity : 0;
+                  const cartItem = cart.find((item) => item.id === dish.id)
+                  const quantity = cartItem ? cartItem.quantity : 0
 
                   return (
                     <DishCard
@@ -942,7 +1123,7 @@ const MenuSection = () => {
                       handleUpdateCart={handleUpdateCart}
                       onOpenDetail={setSelectedDish}
                     />
-                  );
+                  )
                 })}
               </div>
 
@@ -964,11 +1145,11 @@ const MenuSection = () => {
                   <p>Try exploring a different cuisine or mood!</p>
                   <button
                     onClick={() => {
-                      setActiveCuisines([]);
-                      setActiveCourses([]);
-                      setActiveMeals([]);
-                      setActiveDiets([]);
-                      setSearchQuery("");
+                      setActiveCuisines([])
+                      setActiveCourses([])
+                      setActiveMeals([])
+                      setActiveDiets([])
+                      setSearchQuery("")
                     }}
                     className="mt-6 px-8 py-3 bg-[var(--text)] text-white rounded-full font-bold"
                   >
@@ -1053,7 +1234,10 @@ const MenuSection = () => {
                   <span className="cart-subtitle-brand">anandofoods</span>
                   <h2 className="cart-title-editorial">Your Selection</h2>
                 </div>
-                <button className="cart-close-btn" onClick={() => setCartOpen(false)}>
+                <button
+                  className="cart-close-btn"
+                  onClick={() => setCartOpen(false)}
+                >
                   <X size={24} />
                 </button>
               </div>
@@ -1064,7 +1248,9 @@ const MenuSection = () => {
                   <div className="cart-empty-state">
                     <ShoppingBag size={48} className="empty-bag-icon" />
                     <h3>Your selection is empty</h3>
-                    <p>Add some gourmet dishes to begin your culinary experience.</p>
+                    <p>
+                      Add some gourmet dishes to begin your culinary experience.
+                    </p>
                   </div>
                 ) : (
                   cart.map((item) => (
@@ -1073,14 +1259,22 @@ const MenuSection = () => {
                       <div className="cart-item-details">
                         <div className="cart-item-info">
                           <h4>{item.title}</h4>
-                          <span className={`cart-diet-pill ${item.diet.toLowerCase()}`}>{item.diet}</span>
+                          <span
+                            className={`cart-diet-pill ${item.diet.toLowerCase()}`}
+                          >
+                            {item.diet}
+                          </span>
                         </div>
                         <div className="cart-item-action-row">
                           <div className="cart-item-price">₹{item.price}</div>
                           <div className="cart-item-counter">
-                            <button onClick={() => handleUpdateCart(item, -1)}>-</button>
+                            <button onClick={() => handleUpdateCart(item, -1)}>
+                              -
+                            </button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => handleUpdateCart(item, 1)}>+</button>
+                            <button onClick={() => handleUpdateCart(item, 1)}>
+                              +
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -1114,8 +1308,8 @@ const MenuSection = () => {
                   <button
                     className="cart-checkout-btn"
                     onClick={() => {
-                      setCheckoutSuccess(true);
-                      setCart([]);
+                      setCheckoutSuccess(true)
+                      setCart([])
                     }}
                   >
                     <span>Place Culinary Order</span>
@@ -1150,17 +1344,33 @@ const MenuSection = () => {
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                 >
-                  <circle cx="26" cy="26" r="25" fill="none" stroke="#d4af37" strokeWidth="2" />
-                  <path d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none" stroke="#d4af37" strokeWidth="3" strokeLinecap="round" />
+                  <circle
+                    cx="26"
+                    cy="26"
+                    r="25"
+                    fill="none"
+                    stroke="#d4af37"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                    fill="none"
+                    stroke="#d4af37"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
                 </motion.svg>
               </div>
               <h2>Order Confirmed!</h2>
-              <p>Your culinary request has been received. Our chef is preparing your gourmet experience.</p>
+              <p>
+                Your culinary request has been received. Our chef is preparing
+                your gourmet experience.
+              </p>
               <button
                 className="success-close-btn"
                 onClick={() => {
-                  setCheckoutSuccess(false);
-                  setCartOpen(false);
+                  setCheckoutSuccess(false)
+                  setCartOpen(false)
                 }}
               >
                 Back to Menu
@@ -1175,7 +1385,9 @@ const MenuSection = () => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full blur-[100px] opacity-10"></div>
 
           <div className="text-center mb-8">
-            <h3 className="text-editorial !text-[var(--accent)] text-2xl md:text-3xl mb-2">Terms and Conditions</h3>
+            <h3 className="text-editorial !text-[var(--accent)] text-2xl md:text-3xl mb-2">
+              Terms and Conditions
+            </h3>
             <div className="w-16 h-1 bg-[var(--accent)]/50 mx-auto rounded-full"></div>
           </div>
 
@@ -1209,26 +1421,37 @@ const MenuSection = () => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Preparation Time Is Min. 15 Minutes After The Order Is Placed</span>
+                <span>
+                  Preparation Time Is Min. 15 Minutes After The Order Is Placed
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Outside Eatables Not Allowed. Except Birthday Cakes Food Items Available Will Be Served.</span>
+                <span>
+                  Outside Eatables Not Allowed. Except Birthday Cakes Food Items
+                  Available Will Be Served.
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Cold Drink And Ice Cream Rates Are As Per Prevailing MRP & Quantity As Printed By The Company</span>
+                <span>
+                  Cold Drink And Ice Cream Rates Are As Per Prevailing MRP &
+                  Quantity As Printed By The Company
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[var(--accent)] mt-1">•</span>
-                <span>All Items Are Prepared Manually Hence Slight Variation In Weight May Occur Inspite Of Utmost Care.</span>
+                <span>
+                  All Items Are Prepared Manually Hence Slight Variation In
+                  Weight May Occur Inspite Of Utmost Care.
+                </span>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default MenuSection;
+export default MenuSection

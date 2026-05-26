@@ -14,7 +14,7 @@ import mobileVideoSrc from "../assets/mobilehero.mp4"
 import img1 from "../assets/resturent4.jpg"
 import "../styles/sections/HeroSection.css"
 
-let globalHasSeenPopup = false;
+let globalHasSeenPopup = false
 
 const HeroSection = () => {
   const navigate = useNavigate()
@@ -22,7 +22,6 @@ const HeroSection = () => {
   const ref = useRef(null)
   const prevV = useRef(0)
   const hasShownPopup = useRef(false)
-  const randomPopupTrigger = useRef(Math.random() * 0.4 + 0.3) // Random between 0.3 and 0.7
   const { setPastHero, navTheme, setNavTheme } = useNav()
   const [isMobile, setIsMobile] = useState(false)
 
@@ -33,18 +32,21 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  })
 
   const smooth = useSpring(scrollYProgress, {
     stiffness: isMobile ? 100 : 80,
     damping: isMobile ? 35 : 30,
-    mass: isMobile ? 0.15 : 0.2
+    mass: isMobile ? 0.15 : 0.2,
   })
 
   const morphProgress = useTransform(
     smooth,
     isMobile ? [0, 0.18] : [0, 0.2],
-    [0, 1]
+    [0, 1],
   )
 
   /* Lock scroll while popup is open */
@@ -60,7 +62,6 @@ const HeroSection = () => {
   }, [showPopup])
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const direction = v > prevV.current ? 'down' : 'up'
     prevV.current = v
 
     // morphProgress.set(v > 0.01 ? 1 : 0) // Removed binary switch
@@ -68,24 +69,21 @@ const HeroSection = () => {
 
     // Navbar Color Control aligned with background changes
     if (v < 0.15) {
-      setNavTheme('yellow') // Gold on dark video background (Start)
+      setNavTheme("yellow") // Gold on dark video background (Start)
     } else if (v < 0.5) {
-      setNavTheme('green') // Dark teal on light background (Scene 1 morph)
+      setNavTheme("green") // Dark teal on light background (Scene 1 morph)
     } else if (v < 0.92) {
-      setNavTheme('purple') // Light purple on dark background (Scene 2)
+      setNavTheme("purple") // Light purple on dark background (Scene 2)
     } else {
-      setNavTheme('green') // Dark teal on next section
+      setNavTheme("green") // Dark teal on next section
     }
-
-    const threshold = isMobile ? 0.9 : 0.92
-    // Removed manual snap to next section
 
     // Popup fires only AFTER Scene 1 is fully gone (desktop: 0.65, mobile: 0.58)
     const popupTrigger = isMobile ? 0.59 : 0.66
     if (v >= popupTrigger && !hasShownPopup.current) {
       if (!globalHasSeenPopup) {
         setShowPopup(true)
-        globalHasSeenPopup = true;
+        globalHasSeenPopup = true
       }
       hasShownPopup.current = true
     }
@@ -107,7 +105,8 @@ const HeroSection = () => {
     const isMobile = window.innerWidth < 768
     const offset = isMobile ? 14 : 22
     const gap = isMobile ? "0.8dvh" : "1dvh"
-    if (v <= 0.5) return `calc(-50vw + ${(v / 0.5) * (isMobile ? 15 : 10)}vw - 100% - ${gap})`
+    if (v <= 0.5)
+      return `calc(-50vw + ${(v / 0.5) * (isMobile ? 15 : 10)}vw - 100% - ${gap})`
     const p = (v - 0.5) / 0.5
     return `calc(-${isMobile ? 35 : 40}vw * ${1 - p} - ${offset}vh * ${p} - 100% - ${gap})`
   })
@@ -115,7 +114,8 @@ const HeroSection = () => {
     const isMobile = window.innerWidth < 768
     const offset = isMobile ? 14 : 22
     const gap = isMobile ? "0.8dvh" : "1dvh"
-    if (v <= 0.5) return `calc(50vw - ${(v / 0.5) * (isMobile ? 15 : 10)}vw + ${gap})`
+    if (v <= 0.5)
+      return `calc(50vw - ${(v / 0.5) * (isMobile ? 15 : 10)}vw + ${gap})`
     const p = (v - 0.5) / 0.5
     return `calc(${isMobile ? 35 : 40}vw * ${1 - p} + ${offset}vh * ${p} + ${gap})`
   })
@@ -123,33 +123,27 @@ const HeroSection = () => {
   const utensilsOpacity = useTransform(morphProgress, [0.2, 0.8], [0, 1])
   const nameOpacity = useTransform(morphProgress, [0.3, 0.8], [0, 1])
   const nameRevealY = useTransform(morphProgress, [0.85, 1], [20, 0])
-  const isTransforming = useTransform(
-    morphProgress,
-    [0, 0.85, 1],
-    [0, 1, 0]
-  )
+  const isTransforming = useTransform(morphProgress, [0, 0.85, 1], [0, 1, 0])
   // Scene 1 stays fixed, then fully exits
   const groupY = useTransform(
     smooth,
     isMobile
       ? [0, 0.42, 0.55] // Snappier swap for mobile
       : [0, 0.45, 0.65],
-    ["0dvh", "0dvh", "-100dvh"]
+    ["0dvh", "0dvh", "-100dvh"],
   )
 
   // Scene 2 appears as Scene 1 is leaving (direct transition)
   const s2Opacity = useTransform(
     smooth,
-    isMobile
-      ? [0.42, 0.55]
-      : [0.45, 0.65],
-    [0, 1]
+    isMobile ? [0.42, 0.55] : [0.45, 0.65],
+    [0, 1],
   )
 
   const s2Y = useTransform(
     smooth,
     isMobile ? [0.42, 0.58] : [0.45, 0.65],
-    [60, 0]
+    [60, 0],
   )
   return (
     <section id="hero-section" ref={ref} className="hero-section">
@@ -158,14 +152,14 @@ const HeroSection = () => {
 
       <div className="hero-sticky-container">
         {/* SCENE 2: Tagline Slide */}
-        <motion.div style={{ opacity: s2Opacity }} className="absolute inset-0 z-10">
+        <motion.div
+          style={{ opacity: s2Opacity }}
+          className="absolute inset-0 z-10"
+        >
           <img src={img1} className="w-full h-full object-cover" alt="" />
           <div className="absolute inset-0 bg-black/70 z-20" />
 
-          <motion.div
-            style={{ y: s2Y }}
-            className="hero-scene2-content"
-          >
+          <motion.div style={{ y: s2Y }} className="hero-scene2-content">
             <div className="premium-tagline-group">
               <div className="tagline-row">
                 <span className="tagline-badge">INSPIRED BY</span>
@@ -188,7 +182,10 @@ const HeroSection = () => {
               <button onClick={() => navigate("/menu")} className="btn-primary">
                 Explore Menu
               </button>
-              <button onClick={() => navigate("/reservation")} className="btn-secondary">
+              <button
+                onClick={() => navigate("/reservation")}
+                className="btn-secondary"
+              >
                 Order Now
               </button>
               <button onClick={() => navigate("/menu")} className="btn-primary">
@@ -199,7 +196,10 @@ const HeroSection = () => {
         </motion.div>
 
         {/* SCENE 1: Morphing Plate Group */}
-        <motion.div style={{ y: groupY }} className="absolute inset-0 z-40 flex items-center justify-center">
+        <motion.div
+          style={{ y: groupY }}
+          className="absolute inset-0 z-40 flex items-center justify-center"
+        >
           <motion.div
             style={{
               clipPath,
@@ -207,7 +207,10 @@ const HeroSection = () => {
             }}
             className="absolute inset-0 flex items-center justify-center overflow-hidden"
           >
-            <motion.div style={{ scale: imgScale }} className="absolute inset-0">
+            <motion.div
+              style={{ scale: imgScale }}
+              className="absolute inset-0"
+            >
               <video
                 key={isMobile ? "mobile" : "desktop"}
                 src={isMobile ? mobileVideoSrc : videoSrc}
@@ -218,7 +221,7 @@ const HeroSection = () => {
                 className="w-full h-full object-cover"
                 style={{
                   opacity: 0.85,
-                  filter: "contrast(1.1) brightness(1.1) saturate(1.1)"
+                  filter: "contrast(1.1) brightness(1.1) saturate(1.1)",
                 }}
               />
             </motion.div>
@@ -229,8 +232,18 @@ const HeroSection = () => {
             style={{ x: forkX, opacity: utensilsOpacity }}
             className="absolute top-1/2 left-1/2 -translate-y-1/2 z-20"
           >
-            <svg className={isMobile ? "w-[4.5dvh] h-[22.5dvh]" : "w-[6dvh] h-[30dvh]"} viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
-              <path d="M20 20 L20 150 M40 20 L40 150 M60 20 L60 150 M80 20 L80 150" strokeWidth="6" />
+            <svg
+              className={
+                isMobile ? "w-[4.5dvh] h-[22.5dvh]" : "w-[6dvh] h-[30dvh]"
+              }
+              viewBox="0 0 100 400"
+              stroke="#0F5C5C"
+              fill="none"
+            >
+              <path
+                d="M20 20 L20 150 M40 20 L40 150 M60 20 L60 150 M80 20 L80 150"
+                strokeWidth="6"
+              />
               <path d="M20 150 C20 200 80 200 80 150" strokeWidth="6" />
               <path d="M50 185 L50 380" strokeWidth="8" strokeLinecap="round" />
             </svg>
@@ -241,7 +254,14 @@ const HeroSection = () => {
             style={{ x: spoonX, opacity: utensilsOpacity }}
             className="absolute top-1/2 left-1/2 -translate-y-1/2 z-20"
           >
-            <svg className={isMobile ? "w-[4.5dvh] h-[22.5dvh]" : "w-[6dvh] h-[30dvh]"} viewBox="0 0 100 400" stroke="#0F5C5C" fill="none">
+            <svg
+              className={
+                isMobile ? "w-[4.5dvh] h-[22.5dvh]" : "w-[6dvh] h-[30dvh]"
+              }
+              viewBox="0 0 100 400"
+              stroke="#0F5C5C"
+              fill="none"
+            >
               <ellipse cx="50" cy="80" rx="35" ry="60" strokeWidth="6" />
               <path d="M50 140 L50 380" strokeWidth="8" strokeLinecap="round" />
             </svg>
@@ -252,14 +272,20 @@ const HeroSection = () => {
             style={{
               opacity: nameOpacity,
               y: nameRevealY,
-              translateY: isMobile ? "24dvh" : "28dvh"
+              translateY: isMobile ? "24dvh" : "28dvh",
             }}
             className="absolute top-[50%] flex flex-col items-center z-30"
           >
-            <h1 className={`font-serif leading-[0.9] select-none text-center mb-5 transition-colors duration-500 ${navTheme === 'yellow' ? 'text-[#E0A94B]' : 'text-[#0F5C5C]'}`}>
-              <span className="block text-[clamp(2.5rem,8vw,5rem)]">anandofoods</span>
+            <h1
+              className={`font-serif leading-[0.9] select-none text-center mb-5 transition-colors duration-500 ${navTheme === "yellow" ? "text-[#E0A94B]" : "text-[#0F5C5C]"}`}
+            >
+              <span className="block text-[clamp(2.5rem,8vw,5rem)]">
+                anandofoods
+              </span>
             </h1>
-            <p className={`text-[9px] uppercase tracking-[0.5em] font-medium ${navTheme === 'yellow' ? 'text-white/60' : 'text-[#7A688A]'}`}>
+            <p
+              className={`text-[9px] uppercase tracking-[0.5em] font-medium ${navTheme === "yellow" ? "text-white/60" : "text-[#7A688A]"}`}
+            >
               50 YEARS OF LEGACY &nbsp;·&nbsp; Fine Dining
             </p>
             <div className="mt-4 w-16 h-[1px] bg-gradient-to-r from-transparent via-[#E0A94B] to-transparent" />
@@ -267,9 +293,13 @@ const HeroSection = () => {
         </motion.div>
       </div>
       {/* Native mid-point snap target: Prevents stopping in the middle of the transition */}
-      <div 
-        style={{ top: isMobile ? "100dvh" : "150dvh", scrollSnapAlign: "start", scrollSnapStop: "normal" }} 
-        className="absolute left-0 right-0 h-[1px] pointer-events-none" 
+      <div
+        style={{
+          top: isMobile ? "100dvh" : "150dvh",
+          scrollSnapAlign: "start",
+          scrollSnapStop: "normal",
+        }}
+        className="absolute left-0 right-0 h-[1px] pointer-events-none"
       />
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </section>
