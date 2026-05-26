@@ -258,10 +258,11 @@
   .chef-section {
     height: 100dvh !important;
     min-height: 100dvh !important;
-    padding: 3.5rem 0 2rem !important;
+    padding: clamp(1.5rem, 5dvh, 2.5rem) 0 clamp(1rem, 3dvh, 1.5rem) 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    overflow: hidden !important;
   }
 
   .chef-ghost-text {
@@ -270,7 +271,10 @@
   }
 
   .chef-flex-container {
-    gap: 1.5rem !important;
+    gap: clamp(0.75rem, 2dvh, 1.25rem) !important;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
   }
 
   .chef-image-content {
@@ -344,7 +348,7 @@
 /* 📱 SMALL MOBILE (e.g. 360px - 412px widths) */
 @media (max-width: 480px) {
   .chef-section {
-    padding: 2rem 0 1rem !important;
+    padding: 1.5rem 0 0.75rem 0 !important;
   }
 
   .chef-title {

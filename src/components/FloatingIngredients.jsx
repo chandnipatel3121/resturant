@@ -48,24 +48,22 @@ const generateFloatingItems = (isMobile, isShort) => {
   const vh =
     typeof window !== "undefined" ? Math.max(window.innerHeight, 320) : 800
   const minDim = Math.min(vw, vh)
-  // Larger base sizes on small devices to ensure visibility
-  // Make ingredients more visible on phones while preventing excessive overlap
+  // Mobile sizes: keep ingredients visible but avoid covering title/hero
   const baseSize = isMobile
-    ? Math.round(minDim * 0.4)
+    ? Math.round(minDim * 0.22)
     : Math.round(minDim * 0.12)
   const scaleFactor = isMobile ? 0.95 : isShort ? 0.98 : 1
-  const minSizePx = Math.max(64, Math.round(minDim * 0.12))
+  const minSizePx = Math.max(44, Math.round(minDim * 0.08))
   const maxSizePx = Math.max(220, Math.round(minDim * 0.55))
 
   // Deterministic mobile positions (more reliable than random zones)
+  // Avoid center X (40-60) and center Y (30-60) to prevent overlap
   const mobileFixedPositions = [
     { x: 10, y: 12 }, // top-left
     { x: 90, y: 12 }, // top-right
-    { x: 8, y: 42 }, // left-middle (avoid center)
-    { x: 92, y: 42 }, // right-middle (avoid center)
-    { x: 50, y: 22 }, // top-center moved slightly lower
-    { x: 26, y: 78 }, // bottom-left
-    { x: 74, y: 78 }, // bottom-right
+    { x: 8, y: 42 }, // left-middle (away from center)
+    { x: 92, y: 42 }, // right-middle (away from center)
+    { x: 76, y: 78 }, // bottom-right (near dish rim but outside center)
   ]
 
   // For mobile return deterministic positions to avoid overlap with center dish
@@ -81,16 +79,16 @@ const generateFloatingItems = (isMobile, isShort) => {
         )
         return Math.max(minSizePx, Math.min(maxSizePx, raw))
       })(),
-      duration: 22 + Math.random() * 18,
-      delay: Math.random() * -8,
-      rotate: Math.random() * 360,
-      floatX: (Math.random() - 0.5) * 12,
-      floatY: (Math.random() - 0.5) * 10,
-      entryX: (Math.random() - 0.5) * 120,
-      entryY: (Math.random() - 0.5) * 120,
-      entryRotate: (Math.random() - 0.5) * 360,
-      blur: i % 5 === 0 ? "blur(1px)" : "blur(0px)",
-      opacity: 0.7 + Math.random() * 0.25,
+      duration: 18 + Math.random() * 12,
+      delay: Math.random() * -6,
+      rotate: Math.random() * 180,
+      floatX: (Math.random() - 0.5) * 8,
+      floatY: (Math.random() - 0.5) * 6,
+      entryX: (Math.random() - 0.5) * 80,
+      entryY: (Math.random() - 0.5) * 80,
+      entryRotate: (Math.random() - 0.5) * 240,
+      blur: i % 5 === 0 ? "blur(0.8px)" : "blur(0px)",
+      opacity: 0.6 + Math.random() * 0.2,
     }))
 
     return items

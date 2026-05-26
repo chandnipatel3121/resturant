@@ -887,8 +887,8 @@ const MenuSection = () => {
           {!hasInteracted && !hasActiveFilters && (
             <motion.div
               className="enhanced-menu-hero pattern-variant"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 400, opacity: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{ overflow: "hidden" }}
