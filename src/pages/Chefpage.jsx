@@ -214,13 +214,13 @@ const ChefPage = () => {
   // Desktop wheel & key handlers
   useEffect(() => {
     if (isMobile) return;
-    
+
     const onWheel = (e) => {
       e.preventDefault();
       const now = Date.now();
       if (now - lastInteractionTime.current < 1200) return; // ignore trackpad inertia tail
       if (Math.abs(e.deltaY) < 25) return; // ignore tiny resting movements
-      
+
       lastInteractionTime.current = now;
       if (e.deltaY > 0) goToSectionDesktop(currentSection + 1);
       else goToSectionDesktop(currentSection - 1);
@@ -237,12 +237,12 @@ const ChefPage = () => {
         goToSectionDesktop(currentSection - 1);
       }
     };
-    
+
     const el = portfolioRef.current;
     if (el) el.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('keydown', onKey);
-    
-    return () => { 
+
+    return () => {
       if (el) el.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKey);
     }
@@ -293,7 +293,7 @@ const ChefPage = () => {
       </div>
 
       {/* ─── Slide Track ───────────────────────────────────────────────────── */}
-      <div 
+      <div
         className="fp-slide-track"
         style={{ transform: isMobile ? 'none' : `translateY(-${currentSection * 100}dvh)` }}
       >
@@ -362,9 +362,7 @@ const ChefPage = () => {
               </div>
 
               <div className="dic-actions">
-                <button className="dic-primary-btn" onClick={() => {
-                  document.getElementById("signature-section").scrollIntoView({ behavior: "smooth" })
-                }}>
+                <button className="dic-primary-btn" onClick={() => goToSection(3)}>
                   Discover Masterpieces <ArrowRight size={16} />
                 </button>
                 <div className="dic-socials">
@@ -658,12 +656,6 @@ const ChefPage = () => {
               transition={{ duration: 0.7, delay: 0.85 }}
             >
               <p>Join us to create your own memories at Anando Foods.</p>
-              <button
-                className="primary-btn gold-btn"
-                onClick={() => navigate('/reservation')}
-              >
-                Reserve a Table <ArrowRight size={16} />
-              </button>
             </motion.div>
           </div>
         </section>
