@@ -754,7 +754,7 @@ const MenuSection = () => {
         {/* Full-Width Hero conditionally rendered with smooth animation */}
         <AnimatePresence initial={false}>
           {!hasInteracted && !hasActiveFilters && (
-            <motion.div 
+            <motion.div
               className="enhanced-menu-hero pattern-variant"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 400, opacity: 1 }}
