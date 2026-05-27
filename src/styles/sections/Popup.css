@@ -13,9 +13,7 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  /* overflow-y: auto;
-overscroll-behavior: contain;
-touch-action: none; */
+  overscroll-behavior: contain;
 }
 
 .popup-ad-card {
@@ -216,6 +214,11 @@ touch-action: none; */
 }
 
 @media (max-width: 768px) {
+  .popup-overlay-ad {
+    padding: max(4.5rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom));
+    touch-action: none;
+  }
+
   .stage-card-premium {
     width: 88%;
     max-width: 340px;

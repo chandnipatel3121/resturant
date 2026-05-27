@@ -196,26 +196,26 @@ footer {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
 .reveal-left {
   opacity: 0;
   transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-right {
   opacity: 0;
   transform: translateX(50px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-scale {
   opacity: 0;
   transform: scale(0.9);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Trigger when parent section has .is-visible */
@@ -289,16 +289,24 @@ section {
   html.home-page {
     scroll-snap-type: y mandatory !important;
     scroll-behavior: smooth !important;
-    /* No scroll-padding-top — same reason as desktop: sections are 100dvh,
-       any offset clips their bottom. Navbar floats over background. */
   }
 
-  html.home-page section,
-  html.home-page footer {
+  html.home-page section:not(.hero-section) {
     scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
-    /* Each section fills exactly one viewport — clean one-section-at-a-time snap */
+    height: 100dvh !important;
     min-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  html.home-page footer {
+    scroll-snap-align: end !important;
+    scroll-snap-stop: always !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
   }
 }
 

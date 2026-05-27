@@ -711,6 +711,7 @@ const MenuSection = () => {
   const [activeCourses, setActiveCourses] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [isSticky, setIsSticky] = useState(false)
 
   const mainLayoutRef = useRef(null)
 
@@ -758,6 +759,14 @@ const MenuSection = () => {
         document.documentElement.classList.remove("menu-snap-page")
       } else {
         document.documentElement.classList.add("menu-snap-page")
+      }
+
+      // Track sticky state (desktop top is 76, mobile top is 56)
+      const navbarHeight = isDesktop ? 76 : 56
+      if (currentScroll >= heroHeight - navbarHeight - 5) {
+        setIsSticky(true)
+      } else {
+        setIsSticky(false)
       }
     }
 
@@ -1120,7 +1129,7 @@ const MenuSection = () => {
           {/* Main Grid Area - Added significant padding for breathing room */}
           <div className="menu-content-area px-4 md:px-16">
             {/* Horizontal Filter Bar */}
-            <div className="menu-filters-sticky">
+            <div className={`menu-filters-sticky ${isSticky ? "is-sticky" : ""}`}>
               <div className="max-w-[1800px] px-4 md:pl-10 md:pr-[var(--container-px)] py-4 md:py-6 mb-6 md:mb-12">
                 {/* General Search Bar Row */}
                 {/* Row 1: Search, Service Sessions, and Stats in ONE line */}

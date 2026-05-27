@@ -919,6 +919,20 @@ html.menu-snap-page .menu-main-layout {
   padding-bottom: 16px;
 }
 
+.menu-filters-sticky.is-sticky::before {
+  content: "";
+  position: absolute;
+  top: -76px;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: rgba(237, 247, 247, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* --- GENERAL SEARCH BAR --- */
 .filters-top-line {
   display: flex;
@@ -1135,6 +1149,14 @@ html.menu-snap-page .menu-main-layout {
     border-bottom: 1px solid rgba(15, 92, 92, 0.06) !important;
     z-index: 120 !important;
     /* Critical override: float cleanly over card GPU stacking contexts */
+  }
+
+  .menu-filters-sticky.is-sticky::before {
+    top: -56px !important;
+    height: 56px !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   /* Minimize direct child margins/padding to make sticky area vertically compact */
