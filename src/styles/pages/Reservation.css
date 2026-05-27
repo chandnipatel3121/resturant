@@ -47,8 +47,8 @@
   max-height: 680px;
   background: #ffffff;
   border-radius: 32px;
-  box-shadow: 
-    0 30px 70px rgba(15, 92, 92, 0.06), 
+  box-shadow:
+    0 30px 70px rgba(15, 92, 92, 0.06),
     0 10px 20px rgba(0, 0, 0, 0.02);
   overflow: hidden;
   z-index: 10;
@@ -553,7 +553,7 @@
     height: 75vh;
     max-height: 700px;
   }
-  
+
   .res-form-grid {
     grid-template-columns: 380px 1fr;
   }

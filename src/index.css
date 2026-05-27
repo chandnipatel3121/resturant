@@ -299,6 +299,10 @@ section {
     overflow: hidden !important;
   }
 
+  .hero-sticky-container {
+    height: 100dvh !important;
+  }
+
   html.home-page footer {
     scroll-snap-align: end !important;
     scroll-snap-stop: always !important;

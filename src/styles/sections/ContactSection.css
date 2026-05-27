@@ -233,7 +233,7 @@
   .map-container-wrapper {
     width: 100%;
     height: 100%;
-    /* Ensure it exactly fits the remaining height of the 100dvh container without overflowing */
+    /* Ensure it exactly fits the remaining height of the 100svh container without overflowing */
   }
 
   .contact-brand-title {

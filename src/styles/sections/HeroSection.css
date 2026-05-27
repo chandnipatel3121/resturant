@@ -16,7 +16,7 @@
 .hero-sticky-container {
   position: sticky;
   top: 0;
-  height: 100dvh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   align-items: center;
