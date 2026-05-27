@@ -1009,6 +1009,8 @@
 .cuisine-dishes-round-grid {
   animation: orbital-rotate 60s linear infinite;
   animation-play-state: running;
+  position: relative;
+  z-index: 10;
 }
 
 .cuisine-dish-motion-wrapper {
@@ -1021,8 +1023,8 @@
   inset: 0;
   border-radius: 50%;
   clip-path: circle(50% at 50% 50%);
-  z-index: 5;
-  pointer-events: auto;
+  z-index: 1;
+  pointer-events: none;
   cursor: default;
 }
 
@@ -2134,4 +2136,15 @@
   background: rgba(255, 255, 255, 0.2) !important;
   border-color: rgba(255, 255, 255, 0.4) !important;
   transform: scale(1.1) rotate(90deg) !important;
+}
+
+/* 🙈 BULLETPROOF SCROLLBAR HIDER UTILITIES */
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.scrollbar-none {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;     /* Firefox */
 }

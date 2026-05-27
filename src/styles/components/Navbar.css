@@ -21,9 +21,10 @@ body:has(.subpage-layout) .navbar {
     0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* INNER PAGE NAVBAR - GALLERY, CHEF, CONTACT */
+/* INNER PAGE NAVBAR - GALLERY, CHEF, CONTACT, RESERVATION */
 html:not(.home-page) body:has(.gallery-page) .navbar,
 html:not(.home-page) body:has(.journey-portfolio) .navbar,
+html:not(.home-page) body:has(.reservation-page) .navbar,
 html:not(.home-page) body:has(.contact-page) .navbar {
   background: rgba(237, 247, 247, 0.88);
   /* Brand --bg with high opacity */

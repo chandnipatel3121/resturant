@@ -264,7 +264,6 @@ section {
     /* No scroll-padding-top: sections are height:100dvh + overflow:hidden.
        Any top offset pushes their bottom edge outside the viewport and clips it.
        The navbar floats over each section’s background top — centered content stays visible. */
-    overscroll-behavior: none;
   }
 
   html.home-page body {
@@ -292,7 +291,6 @@ section {
     scroll-behavior: smooth !important;
     /* No scroll-padding-top — same reason as desktop: sections are 100dvh,
        any offset clips their bottom. Navbar floats over background. */
-    overscroll-behavior: none;
   }
 
   html.home-page section,

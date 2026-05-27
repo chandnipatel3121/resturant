@@ -180,10 +180,14 @@ const DishItem = ({ dish, distance, isVisible, slotSize, radius, accentColor, is
           y: isHovered ? -15 : [0, -15, 0],
           scale: isHovered ? 1.03 : [1, 1.03, 1],
         } : {}}
-        transition={{
+        transition={isHovered ? {
+          rotate: { duration: 0.6, ease: "easeOut" },
+          y:      { duration: 0.6, ease: "easeOut" },
+          scale:  { duration: 0.6, ease: "easeOut" },
+        } : {
           rotate: { repeat: Infinity, duration: 12, ease: "easeInOut" },
-          y: { repeat: Infinity, duration: 8, ease: "easeInOut" },
-          scale: { repeat: Infinity, duration: 6, ease: "easeInOut" },
+          y:      { repeat: Infinity, duration: 8,  ease: "easeInOut" },
+          scale:  { repeat: Infinity, duration: 6,  ease: "easeInOut" },
         }}
         className="relative"
         style={{

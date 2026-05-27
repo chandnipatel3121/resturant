@@ -32,10 +32,89 @@ import {
   Carrot,
   Globe,
 } from "lucide-react"
-import menuData from "../data/menuData"
+import rawMenuData from "../data/menuData"
 import patternBg from "../assets/pattern_bg.png"
 import anandoLogo from "../assets/logo.png"
 import "../styles/sections/MenuSection.css"
+
+// Dynamically enrich menuData with realistic ingredients if default placeholders are present
+const getRealisticIngredients = (dish) => {
+  const title = dish.title.toLowerCase()
+  const desc = (dish.description || "").toLowerCase()
+
+  const foundIngredients = []
+
+  // Check for common specific ingredient keywords in title and description
+  if (title.includes("cheese") || desc.includes("cheese")) foundIngredients.push("Cheese")
+  if (title.includes("paneer") || desc.includes("paneer")) foundIngredients.push("Paneer")
+  if (title.includes("mushroom") || desc.includes("mushroom") || desc.includes("mushrooms")) foundIngredients.push("Mushrooms")
+  if (title.includes("tomato") || desc.includes("tomato") || desc.includes("tomatoes")) foundIngredients.push("Tomatoes")
+  if (title.includes("onion") || desc.includes("onion") || desc.includes("onions")) foundIngredients.push("Onions")
+  if (title.includes("pineapple") || desc.includes("pineapple")) foundIngredients.push("Pineapple")
+  if (title.includes("corn") || desc.includes("corn") || desc.includes("baby corn")) {
+    if (title.includes("baby corn") || desc.includes("baby corn")) foundIngredients.push("Baby Corn")
+    else foundIngredients.push("Sweet Corn")
+  }
+  if (title.includes("garlic") || desc.includes("garlic")) foundIngredients.push("Garlic")
+  if (title.includes("ginger") || desc.includes("ginger")) foundIngredients.push("Ginger")
+  if (title.includes("potato") || desc.includes("potato") || desc.includes("masala")) {
+    if (title.includes("dosa") || desc.includes("dosa") || title.includes("uttapam")) {
+      foundIngredients.push("Potato Masala")
+    }
+  }
+  if (title.includes("chutney") || desc.includes("chutney")) foundIngredients.push("Green Chutney")
+  if (title.includes("noodles") || desc.includes("noodles")) foundIngredients.push("Hakka Noodles")
+  if (title.includes("schezwan") || desc.includes("schezwan")) foundIngredients.push("Schezwan Sauce")
+  if (title.includes("butter") || desc.includes("butter")) foundIngredients.push("Butter")
+  if (title.includes("chocolate") || desc.includes("chocolate")) foundIngredients.push("Chocolate")
+  if (title.includes("fruit") || desc.includes("fruit")) foundIngredients.push("Fresh Fruits")
+
+  // Fallbacks by base types to ensure we always have 3 ingredients
+  const baseIngredients = []
+  if (title.includes("dosa")) {
+    if (title.includes("mysore")) baseIngredients.push("Mysore Chutney")
+    if (title.includes("rava")) baseIngredients.push("Semolina (Rava)")
+    else baseIngredients.push("Rice & Lentil Batter")
+    baseIngredients.push("Curry Leaves", "Sambar")
+  } else if (title.includes("uttapam")) {
+    baseIngredients.push("Fermented Batter", "Curry Leaves", "Sambar")
+  } else if (title.includes("idli")) {
+    baseIngredients.push("Steamed Rice Batter", "Coconut Chutney", "Sambar")
+  } else if (title.includes("vada")) {
+    baseIngredients.push("Black Gram Batter", "Coconut Chutney", "Sambar")
+  } else if (title.includes("pizza")) {
+    baseIngredients.push("Pizza Crust", "Marinara Sauce", "Italian Herbs")
+  } else if (title.includes("sandwich") || title.includes("burger") || title.includes("patty")) {
+    baseIngredients.push("Fresh Bread / Bun", "Cucumber & Lettuce", "Mayonnaise")
+  } else if (title.includes("noodles") || title.includes("chopsuey")) {
+    baseIngredients.push("Sauteed Veggies", "Soy Sauce", "Spring Onion")
+  } else if (title.includes("rice") || title.includes("pulao") || title.includes("biryani")) {
+    baseIngredients.push("Basmati Rice", "Cardamom & Cloves", "Ghee")
+  } else if (title.includes("manchurian") || title.includes("chilli") || title.includes("shanghai")) {
+    baseIngredients.push("Soy Sauce", "Spring Onions", "Capsicum")
+  } else {
+    baseIngredients.push("Fresh Herbs", "House Spices", "Olive Oil")
+  }
+
+  const combined = [...new Set([...foundIngredients, ...baseIngredients])]
+  return combined.slice(0, 3)
+}
+
+const menuData = rawMenuData.map(dish => {
+  if (
+    dish.ingredients &&
+    dish.ingredients.length === 3 &&
+    dish.ingredients[0] === "Fresh Ingredients" &&
+    dish.ingredients[1] === "Secret Spices" &&
+    dish.ingredients[2] === "Herbs"
+  ) {
+    return {
+      ...dish,
+      ingredients: getRealisticIngredients(dish)
+    }
+  }
+  return dish
+})
 
 const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
   const [isHovered, setIsHovered] = useState(false)
@@ -643,13 +722,51 @@ const MenuSection = () => {
       window.lenis.scrollTo(0, { immediate: true })
     }
 
-    // Slight delay to ensure ScrollToTop and Lenis have completed their resets
+    let active = true
+    let checkCount = 0
+
+    const enableSnap = () => {
+      if (!active) return
+      // Ensure we are fully scrolled to the top before enabling scroll snap,
+      // avoiding layout jumps where the browser snaps to the second section.
+      if (window.scrollY === 0 || checkCount > 15) {
+        document.documentElement.classList.add("menu-snap-page")
+      } else {
+        checkCount++
+        window.scrollTo(0, 0)
+        if (window.lenis) {
+          window.lenis.scrollTo(0, { immediate: true })
+        }
+        requestAnimationFrame(enableSnap)
+      }
+    }
+
+    // Delay briefly to allow DOM/route changes to settle, then verify scroll position
     const timer = setTimeout(() => {
-      document.documentElement.classList.add("menu-snap-page")
-    }, 100)
+      requestAnimationFrame(enableSnap)
+    }, 150)
+
+    // Dynamic scroll snapping controller for all viewports (Mobile & Desktop)
+    const handleScroll = () => {
+      const isDesktop = window.innerWidth >= 1024
+      const heroHeight = isDesktop ? 400 : window.innerHeight // Mobile hero is 100dvh
+      const currentScroll = window.scrollY
+
+      // If scrolled past the hero transition zone, remove snapping to allow fluid natural scrolling inside the grid.
+      // If returning to the top transition zone, re-enable snap for forced page snaps between Hero and Grid.
+      if (currentScroll > heroHeight + 50) {
+        document.documentElement.classList.remove("menu-snap-page")
+      } else {
+        document.documentElement.classList.add("menu-snap-page")
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
 
     return () => {
+      active = false
       clearTimeout(timer)
+      window.removeEventListener("scroll", handleScroll)
       document.documentElement.classList.remove("menu-snap-page")
     }
   }, [])
@@ -659,12 +776,30 @@ const MenuSection = () => {
       activeCuisines.length > 0 ||
       activeCourses.length > 0 ||
       activeMeals.length > 0 ||
+      activeDiets.length > 0 ||
       searchQuery !== ""
     )
-  }, [activeCuisines, activeCourses, activeMeals, searchQuery])
+  }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery])
 
-  // Smart dynamic scroll management to bypass all filter layout jumps
+  // Disable scroll snapping completely when any filter is active, preventing scroll snapping glitches!
   React.useEffect(() => {
+    if (hasActiveFilters) {
+      document.documentElement.classList.remove("menu-snap-page")
+    } else {
+      // Re-evaluate snap state based on scroll
+      const isDesktop = window.innerWidth >= 1024
+      const heroHeight = isDesktop ? 400 : window.innerHeight
+      if (window.scrollY <= heroHeight + 50) {
+        document.documentElement.classList.add("menu-snap-page")
+      }
+    }
+  }, [hasActiveFilters])
+
+  // Smart dynamic scroll management to bypass all filter layout jumps (Desktop only)
+  React.useEffect(() => {
+    const isDesktop = window.innerWidth >= 1024
+    if (!isDesktop) return
+
     if (mainLayoutRef.current) {
       const rect = mainLayoutRef.current.getBoundingClientRect()
       const absoluteTop = window.pageYOffset + rect.top
@@ -882,13 +1017,12 @@ const MenuSection = () => {
       </AnimatePresence>
 
       <div className="min-h-screen bg-transparent">
-        {/* Full-Width Hero conditionally rendered with smooth animation */}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {!hasInteracted && !hasActiveFilters && (
             <motion.div
               className="enhanced-menu-hero pattern-variant"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 400, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{ overflow: "hidden" }}
@@ -903,12 +1037,7 @@ const MenuSection = () => {
               </div>
 
               <div className="w-full max-w-[1800px] mx-auto px-[var(--container-px)] relative z-20 h-full flex flex-col justify-center py-8">
-                <motion.div
-                  className="hero-panel-header flex justify-between items-center mb-4"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                >
+                <div className="hero-panel-header flex justify-between items-center mb-4">
                   <div className="brand-group">
                     <span className="text-editorial !text-[var(--accent)] block leading-none mb-1">
                       anandofoods
@@ -917,38 +1046,24 @@ const MenuSection = () => {
                   <div className="menu-year text-editorial !text-white/60">
                     Collection '26
                   </div>
-                </motion.div>
+                </div>
 
                 <div className="hero-panel-content flex flex-col items-center justify-center text-center w-full max-w-[800px] mx-auto py-8">
                   <div className="text-center overflow-hidden">
-                    <motion.h1
-                      className="hero-title-main !text-white text-center"
-                      initial={{ y: "80px", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                    >
+                    <h1 className="hero-title-main !text-white text-center">
                       A{" "}
                       <span className="italic-serif text-[var(--accent)]">
                         Symphony
                       </span>{" "}
                       of <br />
                       Culinary Art.
-                    </motion.h1>
+                    </h1>
 
-                    <motion.p
-                      className="hero-subtitle-text mt-6 !text-white/70 text-center"
-                      initial={{ y: "40px", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        duration: 1.4,
-                        ease: [0.16, 1, 0.3, 1],
-                        delay: 0.25,
-                      }}
-                    >
+                    <p className="hero-subtitle-text mt-6 !text-white/70 text-center">
                       Discover our hand-picked selection of gourmet
                       masterpieces, where every plate is a canvas of tradition
                       and innovation.
-                    </motion.p>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1379,77 +1494,6 @@ const MenuSection = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Terms and Conditions */}
-      <div className="max-w-[1200px] mx-auto px-[var(--container-px)] mt-24 mb-12">
-        <div className="bg-white/5 border border-[var(--accent)]/30 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-md">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full blur-[100px] opacity-10"></div>
-
-          <div className="text-center mb-8">
-            <h3 className="text-editorial !text-[var(--accent)] text-2xl md:text-3xl mb-2">
-              Terms and Conditions
-            </h3>
-            <div className="w-16 h-1 bg-[var(--accent)]/50 mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-sm text-[var(--text)]/80">
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Taxes Applicable As Per Govt. Rules</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Party Orders Are Accepted</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Parcel Service Available</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Jain Food Is Available</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>We Serve Purified Drinking Water</span>
-              </li>
-            </ul>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>Order Once Placed Will Not Be Cancelled</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>
-                  Preparation Time Is Min. 15 Minutes After The Order Is Placed
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>
-                  Outside Eatables Not Allowed. Except Birthday Cakes Food Items
-                  Available Will Be Served.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>
-                  Cold Drink And Ice Cream Rates Are As Per Prevailing MRP &
-                  Quantity As Printed By The Company
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
-                <span>
-                  All Items Are Prepared Manually Hence Slight Variation In
-                  Weight May Occur Inspite Of Utmost Care.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </section>
   )
 }

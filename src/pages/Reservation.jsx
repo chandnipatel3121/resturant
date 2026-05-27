@@ -1,37 +1,55 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useNav } from "../utils/NavContext";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { Sparkles, Calendar, Users, MapPin, Clock, User, Phone, Edit3, ArrowUpRight, Globe } from "lucide-react";
 import "../styles/pages/Reservation.css";
 
 const Reservation = () => {
   const { setNavTheme } = useNav();
 
+  // Dynamic states
+  const [selectedMeal, setSelectedMeal] = useState("Dinner");
+  const [selectedTime, setSelectedTime] = useState("07:00 PM");
+  const [timeZoneName, setTimeZoneName] = useState("IST");
+
   // Enforce green theme for the navbar on mount
   useEffect(() => {
     setNavTheme('green');
+
+    // Dynamically retrieve user's system timezone abbreviation
+    try {
+      const tzString = new Date().toLocaleDateString('en-US', { timeZoneName: 'short' });
+      const parts = tzString.split(' ');
+      const abbreviation = parts[parts.length - 1];
+      if (abbreviation && abbreviation.length <= 4) {
+        setTimeZoneName(abbreviation);
+      } else {
+        // Fallback calculation using standard resolved options
+        const resolvedTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (resolvedTz.includes("Calcutta") || resolvedTz.includes("Kolkata") || resolvedTz.includes("Asia/Delhi")) {
+          setTimeZoneName("IST");
+        } else {
+          setTimeZoneName(resolvedTz.split("/").pop().replace("_", " "));
+        }
+      }
+    } catch (e) {
+      setTimeZoneName("Local Time");
+    }
+
     return () => setNavTheme('light');
   }, [setNavTheme]);
 
-  // Framer Motion Variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
+  // Define proper timing configurations
+  const mealConfigurations = {
+    Breakfast: ["08:00 AM", "09:00 AM", "10:00 AM"],
+    Lunch: ["12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM"],
+    Dinner: ["07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM"]
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    },
+  // Keep selectedTime valid when switching meals
+  const handleMealChange = (meal) => {
+    setSelectedMeal(meal);
+    setSelectedTime(mealConfigurations[meal][0]);
   };
 
   return (
@@ -40,166 +58,167 @@ const Reservation = () => {
       <div className="bg-glow res-glow-1"></div>
       <div className="bg-glow res-glow-2"></div>
 
-      {/* Split Layout Container */}
-      <div className="reservation-container">
+      {/* Premium Dashboard-Style Single Viewport Card */}
+      <motion.div
+        className="reservation-card-premium"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <form className="res-form-grid" onSubmit={(e) => e.preventDefault()}>
 
-        {/* Left Side: Ambient Image & Branding */}
-        <motion.div
-          className="res-ambient-side"
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop"
-            alt="Anando Foods Elegant Dining"
-            className="res-ambient-img"
-          />
-          <div className="res-ambient-overlay">
-            <div className="res-ambient-content">
-              <Sparkles size={24} className="res-star" />
-              <h2>A Symphony of <br /><span>Flavors Awaits</span></h2>
-              <p>Join us for an unforgettable culinary journey at Anando Foods. Experience the legacy.</p>
+          {/* Left Panel: Gold/Dark-Green Brand Setting Panel */}
+          <div className="res-left-panel">
+            <div className="res-brand-crest">
+              <Sparkles size={20} className="res-gold-star" />
+              <h3>anandofoods</h3>
+              <p className="res-journal-tag">Secure Your Table</p>
+            </div>
+
+            <div className="res-panel-sections">
+              {/* Date Selection */}
+              <div className="panel-field-group">
+                <label className="panel-field-label">
+                  <Calendar size={14} className="panel-icon" />
+                  <span>1. Reservation Date</span>
+                </label>
+                <input type="date" required defaultValue="2026-05-27" className="panel-input" />
+              </div>
+
+              {/* Number of Guests */}
+              <div className="panel-field-group">
+                <label className="panel-field-label">
+                  <Users size={14} className="panel-icon" />
+                  <span>2. Confirmed Guests</span>
+                </label>
+                <input type="number" min="1" required defaultValue="2" className="panel-input" />
+              </div>
+
+              {/* Area & Table Selection */}
+              <div className="panel-field-group">
+                <label className="panel-field-label">
+                  <MapPin size={14} className="panel-icon" />
+                  <span>3. Seating Preference</span>
+                </label>
+                <div className="panel-row-inputs">
+                  <select className="panel-select">
+                    <option>AC Area</option>
+                    <option>Non-AC</option>
+                    <option>Outdoor</option>
+                  </select>
+                  <select className="panel-select">
+                    <option>Table: T-01</option>
+                    <option>Table: T-02</option>
+                    <option>Table: T-03</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="res-left-footer">
+              <p>✦ A Symphony of Flavors Awaits</p>
             </div>
           </div>
-        </motion.div>
 
-        {/* Right Side: Premium Form */}
-        <motion.div
-          className="res-form-side"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="res-form-scroll-area">
-            <div className="res-form-header">
-              <motion.div className="res-tag" variants={itemVariants}>
-                ✦ SECURE YOUR TABLE
-              </motion.div>
-              <motion.h1 variants={itemVariants}>
-                Reservation
-              </motion.h1>
-              <motion.p variants={itemVariants}>
-                Please fill in your details to reserve a table. We will confirm your booking shortly.
-              </motion.p>
+          {/* Right Panel: Detailed Time, Info, and Submit */}
+          <div className="res-right-panel">
+            <div className="right-panel-header">
+              <h1>Reservation</h1>
+              <p>We will confirm your dining request shortly.</p>
             </div>
 
-            <motion.form className="detailed-res-form" onSubmit={(e) => e.preventDefault()} variants={itemVariants}>
+            <div className="right-panel-content">
 
-              {/* 1. RESERVATION DATE */}
-              <div className="form-section">
-                <label className="section-title">1. RESERVATION DATE</label>
-                <div className="input-group-labeled">
-                  <input type="date" required defaultValue="2026-05-22" />
-                </div>
-              </div>
-
-              {/* 2. TIME SLOT */}
-              <div className="form-section">
-                <label className="section-title">2. TIME SLOT</label>
-                <div className="time-slots">
-                  <button type="button" className="time-slot-btn active">
-                    <span className="meal">DINNER</span>
-                    <span className="time">06:00 PM</span>
-                  </button>
-                  <button type="button" className="time-slot-btn">
-                    <span className="meal">DINNER</span>
-                    <span className="time">07:00 PM</span>
-                  </button>
-                  <button type="button" className="time-slot-btn">
-                    <span className="meal">DINNER</span>
-                    <span className="time">08:00 PM</span>
-                  </button>
-                  <button type="button" className="time-slot-btn">
-                    <span className="meal">DINNER</span>
-                    <span className="time">09:00 PM</span>
-                  </button>
-                </div>
-                <div className="grace-period-warning">
-                  <span className="warning-icon">⚠️</span>
-                  <p><strong>Grace Period Policy:</strong> If you book for 07:00 PM, you must arrive by <strong>07:15 PM</strong>. The table will be automatically released if you are more than 15 minutes late.</p>
-                </div>
-              </div>
-
-              {/* 3. NUMBER OF GUESTS */}
-              <div className="form-section">
-                <label className="section-title">3. NUMBER OF GUESTS</label>
-                <div className="input-group-labeled">
-                  <label className="sub-label">Confirmed guests</label>
-                  <input type="number" min="1" required defaultValue="2" />
-                </div>
-              </div>
-
-              {/* 4. AREA & UNIT SELECTION */}
-              <div className="form-section">
-                <label className="section-title">4. AREA & UNIT SELECTION</label>
-                <div className="form-row">
-                  <div className="input-group-labeled">
-                    <label className="sub-label">Select area</label>
-                    <select>
-                      <option>AC</option>
-                      <option>Non-AC</option>
-                      <option>Outdoor</option>
-                    </select>
+              {/* 4. Select Meal Type & Time Slot (Dynamic & Timezone Aware) */}
+              <div className="res-section-block">
+                <div className="section-title-row">
+                  <label className="section-title">
+                    <Clock size={15} /> <span>4. Select Timing</span>
+                  </label>
+                  <div className="timezone-badge">
+                    <Globe size={11} />
+                    <span>{timeZoneName}</span>
                   </div>
-                  <div className="input-group-labeled">
-                    <label className="sub-label">Select table(s)</label>
-                    <select>
-                      <option>Tables: T-01</option>
-                      <option>Tables: T-02</option>
-                    </select>
+                </div>
+
+                {/* Modern Meal Selector Tabs */}
+                <div className="meal-tabs-container">
+                  {Object.keys(mealConfigurations).map((meal) => (
+                    <button
+                      key={meal}
+                      type="button"
+                      className={`meal-tab-btn ${selectedMeal === meal ? "active" : ""}`}
+                      onClick={() => handleMealChange(meal)}
+                    >
+                      {meal}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Modern Time Slots Grid */}
+                <div className="time-slots-modern">
+                  {mealConfigurations[selectedMeal].map((time) => (
+                    <button
+                      key={time}
+                      type="button"
+                      className={`time-slot-btn-modern ${selectedTime === time ? "active" : ""}`}
+                      onClick={() => setSelectedTime(time)}
+                    >
+                      <span className="meal">{selectedMeal}</span>
+                      <span className="time">{time}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="grace-warning-modern">
+                  <span className="warning-dot"></span>
+                  <p><strong>Grace Policy:</strong> Booked tables are held for 15 minutes in <strong>{timeZoneName}</strong>. Delayed arrivals may release the slot.</p>
+                </div>
+              </div>
+
+              {/* 5. Personal Information */}
+              <div className="res-section-block">
+                <label className="section-title">
+                  <User size={15} /> <span>5. Personal Information</span>
+                </label>
+                <div className="info-form-row">
+                  <div className="info-input-wrapper">
+                    <input type="text" required placeholder="Full name (e.g. Harsh)" className="info-input" />
+                  </div>
+                  <div className="info-input-wrapper">
+                    <input type="tel" required placeholder="Mobile number" className="info-input" />
                   </div>
                 </div>
               </div>
 
-              {/* 5. YOUR INFORMATION */}
-              <div className="form-section">
-                <label className="section-title">5. YOUR INFORMATION</label>
-                <div className="form-row">
-                  <div className="input-group-labeled">
-                    <label className="sub-label">👤 Full name</label>
-                    <input type="text" required placeholder="harsh" />
-                  </div>
-                  <div className="input-group-labeled">
-                    <label className="sub-label">📞 Mobile number (Verified)</label>
-                    <input type="tel" required placeholder="9879642688" />
-                  </div>
-                </div>
+              {/* 6. Special Requests */}
+              <div className="res-section-block">
+                <label className="section-title">
+                  <Edit3 size={15} /> <span>6. Special Notes</span>
+                </label>
+                <input type="text" placeholder="e.g. Anniversary dinner, allergics, baby chair..." className="special-input" />
               </div>
 
-              {/* 6. SPECIAL REQUESTS */}
-              <div className="form-section">
-                <label className="section-title">6. SPECIAL REQUESTS</label>
-                <textarea rows="3" placeholder="e.g. Anniversary dinner, need a high chair, allergic to peanuts..."></textarea>
-              </div>
-
-              {/* 7. TERMS & CONDITIONS */}
-              <div className="form-section">
-                <label className="section-title">7. TERMS & CONDITIONS</label>
-                <div className="terms-box">
-                  <h5>Booking Policy</h5>
-                  <p>Reservations are held for 15 minutes after the scheduled time. Please call ahead if you expect to be late.</p>
-                  <div className="terms-divider"></div>
-                  <h5>Cancellation Policy</h5>
-                  <p>Cancellations must be made at least 2 hours before the reservation time. Late cancellations may attract a fee.</p>
-                </div>
-                <div className="checkbox-group">
+              {/* 7. Terms & Conditions & Book Button */}
+              <div className="res-terms-and-submit">
+                <div className="terms-checkbox-wrapper">
                   <input type="checkbox" id="terms-agree" required />
-                  <label htmlFor="terms-agree">I have read and agree to the above Terms & Conditions</label>
+                  <label htmlFor="terms-agree">
+                    I agree to the <strong>Booking & Cancellation policies</strong> of anandofoods.
+                  </label>
                 </div>
-              </div>
 
-              <div className="submit-section">
-                <button type="submit" className="submit-reservation-btn">
-                  Submit Reservation Request
+                <button type="submit" className="submit-res-btn-premium">
+                  <span>Confirm Dining Request ({selectedTime} {timeZoneName})</span>
+                  <ArrowUpRight size={18} />
                 </button>
-                <p className="submit-note">☝️ Please accept the Terms & Conditions above to continue</p>
               </div>
-            </motion.form>
-          </div>
-        </motion.div>
 
-      </div>
+            </div>
+          </div>
+
+        </form>
+      </motion.div>
     </div>
   );
 };

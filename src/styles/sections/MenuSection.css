@@ -41,13 +41,14 @@ html.menu-snap-page .menu-main-layout {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   scroll-margin-top: 76px;
+  min-height: 100dvh;
   /* Offsets for the sticky navbar */
 }
 
 @media (max-width: 768px) {
   html.menu-snap-page .menu-main-layout {
-    scroll-margin-top: 50px !important;
-    /* Mobile navbar height offset */
+    scroll-margin-top: 56px !important;
+    /* Aligns perfectly flush under mobile navbar */
   }
 }
 
@@ -1124,8 +1125,8 @@ html.menu-snap-page .menu-main-layout {
 @media (max-width: 768px) {
   /* Sticky filter bar: solid white with border and overlap under navbar */
   .menu-filters-sticky {
-    top: 49px !important;
-    /* Premium subpixel overlap under mobile navbar (prevent hero peeking) */
+    top: 56px !important;
+    /* Aligns perfectly flush under the mobile navbar (56px) */
     background: #ffffff !important;
     /* Solid clean white to completely block scrolling dish cards */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
@@ -1206,9 +1207,7 @@ html.menu-snap-page .menu-main-layout {
 
   .meal-pill-modern {
     padding: 4px 9px !important;
-    /* Compact padding to fit without scroll on narrow screens */
     font-size: 0.65rem !important;
-    /* Slightly smaller text for pristine legibility */
     white-space: nowrap;
   }
 
@@ -1224,18 +1223,13 @@ html.menu-snap-page .menu-main-layout {
   .meal-stats-row .search-stats {
     display: inline-flex !important;
     padding: 4px 8px !important;
-    /* Premium compact padding */
     font-size: 0.62rem !important;
-    /* Elegant compact text */
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
     color: #d4af37 !important;
-    /* Premium Gold text */
     background: rgba(212, 175, 55, 0.08) !important;
-    /* Soft gold background */
     border: 1px solid rgba(212, 175, 55, 0.25) !important;
-    /* Soft gold border */
     border-radius: 100px !important;
     white-space: nowrap !important;
     box-shadow: none !important;
@@ -1305,14 +1299,13 @@ html.menu-snap-page .menu-main-layout {
   /* Grid container margin adjustments */
   .menu-grid-container {
     padding-top: 24px !important;
-    /* Premium generous spacing to offset sticky header */
   }
 
-  /* Grid: two compact cards per row on mobile */
+  /* Grid: Single-column beautiful stacked list for readability */
   .explorer-grid {
     padding: 16px 8px 0 !important;
-    gap: 10px !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    grid-template-columns: 1fr !important;
   }
 }
 
