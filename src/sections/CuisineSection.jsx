@@ -356,7 +356,7 @@ const CuisineSection = () => {
 
     hoverTimeout.current = setTimeout(() => {
       setHoveredIndex(null)
-    }, 350)
+    }, 220)
   }
   const handleDishClick = (e, i) => {
     e.stopPropagation()
@@ -506,7 +506,6 @@ const CuisineSection = () => {
                       width: "100%",
                       height: "100%",
                       position: "relative",
-                      pointerEvents: "none", /* outer wrapper handles all events */
                     }}
                     variants={{
                       hidden: {
@@ -535,50 +534,37 @@ const CuisineSection = () => {
                       },
                     }}
                   >
-                    {/* Counter-rotation wrapper — CSS animation only, no FM transforms */}
-                    <div
+                    <motion.div
                       className="cuisine-dish-motion-wrapper"
-                      style={{ zIndex: hoveredIndex === i ? 100 : 1 }}
+                      animate={{
+                        y:
+                          activeIndex === i ? -25 : hoveredIndex === i ? -6 : 0,
+                        scale: hoveredIndex === i ? 1.03 : 1,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 180,
+                        damping: 18,
+                      }}
+                      style={{
+                        zIndex: hoveredIndex === i ? 100 : 1,
+                      }}
                     >
-                      {/* Hover lift/scale wrapper — Framer Motion only, no CSS animation */}
-                      <motion.div
-                        className="cuisine-dish-hover-inner"
-                        animate={{
-                          y:
-                            activeIndex === i
-                              ? -25
-                              : hoveredIndex === i
-                                ? -8
-                                : 0,
-                          scale:
-                            activeIndex === i
-                              ? 1.05
-                              : hoveredIndex === i
-                                ? 1.06
-                                : 1,
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 20,
-                        }}
+                      <div
+                        className={`cuisine-dish-plate-premium ${activeIndex === i ? "active-plate" : ""}`}
                       >
-                        <div
-                          className={`cuisine-dish-plate-premium ${activeIndex === i ? "active-plate" : ""}`}
-                        >
-                          <div className="plate-rim-gold">
-                            <div className="plate-inner-content">
-                              <img
-                                src={cuisine.img}
-                                alt={cuisine.name}
-                                className="dish-img-topview"
-                              />
-                            </div>
+                        <div className="plate-rim-gold">
+                          <div className="plate-inner-content">
+                            <img
+                              src={cuisine.img}
+                              alt={cuisine.name}
+                              className="dish-img-topview"
+                            />
                           </div>
                         </div>
-                        <div className="dish-shadow-top" />
-                      </motion.div>
-                    </div>
+                      </div>
+                      <div className="dish-shadow-top" />
+                    </motion.div>
                   </motion.div>
                 </div>
               ))}
