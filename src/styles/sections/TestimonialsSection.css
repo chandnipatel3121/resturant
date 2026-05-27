@@ -261,7 +261,7 @@
 @media (max-height: 700px) {
   .testimonials-section {
     padding-top: 5rem;
-    min-height: 110dvh;
+    min-height: 100dvh;
   }
 
   .testimonials-header {

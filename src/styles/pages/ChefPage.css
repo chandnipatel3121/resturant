@@ -793,6 +793,13 @@ body.journey-page-active {
   }
 }
 
+/* 📱 Mobile — tighten gap between title and quote */
+@media (max-width: 768px) {
+  .phil-header-split {
+    gap: 1rem;
+  }
+}
+
 /* ==========================================================================
      4. MASTER CHEFS & SIGNATURE DISHES SHOWCASE
      ========================================================================== */

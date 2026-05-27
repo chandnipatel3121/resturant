@@ -744,9 +744,9 @@ html.menu-snap-page .menu-main-layout {
     min-width: 96px !important;
     max-width: 96px !important;
     flex-shrink: 0 !important;
-    height: calc(100dvh - 49px) !important;
+    height: calc(100dvh - 56px) !important;
     position: sticky !important;
-    top: 49px !important;
+    top: 56px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     padding: 10px 0 20px !important;
