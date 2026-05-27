@@ -40,7 +40,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px; /* Standardized size */
+  width: 300px;
   height: 300px;
   z-index: 110;
   display: flex;
@@ -51,7 +51,7 @@
 }
 
 .stage-card-premium .cloche-v2-container {
-  top: 0 !important; /* Forces it to the top border */
+  top: 0 !important;
 }
 
 .cloche-v2-img {
@@ -62,7 +62,7 @@
 }
 
 .gif-main {
-  transform: scale(1.1); /* Slight boost for the GIF impact */
+  transform: scale(1.1);
 }
 
 /* ♨️ Liquid Steam */
@@ -117,7 +117,7 @@
 }
 
 .card-inner-content-v2 {
-  padding: 110px 40px 50px; /* Increased top padding for cloche overlap */
+  padding: 110px 40px 50px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -138,7 +138,7 @@
 
 .transaction-title {
   font-family: var(--font-serif);
-  font-size: 2.2rem; /* Adjusted for badge space */
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 0.5rem;
@@ -213,53 +213,78 @@
   mix-blend-mode: difference;
 }
 
+/* ============================
+   📱 MOBILE STYLES
+   ============================ */
 @media (max-width: 768px) {
   .popup-overlay-ad {
-    padding: max(4.5rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom));
+    padding: max(4rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom));
     touch-action: none;
+    align-items: center;
   }
 
+  /* Card: wider & taller — matches reference image */
   .stage-card-premium {
-    width: 88%;
-    max-width: 340px;
-    min-height: 380px;
-    border-radius: 30px;
+    width: 90%;
+    max-width: 400px;
+    min-height: 420px;
+    border-radius: 36px;
   }
-  
+
+  /* Food GIF: bigger container so it peeks properly above the card */
   .cloche-v2-container {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
   }
-  
+
+  /* Top padding increased so the cloche image overlaps the card top nicely */
   .card-inner-content-v2 {
-    padding: 80px 20px 24px;
+    padding: 130px 32px 40px;
   }
-  
+
+  /* Badge */
   .seasonal-badge {
-    font-size: 0.6rem;
-    padding: 0.3rem 0.8rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.68rem;
+    padding: 0.35rem 1rem;
+    margin-bottom: 0.9rem;
+    letter-spacing: 2px;
   }
-  
+
+  /* Title: large & bold, wraps to 2 lines like the reference */
   .transaction-title {
-    font-size: 1.6rem;
-    margin-bottom: 0.4rem;
+    font-size: 2.5rem;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
   }
-  
+
   .gold-divider {
-    margin: 0.8rem 0;
+    width: 48px;
+    height: 3px;
+    margin: 1.1rem 0;
   }
-  
+
+  /* Description */
   .transaction-desc {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
   }
-  
+
+  /* Close button: solid white circle, clearly visible on light card */
   .formation-close {
-    top: 16px;
-    right: 16px;
-    width: 32px;
-    height: 32px;
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    color: #1a1a1a;
+    mix-blend-mode: normal;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
