@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react"
 import {
   motion,
-  useScroll,
   useTransform,
   useSpring,
   useMotionValueEvent,
+  useMotionValue,
 } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
@@ -23,7 +23,12 @@ const HeroSection = () => {
   const prevV = useRef(0)
   const hasShownPopup = useRef(false)
   const { setPastHero, navTheme, setNavTheme } = useNav()
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 1024
+    }
+    return false
+  })
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024)
@@ -32,17 +37,47 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  const containerRef = useRef(null)
+  const scrollYProgress = useMotionValue(0)
 
-  if (typeof document !== "undefined" && !containerRef.current) {
-    containerRef.current = document.querySelector(".app-scroll-container")
-  }
+  useEffect(() => {
+    const container = isMobile
+      ? document.querySelector(".app-scroll-container")
+      : window
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    container: containerRef,
-    offset: ["start start", "end end"],
-  })
+    if (!container) return
+
+    const handleScroll = () => {
+      let progress = 0
+      if (isMobile && container instanceof HTMLElement) {
+        const scrollTop = container.scrollTop
+        const heroHeight = ref.current ? ref.current.offsetHeight : window.innerHeight * 2.6
+        const maxScroll = heroHeight - container.clientHeight
+        progress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0
+      } else {
+        const scrollTop = window.scrollY
+        const heroHeight = ref.current ? ref.current.offsetHeight : window.innerHeight * 3
+        const maxScroll = heroHeight - window.innerHeight
+        progress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0
+      }
+      scrollYProgress.set(progress)
+    }
+
+    if (isMobile) {
+      container.addEventListener("scroll", handleScroll, { passive: true })
+    } else {
+      window.addEventListener("scroll", handleScroll, { passive: true })
+    }
+
+    handleScroll()
+
+    // Add double check on a brief timeout to handle late mount layouters
+    const timer = setTimeout(handleScroll, 100)
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll)
+      clearTimeout(timer)
+    }
+  }, [isMobile])
 
   const smooth = useSpring(scrollYProgress, {
     stiffness: isMobile ? 100 : 80,
@@ -52,7 +87,8 @@ const HeroSection = () => {
 
   const morphProgress = useTransform(
     smooth,
-    isMobile ? [0, 0.18] : [0, 0.2],
+    isMobile ? [0, 0.35] : [0, 0.2],
+
     [0, 1],
   )
 
@@ -67,6 +103,20 @@ const HeroSection = () => {
       document.documentElement.style.overflow = ""
     }
   }, [showPopup])
+
+  /* Auto-trigger popup on initial load after a delay if not shown yet */
+  useEffect(() => {
+    if (!globalHasSeenPopup) {
+      const timer = setTimeout(() => {
+        if (!hasShownPopup.current) {
+          setShowPopup(true)
+          globalHasSeenPopup = true
+          hasShownPopup.current = true
+        }
+      }, 2500)
+      return () => clearTimeout(timer)
+    }
+  }, [])
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     prevV.current = v
@@ -130,7 +180,12 @@ const HeroSection = () => {
   const utensilsOpacity = useTransform(morphProgress, [0.2, 0.8], [0, 1])
   const nameOpacity = useTransform(morphProgress, [0.3, 0.8], [0, 1])
   const nameRevealY = useTransform(morphProgress, [0.85, 1], [20, 0])
-  const isTransforming = useTransform(morphProgress, [0, 0.85, 1], [0, 1, 0])
+  const bgColor = useTransform(
+    morphProgress,
+    [0, 0.01, 0.85, 0.86],
+    ["#F3F3F1", "#0f2f2f", "#0f2f2f", "#F3F3F1"]
+  )
+
   // Scene 1 stays fixed, then fully exits
   const groupY = useTransform(
     smooth,
@@ -210,7 +265,7 @@ const HeroSection = () => {
           <motion.div
             style={{
               clipPath,
-              backgroundColor: isTransforming.get() > 0 ? "#0f2f2f" : "#F3F3F1",
+              backgroundColor: bgColor,
             }}
             className="absolute inset-0 flex items-center justify-center overflow-hidden"
           >
