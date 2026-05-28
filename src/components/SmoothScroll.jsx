@@ -1,5 +1,9 @@
 import React, { useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const SmoothScroll = ({ children }) => {
   const location = useLocation()
@@ -13,8 +17,7 @@ const SmoothScroll = ({ children }) => {
         })
       },
       {
-         root: window.innerWidth < 1024 ? document.querySelector(".app-scroll-container") : null,
-        // root: null,
+        root: window.innerWidth < 1024 ? document.querySelector(".app-scroll-container") : null,
         threshold: 0.15
       }
     )
@@ -23,69 +26,91 @@ const SmoothScroll = ({ children }) => {
       visibilityObserver.observe(s)
     )
 
-    /* ── Dynamic Snapping Controller with Three-Phase Snapping ── */
-    const handleScroll = () => {
-      const hero = document.getElementById("hero-section")
-      if (!hero) {
-        document.documentElement.classList.remove("snap-peak-only", "snap-mid-only", "snap-all-sections")
-        return
-      }
+    const isHomePage = location.pathname === "/"
+    const isDesktop = window.innerWidth >= 1024
 
-      const vh = window.innerHeight
-      const currentScroll = window.scrollY
-      const isDesktop = window.innerWidth >= 1024
-
-      if (!isDesktop) {
-        document.documentElement.classList.remove("snap-peak-only", "snap-mid-only", "snap-all-sections")
-        return
-      }
-
-      const hasSnap = document.documentElement.classList.contains("snap-peak-only") ||
-        document.documentElement.classList.contains("snap-mid-only") ||
-        document.documentElement.classList.contains("snap-all-sections")
-
-      // 1. Determine if snap should be active (hysteresis logic)
-      let nextSnapActive = hasSnap
-      if (hasSnap) {
-        // Upward deactivation threshold: disable snap below 2.05dvh to allow smooth free scroll entry back to Hero
-        if (currentScroll < 2.05 * vh) {
-          nextSnapActive = false
-        }
-      } else {
-        // Downward activation threshold: enable snap past 1.8dvh as the user exits the interactive Hero zone
-        if (currentScroll >= 1.8 * vh) {
-          nextSnapActive = true
-        }
-      }
-
-      // 2. Apply snapping states
-      if (!nextSnapActive) {
-        document.documentElement.classList.remove("snap-peak-only", "snap-mid-only", "snap-all-sections")
-      } else {
-        // Map currentScroll position to the correct transition phase
-        if (currentScroll < 2.6 * vh) {
-          // Phase 1 (Peak): Snaps only to #hero-snap-peak (240dvh)
-          document.documentElement.classList.add("snap-peak-only")
-          document.documentElement.classList.remove("snap-mid-only", "snap-all-sections")
-        } else if (currentScroll < 2.95 * vh) {
-          // Phase 2 (Mid): Snaps only to #hero-snap-mid (280dvh)
-          document.documentElement.classList.add("snap-mid-only")
-          document.documentElement.classList.remove("snap-peak-only", "snap-all-sections")
-        } else {
-          // Phase 3 (Full/Downstream): Snaps sequentially to DishShowcase (320dvh) and downstream sections
-          document.documentElement.classList.add("snap-all-sections")
-          document.documentElement.classList.remove("snap-peak-only", "snap-mid-only")
-        }
+    if (!isHomePage || !isDesktop) {
+      return () => {
+        visibilityObserver.disconnect()
       }
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll() // Trigger once initially
+    // Dynamic targets calculation for custom layouts
+    const getScrollTargets = () => {
+      const vh = window.innerHeight
+      const targets = []
+
+      // Snaps for all subsequent page sections after the Hero
+      const sections = Array.from(document.querySelectorAll("section[id], footer"))
+      sections.forEach((sec) => {
+        if (sec.id === "hero-section") return
+        const rect = sec.getBoundingClientRect()
+        const top = rect.top + window.scrollY
+
+        // Only target downstream sections (starting from DishShowcase at ~300dvh)
+        if (top >= 2.8 * vh) {
+          targets.push(top)
+        }
+      })
+
+      // Clean duplicate coordinates
+      const uniqueTargets = []
+      targets.sort((a, b) => a - b).forEach((t) => {
+        if (uniqueTargets.length === 0 || Math.abs(uniqueTargets[uniqueTargets.length - 1] - t) > 50) {
+          uniqueTargets.push(t)
+        }
+      })
+
+      return uniqueTargets
+    }
+
+    // Set up GSAP snapping based on calculated targets
+    const ctx = gsap.context(() => {
+      const targets = getScrollTargets()
+
+      const setupTrigger = () => {
+        const maxScroll = ScrollTrigger.maxScroll(window)
+        if (maxScroll <= 0) return
+
+        const snapProgresses = targets.map((t) => Math.min(Math.max(t / maxScroll, 0), 1))
+
+        ScrollTrigger.create({
+          start: 0,
+          end: "max",
+          snap: {
+            snapTo: (progress) => {
+              const firstSnapProgress = snapProgresses[0]
+
+              // If the scroll position is inside the Hero section, bypass snapping completely
+              if (progress < firstSnapProgress - 0.05) {
+                return progress
+              }
+
+              let closest = snapProgresses[0]
+              let minDiff = Infinity
+              for (let i = 0; i < snapProgresses.length; i++) {
+                const diff = Math.abs(snapProgresses[i] - progress)
+                if (diff < minDiff) {
+                  minDiff = diff
+                  closest = snapProgresses[i]
+                }
+              }
+              return closest
+            },
+            duration: 0.3,
+            ease: "none"
+          }
+        })
+      }
+
+      // Allow DOM to settle before gathering dimensions
+      const timer = setTimeout(setupTrigger, 200)
+      return () => clearTimeout(timer)
+    })
 
     return () => {
       visibilityObserver.disconnect()
-      window.removeEventListener("scroll", handleScroll)
-      document.documentElement.classList.remove("snap-peak-only", "snap-mid-only", "snap-all-sections")
+      ctx.revert()
     }
   }, [location.pathname])
 

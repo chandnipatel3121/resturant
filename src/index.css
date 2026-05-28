@@ -258,23 +258,22 @@ section {
 /* 🌊 FULLPAGE SCROLL SNAPPING (Smooth & Un-glitchy) */
 @media (min-width: 1024px) {
   html.home-page {
-    height: 100%;
+    height: auto;
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: none !important;
     /* No scroll-padding-top: sections are height:100dvh + overflow:hidden.
        Any top offset pushes their bottom edge outside the viewport and clips it.
        The navbar floats over each section’s background top — centered content stays visible. */
   }
 
   html.home-page body {
-    height: 100%;
+    height: auto;
   }
 
   html.home-page section,
   html.home-page footer {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
   }
 
   html.home-page section:not(.hero-section),

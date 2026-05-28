@@ -1,6 +1,6 @@
 /* 🎭 SCROLL TRANSITION MODULE */
 .scrollTransitionWrapper {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 0; /* 0 height so it takes no scroll space */
   z-index: 20;
@@ -9,6 +9,14 @@
   align-items: center;
   justify-content: center;
   overflow: visible; /* Let the banner overflow */
+}
+/* Middle visual strip between Hero & Dish */
+.transition-strip {
+  height: auto !important;
+  min-height: auto !important;
+
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }
 
 .overlay {
@@ -83,7 +91,7 @@
   padding: 0; /* Let flex centering manage the top/bottom spacing perfectly */
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   z-index: 10;
-  
+
   /* Brand background image replacement */
   background-image: url('../../assets/anan (1).png');
   background-size: cover;

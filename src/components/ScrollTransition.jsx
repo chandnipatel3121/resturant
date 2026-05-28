@@ -32,7 +32,7 @@ const ScrollTransition = () => {
   const logoRotate = useTransform(smoothProgress, [0, 1], [-1.5, 1.5])
 
   return (
-    <div ref={containerRef} className={styles.scrollTransitionWrapper}>
+    <div  ref={containerRef} className={styles.scrollTransitionWrapper}>
       <motion.div
         className={styles.overlay}
         style={{ opacity }}
