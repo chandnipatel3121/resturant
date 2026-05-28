@@ -32,6 +32,13 @@ html.menu-snap-page {
   scroll-behavior: smooth;
 }
 
+@media (max-width: 1023px) {
+  html.menu-snap-page .app-scroll-container:has(#menu) {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+}
+
 html.menu-snap-page .enhanced-menu-hero {
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -363,6 +370,10 @@ html.menu-snap-page .menu-main-layout {
   align-items: flex-start;
   position: relative;
   min-height: calc(100dvh + 320px);
+}
+
+.menu-main-layout.menu-main-no-hero {
+  padding-top: 76px;
 }
 
 .explorer-grid {
@@ -740,6 +751,10 @@ html.menu-snap-page .menu-main-layout {
     align-items: flex-start;
   }
 
+  .menu-main-layout.menu-main-no-hero {
+    padding-top: 56px;
+  }
+
   .menu-sidebar {
     width: 96px !important;
     min-width: 96px !important;
@@ -804,7 +819,7 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .sidebar-cat-item.active {
-    background: rgba(255, 255, 255, 1) !important;
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
   }
@@ -1152,11 +1167,8 @@ html.menu-snap-page .menu-main-layout {
   }
 
   .menu-filters-sticky.is-sticky::before {
-    top: -56px !important;
-    height: 56px !important;
-    background: #ffffff !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    content: none !important;
+    display: none !important;
   }
 
   /* Minimize direct child margins/padding to make sticky area vertically compact */

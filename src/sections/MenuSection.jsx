@@ -717,8 +717,24 @@ const MenuSection = () => {
 
   // Mount/Dismount effect for scroll snap on the Menu page
   React.useEffect(() => {
+    const getScrollContainer = () =>
+      window.innerWidth < 1024
+        ? document.querySelector(".app-scroll-container")
+        : null
+
+    const getScrollTop = () => getScrollContainer()?.scrollTop ?? window.scrollY
+
+    const scrollToTop = () => {
+      const container = getScrollContainer()
+      if (container) {
+        container.scrollTop = 0
+        return
+      }
+      window.scrollTo(0, 0)
+    }
+
     // Force scroll to top before enabling snap to prevent unwanted jumping
-    window.scrollTo(0, 0)
+    scrollToTop()
     if (window.lenis) {
       window.lenis.scrollTo(0, { immediate: true })
     }
@@ -730,11 +746,11 @@ const MenuSection = () => {
       if (!active) return
       // Ensure we are fully scrolled to the top before enabling scroll snap,
       // avoiding layout jumps where the browser snaps to the second section.
-      if (window.scrollY === 0 || checkCount > 15) {
+      if (getScrollTop() === 0 || checkCount > 15) {
         document.documentElement.classList.add("menu-snap-page")
       } else {
         checkCount++
-        window.scrollTo(0, 0)
+        scrollToTop()
         if (window.lenis) {
           window.lenis.scrollTo(0, { immediate: true })
         }
@@ -751,7 +767,7 @@ const MenuSection = () => {
     const handleScroll = () => {
       const isDesktop = window.innerWidth >= 1024
       const heroHeight = isDesktop ? 400 : window.innerHeight // Mobile hero is 100dvh
-      const currentScroll = window.scrollY
+      const currentScroll = getScrollTop()
 
       // If scrolled past the hero transition zone, remove snapping to allow fluid natural scrolling inside the grid.
       // If returning to the top transition zone, re-enable snap for forced page snaps between Hero and Grid.
@@ -770,12 +786,14 @@ const MenuSection = () => {
       }
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    const scrollContainer = getScrollContainer()
+    const scrollTarget = scrollContainer || window
+    scrollTarget.addEventListener("scroll", handleScroll, { passive: true })
 
     return () => {
       active = false
       clearTimeout(timer)
-      window.removeEventListener("scroll", handleScroll)
+      scrollTarget.removeEventListener("scroll", handleScroll)
       document.documentElement.classList.remove("menu-snap-page")
     }
   }, [])
@@ -789,6 +807,7 @@ const MenuSection = () => {
       searchQuery !== ""
     )
   }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery])
+  const showMenuHero = !hasInteracted && !hasActiveFilters
 
   // Disable scroll snapping completely when any filter is active, preventing scroll snapping glitches!
   React.useEffect(() => {
@@ -798,7 +817,12 @@ const MenuSection = () => {
       // Re-evaluate snap state based on scroll
       const isDesktop = window.innerWidth >= 1024
       const heroHeight = isDesktop ? 400 : window.innerHeight
-      if (window.scrollY <= heroHeight + 50) {
+      const scrollContainer =
+        window.innerWidth < 1024
+          ? document.querySelector(".app-scroll-container")
+          : null
+      const scrollTop = scrollContainer?.scrollTop ?? window.scrollY
+      if (scrollTop <= heroHeight + 50) {
         document.documentElement.classList.add("menu-snap-page")
       }
     }
@@ -1027,7 +1051,7 @@ const MenuSection = () => {
 
       <div className="min-h-screen bg-transparent">
         <AnimatePresence>
-          {!hasInteracted && !hasActiveFilters && (
+          {showMenuHero && (
             <motion.div
               className="enhanced-menu-hero pattern-variant"
               initial={{ height: 0, opacity: 0 }}
@@ -1081,7 +1105,10 @@ const MenuSection = () => {
         </AnimatePresence>
 
         {/* Content Area with Sidebar and Grid */}
-        <div className="menu-main-layout" ref={mainLayoutRef}>
+        <div
+          className={`menu-main-layout ${showMenuHero ? "" : "menu-main-no-hero"}`}
+          ref={mainLayoutRef}
+        >
           {/* Vertical Sidebar for Cuisines */}
           <aside className="menu-sidebar reveal-left">
             <div className="sidebar-bg-effects">

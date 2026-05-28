@@ -337,10 +337,17 @@ html:not(.home-page) body:has(.contact-page) .navbar {
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
+    height: 56px !important;
+    padding: 0 !important;
     z-index: 99999 !important;
     /* Disable Framer Motion's inline transform on mobile to prevent the browser from scrolling it off-screen during address bar collapse */
     transform: none !important;
     -webkit-transform: none !important;
     will-change: auto !important;
+  }
+
+  .nav-container {
+    height: 100% !important;
+    align-items: center !important;
   }
 }
