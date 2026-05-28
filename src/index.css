@@ -274,6 +274,7 @@ section {
   html.home-page footer {
     scroll-snap-align: start;
     scroll-snap-stop: always;
+
   }
 
   html.home-page section:not(.hero-section),

@@ -372,9 +372,9 @@ html.menu-snap-page .menu-main-layout {
   min-height: calc(100dvh + 320px);
 }
 
-.menu-main-layout.menu-main-no-hero {
-  padding-top: 76px;
-}
+/* .menu-main-layout.menu-main-no-hero {
+  padding-top: 60px;
+} */
 
 .explorer-grid {
   position: relative;
@@ -914,11 +914,10 @@ html.menu-snap-page .menu-main-layout {
 
   width: 100%;
 
-  background: rgba(237, 247, 247, 0.85);
+background: #edf7f7;
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
+  backdrop-filter: none;
+-webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
   transition: all 0.3s ease;
@@ -928,25 +927,12 @@ html.menu-snap-page .menu-main-layout {
   transform: translateZ(0);
   isolation: isolate;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+ box-shadow: none;
 
   padding-top: 12px;
   padding-bottom: 16px;
 }
 
-.menu-filters-sticky.is-sticky::before {
-  content: "";
-  position: absolute;
-  top: -76px;
-  left: 0;
-  right: 0;
-  height: 76px;
-  background: rgba(237, 247, 247, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  pointer-events: none;
-  z-index: -1;
-}
 
 /* --- GENERAL SEARCH BAR --- */
 .filters-top-line {
@@ -2224,7 +2210,7 @@ html.menu-snap-page .menu-main-layout {
 }
 
 .explorer-grid {
-  padding: 55px 40px 0;
+  padding: 45px 40px 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 40px;

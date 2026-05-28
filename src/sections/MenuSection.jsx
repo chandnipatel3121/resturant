@@ -747,7 +747,7 @@ const MenuSection = () => {
       // Ensure we are fully scrolled to the top before enabling scroll snap,
       // avoiding layout jumps where the browser snaps to the second section.
       if (getScrollTop() === 0 || checkCount > 15) {
-        document.documentElement.classList.add("menu-snap-page")
+        // document.documentElement.classList.add("menu-snap-page")
       } else {
         checkCount++
         scrollToTop()
@@ -769,13 +769,7 @@ const MenuSection = () => {
       const heroHeight = isDesktop ? 400 : window.innerHeight // Mobile hero is 100dvh
       const currentScroll = getScrollTop()
 
-      // If scrolled past the hero transition zone, remove snapping to allow fluid natural scrolling inside the grid.
-      // If returning to the top transition zone, re-enable snap for forced page snaps between Hero and Grid.
-      if (currentScroll > heroHeight + 50) {
-        document.documentElement.classList.remove("menu-snap-page")
-      } else {
-        document.documentElement.classList.add("menu-snap-page")
-      }
+
 
       // Track sticky state (desktop top is 76, mobile top is 56)
       const navbarHeight = isDesktop ? 76 : 56
@@ -794,7 +788,7 @@ const MenuSection = () => {
       active = false
       clearTimeout(timer)
       scrollTarget.removeEventListener("scroll", handleScroll)
-      document.documentElement.classList.remove("menu-snap-page")
+      // document.documentElement.classList.remove("menu-snap-page")
     }
   }, [])
 
@@ -812,7 +806,7 @@ const MenuSection = () => {
   // Disable scroll snapping completely when any filter is active, preventing scroll snapping glitches!
   React.useEffect(() => {
     if (hasActiveFilters) {
-      document.documentElement.classList.remove("menu-snap-page")
+      // document.documentElement.classList.remove("menu-snap-page")
     } else {
       // Re-evaluate snap state based on scroll
       const isDesktop = window.innerWidth >= 1024
@@ -823,7 +817,7 @@ const MenuSection = () => {
           : null
       const scrollTop = scrollContainer?.scrollTop ?? window.scrollY
       if (scrollTop <= heroHeight + 50) {
-        document.documentElement.classList.add("menu-snap-page")
+        // document.documentElement.classList.add("menu-snap-page")
       }
     }
   }, [hasActiveFilters])
@@ -1054,9 +1048,9 @@ const MenuSection = () => {
           {showMenuHero && (
             <motion.div
               className="enhanced-menu-hero pattern-variant"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 400, opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{ overflow: "hidden" }}
             >

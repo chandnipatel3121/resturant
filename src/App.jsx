@@ -96,7 +96,7 @@ function App() {
   // 🔄 Force scroll to top on refresh
   useEffect(() => {
     window.history.scrollRestoration = "manual"
-    
+
     const resetScroll = () => {
       window.scrollTo(0, 0)
       const container = document.querySelector(".app-scroll-container")
