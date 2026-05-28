@@ -12,7 +12,10 @@ const SmoothScroll = ({ children }) => {
           if (entry.isIntersecting) entry.target.classList.add("is-visible")
         })
       },
-      { threshold: 0.15 }
+      { 
+        root: window.innerWidth < 1024 ? document.querySelector(".app-scroll-container") : null,
+        threshold: 0.15 
+      }
     )
 
     document.querySelectorAll("section[id], footer").forEach((s) =>

@@ -1779,27 +1779,33 @@
   }
 
   .cuisine-table-topview {
-    width: 240px !important;
-    /* Downscaled to fit perfectly in the viewport flow */
-    height: 240px !important;
+    display: flex !important;
+    width: 250px !important;
+    height: 250px !important;
     order: 2 !important;
-    /* Table wheel sits below the menu items */
-    margin-bottom: 0 !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .cuisine-table-shadow-floor {
+    display: block !important;
+    width: 320px !important;
+    height: 180px !important;
   }
 
   .cuisine-table-surface-round {
-    width: 250px !important;
-    height: 250px !important;
+    width: 270px !important;
+    height: 270px !important;
   }
 
   .table-center-logo-top {
-    width: 100px !important;
-    height: 100px !important;
+    width: 80px !important;
+    height: 80px !important;
   }
 
   .cuisine-dish-wrapper-round {
-    width: 72px !important;
-    height: 72px !important;
+    width: 60px !important;
+    height: 60px !important;
   }
 
   .cuisine-menu-container {
@@ -1976,13 +1982,14 @@
   }
 
   .cuisine-table-topview {
+    display: flex !important;
     width: 200px !important;
     height: 200px !important;
   }
 
   .cuisine-table-surface-round {
-    width: 210px !important;
-    height: 210px !important;
+    width: 220px !important;
+    height: 220px !important;
   }
 
   .table-center-logo-top {
@@ -1991,8 +1998,8 @@
   }
 
   .cuisine-dish-wrapper-round {
-    width: 60px !important;
-    height: 60px !important;
+    width: 50px !important;
+    height: 50px !important;
   }
 
   .narrative-items {

@@ -464,10 +464,10 @@ const CuisineSection = () => {
         <motion.div
           className="cuisine-table-topview"
           style={{
-            rotateX: tableRotateX,
-            scale: tableScale,
-            y: tableY,
-            opacity: tableOpacity,
+            rotateX: isMobile ? 10 : tableRotateX,
+            scale: isMobile ? 1 : tableScale,
+            y: isMobile ? 0 : tableY,
+            opacity: isMobile ? 1 : tableOpacity,
           }}
         >
           <div className="cuisine-table-surface-round">

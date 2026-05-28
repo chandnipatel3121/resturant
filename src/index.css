@@ -284,14 +284,40 @@ section {
   }
 }
 
+/* 📱 APP SCROLL CONTAINER FOR MOBILE BROWSER PERMANENCE */
+.app-scroll-container {
+  width: 100%;
+  height: auto;
+}
+
 /* 📱 MOBILE RESPONSIVE SCROLL SNAPPING & FLOATING CONTROLS */
 @media (max-width: 1023px) {
-  html.home-page {
+  html, body {
+    height: 100% !important;
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+  }
+
+  .app-scroll-container {
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .app-scroll-container.home-page-scroll {
     scroll-snap-type: y mandatory !important;
     scroll-behavior: smooth !important;
   }
 
-  html.home-page section:not(.hero-section) {
+  .app-scroll-container.home-page-scroll section:not(.hero-section),
+  .app-scroll-container.home-page-scroll footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .app-scroll-container.home-page-scroll section:not(.hero-section) {
     scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
     height: 100dvh !important;
@@ -303,7 +329,7 @@ section {
     height: 100dvh !important;
   }
 
-  html.home-page footer {
+  .app-scroll-container.home-page-scroll footer {
     scroll-snap-align: end !important;
     scroll-snap-stop: always !important;
     height: auto !important;

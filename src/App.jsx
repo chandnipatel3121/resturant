@@ -8,7 +8,8 @@ import {
 import Navbar from "./components/Navbar"
 import Footer from "./sections/Footer"
 import SmoothScroll from "./components/SmoothScroll"
-import { NavProvider } from "./utils/NavContext"
+import { NavProvider, useNav } from "./utils/NavContext"
+import Popup from "./components/Popup"
 
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
@@ -21,6 +22,7 @@ import ScrollToTop from "./components/ScrollToTop"
 function AppContent() {
   const location = useLocation()
   const isHomePage = location.pathname === "/"
+  const { showPopup, setShowPopup } = useNav()
 
   useEffect(() => {
     if (isHomePage) {
@@ -30,26 +32,63 @@ function AppContent() {
     }
   }, [isHomePage])
 
+  // 📱 Mobile Viewport Browser Address Bar Visibility & Animation Synchronization
+  useEffect(() => {
+    const isMobile = window.innerWidth < 1024
+    if (!isMobile) return
+
+    const container = document.querySelector(".app-scroll-container")
+    if (!container) return
+
+    // Define read-only scroll property overrides on window to mirror scroll wrapper position
+    try {
+      Object.defineProperty(window, "scrollY", {
+        get: () => container.scrollTop,
+        configurable: true,
+      })
+      Object.defineProperty(window, "pageYOffset", {
+        get: () => container.scrollTop,
+        configurable: true,
+      })
+    } catch (e) {
+      console.warn("Could not redefine scroll properties", e)
+    }
+
+    const handleScroll = () => {
+      // Forward the inner scroll event to the window so Framer Motion useScroll registers it
+      window.dispatchEvent(new Event("scroll"))
+    }
+
+    container.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll)
+      try {
+        delete window.scrollY
+        delete window.pageYOffset
+      } catch (e) {}
+    }
+  }, [location.pathname])
+
   return (
-    <>
+    <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""}`}>
       <ScrollToTop />
-      <NavProvider>
-        <SmoothScroll>
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/chef" element={<ChefPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/reservation" element={<Reservation />} />
-            </Routes>
-            {isHomePage && <Footer />}
-          </main>
-        </SmoothScroll>
-      </NavProvider>
-    </>
+      <SmoothScroll>
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/chef" element={<ChefPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/reservation" element={<Reservation />} />
+          </Routes>
+          {isHomePage && <Footer />}
+        </main>
+      </SmoothScroll>
+      <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
+    </div>
   )
 }
 
@@ -57,12 +96,25 @@ function App() {
   // 🔄 Force scroll to top on refresh
   useEffect(() => {
     window.history.scrollRestoration = "manual"
-    window.scrollTo(0, 0)
+    
+    const resetScroll = () => {
+      window.scrollTo(0, 0)
+      const container = document.querySelector(".app-scroll-container")
+      if (container) {
+        container.scrollTop = 0
+      }
+    }
+
+    resetScroll()
+    const timer = setTimeout(resetScroll, 100)
+    return () => clearTimeout(timer)
   }, [])
 
   return (
     <Router basename="/">
-      <AppContent />
+      <NavProvider>
+        <AppContent />
+      </NavProvider>
     </Router>
   )
 }

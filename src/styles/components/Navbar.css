@@ -329,3 +329,18 @@ html:not(.home-page) body:has(.contact-page) .navbar {
     align-items: center !important;
   }
 }
+
+/* 📱 MOBILE VIEWPORT NAVBAR VISIBILITY BUG FIX */
+@media (max-width: 1023px) {
+  .navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+    /* Disable Framer Motion's inline transform on mobile to prevent the browser from scrolling it off-screen during address bar collapse */
+    transform: none !important;
+    -webkit-transform: none !important;
+    will-change: auto !important;
+  }
+}

@@ -26,14 +26,21 @@ const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  const containerRef = useRef(null)
+
+  if (typeof document !== "undefined" && !containerRef.current) {
+    containerRef.current = document.querySelector(".app-scroll-container")
+  }
+
   const { scrollYProgress } = useScroll({
     target: ref,
+    container: containerRef,
     offset: ["start start", "end end"],
   })
 
@@ -92,7 +99,7 @@ const HeroSection = () => {
   const clipPath = useTransform(morphProgress, (v) => {
     const vw = window.innerWidth
     const vh = window.innerHeight
-    const isMobile = vw < 768
+    const isMobile = vw < 1024
     const startRadius = Math.sqrt(vw * vw + vh * vh) * (isMobile ? 0.8 : 0.6)
     const finalRadius = isMobile ? vh * 0.14 : vh * 0.22
     const r = startRadius * (1 - v) + finalRadius * v
@@ -102,7 +109,7 @@ const HeroSection = () => {
   const imgScale = useTransform(morphProgress, [0, 1], [1.15, 1])
 
   const forkX = useTransform(morphProgress, (v) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 1024
     const offset = isMobile ? 14 : 22
     const gap = isMobile ? "0.8dvh" : "1dvh"
     if (v <= 0.5)
@@ -111,7 +118,7 @@ const HeroSection = () => {
     return `calc(-${isMobile ? 35 : 40}vw * ${1 - p} - ${offset}vh * ${p} - 100% - ${gap})`
   })
   const spoonX = useTransform(morphProgress, (v) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 1024
     const offset = isMobile ? 14 : 22
     const gap = isMobile ? "0.8dvh" : "1dvh"
     if (v <= 0.5)
