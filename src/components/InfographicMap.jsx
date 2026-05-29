@@ -14,13 +14,13 @@ const InfographicMap = () => {
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}
       />
 
-      <div className="relative z-10 w-full h-full p-8 md:p-14 flex items-center justify-center">
+      <div className="relative z-10 w-full h-full p-0 flex items-center justify-center">
 
 
 
         {/* Unified Precision SVG Grid */}
         <svg
-          viewBox="-80 -80 1160 1160"
+          viewBox="20 10 960 930"
           className="w-full h-full z-20"
           style={{ overflow: 'visible' }}
         >

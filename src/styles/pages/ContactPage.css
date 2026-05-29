@@ -1,339 +1,407 @@
 /* ==========================================================================
-     CONTACT PAGE REDESIGN
-     ========================================================================== */
+     CONTACT PAGE REDESIGN - HIGH-END UI/UX
+   ========================================================================== */
 
 .contact-page {
   position: relative;
-  width: 100vw;
-  height: 100dvh;
-  background-color: #f8fbf9;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 90px 8vw 60px 8vw;
+  box-sizing: border-box;
+  font-family: var(--font-sans), sans-serif;
+  color: #2b2520;
 }
 
-/* Hero & Info Section */
-.contact-hero-info-section {
-  min-height: 100dvh;
-  padding: 80px 5vw 40px;
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+/* 1. Breadcrumbs */
+.contact-breadcrumbs {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #7c746e;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
 }
 
-.contact-hero-info-container {
+.breadcrumb-home {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.breadcrumb-home:hover {
+  color: #0f5c5c;
+}
+
+.breadcrumb-active {
+  color: #eaa43b;
+  font-weight: 700;
+}
+
+/* 2. Centered Main Header */
+.contact-main-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.contact-main-header h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 900;
+  color: #0f5c5c;
+  line-height: 1.25;
+  margin: 0 0 1.2rem 0;
+}
+
+.contact-header-divider {
+  width: 60px;
+  height: 4px;
+  background: #eaa43b;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* 3. Intro Description & Chef Section */
+.contact-intro-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto 5rem auto;
 }
 
-.hero-content-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(15, 92, 92, 0.05);
-  border: 1px solid rgba(15, 92, 92, 0.1);
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.hero-content-wrapper h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--text-primary);
-  margin-top: 1rem;
-}
-
-.hero-content-wrapper h1 span {
-  font-style: italic;
-  color: #eaa43b;
-}
-
-.hero-content-wrapper p {
-  font-size: 1.1rem;
-  color: rgba(15, 92, 92, 0.7);
-  max-width: 600px;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.contact-info-grid {
+.contact-intro-left {
   flex: 1.2;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
 }
 
-.info-card-premium {
-  background: #fff;
+.contact-intro-left h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  color: #eaa43b;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.contact-intro-left p {
+  font-size: 1.05rem;
+  color: #5c554e;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.contact-intro-right {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+}
+
+.chef-image-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  padding: 6px;
+  border: 2px dashed #eaa43b;
+  background: #ffffff;
+}
+
+.chef-intro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.chef-floating-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #eaa43b;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 6px 12px;
   border-radius: 20px;
-  padding: 3rem 2rem;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.04);
-  border: 1px solid rgba(15, 92, 92, 0.05);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
+}
+
+/* 4. Form & Contact Details Grid */
+.contact-grid-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto 5rem auto;
+  align-items: stretch; /* Ensures both cards are exactly equal height */
+}
+
+/* Form Card */
+.contact-form-card {
+  background: #fdfaf7;
+  border-radius: 24px;
+  padding: 2.2rem;
+  border: 1px solid rgba(15, 92, 92, 0.06);
+  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.02);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
 }
 
-.info-card-premium:hover {
-  box-shadow: 0 25px 45px rgba(15, 92, 92, 0.08);
-  border-color: rgba(234, 164, 59, 0.3);
+.contact-form-card h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  color: #0f5c5c;
+  margin: 0 0 1.5rem 0;
+  font-weight: 700;
 }
 
-.info-card-premium .icon-wrapper {
-  width: 60px;
-  height: 60px;
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.form-input-group {
+  width: 100%;
+}
+
+.msg-input,
+.msg-select,
+.msg-textarea {
+  width: 100%;
+  padding: 11px 15px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(15, 92, 92, 0.08);
+  background: #ffffff;
+  font-size: 0.95rem;
+  color: #2b2520;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.msg-input::placeholder,
+.msg-textarea::placeholder {
+  color: #a39c96;
+}
+
+.msg-input:focus,
+.msg-select:focus,
+.msg-textarea:focus {
+  outline: none;
+  border-color: #eaa43b;
+  box-shadow: 0 0 8px rgba(234, 164, 59, 0.15);
+}
+
+.msg-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23eaa43b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.form-submit-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.msg-submit-btn {
+  background: #0f5c5c;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 11px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 92, 92, 0.2);
+  transition: all 0.3s;
+}
+
+.msg-submit-btn:hover {
+  background: #eaa43b;
+  box-shadow: 0 6px 16px rgba(234, 164, 59, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Contact Details panel */
+.contact-details-panel {
+  background: #fdfaf7;
+  border-radius: 24px;
+  padding: 2.2rem;
+  border: 1px solid rgba(15, 92, 92, 0.06);
+  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.02);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+
+.contact-details-panel .details-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  color: #0f5c5c;
+  margin: 0 0 1.5rem 0;
+  font-weight: 700;
+}
+
+.details-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.detail-item-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.detail-icon-circle {
+  width: 48px;
+  height: 48px;
   background: rgba(234, 164, 59, 0.1);
-  color: var(--accent);
+  color: #eaa43b;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(234, 164, 59, 0.06);
 }
 
-.info-card-premium h3 {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.info-card-premium p {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.info-card-premium .subtext {
-  font-size: 1rem;
-  color: rgba(15, 92, 92, 1);
-  line-height: 1.4;
-  font-weight: 600;
-}
-
-/* Infographic Map Section */
-.snapchat-map-section {
-  min-height: 100dvh;
-  padding: 80px 5vw 40px;
-  position: relative;
-  z-index: 10;
-  width: 100%;
+.detail-text-block {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
 }
 
-.map-aesthetic-wrapper {
-  position: relative;
+.detail-text-block h5 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  color: #0f5c5c;
+  font-weight: 700;
+  margin: 0;
+}
+
+.detail-text-block p {
+  font-size: 0.9rem;
+  color: #5c554e;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 5. Map Section */
+.contact-section-map {
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-  height: 75vh;
-  min-height: 500px;
-  max-height: 800px;
-  border-radius: 32px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px rgba(15, 92, 92, 0.15);
-  border: 1px solid rgba(15, 92, 92, 0.1);
-  background: #f4f7f7;
 }
 
-.infographic-map-wrapper {
+.map-card-aesthetic {
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: 480px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid rgba(15, 92, 92, 0.08);
 }
 
 /* ==========================================================================
-     RESPONSIVENESS (Laptops, Tablets, Mobiles)
+     RESPONSIVE STYLES
    ========================================================================== */
 
-/* Short Screens (e.g., 1195x585) */
-@media (max-height: 650px) {
-  .contact-hero-info-section {
-    padding: 60px 5vw 20px;
-  }
-  .contact-hero-info-container {
-    gap: 1.5rem;
-  }
-  .hero-content-wrapper h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-top: 0;
-  }
-  .hero-content-wrapper p {
-    font-size: 0.95rem;
-  }
-  .contact-info-grid {
-    gap: 1rem;
-  }
-  .info-card-premium {
-    padding: 1.5rem 1rem;
-  }
-  .info-card-premium .icon-wrapper {
-    width: 45px;
-    height: 45px;
-    margin-bottom: 0.75rem;
-  }
-  .info-card-premium h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-  }
-  .info-card-premium p {
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
-  }
-  .info-card-premium .subtext {
-    font-size: 0.85rem;
-  }
-  .snapchat-map-section {
-    padding: 60px 5vw 20px;
-  }
-  .map-aesthetic-wrapper {
-    min-height: 350px;
-    height: 65vh;
-  }
-}
-
-/* Large Laptops / Mini Laptops */
-@media (max-width: 1200px) {
-  .contact-hero-info-container {
-    gap: 2rem;
-  }
-
-  .hero-content-wrapper h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-  }
-}
-
-/* Tablets (iPad Pro / iPad) */
 @media (max-width: 1024px) {
   .contact-page {
-    scroll-snap-type: none; /* Disable strict snapping for stacked scrolling */
+    padding: 100px 5vw 40px 5vw;
   }
 
-  .contact-hero-info-section {
-    padding: 120px 5vw 60px;
-    min-height: auto;
-    height: auto;
-  }
-
-  .snapchat-map-section {
-    min-height: auto;
-    height: auto;
-    padding: 40px 5vw 60px;
-  }
-
-  .contact-hero-info-container {
+  .contact-intro-container {
     flex-direction: column;
-  }
-
-  .hero-content-wrapper {
-    align-items: center;
+    gap: 2.5rem;
     text-align: center;
   }
 
-  .hero-content-wrapper p {
-    margin: 0 auto;
-    max-width: 80%;
+  .chef-image-container {
+    width: 240px;
+    height: 240px;
   }
 
-  .contact-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-    width: 100%;
+  .contact-grid-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
+  .contact-form-card {
+    padding: 2rem;
+  }
+
+  .contact-details-panel {
+    align-items: center;
+  }
+
+  .detail-item-card {
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .detail-text-block {
+    align-items: center;
+    text-align: center;
+  }
 }
 
-/* Large Mobile / Small Tablets */
 @media (max-width: 768px) {
-  .contact-hero-info-section {
-    padding: 100px 5vw 40px;
+  .contact-main-header h2 {
+    font-size: 2.2rem;
   }
-  .contact-hero-info-container {
-    gap: 2rem;
+
+  .map-card-aesthetic {
+    height: 350px;
   }
-  .contact-info-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 85px 4vw 30px 4vw;
   }
-  .info-card-premium {
+
+  .contact-main-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .contact-form-card {
     padding: 1.5rem 1rem;
   }
-  .info-card-premium h3 {
-    font-size: 1.2rem;
-  }
-  .info-card-premium p {
-    font-size: 0.95rem;
-  }
-  .snapchat-map-section {
-    padding: 20px 5vw 60px;
-  }
-  .map-aesthetic-wrapper {
-    border-radius: 20px;
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    margin-bottom: 0;
-  }
-}
 
-/* Small Mobiles */
-@media (max-width: 500px) {
-  .hero-content-wrapper h1 {
-    font-size: 2.5rem;
+  .msg-input,
+  .msg-select,
+  .msg-textarea {
+    padding: 12px 14px;
+    font-size: 0.92rem;
   }
-  .hero-content-wrapper p {
-    max-width: 100%;
-    font-size: 1rem;
+
+  .msg-submit-btn {
+    padding: 12px 25px;
+    font-size: 0.95rem;
+    width: 100%;
   }
-  .contact-hero-info-container {
-    gap: 1.5rem;
-  }
-  .contact-info-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .info-card-premium {
-    padding: 1.5rem;
-  }
-  .snapchat-map-section {
-    padding: 20px 5vw 40px;
-    margin-bottom: 0;
-  }
-  .map-aesthetic-wrapper {
+
+  .map-card-aesthetic {
+    height: 280px;
     border-radius: 16px;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 0;
   }
 }

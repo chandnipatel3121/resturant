@@ -80,7 +80,7 @@ const Reservation = () => {
               <div className="panel-field-group">
                 <label className="panel-field-label">
                   <Calendar size={14} className="panel-icon" />
-                  <span>1. Reservation Date</span>
+                  <span> Reservation Date</span>
                 </label>
                 <input type="date" required defaultValue="2026-05-27" className="panel-input" />
               </div>
@@ -89,7 +89,7 @@ const Reservation = () => {
               <div className="panel-field-group">
                 <label className="panel-field-label">
                   <Users size={14} className="panel-icon" />
-                  <span>2. Confirmed Guests</span>
+                  <span> Confirmed Guests</span>
                 </label>
                 <input type="number" min="1" required defaultValue="2" className="panel-input" />
               </div>
@@ -98,7 +98,7 @@ const Reservation = () => {
               <div className="panel-field-group">
                 <label className="panel-field-label">
                   <MapPin size={14} className="panel-icon" />
-                  <span>3. Seating Preference</span>
+                  <span> Seating Preference</span>
                 </label>
                 <div className="panel-row-inputs">
                   <select className="panel-select">
@@ -133,7 +133,7 @@ const Reservation = () => {
               <div className="res-section-block">
                 <div className="section-title-row">
                   <label className="section-title">
-                    <Clock size={15} /> <span>4. Select Timing</span>
+                    <Clock size={15} /> <span>Select Timing</span>
                   </label>
                   <div className="timezone-badge">
                     <Globe size={11} />
@@ -179,14 +179,27 @@ const Reservation = () => {
               {/* 5. Personal Information */}
               <div className="res-section-block">
                 <label className="section-title">
-                  <User size={15} /> <span>5. Personal Information</span>
+                  <User size={15} /> <span> Personal Information</span>
                 </label>
                 <div className="info-form-row">
                   <div className="info-input-wrapper">
-                    <input type="text" required placeholder="Full name (e.g. Harsh)" className="info-input" />
+                    <input type="text" required placeholder="Full name" className="info-input" />
                   </div>
                   <div className="info-input-wrapper">
-                    <input type="tel" required placeholder="Mobile number" className="info-input" />
+                    <input
+                      type="tel"
+                      required
+                      pattern="[0-9]{10}"
+                      maxLength={10}
+                      minLength={10}
+                      placeholder="10-Digit Mobile Number"
+                      className="info-input"
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
+                    />
                   </div>
                 </div>
               </div>
