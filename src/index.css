@@ -103,9 +103,13 @@ p {
 }
 
 /* SECTION DEFAULTS */
-section,
-footer {
+section {
   min-height: 100dvh;
+  width: 100%;
+  position: relative;
+}
+
+footer {
   width: 100%;
   position: relative;
 }
@@ -270,14 +274,20 @@ section {
     height: auto;
   }
 
-  html.home-page section,
-  html.home-page footer {
+  html.home-page section {
     scroll-snap-align: none !important;
     scroll-snap-stop: normal !important;
   }
 
-  html.home-page section:not(.hero-section),
   html.home-page footer {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  html.home-page section:not(.hero-section) {
     height: 100dvh !important;
     min-height: 100dvh !important;
     overflow: hidden !important;

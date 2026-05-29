@@ -32,11 +32,8 @@ const ScrollTransition = () => {
   const logoRotate = useTransform(smoothProgress, [0, 1], [-1.5, 1.5])
 
   return (
-    <div  ref={containerRef} className={styles.scrollTransitionWrapper}>
-      <motion.div
-        className={styles.overlay}
-        style={{ opacity }}
-      >
+    <div ref={containerRef} className={styles.scrollTransitionWrapper}>
+      <div className={styles.overlay}>
         {/* Unified Green Segment with Brand Background Image */}
         <div className={styles.unifiedSegment} />
 
@@ -50,7 +47,7 @@ const ScrollTransition = () => {
             <img src={logo} alt="anandofoods" className={styles.logoImage} />
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

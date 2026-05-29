@@ -20,7 +20,6 @@ body.journey-page-active {
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
-  /* Desktop native translation */
 }
 
 /* ─── Slide Track ──────────────────────────────────────────────────────────── */
@@ -167,8 +166,6 @@ body.journey-page-active {
   justify-content: center;
   overflow: hidden;
   padding: 80px 5vw 0;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 /* Massive Vertical Background Text */
@@ -394,8 +391,6 @@ body.journey-page-active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   overflow: hidden;
 }
 
@@ -637,8 +632,6 @@ body.journey-page-active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   overflow: hidden;
 }
 
@@ -812,8 +805,6 @@ body.journey-page-active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   overflow: hidden;
 }
 
@@ -1082,8 +1073,6 @@ body.journey-page-active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   overflow: hidden;
 }
 
@@ -1309,16 +1298,28 @@ body.journey-page-active {
 
   .journey-portfolio {
     position: relative !important;
-    height: auto !important;
+    height: 100dvh !important;
     width: 100% !important;
-    overflow: visible !important;
-    scroll-snap-type: none !important;
-    overscroll-behavior-y: auto;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: y mandatory !important;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: contain;
   }
 
   .fp-slide-track {
     transition: none !important;
     transform: none !important;
+  }
+
+  /* Each section snaps into place on mobile */
+  .journey-hero-advanced,
+  .journey-story-accordion,
+  .journey-philosophy-advanced,
+  .journey-signature,
+  .journey-experience {
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
   }
 
   /* Restore snap scroll: Hide dots since they overlap */

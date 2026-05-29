@@ -193,6 +193,8 @@ const ChefPage = () => {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
+
+
   const sectionRefs = useRef([])
   const lastInteractionTime = useRef(0)
 
@@ -200,7 +202,7 @@ const ChefPage = () => {
   useEffect(() => {
     if (!isMobile) return
     let scrollTimeout
-    const container = document.querySelector(".app-scroll-container") || window
+    const container = portfolioRef.current || document.querySelector(".app-scroll-container") || window
 
     const handleScroll = () => {
       clearTimeout(scrollTimeout)
@@ -238,8 +240,8 @@ const ChefPage = () => {
     const onWheel = (e) => {
       e.preventDefault()
       const now = Date.now()
-      if (now - lastInteractionTime.current < 1200) return // ignore trackpad inertia tail
-      if (Math.abs(e.deltaY) < 25) return // ignore tiny resting movements
+      if (now - lastInteractionTime.current < 1200) return
+      if (Math.abs(e.deltaY) < 25) return
 
       lastInteractionTime.current = now
       if (e.deltaY > 0) goToSectionDesktop(currentSection + 1)
@@ -282,8 +284,15 @@ const ChefPage = () => {
     document.body.classList.add("journey-page-active")
     return () => {
       document.body.classList.remove("journey-page-active")
+      setNavTheme("light")
     }
   }, [setNavTheme])
+
+  // Calculate desktop translateY — each section is 100dvh
+  const getDesktopTransform = () => {
+    if (isMobile) return "none"
+    return `translateY(-${currentSection * 100}dvh)`
+  }
 
   // Interactive Dishes State
   const [activeChefId, setActiveChefId] = useState(masterChefs[0].id)
@@ -294,10 +303,10 @@ const ChefPage = () => {
     <div className="journey-portfolio" ref={portfolioRef}>
       {/* ─── Side Navigation Dots ──────────────────────────────────────────── */}
       <div className="fp-nav-dots">
-        {SECTIONS.map((_, i) => (
+        {SECTIONS.slice(0, 5).map((_, i) => (
           <button
             key={i}
-            className={`fp-dot ${i === currentSection ? "active" : ""}`}
+            className={`fp-dot ${i === currentSection || (i === 4 && currentSection === 5) ? "active" : ""}`}
             onClick={() => goToSection(i)}
             title={SECTION_LABELS[i]}
           >
@@ -309,11 +318,7 @@ const ChefPage = () => {
       {/* ─── Slide Track ───────────────────────────────────────────────────── */}
       <div
         className="fp-slide-track"
-        style={{
-          transform: isMobile
-            ? "none"
-            : `translateY(-${currentSection * 100}dvh)`,
-        }}
+        style={{ transform: getDesktopTransform() }}
       >
         {/* ==========================================================================
           1. HERO SECTION (Advanced Centered Layout)
@@ -809,6 +814,7 @@ const ChefPage = () => {
             </motion.div>
           </div>
         </section>
+
       </div>
       {/* fp-slide-track */}
     </div>

@@ -72,7 +72,7 @@ function AppContent() {
   }, [location.pathname])
 
   return (
-    <div className={`app-scroll-container ${isHomePage || isChefPage ? "home-page-scroll" : ""}`}>
+    <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""}`}>
       <ScrollToTop />
       <SmoothScroll>
         <Navbar />
@@ -85,9 +85,9 @@ function AppContent() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/reservation" element={<Reservation />} />
           </Routes>
-          {isHomePage && <Footer />}
         </main>
       </SmoothScroll>
+      {location.pathname !== "/gallery" && location.pathname !== "/chef" && <Footer />}
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </div>
   )

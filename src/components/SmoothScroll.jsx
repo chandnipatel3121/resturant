@@ -22,7 +22,7 @@ const SmoothScroll = ({ children }) => {
       }
     )
 
-    document.querySelectorAll("section[id], footer").forEach((s) =>
+    document.querySelectorAll("section[id]").forEach((s) =>
       visibilityObserver.observe(s)
     )
 
@@ -41,7 +41,7 @@ const SmoothScroll = ({ children }) => {
       const targets = [0, 1.5 * vh]
 
       // Snaps for all subsequent page sections after the Hero
-      const sections = Array.from(document.querySelectorAll("section[id], footer"))
+      const sections = Array.from(document.querySelectorAll("section[id]"))
       sections.forEach((sec) => {
         if (sec.id === "hero-section") return
         const rect = sec.getBoundingClientRect()
@@ -66,49 +66,63 @@ const SmoothScroll = ({ children }) => {
 
     // Set up GSAP snapping based on calculated targets
     const ctx = gsap.context(() => {
-      const targets = getScrollTargets()
-
       const setupTrigger = () => {
-        const maxScroll = ScrollTrigger.maxScroll(window)
-        if (maxScroll <= 0) return
-
-        const snapProgresses = targets.map((t) => Math.min(Math.max(t / maxScroll, 0), 1))
+        const targets = getScrollTargets()
 
         ScrollTrigger.create({
           start: 0,
           end: "max",
           snap: {
             snapTo: (progress, self) => {
-              const currentScroll = window.scrollY
-              const vh = window.innerHeight
-              const heroEnd = 1.5 * vh
-              const heroEndProgress = Math.min(heroEnd / maxScroll, 1)
+              const maxScroll = ScrollTrigger.maxScroll(window)
+              if (maxScroll <= 0) return progress
 
-              // If inside or transitioning through the Hero Section
-              if (progress <= heroEndProgress + 0.05) {
-                // If scrolling down: snap cleanly to Scene 2
-                if (self.direction === 1 && currentScroll < heroEnd - 50) {
-                  return heroEndProgress
-                }
-                // If scrolling up: snap cleanly and forcedly back to 0
-                if (self.direction === -1 && currentScroll < heroEnd + 50) {
-                  return 0
-                }
-                // Default fallback inside the hero range
-                return progress < heroEndProgress / 2 ? 0 : heroEndProgress
+              const snapProgresses = targets.map((t) => Math.min(Math.max(t / maxScroll, 0), 1))
+              const currentScroll = window.scrollY
+              const currentProgress = currentScroll / maxScroll
+
+              // If past the last section's snap target, allow natural scroll into the footer
+              const lastProgress = snapProgresses[snapProgresses.length - 1]
+              if (currentProgress > lastProgress + 0.005) {
+                return progress
               }
 
-              // Outside Hero Section, snap to the closest target
-              let closest = snapProgresses[0]
+              // Find the index of the currently active snap target
+              let activeIndex = 0
               let minDiff = Infinity
               for (let i = 0; i < snapProgresses.length; i++) {
-                const diff = Math.abs(snapProgresses[i] - progress)
+                const diff = Math.abs(snapProgresses[i] - currentProgress)
                 if (diff < minDiff) {
                   minDiff = diff
-                  closest = snapProgresses[i]
+                  activeIndex = i
                 }
               }
-              return closest
+
+              // 1. Scrolling Down (self.direction === 1)
+              if (self.direction === 1) {
+                const nextIndex = Math.min(activeIndex + 1, snapProgresses.length - 1)
+                const dist = snapProgresses[nextIndex] - snapProgresses[activeIndex]
+                if (dist > 0) {
+                  // Must scroll past 20% of the section distance to transition
+                  const threshold = snapProgresses[activeIndex] + 0.20 * dist
+                  return progress > threshold ? snapProgresses[nextIndex] : snapProgresses[activeIndex]
+                }
+                return snapProgresses[activeIndex]
+              }
+
+              // 2. Scrolling Up (self.direction === -1)
+              if (self.direction === -1) {
+                const prevIndex = Math.max(activeIndex - 1, 0)
+                const dist = snapProgresses[activeIndex] - snapProgresses[prevIndex]
+                if (dist > 0) {
+                  // Must scroll up past 20% of the section distance to transition
+                  const threshold = snapProgresses[activeIndex] - 0.20 * dist
+                  return progress < threshold ? snapProgresses[prevIndex] : snapProgresses[activeIndex]
+                }
+                return snapProgresses[activeIndex]
+              }
+
+              return progress
             },
             duration: { min: 0.4, max: 0.8 },
             ease: "power2.out"

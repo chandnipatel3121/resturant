@@ -110,21 +110,9 @@ const HeroSection = () => {
     }
   }, [showPopup])
 
-  /* Auto-trigger popup on initial load after a delay if not shown yet */
-  useEffect(() => {
-    if (!globalHasSeenPopup) {
-      const timer = setTimeout(() => {
-        if (!hasShownPopup.current) {
-          setShowPopup(true)
-          globalHasSeenPopup = true
-          hasShownPopup.current = true
-        }
-      }, 2500)
-      return () => clearTimeout(timer)
-    }
-  }, [])
 
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
+
+  useMotionValueEvent(smooth, "change", (v) => {
     prevV.current = v
 
     // morphProgress.set(v > 0.01 ? 1 : 0) // Removed binary switch
@@ -141,8 +129,8 @@ const HeroSection = () => {
       setNavTheme("green") // Dark teal on next section
     }
 
-    // Popup fires only AFTER Scene 1 is fully gone (desktop: 0.65, mobile: 0.58)
-    const popupTrigger = isMobile ? 0.59 : 0.66
+    // Popup fires only AFTER Scene 1 has fully gone and scroll has settled (desktop: 0.73, mobile: 0.61)
+    const popupTrigger = isMobile ? 0.61 : 0.73
     if (v >= popupTrigger && !hasShownPopup.current) {
       if (!globalHasSeenPopup) {
         setShowPopup(true)

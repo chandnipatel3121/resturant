@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, X, Grid } from "lucide-react"
 import "../styles/pages/Gallery.css"
 import { useNav } from "../utils/NavContext"
+import Footer from "../sections/Footer"
 
 // Import assets for categories
 import dining from "../assets/dining.jpg"
@@ -546,6 +547,7 @@ const Gallery = () => {
                   </motion.div>
                 ))}
               </div>
+              <Footer />
             </section>
           </motion.div>
         )}
