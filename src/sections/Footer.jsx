@@ -52,8 +52,8 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="footer-bottom">
-        <p className="footer-copyright">© Revatix 2026. All rights reserved.</p>
-        <p className="footer-agency">Crafted Beyond Code — Revatix.</p>
+        <p className="footer-copyright">© anandofoods. All rights reserved.</p>
+        <p className="footer-agency">Revatix — Turning Tables into Experiences</p>
       </div>
     </footer>
   )

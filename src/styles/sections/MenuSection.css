@@ -373,9 +373,9 @@ html.menu-snap-page .menu-main-layout {
   min-height: calc(100dvh + 320px);
 }
 
-/* .menu-main-layout.menu-main-no-hero {
-  padding-top: 60px;
-} */
+.menu-main-layout.menu-main-no-hero {
+  padding-bottom: 6px;
+}
 
 .explorer-grid {
   position: relative;
@@ -754,6 +754,7 @@ html.menu-snap-page .menu-main-layout {
 
   .menu-main-layout.menu-main-no-hero {
     padding-top: 56px;
+    padding-bottom: 5px;
   }
 
   .menu-sidebar {
