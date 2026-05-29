@@ -61,7 +61,7 @@ const ContactPage = () => {
       className="contact-page"
     >
       {/* ========================================================
-          SECTION 2: HEADER BANNER BLOCK
+          SECTION 1: HEADER BANNER BLOCK
           ======================================================== */}
       <motion.div variants={fadeInUpVariants} className="contact-section-header">
         <div className="contact-main-header">
@@ -71,7 +71,7 @@ const ContactPage = () => {
       </motion.div>
 
       {/* ========================================================
-          SECTION 3: INTRO & CHEF DISPLAY BLOCK
+          SECTION 2: INTRO & CHEF DISPLAY BLOCK
           ======================================================== */}
       <motion.div
         variants={fadeInUpVariants}
@@ -112,7 +112,7 @@ const ContactPage = () => {
       </motion.div>
 
       {/* ========================================================
-          SECTION 4: CUSTOMER FORM & CONTACT INFRASTRUCTURE GRID
+          SECTION 3: CUSTOMER FORM & CONTACT INFRASTRUCTURE GRID
           ======================================================= */}
       <div className="contact-section-grid">
         <div className="contact-grid-container">
@@ -211,7 +211,7 @@ const ContactPage = () => {
                   <MapPin size={20} />
                 </div>
                 <div className="detail-text-block">
-                  <h5>Office Address</h5>
+                  <h5>Address</h5>
                   <p>opp. Bapa Sitaram Madhuli, Shivkrupa Nagar, Bhuj, Mirjapar Part, Gujarat 370040</p>
                 </div>
               </motion.div>
@@ -268,7 +268,7 @@ const ContactPage = () => {
       </div>
 
       {/* ========================================================
-          SECTION 5: INTEGRATED MAP CONTAINER BLOCK
+          SECTION 4: INTEGRATED MAP CONTAINER BLOCK
           ======================================================== */}
       <motion.div
         variants={fadeInUpVariants}

@@ -37,10 +37,10 @@ const InternalCuisineCard = ({ cuisine, onClose, isMobile }) => {
     <motion.div
       className="cuisine-card-wrapper"
       onClick={(e) => e.stopPropagation()}
-      initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
+      initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 25 : 0 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
-      exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 25 : 0 }}
+      transition={isMobile ? { duration: 0.35, ease: "easeOut" } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <div
         className="cuisine-glass-card"

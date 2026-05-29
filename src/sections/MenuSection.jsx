@@ -370,6 +370,15 @@ const BookDetailView = ({
   const [isFlipping, setIsFlipping] = useState(false)
   const [flipDirection, setFlipDirection] = useState("next") // 'next' or 'prev'
 
+  // Local state for mobile detection
+  const [isMobile, setIsMobile] = useState(false)
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   // Framer Motion synchronized 3D page flip transition values
   const rotateY = useMotionValue(flipDirection === "next" ? 0 : -180)
   const opacityFront = useTransform(
@@ -469,10 +478,10 @@ const BookDetailView = ({
       <motion.div
         className="book-detail-container"
         onClick={(e) => e.stopPropagation()}
-        initial={{ scale: 0.85, opacity: 0, rotateY: -35 }}
-        animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-        exit={{ scale: 0.85, opacity: 0, rotateY: 35 }}
-        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        initial={isMobile ? { y: 30, opacity: 0 } : { scale: 0.85, opacity: 0, rotateY: -35 }}
+        animate={isMobile ? { y: 0, opacity: 1 } : { scale: 1, opacity: 1, rotateY: 0 }}
+        exit={isMobile ? { y: 30, opacity: 0 } : { scale: 0.85, opacity: 0, rotateY: 35 }}
+        transition={isMobile ? { duration: 0.35, ease: "easeOut" } : { duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Floating luxury close button positioned relative to the book container */}
         <div

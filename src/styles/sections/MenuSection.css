@@ -33,9 +33,10 @@ html.menu-snap-page {
 }
 
 @media (max-width: 1023px) {
-  html.menu-snap-page .app-scroll-container:has(#menu) {
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+  html.menu-snap-page .app-scroll-container {
+    scroll-snap-type: y mandatory !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -84,7 +85,7 @@ html.menu-snap-page .menu-main-layout {
 }
 
 /* Mobile: hero is full-bleed full-screen, user scrolls to reveal sidebar+filters */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .enhanced-menu-hero {
     height: 100dvh !important;
     /* Full screen height */
@@ -3220,7 +3221,7 @@ background: #edf7f7;
   .book-detail-container {
     width: 94%;
     max-width: 480px;
-    height: 85vh !important;
+    height: 72vh !important;
     transform: none !important;
     display: flex;
     flex-direction: column;
@@ -3240,7 +3241,7 @@ background: #edf7f7;
   }
 
   .book-page.left-page {
-    height: 240px;
+    height: 190px;
     width: 100% !important;
     flex: none;
     background: transparent !important;
@@ -3298,17 +3299,22 @@ background: #edf7f7;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
-    overflow: hidden;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 
   .book-page.right-page .page-inner {
-    padding: 20px 24px;
+    padding: 5px 5px;
     height: 100%;
     box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
   .detail-title-large {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
   }
 
   .detail-price-pill {
@@ -3319,6 +3325,10 @@ background: #edf7f7;
   .detail-scroll-container {
     padding-right: 0;
     margin-right: 0;
+    flex: 1;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px !important;
   }
 
   .detail-horizontal-ribbon {
@@ -3335,7 +3345,7 @@ background: #edf7f7;
   }
 
   .book-actions {
-    margin-top: 10px;
+    margin-top: 1px;
   }
 
   .book-add-cart-btn {
