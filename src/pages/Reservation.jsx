@@ -93,26 +93,6 @@ const Reservation = () => {
                 </label>
                 <input type="number" min="1" required defaultValue="2" className="panel-input" />
               </div>
-
-              {/* Area & Table Selection */}
-              <div className="panel-field-group">
-                <label className="panel-field-label">
-                  <MapPin size={14} className="panel-icon" />
-                  <span> Seating Preference</span>
-                </label>
-                <div className="panel-row-inputs">
-                  <select className="panel-select">
-                    <option>AC Area</option>
-                    <option>Non-AC</option>
-                    <option>Outdoor</option>
-                  </select>
-                  <select className="panel-select">
-                    <option>Table: T-01</option>
-                    <option>Table: T-02</option>
-                    <option>Table: T-03</option>
-                  </select>
-                </div>
-              </div>
             </div>
 
             <div className="res-left-footer">

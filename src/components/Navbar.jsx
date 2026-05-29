@@ -107,7 +107,7 @@ const Navbar = () => {
             </Link>
           ))}
           <button
-            onClick={() => { navigate("/contact"); setMobileOpen(false) }}
+            onClick={() => { navigate("/reservation"); setMobileOpen(false) }}
             className="mobile-nav-btn"
           >
             Reservation

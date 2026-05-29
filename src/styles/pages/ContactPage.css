@@ -134,7 +134,9 @@
   max-width: 1200px;
   margin: 0 auto 5rem auto;
   align-items: stretch; /* Ensures both cards are exactly equal height */
+  overflow: visible; /* Allow scrolling of content */
 }
+
 
 /* Form Card */
 .contact-form-card {

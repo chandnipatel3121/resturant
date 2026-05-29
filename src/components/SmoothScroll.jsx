@@ -78,14 +78,27 @@ const SmoothScroll = ({ children }) => {
           start: 0,
           end: "max",
           snap: {
-            snapTo: (progress) => {
-              const firstSnapProgress = snapProgresses[0]
+            snapTo: (progress, self) => {
+              const currentScroll = window.scrollY
+              const vh = window.innerHeight
+              const heroEnd = 1.5 * vh
+              const heroEndProgress = Math.min(heroEnd / maxScroll, 1)
 
-              // If the scroll position is inside the Hero section, bypass snapping completely
-              if (progress < firstSnapProgress - 0.05) {
-                return progress
+              // If inside or transitioning through the Hero Section
+              if (progress <= heroEndProgress + 0.05) {
+                // If scrolling down: snap cleanly to Scene 2
+                if (self.direction === 1 && currentScroll < heroEnd - 50) {
+                  return heroEndProgress
+                }
+                // If scrolling up: snap cleanly and forcedly back to 0
+                if (self.direction === -1 && currentScroll < heroEnd + 50) {
+                  return 0
+                }
+                // Default fallback inside the hero range
+                return progress < heroEndProgress / 2 ? 0 : heroEndProgress
               }
 
+              // Outside Hero Section, snap to the closest target
               let closest = snapProgresses[0]
               let minDiff = Infinity
               for (let i = 0; i < snapProgresses.length; i++) {

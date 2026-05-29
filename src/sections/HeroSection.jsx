@@ -9,12 +9,14 @@ import {
 import { useNavigate } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
 import Popup from "../components/Popup"
-import videoSrc from "../assets/herovideo1.mp4"
-import mobileVideoSrc from "../assets/mobilehero.mp4"
+import heroMp4 from "../assets/herovideo1.mp4";
+import mobileVideoSrc from "../assets/mobilehero.mp4";
 import img1 from "../assets/resturent4.jpg"
 import "../styles/sections/HeroSection.css"
 
 let globalHasSeenPopup = false
+
+import LazyVideo from "../components/LazyVideo";
 
 const HeroSection = () => {
   const navigate = useNavigate()
@@ -95,7 +97,11 @@ const HeroSection = () => {
   /* Lock scroll while popup is open */
   useEffect(() => {
     if (showPopup) {
-      document.documentElement.style.overflow = "hidden"
+      // Defer locking body overflow to allow the active snap transition to finish smoothly
+      const timer = setTimeout(() => {
+        document.documentElement.style.overflow = "hidden"
+      }, 800)
+      return () => clearTimeout(timer)
     } else {
       document.documentElement.style.overflow = ""
     }
@@ -218,7 +224,7 @@ const HeroSection = () => {
           style={{ opacity: s2Opacity }}
           className="absolute inset-0 z-10"
         >
-          <img src={img1} className="w-full h-full object-cover" alt="" />
+          <img src={img1} className="hero-video" alt="Hero background" />
           <div className="absolute inset-0 bg-black/70 z-20" />
 
           <motion.div style={{ y: s2Y }} className="hero-scene2-content">
@@ -275,7 +281,7 @@ const HeroSection = () => {
             >
               <video
                 key={isMobile ? "mobile" : "desktop"}
-                src={isMobile ? mobileVideoSrc : videoSrc}
+                src={isMobile ? mobileVideoSrc : heroMp4}
                 autoPlay
                 loop
                 muted

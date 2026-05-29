@@ -330,13 +330,14 @@ section {
   }
 
   .app-scroll-container.home-page-scroll footer {
-    scroll-snap-align: end !important;
+    scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
-    height: auto !important;
-    min-height: auto !important;
-    overflow: visible !important;
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
