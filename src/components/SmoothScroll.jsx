@@ -38,7 +38,7 @@ const SmoothScroll = ({ children }) => {
     // Dynamic targets calculation for custom layouts
     const getScrollTargets = () => {
       const vh = window.innerHeight
-      const targets = []
+      const targets = [0, 1.5 * vh]
 
       // Snaps for all subsequent page sections after the Hero
       const sections = Array.from(document.querySelectorAll("section[id], footer"))
@@ -97,8 +97,8 @@ const SmoothScroll = ({ children }) => {
               }
               return closest
             },
-            duration: 0.3,
-            ease: "none"
+            duration: { min: 0.4, max: 0.8 },
+            ease: "power2.out"
           }
         })
       }

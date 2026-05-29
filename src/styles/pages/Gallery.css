@@ -1158,7 +1158,6 @@
   }
 }
 
-/* Mobile Layout */
 @media (max-width: 600px) {
   .masonry-grid {
     grid-template-columns: 1fr;
@@ -1168,6 +1167,29 @@
   .masonry-item {
     grid-column: 1 / 2 !important;
     aspect-ratio: 4/3 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-page.gallery-masonry-active {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .gallery-page.gallery-masonry-active .gallery-main-wrapper {
+    display: none !important;
+  }
+
+  .gallery-page.gallery-masonry-active .gallery-global-ui {
+    display: none !important;
+  }
+
+  .masonry-scroll-container {
+    position: relative !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: visible !important;
+    z-index: 90 !important;
   }
 }
 

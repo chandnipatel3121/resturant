@@ -200,7 +200,7 @@ const ChefPage = () => {
   useEffect(() => {
     if (!isMobile) return
     let scrollTimeout
-    const container = portfolioRef.current
+    const container = document.querySelector(".app-scroll-container") || window
 
     const handleScroll = () => {
       clearTimeout(scrollTimeout)
@@ -497,9 +497,6 @@ const ChefPage = () => {
                     <div className="ap-text-content">
                       <h3 className="ap-title">{item.title}</h3>
                       <p className="ap-desc">{item.desc}</p>
-                      <button className="ap-btn">
-                        DISCOVER THE ERA <ArrowRight size={14} />
-                      </button>
                     </div>
                   </div>
                 </div>

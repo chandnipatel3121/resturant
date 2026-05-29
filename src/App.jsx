@@ -22,6 +22,7 @@ import ScrollToTop from "./components/ScrollToTop"
 function AppContent() {
   const location = useLocation()
   const isHomePage = location.pathname === "/"
+  const isChefPage = location.pathname === "/chef"
   const { showPopup, setShowPopup } = useNav()
 
   useEffect(() => {
@@ -71,7 +72,7 @@ function AppContent() {
   }, [location.pathname])
 
   return (
-    <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""}`}>
+    <div className={`app-scroll-container ${isHomePage || isChefPage ? "home-page-scroll" : ""}`}>
       <ScrollToTop />
       <SmoothScroll>
         <Navbar />

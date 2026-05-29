@@ -241,8 +241,10 @@ const Gallery = () => {
       if (activeSubGallery) return // Skip native wheel intercept if sub-gallery is open
 
       if (inMasonry) {
-        const masonryEl = document.querySelector('.masonry-scroll-container')
-        if (masonryEl && masonryEl.scrollTop <= 1 && e.deltaY < 0) {
+        const isMobile = window.innerWidth < 1024
+        const scrollContainer = isMobile ? document.querySelector('.app-scroll-container') : document.querySelector('.masonry-scroll-container')
+        const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0
+        if (scrollContainer && scrollTop <= 1 && e.deltaY < 0) {
           e.preventDefault()
           if (!isAnimating.current) {
             isAnimating.current = true
@@ -273,9 +275,11 @@ const Gallery = () => {
       if (activeSubGallery) return
       
       if (inMasonry) {
-        const masonryEl = document.querySelector('.masonry-scroll-container')
-        if (masonryEl) {
-          if (masonryEl.scrollTop <= 1) {
+        const isMobile = window.innerWidth < 1024
+        const scrollContainer = isMobile ? document.querySelector('.app-scroll-container') : document.querySelector('.masonry-scroll-container')
+        if (scrollContainer) {
+          const scrollTop = scrollContainer.scrollTop
+          if (scrollTop <= 1) {
             const currentY = e.touches[0].clientY
             const distance = touchStartY.current - currentY
             if (distance < -30) {
@@ -318,7 +322,7 @@ const Gallery = () => {
 
 
   return (
-    <div className="gallery-page">
+    <div className={`gallery-page ${inMasonry ? "gallery-masonry-active" : ""}`}>
       {/* Global UI (Stays fixed) */}
       <div className={`gallery-global-ui ${inHorizontal ? "hidden-ui" : ""}`}>
         <div className="gallery-top-bar">

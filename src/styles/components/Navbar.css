@@ -35,13 +35,19 @@ html:not(.home-page) body:has(.contact-page) .navbar {
   box-shadow: 0 10px 30px rgba(10, 30, 30, 0.05);
 }
 
+.navbar-dark,
+.navbar-light {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
 .navbar-dark {
-  padding: clamp(0.5rem, 1.5dvh, 1rem) 0;
   background-color: transparent;
 }
 
 .navbar-light {
-  padding: clamp(0.4rem, 1dvh, 0.8rem) 0;
   background-color: var(--bg);
   border-bottom: 1px solid rgba(15, 92, 92, 0.08);
 }
@@ -317,7 +323,7 @@ html:not(.home-page) body:has(.contact-page) .navbar {
   .navbar-dark,
   .navbar-light {
     padding: 0 !important;
-    height: 70px !important;
+    height: 76px !important;
     background: #ffffff !important;
     /* Solid background to prevent scrolling content bleed */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
