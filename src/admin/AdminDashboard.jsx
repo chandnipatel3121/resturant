@@ -22,6 +22,24 @@ import {
   ShoppingBag,
   Maximize2
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as ChartTooltip,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  LineChart,
+  Line
+} from "recharts/umd/Recharts";
+import menuData from "../data/menuData";
 import "../styles/admin/AdminDashboard.css";
 
 // Import premium images from project assets
@@ -33,9 +51,75 @@ import italic from "../assets/italic.jpg";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("home");
-  const [timeFilter, setTimeFilter] = useState("This Week");
+  const [timeFilter, setTimeFilter] = useState("Weekly");
   const [searchQuery, setSearchQuery] = useState("");
-  const [hoveredNode, setHoveredNode] = useState(null);
+  const [hoveredBar, setHoveredBar] = useState(null);
+
+  const getRevenueData = () => {
+    switch (timeFilter) {
+      case "Daily":
+        return [
+          { name: "1 PM", revenue: 12000, orders: 30 },
+          { name: "3 PM", revenue: 18000, orders: 45 },
+          { name: "5 PM", revenue: 22000, orders: 55 },
+          { name: "7 PM", revenue: 35000, orders: 88 },
+          { name: "9 PM", revenue: 45000, orders: 112 },
+          { name: "11 PM", revenue: 18000, orders: 45 }
+        ];
+      case "Monthly":
+        return [
+          { name: "Week 1", revenue: 120000, orders: 300 },
+          { name: "Week 2", revenue: 145000, orders: 362 },
+          { name: "Week 3", revenue: 110000, orders: 275 },
+          { name: "Week 4", revenue: 175000, orders: 438 }
+        ];
+      case "Yearly":
+        return [
+          { name: "2017", revenue: 1800000, orders: 4500 },
+          { name: "2018", revenue: 2200000, orders: 5500 },
+          { name: "2019", revenue: 3100000, orders: 7800 },
+          { name: "2020", revenue: 2500000, orders: 6200 },
+          { name: "2021", revenue: 4200000, orders: 10500 },
+          { name: "2022", revenue: 5800000, orders: 14500 },
+          { name: "2023", revenue: 7200000, orders: 18000 },
+          { name: "2024", revenue: 9500000, orders: 23800 },
+          { name: "2025", revenue: 12000000, orders: 30000 },
+          { name: "2026", revenue: 15000000, orders: 37500 }
+        ];
+      case "Weekly":
+      default:
+        return [
+          { name: "Mon", revenue: 20000, orders: 50 },
+          { name: "Tue", revenue: 15000, orders: 38 },
+          { name: "Wed", revenue: 32000, orders: 80 },
+          { name: "Thu", revenue: 18000, orders: 45 },
+          { name: "Fri", revenue: 28000, orders: 70 },
+          { name: "Sat", revenue: 45000, orders: 112 },
+          { name: "Sun", revenue: 65000, orders: 162 }
+        ];
+    }
+  };
+
+  const getRevenueTotal = () => {
+    switch (timeFilter) {
+      case "Daily": return "₹1,50,000";
+      case "Monthly": return "₹5,50,000";
+      case "Yearly": return "₹6,33,00,000";
+      case "Weekly":
+      default:
+        return "₹1,45,000";
+    }
+  };
+
+  const chartData = [
+    { day: "Mon", val: 20000, display: "₹20K", pct: 30 },
+    { day: "Tue", val: 15000, display: "₹15K", pct: 23 },
+    { day: "Wed", val: 32000, display: "₹32K", pct: 49 },
+    { day: "Thu", val: 18000, display: "₹18K", pct: 27 },
+    { day: "Fri", val: 28000, display: "₹28K", pct: 43 },
+    { day: "Sat", val: 45000, display: "₹45K", pct: 69 },
+    { day: "Sun", val: 65000, display: "₹65K", pct: 100 },
+  ];
   const [notifications, setNotifications] = useState(4);
   const [messages, setMessages] = useState(2);
   const [liveOrders, setLiveOrders] = useState([
@@ -84,55 +168,12 @@ export default function AdminDashboard() {
     ]);
   };
 
-  // Custom Chart Coordinates for the dynamic smooth curved graph
-  // Matches weeks or days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
-  const chartPoints = [
-    { day: "Mon", val: 50,  display: "₹20K" },
-    { day: "Tue", val: 120, display: "₹15K" },
-    { day: "Wed", val: 70,  display: "₹32K" },
-    { day: "Thu", val: 140, display: "₹18K" },
-    { day: "Fri", val: 110, display: "₹28K" },
-    { day: "Sat", val: 90,  display: "₹45K" },
-    { day: "Sun", val: 40,  display: "₹65K" },
-  ];
-
-  // SVG curved path builder (Catmull-Rom-like approximation with bezier curves)
-  const width = 600;
-  const height = 160;
-  const pointsCount = chartPoints.length;
-
-  // Map index to coordinates
-  const getCoordinates = (index, val) => {
-    const x = (index / (pointsCount - 1)) * (width - 40) + 20;
-    // Lower value means higher on Y axis in SVG space
-    const y = height - ((val / 160) * (height - 30) + 15);
-    return { x, y };
-  };
-
-  // Create SVG path string
-  let pathD = "";
-  let areaD = "";
-
-  const mappedPoints = chartPoints.map((p, idx) => getCoordinates(idx, p.val));
-
-  if (mappedPoints.length > 0) {
-    pathD = `M ${mappedPoints[0].x} ${mappedPoints[0].y}`;
-    for (let i = 0; i < mappedPoints.length - 1; i++) {
-      const p0 = mappedPoints[i];
-      const p1 = mappedPoints[i + 1];
-      const cpX1 = p0.x + (p1.x - p0.x) / 2;
-      const cpY1 = p0.y;
-      const cpX2 = p0.x + (p1.x - p0.x) / 2;
-      const cpY2 = p1.y;
-      pathD += ` C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${p1.x} ${p1.y}`;
-    }
-
-    // Build absolute gradient Area path
-    areaD = `${pathD} L ${mappedPoints[mappedPoints.length - 1].x} ${height} L ${mappedPoints[0].x} ${height} Z`;
-  }
-
   return (
     <div className="admin-dashboard-container">
+      {/* Dynamic Background Glow Orbs */}
+      <div className="admin-glow-orb admin-orb-1"></div>
+      <div className="admin-glow-orb admin-orb-2"></div>
+      <div className="admin-glow-orb admin-orb-3"></div>
 
       {/* 🧭 LEFT FLOATING NAV RAIL */}
       <nav className="admin-nav-rail">
@@ -259,116 +300,112 @@ export default function AdminDashboard() {
           {/* 📊 FIVE KPI CARDS ROW */}
           <div className="admin-kpis-grid">
 
-          {/* Revenue */}
-          <div className="admin-kpi-card">
-            <div className="admin-kpi-header">
-              <span className="admin-kpi-title">Revenue Today</span>
-              <div className="admin-kpi-icon-container" style={{background: 'rgba(224, 169, 75, 0.1)', color: '#E0A94B'}}>
-                <ShoppingBag size={16} />
+            {/* Total Menu - Indigo Theme */}
+            <div className="admin-kpi-card theme-indigo">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <Utensils size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(99, 102, 241, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="26" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#6366F1">+30%</text>
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span className="admin-kpi-value">₹24,500</span>
-            <div className="admin-kpi-footer">
-              <span className="admin-kpi-trend positive">
-                <ArrowUpRight size={12} /> 18.6%
-              </span>
-              <span className="admin-kpi-comparison">vs yesterday</span>
-              <div className="admin-kpi-sparkline">
-                <svg width="60" height="20">
-                  <path d="M 0 15 Q 15 5, 30 18 T 60 5" fill="none" stroke="#E0A94B" strokeWidth="2" />
-                </svg>
+              <span className="admin-kpi-title">Total Menu</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">{menuData.length}</span>
               </div>
+              <span className="admin-kpi-subtext">active dishes this month</span>
             </div>
-          </div>
 
-          {/* Orders */}
-          <div className="admin-kpi-card">
-            <div className="admin-kpi-header">
-              <span className="admin-kpi-title">Orders Today</span>
-              <div className="admin-kpi-icon-container" style={{background: 'rgba(15, 92, 92, 0.1)', color: '#0F5C5C'}}>
-                <Activity size={16} />
+            {/* Today's Order - Emerald Theme */}
+            <div className="admin-kpi-card theme-emerald">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <Activity size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(16, 185, 129, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#10B981" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="44" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#10B981">+42%</text>
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span className="admin-kpi-value">142</span>
-            <div className="admin-kpi-footer">
-              <span className="admin-kpi-trend positive">
-                <ArrowUpRight size={12} /> 12.4%
-              </span>
-              <span className="admin-kpi-comparison">vs yesterday</span>
-              <div className="admin-kpi-sparkline">
-                <svg width="60" height="20">
-                  <path d="M 0 18 Q 15 10, 30 5 T 60 12" fill="none" stroke="#0F5C5C" strokeWidth="2" />
-                </svg>
+              <span className="admin-kpi-title">Today's Order</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">142</span>
               </div>
+              <span className="admin-kpi-subtext">orders in progress: 12</span>
             </div>
-          </div>
 
-          {/* Reservations */}
-          <div className="admin-kpi-card">
-            <div className="admin-kpi-header">
-              <span className="admin-kpi-title">Reservations</span>
-              <div className="admin-kpi-icon-container" style={{background: 'rgba(122, 104, 138, 0.1)', color: '#7A688A'}}>
-                <Calendar size={16} />
+            {/* Total Revenue - Gold/Amber Theme */}
+            <div className="admin-kpi-card theme-amber">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <ShoppingBag size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(245, 158, 11, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="30" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F59E0B">+15%</text>
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span className="admin-kpi-value">28</span>
-            <div className="admin-kpi-footer">
-              <span className="admin-kpi-trend positive">
-                <ArrowUpRight size={12} /> 8.0%
-              </span>
-              <span className="admin-kpi-comparison">vs yesterday</span>
-              <div className="admin-kpi-sparkline">
-                <svg width="60" height="20">
-                  <path d="M 0 10 Q 15 15, 30 5 T 60 14" fill="none" stroke="#7A688A" strokeWidth="2" />
-                </svg>
+              <span className="admin-kpi-title">Total Revenue</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">₹1.45L</span>
               </div>
+              <span className="admin-kpi-subtext">earnings target: ₹2.00L</span>
             </div>
-          </div>
 
-          {/* Customers */}
-          <div className="admin-kpi-card">
-            <div className="admin-kpi-header">
-              <span className="admin-kpi-title">Customers</span>
-              <div className="admin-kpi-icon-container" style={{background: 'rgba(15, 92, 92, 0.1)', color: '#0F5C5C'}}>
-                <Users size={16} />
+            {/* Today's Reservation - Sky Blue Theme */}
+            <div className="admin-kpi-card theme-skyblue">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <Calendar size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(14, 165, 233, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#0EA5E9" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="50" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#0EA5E9">+62%</text>
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span className="admin-kpi-value">458</span>
-            <div className="admin-kpi-footer">
-              <span className="admin-kpi-trend positive">
-                <ArrowUpRight size={12} /> 16.2%
-              </span>
-              <span className="admin-kpi-comparison">vs yesterday</span>
-              <div className="admin-kpi-sparkline">
-                <svg width="60" height="20">
-                  <path d="M 0 16 Q 15 5, 30 18 T 60 10" fill="none" stroke="#0F5C5C" strokeWidth="2" />
-                </svg>
+              <span className="admin-kpi-title">Today's Reservation</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">28</span>
               </div>
+              <span className="admin-kpi-subtext">tables fully booked: 18</span>
             </div>
-          </div>
 
-          {/* Average Rating */}
-          <div className="admin-kpi-card">
-            <div className="admin-kpi-header">
+            {/* Average Rating - Rose Theme */}
+            <div className="admin-kpi-card theme-rose">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <Star size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(244, 63, 94, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#F43F5E" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="8" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F43F5E">+96%</text>
+                  </svg>
+                </div>
+              </div>
               <span className="admin-kpi-title">Average Rating</span>
-              <div className="admin-kpi-icon-container" style={{background: 'rgba(224, 169, 75, 0.1)', color: '#E0A94B'}}>
-                <Star size={16} />
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">4.8</span>
               </div>
+              <span className="admin-kpi-subtext">based on 221 reviews today</span>
             </div>
-            <span className="admin-kpi-value">4.8</span>
-            <div className="admin-kpi-footer">
-              <span className="admin-kpi-trend positive" style={{color: '#2ecc71'}}>
-                <ArrowUpRight size={12} /> 0.3
-              </span>
-              <span className="admin-kpi-comparison">vs yesterday</span>
-              <div className="admin-kpi-sparkline">
-                <svg width="60" height="20">
-                  <path d="M 0 12 Q 15 8, 30 15 T 60 4" fill="none" stroke="#E0A94B" strokeWidth="2" />
-                </svg>
-              </div>
-            </div>
+
           </div>
-        </div>
 
         {/* 📈 MIDDLE ROW: REVENUE ANALYTICS + AI INSIGHT + LIVE KITCHEN */}
         <div className="admin-middle-grid">
@@ -377,121 +414,163 @@ export default function AdminDashboard() {
           <div className="admin-glass-card">
             <div className="admin-card-header">
               <h3 className="admin-card-title">Revenue Overview</h3>
-              <button className="admin-dropdown-trigger">
-                {timeFilter}
-              </button>
+              <select
+                className="admin-dropdown-trigger"
+                value={timeFilter}
+                onChange={(e) => setTimeFilter(e.target.value)}
+                style={{ outline: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+              >
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+              </select>
             </div>
 
             <div className="admin-chart-value-group">
-              <span className="admin-chart-total">₹1,45,000</span>
+              <span className="admin-chart-total">{getRevenueTotal()}</span>
               <span className="admin-chart-trend">
                 <ArrowUpRight size={14} /> 15.6%
               </span>
-              <span className="admin-chart-trend-sub"> vs last week</span>
+              <span className="admin-chart-trend-sub"> vs last period</span>
             </div>
 
-            <div className="admin-chart-container">
-              <svg className="admin-chart-svg" viewBox={`0 0 ${width} ${height}`}>
-                <defs>
-                  {/* Luxury Green Gradient Area */}
-                  <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0F5C5C" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#0F5C5C" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
+            <div className="admin-chart-container" style={{ width: '100%', height: 220, marginTop: '20px' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart
+                  data={getRevenueData()}
+                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#0F5C5C" stopOpacity={0.25} />
+                      <stop offset="100%" stopColor="#0F5C5C" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
+                  <XAxis
+                    dataKey="name"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }}
+                  />
+                  <YAxis
+                    yAxisId="left"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }}
+                    tickFormatter={(val) => val >= 10000000 ? `₹${(val / 10000000).toFixed(1)}Cr` : val >= 100000 ? `₹${val / 100000}L` : `₹${val / 1000}K`}
+                  />
+                  <YAxis
+                    yAxisId="right"
+                    orientation="right"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: 'rgba(224, 169, 75, 0.7)', fontSize: 11, fontWeight: 500 }}
+                    tickFormatter={(val) => `${val}`}
+                  />
+                  <ChartTooltip
+                    contentStyle={{
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(15, 92, 92, 0.15)',
+                      borderRadius: '16px',
+                      color: '#0F5C5C',
+                      fontFamily: 'inherit',
+                      fontSize: '13px',
+                      fontWeight: 'bold',
+                      boxShadow: '0 20px 40px rgba(15, 92, 92, 0.1)',
+                    }}
+                    formatter={(value, name) => {
+                      if (name === "revenue") return [`₹${value.toLocaleString()}`, 'Revenue'];
+                      return [`${value} Orders`, 'Orders'];
+                    }}
+                    labelStyle={{ color: 'rgba(15, 92, 92, 0.6)', fontSize: '11px', marginBottom: '4px' }}
+                  />
+                  <Area
+                    yAxisId="left"
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="#0F5C5C"
+                    strokeWidth={3}
+                    fill="url(#chartAreaGradient)"
+                  />
+                  <Line
+                    yAxisId="right"
+                    type="monotone"
+                    dataKey="orders"
+                    stroke="#E0A94B"
+                    strokeWidth={3}
+                    dot={{ stroke: '#E0A94B', strokeWidth: 2, r: 4, fill: '#fff' }}
+                    activeDot={{ r: 6 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
 
-                {/* Grid guidelines */}
-                <line x1="20" y1="30" x2="580" y2="30" className="admin-chart-grid-line" />
-                <line x1="20" y1="70" x2="580" y2="70" className="admin-chart-grid-line" />
-                <line x1="20" y1="110" x2="580" y2="110" className="admin-chart-grid-line" />
-                <line x1="20" y1="150" x2="580" y2="150" className="admin-chart-grid-line" />
-
-                {/* Curved Gradient Area */}
-                <path d={areaD} fill="url(#chartAreaGradient)" />
-
-                {/* Curved Stroke Line */}
-                <path d={pathD} fill="none" stroke="#0F5C5C" strokeWidth="3.5" strokeLinecap="round" />
-
-                {/* Mapped point markers with interactive hover bubbles */}
-                {mappedPoints.map((point, index) => (
-                  <g key={index} onMouseEnter={() => setHoveredNode(index)} onMouseLeave={() => setHoveredNode(null)}>
-                    <circle
-                      cx={point.x}
-                      cy={point.y}
-                      r={hoveredNode === index ? 7 : 4}
-                      fill={hoveredNode === index ? "#E0A94B" : "#0F5C5C"}
-                      stroke="#fff"
-                      strokeWidth="2.5"
-                      className={hoveredNode === index ? "chart-point-active" : ""}
-                      style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
-                    />
-
-                    {/* Glowing active label popup */}
-                    {hoveredNode === index && (
-                      <g>
-                        <rect
-                          x={point.x - 30}
-                          y={point.y - 35}
-                          width="60"
-                          height="22"
-                          rx="6"
-                          fill="#0F5C5C"
-                          boxShadow="0 4px 10px rgba(0,0,0,0.2)"
-                        />
-                        <text
-                          x={point.x}
-                          y={point.y - 21}
-                          fill="#fff"
-                          fontSize="9"
-                          fontWeight="bold"
-                          textAnchor="middle"
-                        >
-                          {chartPoints[index].display}
-                        </text>
-                      </g>
-                    )}
-                  </g>
-                ))}
-              </svg>
-
-              <div className="admin-chart-x-axis">
-                {chartPoints.map((p, idx) => (
-                  <span key={idx} style={{fontWeight: hoveredNode === idx ? "bold" : "normal"}}>{p.day}</span>
-                ))}
+          {/* 📊 Order Summary PieChart Card (New!) */}
+          <div className="admin-glass-card admin-kitchen-card">
+            <div className="admin-kitchen-header">
+              <h3 className="admin-card-title">Order Summary</h3>
+              <div className="admin-kitchen-icon" style={{ color: '#E0A94B', borderColor: 'rgba(224, 169, 75, 0.15)', background: 'rgba(224, 169, 75, 0.05)' }}>
+                <ShoppingBag size={16} />
               </div>
             </div>
+
+            <div className="admin-kitchen-progress-wrapper" style={{ width: '140px', height: '140px', position: 'relative', margin: '0 auto' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <defs>
+                    <linearGradient id="servedGradient" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#0F5C5C" />
+                      <stop offset="100%" stopColor="#10B981" />
+                    </linearGradient>
+                    <linearGradient id="prepGradient" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#E0A94B" />
+                      <stop offset="100%" stopColor="#ffb834" />
+                    </linearGradient>
+                    <linearGradient id="cancelGradient" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#ff5252" />
+                      <stop offset="100%" stopColor="#ff7b7b" />
+                    </linearGradient>
+                  </defs>
+                  <Pie
+                    data={[
+                      { name: "Served/Delivered", value: 68 },
+                      { name: "Preparing/On Delivery", value: 22 },
+                      { name: "Cancelled", value: 10 }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={48}
+                    outerRadius={58}
+                    startAngle={90}
+                    endAngle={-270}
+                    dataKey="value"
+                  >
+                    <Cell fill="url(#servedGradient)" stroke="rgba(15, 92, 92, 0.1)" />
+                    <Cell fill="url(#prepGradient)" stroke="rgba(224, 169, 75, 0.1)" />
+                    <Cell fill="url(#cancelGradient)" stroke="rgba(255, 82, 82, 0.1)" />
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="admin-kitchen-center-text" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+                <span className="admin-kitchen-percentage" style={{ fontSize: '20px', fontWeight: 'bold', color: '#0F5C5C' }}>120</span>
+                <span className="admin-kitchen-desc" style={{ fontSize: '9px', color: '#7A688A', display: 'block' }}>Total Orders</span>
+              </div>
+            </div>
+
+            <div className="admin-order-summary-legend" style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '12px', fontWeight: 800, color: '#7A688A', width: '100%', flexWrap: 'wrap', marginTop: '10px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0F5C5C', display: 'inline-block' }}></span> Served (68%)</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E0A94B', display: 'inline-block' }}></span> Active (22%)</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ff5252', display: 'inline-block' }}></span> Pending (10%)</span>
+            </div>
           </div>
 
-          {/* Premium AI Insight card (Dark Emerald) */}
-          <div className="admin-ai-card">
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <h3 style={{fontFamily: 'Playfair Display', fontSize: '1.2rem', margin: 0}}>AI Insight</h3>
-              <span className="admin-ai-badge">AI</span>
-            </div>
 
-            <p className="admin-ai-text">
-              Pasta demand is expected to increase this weekend.
-            </p>
 
-            <div className="admin-ai-rec-box">
-              <span className="admin-ai-rec-title">Recommended action:</span>
-              <p className="admin-ai-rec-body">Increase stock of fresh truffle pasta ingredients by 15% before Saturday.</p>
-            </div>
-
-            <div className="admin-ai-illustration-container">
-              <img
-                src={pasta3d || "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=150&q=80"}
-                alt="Pasta gourmet illustration"
-                className="admin-ai-food-img"
-              />
-            </div>
-
-            <button className="admin-ai-btn" onClick={() => alert("Loading advanced predictive demand model...")}>
-              View Details
-            </button>
-          </div>
-
-          {/* Live Kitchen Status Card with circular glowing progress */}
+          {/* Live Kitchen Status Card with order-wise preparation progress */}
           <div className="admin-glass-card admin-kitchen-card">
             <div className="admin-kitchen-header">
               <h3 className="admin-card-title">Live Kitchen Status</h3>
@@ -500,36 +579,46 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            <div className="admin-kitchen-progress-wrapper">
-              <svg width="140" height="140" className="admin-kitchen-svg">
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="52"
-                  strokeWidth="8"
-                  fill="transparent"
-                  className="admin-kitchen-track"
-                />
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="52"
-                  strokeWidth="8"
-                  fill="transparent"
-                  className="admin-kitchen-fill"
-                  strokeDasharray={2 * Math.PI * 52}
-                  strokeDashoffset={2 * Math.PI * 52 * (1 - 0.75)}
-                />
-              </svg>
-              <div className="admin-kitchen-center-text">
-                <span className="admin-kitchen-percentage">75%</span>
-                <span className="admin-kitchen-desc">Orders Completed</span>
+            <div className="admin-kitchen-progress-list" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', margin: '15px 0' }}>
+
+              {/* Order 1: #125 Truffle Pasta */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#7A688A', fontWeight: 600 }}>
+                  <span style={{ color: '#0F5C5C', fontWeight: 800 }}>#125 Truffle Pasta</span>
+                  <span style={{ color: '#0F5C5C' }}>80% (Prep • 2m left)</span>
+                </div>
+                <div style={{ width: '100%', height: '8px', background: 'rgba(15, 92, 92, 0.05)', border: '1px solid rgba(15, 92, 92, 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: '80%', height: '100%', background: 'linear-gradient(90deg, #0F5C5C, #10B981)', borderRadius: '4px', boxShadow: '0 0 8px rgba(16, 185, 129, 0.3)' }}></div>
+                </div>
               </div>
+
+              {/* Order 2: #124 Grilled Salmon */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#7A688A', fontWeight: 600 }}>
+                  <span style={{ color: '#E0A94B', fontWeight: 800 }}>#124 Grilled Salmon</span>
+                  <span style={{ color: '#E0A94B' }}>45% (Baking • 6m left)</span>
+                </div>
+                <div style={{ width: '100%', height: '8px', background: 'rgba(15, 92, 92, 0.05)', border: '1px solid rgba(15, 92, 92, 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: '45%', height: '100%', background: 'linear-gradient(90deg, #E0A94B, #ffb834)', borderRadius: '4px', boxShadow: '0 0 8px rgba(224, 169, 75, 0.3)' }}></div>
+                </div>
+              </div>
+
+              {/* Order 3: #123 Chocolate Lava */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#7A688A', fontWeight: 600 }}>
+                  <span style={{ color: '#7A688A', fontWeight: 800 }}>#123 Chocolate Lava</span>
+                  <span style={{ color: '#7A688A' }}>95% (Plating • 1m left)</span>
+                </div>
+                <div style={{ width: '100%', height: '8px', background: 'rgba(15, 92, 92, 0.05)', border: '1px solid rgba(15, 92, 92, 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: '95%', height: '100%', background: 'linear-gradient(90deg, #7A688A, #A18CD1)', borderRadius: '4px', boxShadow: '0 0 8px rgba(122, 104, 138, 0.3)' }}></div>
+                </div>
+              </div>
+
             </div>
 
-            <div className="admin-kitchen-stats">
-              <span className="admin-kitchen-stats-label">Active Queue Orders</span>
-              <span className="admin-kitchen-stats-value">12</span>
+            <div className="admin-kitchen-stats" style={{ borderTop: '1px dashed rgba(15, 92, 92, 0.1)', paddingTop: '10px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span className="admin-kitchen-stats-label" style={{ fontSize: '12px', color: '#7A688A', fontWeight: 800 }}>Active Queue Orders</span>
+              <span className="admin-kitchen-stats-value" style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0F5C5C' }}>3</span>
             </div>
           </div>
         </div>
