@@ -94,23 +94,48 @@ const HeroSection = () => {
     [0, 1],
   )
 
-  /* Lock scroll while popup is open */
+  /* Lock scroll by preventing scroll events while popup is open */
   useEffect(() => {
-    if (showPopup) {
-      // Defer locking body overflow to allow the active snap transition to finish smoothly
-      const timer = setTimeout(() => {
-        document.documentElement.style.overflow = "hidden"
-      }, 800)
-      return () => clearTimeout(timer)
-    } else {
-      document.documentElement.style.overflow = ""
-    }
+    if (!showPopup) return;
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const container = document.querySelector(".app-scroll-container") || window;
+
+    container.addEventListener("wheel", preventScroll, { passive: false });
+    container.addEventListener("touchmove", preventScroll, { passive: false });
+
+    const preventKeys = (e) => {
+      const keys = [" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "PageUp", "PageDown", "Home", "End"];
+      if (keys.includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("keydown", preventKeys, { passive: false });
+
     return () => {
-      document.documentElement.style.overflow = ""
+      container.removeEventListener("wheel", preventScroll);
+      container.removeEventListener("touchmove", preventScroll);
+      window.removeEventListener("keydown", preventKeys);
+    };
+  }, [showPopup]);
+
+
+
+  /* Popup fires instantly on raw scroll progress (removing floaty spring delays) */
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const popupTrigger = isMobile ? 0.61 : 0.73
+    if (v >= popupTrigger && !hasShownPopup.current) {
+      if (!globalHasSeenPopup) {
+        setShowPopup(true)
+        globalHasSeenPopup = true
+      }
+      hasShownPopup.current = true
     }
-  }, [showPopup])
-
-
+  })
 
   useMotionValueEvent(smooth, "change", (v) => {
     prevV.current = v
@@ -127,16 +152,6 @@ const HeroSection = () => {
       setNavTheme("purple") // Light purple on dark background (Scene 2)
     } else {
       setNavTheme("green") // Dark teal on next section
-    }
-
-    // Popup fires only AFTER Scene 1 has fully gone and scroll has settled (desktop: 0.73, mobile: 0.61)
-    const popupTrigger = isMobile ? 0.61 : 0.73
-    if (v >= popupTrigger && !hasShownPopup.current) {
-      if (!globalHasSeenPopup) {
-        setShowPopup(true)
-        globalHasSeenPopup = true
-      }
-      hasShownPopup.current = true
     }
   })
 

@@ -5,41 +5,148 @@
 .contact-page {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   background-color: #ffffff;
-  padding: 90px 8vw 60px 8vw;
   box-sizing: border-box;
   font-family: var(--font-sans), sans-serif;
   color: #2b2520;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* 1. Breadcrumbs */
-.contact-breadcrumbs {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #7c746e;
-  margin-bottom: 2rem;
-  letter-spacing: 0.5px;
+/* Base Scroll Snap Section */
+.contact-snap-section {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 100px 8vw 40px 8vw;
+  position: relative;
+  overflow: hidden;
 }
 
-.breadcrumb-home {
-  cursor: pointer;
-  transition: color 0.3s;
+/* Section Specific Customizations */
+.contact-snap-intro {
+  background: #ffffff;
 }
 
-.breadcrumb-home:hover {
-  color: #0f5c5c;
+.contact-snap-grid-section {
+  background: #fdfaf7;
+  padding-top: 110px;
 }
 
-.breadcrumb-active {
-  color: #eaa43b;
+.contact-snap-map-section {
+  background: #ffffff;
+  padding-top: 100px;
+}
+
+.contact-snap-footer-section {
+  background: #f4f7f7;
+  height: auto;
+  min-height: auto;
+  padding: 0;
+  display: block;
+}
+
+.contact-snap-footer-section footer {
+  width: 100%;
+}
+
+.contact-intro-main-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-editorial-tag {
+  font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 2px;
+  color: #eaa43b;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.contact-highlights-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.highlight-card {
+  flex: 1;
+  background: #fdfaf7;
+  border: 1px solid rgba(15, 92, 92, 0.05);
+  border-radius: 18px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(15, 92, 92, 0.02);
+  transition: all 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.08);
+  border-color: #eaa43b;
+}
+
+.highlight-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.highlight-card h5 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  color: #0f5c5c;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.highlight-card p {
+  font-size: 0.9rem;
+  color: #5c554e;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Headers */
+.grid-section-header,
+.map-section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.grid-section-header h3,
+.map-section-header h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  color: #0f5c5c;
+  margin: 0;
 }
 
 /* 2. Centered Main Header */
 .contact-main-header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
 }
 
 .contact-main-header h2 {
@@ -48,7 +155,7 @@
   font-weight: 900;
   color: #0f5c5c;
   line-height: 1.25;
-  margin: 0 0 1.2rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .contact-header-divider {
@@ -66,7 +173,7 @@
   justify-content: space-between;
   gap: 4rem;
   max-width: 1200px;
-  margin: 0 auto 5rem auto;
+  margin: 0 auto 2.5rem auto;
 }
 
 .contact-intro-left {
@@ -303,11 +410,89 @@
   margin: 0;
 }
 
-/* 5. Map Section */
+/* 5. Map & Landmark Proximity Section */
+.map-split-container {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 3.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+.landmark-directions-panel {
+  background: #fdfaf7;
+  border-radius: 24px;
+  padding: 2.2rem;
+  border: 1px solid rgba(15, 92, 92, 0.06);
+  box-shadow: 0 15px 35px rgba(15, 92, 92, 0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.landmark-directions-panel h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  color: #0f5c5c;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.landmark-intro-desc {
+  font-size: 0.95rem;
+  color: #5c554e;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.landmarks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.landmark-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.landmark-item:hover {
+  transform: translateX(4px);
+}
+
+.landmark-bullet {
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.landmark-details {
+  text-align: left;
+}
+
+.landmark-details h5 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f5c5c;
+  margin: 0 0 2px 0;
+}
+
+.landmark-details p {
+  font-size: 0.85rem;
+  color: #eaa43b;
+  font-weight: 600;
+  margin: 0;
+}
+
 .contact-section-map {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .map-card-aesthetic {
@@ -324,14 +509,33 @@
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  .contact-page {
+  .contact-snap-section {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
     padding: 100px 5vw 40px 5vw;
+    overflow: visible;
+  }
+
+  .contact-snap-footer-section {
+    padding: 80px 5vw 40px 5vw;
   }
 
   .contact-intro-container {
     flex-direction: column;
     gap: 2.5rem;
     text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .contact-highlights-row {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .highlight-card {
+    width: 100%;
   }
 
   .chef-image-container {
@@ -342,6 +546,12 @@
   .contact-grid-container {
     grid-template-columns: 1fr;
     gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .map-split-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .contact-form-card {
@@ -377,8 +587,12 @@
 }
 
 @media (max-width: 480px) {
-  .contact-page {
+  .contact-snap-section {
     padding: 85px 4vw 30px 4vw;
+  }
+
+  .contact-snap-footer-section {
+    padding: 60px 4vw 30px 4vw;
   }
 
   .contact-main-header h2 {

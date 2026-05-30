@@ -357,13 +357,13 @@ const InfographicMap = () => {
                 JUBELI CIRCLE
               </motion.text>
 
-              <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>RELIENCE</motion.text>
+              <motion.text x="880" y="270" textAnchor="middle" transform="rotate(8, 880, 270)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>RELIANCE CIRCLE</motion.text>
               <motion.text x="880" y="305" textAnchor="middle" fontSize="22" transform="rotate(8, 880, 305)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 0.8 }}>
 
               </motion.text>
 
               <motion.text x="820" y="880" transform="rotate(-10, 850, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.0 }}>
-                COMMERS COLLAGE
+                COMMERCE COLLEGE
               </motion.text>
 
               <motion.text x="140" y="900" transform="rotate(5, 140, 900)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false }} transition={{ delay: 1.2 }}>

@@ -300,6 +300,12 @@ section {
   height: auto;
 }
 
+.app-scroll-container.contact-page-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+}
+
 /* 📱 MOBILE RESPONSIVE SCROLL SNAPPING & FLOATING CONTROLS */
 @media (max-width: 1023px) {
   html, body {

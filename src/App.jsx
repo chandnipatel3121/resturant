@@ -23,6 +23,7 @@ function AppContent() {
   const location = useLocation()
   const isHomePage = location.pathname === "/"
   const isChefPage = location.pathname === "/chef"
+  const isContactPage = location.pathname === "/contact"
   const { showPopup, setShowPopup } = useNav()
 
   useEffect(() => {
@@ -72,7 +73,7 @@ function AppContent() {
   }, [location.pathname])
 
   return (
-    <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""}`}>
+    <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""} ${isContactPage ? "contact-page-scroll" : ""}`}>
       <ScrollToTop />
       <SmoothScroll>
         <Navbar />
@@ -87,7 +88,7 @@ function AppContent() {
           </Routes>
         </main>
       </SmoothScroll>
-      {location.pathname !== "/gallery" && location.pathname !== "/chef" && <Footer />}
+      {location.pathname !== "/gallery" && location.pathname !== "/chef" && location.pathname !== "/contact" && <Footer />}
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </div>
   )

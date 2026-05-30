@@ -192,3 +192,114 @@
     gap: 1rem;
   }
 }
+
+/* 📱 UNIFIED MOBILE FOOTER STANDARD OVERRIDES */
+@media (max-width: 1024px) {
+  /* Enforce exact same background, text color, height, and padding for the footer element on ALL pages */
+  footer.footer,
+  .footer,
+  #main-footer {
+    background-color: #f4f7f7 !important;
+    color: #0f5c5c !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 3rem 1.5rem 2rem 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-top: 1px solid rgba(15, 92, 92, 0.08) !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure snap sections wrapping the footer on home or contact page do not stretch or color-bleed */
+  .app-scroll-container.home-page-scroll footer,
+  .contact-snap-footer-section {
+    height: auto !important;
+    min-height: auto !important;
+    background-color: #f4f7f7 !important;
+    background: #f4f7f7 !important;
+    padding: 0 !important;
+    display: block !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+  }
+  
+  .footer-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.8rem !important;
+  }
+
+  .footer-brand {
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .footer-logo {
+    color: #0f5c5c !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .footer-address {
+    color: #7a688a !important;
+    font-size: 0.95rem !important;
+    text-align: center !important;
+    margin-bottom: 0.8rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .footer-email {
+    color: #eaa43b !important;
+    font-size: 1.05rem !important;
+    text-align: center !important;
+  }
+
+  .footer-nav {
+    flex-direction: row !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 2.5rem !important;
+    margin-top: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .footer-column {
+    align-items: center !important;
+  }
+
+  .footer-col-title {
+    font-size: 11px !important;
+    margin-bottom: 0.4rem !important;
+    color: #7a688a !important;
+  }
+
+  .footer-link {
+    font-size: 0.85rem !important;
+    color: #0f5c5c !important;
+  }
+
+  .footer-bottom {
+    width: 100% !important;
+    margin-top: 1.8rem !important;
+    padding-top: 1.2rem !important;
+    border-top: 1px solid rgba(15, 92, 92, 0.08) !important;
+    flex-direction: column !important;
+    gap: 0.6rem !important;
+    align-items: center !important;
+  }
+
+  .footer-copyright,
+  .footer-agency {
+    font-size: 12px !important;
+    color: #7a688a !important;
+    text-align: center !important;
+  }
+}
