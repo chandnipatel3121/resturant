@@ -810,7 +810,24 @@ const MenuSection = () => {
       searchQuery !== ""
     )
   }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery])
+
   const showMenuHero = !hasInteracted && !hasActiveFilters
+
+  // 📱 Toggle native CSS scroll snap class on mobile container
+  React.useEffect(() => {
+    const container = document.querySelector(".app-scroll-container")
+    if (!container) return
+
+    if (showMenuHero) {
+      container.classList.add("menu-page-scroll")
+    } else {
+      container.classList.remove("menu-page-scroll")
+    }
+
+    return () => {
+      container.classList.remove("menu-page-scroll")
+    }
+  }, [showMenuHero])
 
   // Disable scroll snapping completely when any filter is active, preventing scroll snapping glitches!
   React.useEffect(() => {

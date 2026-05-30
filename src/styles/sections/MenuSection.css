@@ -34,7 +34,6 @@ html.menu-snap-page {
 
 @media (max-width: 1023px) {
   html.menu-snap-page .app-scroll-container {
-    scroll-snap-type: y mandatory !important;
     scroll-behavior: smooth !important;
     -webkit-overflow-scrolling: touch;
   }
@@ -380,6 +379,8 @@ html.menu-snap-page .menu-main-layout {
 .explorer-grid {
   position: relative;
   z-index: 1;
+  min-height: 60vh;
+  min-height: 60dvh;
 }
 
 /* --- VERTICAL SIDEBAR --- */
@@ -657,6 +658,8 @@ html.menu-snap-page .menu-main-layout {
   flex: 1;
   min-width: 0;
   position: relative;
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
 }
 
 /* --- TABLET: sidebar horizontal scroll strip on top --- */
