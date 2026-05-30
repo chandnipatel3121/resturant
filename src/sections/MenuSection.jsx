@@ -962,12 +962,10 @@ const MenuSection = () => {
     { name: "All", icon: <Globe size={30} /> },
     { name: "South Indian", icon: <Flame size={30} /> },
     { name: "Chinese", icon: <Soup size={30} /> },
-    { name: "Fusion Food", icon: <UtensilsCrossed size={30} /> },
-    { name: "Fast Food", icon: <Pizza size={30} /> },
-    { name: "Street Food", icon: <Store size={30} /> },
     { name: "Pizza & Sandwich", icon: <Sandwich size={30} /> },
-    { name: "Indo-Chinese", icon: <ChefHat size={30} /> },
-    { name: "Vegetarian Specials", icon: <Carrot size={30} /> },
+    { name: "Fusion Food", icon: <UtensilsCrossed size={30} /> },
+    { name: "Snacks", icon: <Store size={30} /> },
+    { name: "Fast Food", icon: <Pizza size={30} /> },
   ]
 
   const meals = ["All", "Breakfast", "Lunch", "Dinner"]
@@ -978,7 +976,6 @@ const MenuSection = () => {
     "Main Course",
     "Desserts",
     "Soups",
-    "Drinks",
     "Beverages",
     "Chef Specials",
   ]

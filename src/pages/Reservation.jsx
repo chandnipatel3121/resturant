@@ -144,7 +144,6 @@ const Reservation = () => {
                       className={`time-slot-btn-modern ${selectedTime === time ? "active" : ""}`}
                       onClick={() => setSelectedTime(time)}
                     >
-                      <span className="meal">{selectedMeal}</span>
                       <span className="time">{time}</span>
                     </button>
                   ))}
