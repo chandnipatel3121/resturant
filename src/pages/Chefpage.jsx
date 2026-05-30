@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNav } from "../utils/NavContext"
+import Footer from "../sections/Footer"
 import "../styles/pages/ChefPage.css"
 
 import {
@@ -232,15 +233,42 @@ const ChefPage = () => {
       clearTimeout(scrollTimeout)
     }
   }, [isMobile])
-
   // Desktop wheel & key handlers
   useEffect(() => {
     if (isMobile) return
 
     const onWheel = (e) => {
-      e.preventDefault()
       const now = Date.now()
-      if (now - lastInteractionTime.current < 1200) return
+
+      // 1. Block any scroll during section-to-section transition (900ms animation)
+      if (now - lastInteractionTime.current < 900) {
+        e.preventDefault()
+        return
+      }
+
+      // 2. Handle internal scrolling inside the Experience section (index 4)
+      if (currentSection === 4) {
+        const expSection = sectionRefs.current[4]
+        if (expSection) {
+          const { scrollTop, scrollHeight, clientHeight } = expSection
+          
+          // Scrolling down: if not at the bottom, scroll natively
+          if (e.deltaY > 0) {
+            if (scrollTop + clientHeight < scrollHeight - 2) {
+              return // Allow native scroll
+            }
+          }
+          // Scrolling up: if not already at the top, scroll natively
+          else if (e.deltaY < 0) {
+            if (scrollTop > 2) {
+              return // Allow native scroll
+            }
+          }
+        }
+      }
+
+      // 3. Section snapped transition
+      e.preventDefault()
       if (Math.abs(e.deltaY) < 25) return
 
       lastInteractionTime.current = now
@@ -303,10 +331,10 @@ const ChefPage = () => {
     <div className="journey-portfolio" ref={portfolioRef}>
       {/* ─── Side Navigation Dots ──────────────────────────────────────────── */}
       <div className="fp-nav-dots">
-        {SECTIONS.slice(0, 5).map((_, i) => (
+        {SECTIONS.map((_, i) => (
           <button
             key={i}
-            className={`fp-dot ${i === currentSection || (i === 4 && currentSection === 5) ? "active" : ""}`}
+            className={`fp-dot ${i === currentSection ? "active" : ""}`}
             onClick={() => goToSection(i)}
             title={SECTION_LABELS[i]}
           >
@@ -813,6 +841,7 @@ const ChefPage = () => {
               <p>Join us to create your own memories at Anando Foods.</p>
             </motion.div>
           </div>
+          <Footer />
         </section>
 
       </div>

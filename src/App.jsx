@@ -88,7 +88,7 @@ function AppContent() {
           </Routes>
         </main>
       </SmoothScroll>
-      {location.pathname !== "/gallery" && location.pathname !== "/chef" && location.pathname !== "/contact" && <Footer />}
+      {location.pathname !== "/gallery" && location.pathname !== "/contact" && location.pathname !== "/chef" && <Footer />}
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </div>
   )
