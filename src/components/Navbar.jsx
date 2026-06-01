@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, useMotionValueEvent, useScroll } from "framer-motion"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useNav } from "../utils/NavContext"
 import "../styles/components/Navbar.css"
 
@@ -8,6 +8,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { navTheme, pastHero } = useNav()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [pastDishShowcase, setPastDishShowcase] = useState(false)
 
   const navLinks = [
     { label: "Restaurant", path: "/" },
@@ -17,7 +19,47 @@ const Navbar = () => {
     { label: "Contact", path: "/contact" },
   ]
 
-  const isLight = pastHero && navTheme === 'green'
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setPastDishShowcase(false)
+      return
+    }
+
+    const handleScroll = () => {
+      const dishSection = document.getElementById("dish-showcase")
+      if (!dishSection) return
+
+      const rect = dishSection.getBoundingClientRect()
+      // If the bottom of the dish section is scrolled past the top of the viewport (with a small buffer for the navbar)
+      if (rect.bottom <= 80) {
+        setPastDishShowcase(true)
+      } else {
+        setPastDishShowcase(false)
+      }
+    }
+
+    const isMobile = window.innerWidth < 1024
+    const container = isMobile
+      ? document.querySelector(".app-scroll-container")
+      : window
+
+    if (container) {
+      if (isMobile) {
+        container.addEventListener("scroll", handleScroll, { passive: true })
+      } else {
+        window.addEventListener("scroll", handleScroll, { passive: true })
+      }
+      handleScroll()
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll)
+      }
+    }
+  }, [location.pathname])
+
+  const isLight = pastHero && navTheme === 'green' && (location.pathname !== "/" || pastDishShowcase)
 
   return (
     <>
@@ -50,6 +92,16 @@ const Navbar = () => {
                 key={link.label}
                 to={link.path}
                 className={`nav-link nav-link-${navTheme}`}
+                onClick={() => {
+                  if (link.path === "/") {
+                    setMobileOpen(false);
+                    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                    const container = document.querySelector(".app-scroll-container");
+                    if (container) {
+                      container.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                    }
+                  }
+                }}
               >
                 {link.label}
                 <span className="nav-link-line" />
@@ -100,7 +152,16 @@ const Navbar = () => {
             <Link
               key={link.label}
               to={link.path}
-              onClick={() => setMobileOpen(false)}
+              onClick={() => {
+                setMobileOpen(false);
+                if (link.path === "/") {
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                  const container = document.querySelector(".app-scroll-container");
+                  if (container) {
+                    container.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                  }
+                }
+              }}
               className="mobile-nav-link"
             >
               {link.label}

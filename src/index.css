@@ -55,7 +55,8 @@ html {
   scrollbar-width: none;
   overflow-y: scroll;
   scroll-behavior: auto;
-  scroll-padding-top: initial; /* home-page snap rules in their own @media override this */
+  scroll-padding-top: initial;
+  /* home-page snap rules in their own @media override this */
   font-size: clamp(14px, 1.2vw, 16px);
 }
 
@@ -199,8 +200,10 @@ footer {
 /* 🌟 SCROLL REVEAL ANIMATIONS */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(50px);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
   will-change: transform, opacity;
 }
 
@@ -308,7 +311,9 @@ section {
 
 /* 📱 MOBILE RESPONSIVE SCROLL SNAPPING & FLOATING CONTROLS */
 @media (max-width: 1023px) {
-  html, body {
+
+  html,
+  body {
     height: 100% !important;
     overflow: hidden !important;
     position: fixed;
@@ -322,20 +327,9 @@ section {
     -webkit-overflow-scrolling: touch !important;
   }
 
-  .app-scroll-container.home-page-scroll,
-  .app-scroll-container.menu-page-scroll {
+  .app-scroll-container.home-page-scroll {
     scroll-snap-type: y mandatory !important;
     scroll-behavior: smooth !important;
-  }
-
-  .app-scroll-container.menu-page-scroll .enhanced-menu-hero,
-  .app-scroll-container.menu-page-scroll .menu-main-layout {
-    scroll-snap-align: start !important;
-    scroll-snap-stop: always !important;
-  }
-
-  .app-scroll-container.menu-page-scroll .menu-main-layout {
-    scroll-margin-top: 56px !important; /* Mobile navbar offset */
   }
 
   .app-scroll-container.home-page-scroll section:not(.hero-section),

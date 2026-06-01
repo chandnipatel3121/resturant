@@ -20,44 +20,14 @@ section#menu.subpage-layout {
 }
 
 @media (max-width: 768px) {
+
   /* Remove top padding so hero is full-bleed; hero handles navbar offset internally */
   section#menu.subpage-layout {
     padding-top: 0;
   }
 }
 
-/* 🌊 SCROLL SNAPPING FOR MENU PAGE */
-html.menu-snap-page {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
 
-@media (max-width: 1023px) {
-  html.menu-snap-page .app-scroll-container {
-    scroll-behavior: smooth !important;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-html.menu-snap-page .enhanced-menu-hero {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-html.menu-snap-page .menu-main-layout {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  scroll-margin-top: 76px;
-  min-height: 100dvh;
-  /* Offsets for the sticky navbar */
-}
-
-@media (max-width: 768px) {
-  html.menu-snap-page .menu-main-layout {
-    scroll-margin-top: 56px !important;
-    /* Aligns perfectly flush under mobile navbar */
-  }
-}
 
 /* --- ENHANCED ADVANCED HERO --- */
 .enhanced-menu-hero {
@@ -74,7 +44,7 @@ html.menu-snap-page .menu-main-layout {
   will-change: transform;
 }
 
-.enhanced-menu-hero > div:not(.hero-bg-media) {
+.enhanced-menu-hero>div:not(.hero-bg-media) {
   width: 100%;
 }
 
@@ -169,12 +139,10 @@ html.menu-snap-page .menu-main-layout {
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
 }
 
 .hero-floating-elements {
@@ -359,9 +327,7 @@ html.menu-snap-page .menu-main-layout {
   }
 }
 
-.general-search-container:focus-within
-  ~ .search-stats
-  .search-status-dot::after {
+.general-search-container:focus-within~.search-stats .search-status-dot::after {
   animation-duration: 1s;
 }
 
@@ -508,7 +474,7 @@ html.menu-snap-page .menu-main-layout {
   transition: all 0.3s ease;
 }
 
-.sidebar-search-input:focus + .sidebar-search-icon {
+.sidebar-search-input:focus+.sidebar-search-icon {
   color: #d4af37;
   opacity: 1;
 }
@@ -678,11 +644,9 @@ html.menu-snap-page .menu-main-layout {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: linear-gradient(
-      to bottom,
-      var(--bg) 80%,
-      rgba(15, 92, 92, 0.02)
-    );
+    background: linear-gradient(to bottom,
+        var(--bg) 80%,
+        rgba(15, 92, 92, 0.02));
     position: static;
   }
 
@@ -919,10 +883,10 @@ html.menu-snap-page .menu-main-layout {
 
   width: 100%;
 
-background: #edf7f7;
+  background: #edf7f7;
 
   backdrop-filter: none;
--webkit-backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
   transition: all 0.3s ease;
@@ -932,7 +896,7 @@ background: #edf7f7;
   transform: translateZ(0);
   isolation: isolate;
 
- box-shadow: none;
+  box-shadow: none;
 
   padding-top: 12px;
   padding-bottom: 16px;
@@ -1143,6 +1107,7 @@ background: #edf7f7;
 }
 
 @media (max-width: 768px) {
+
   /* Sticky filter bar: solid white with border and overlap under navbar */
   .menu-filters-sticky {
     top: 56px !important;
@@ -1163,7 +1128,7 @@ background: #edf7f7;
   }
 
   /* Minimize direct child margins/padding to make sticky area vertically compact */
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
@@ -1652,11 +1617,9 @@ background: #edf7f7;
 }
 
 .course-chip.active {
-  background: linear-gradient(
-    135deg,
-    var(--chip-grad-1),
-    var(--chip-grad-2)
-  ) !important;
+  background: linear-gradient(135deg,
+      var(--chip-grad-1),
+      var(--chip-grad-2)) !important;
   border-color: transparent !important;
   color: #ffffff !important;
   transform: translateY(-3px) scale(1.02);
@@ -1757,7 +1720,7 @@ background: #edf7f7;
     border-top: 1px solid #edf7f7 !important;
   }
 
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
     margin-bottom: 0 !important;
@@ -2042,7 +2005,7 @@ background: #edf7f7;
     border-top: 1px solid #edf7f7 !important;
   }
 
-  .menu-filters-sticky > div {
+  .menu-filters-sticky>div {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     margin-bottom: 0 !important;
@@ -2513,12 +2476,10 @@ background: #edf7f7;
 
 .grid-divider-kiosk {
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   height: 80%;
   align-self: center;
 }
@@ -2763,6 +2724,7 @@ background: #edf7f7;
 
 /* --- ANIMATIONS --- */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -2883,13 +2845,11 @@ background: #edf7f7;
   right: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    -135deg,
-    #d4af37 0%,
-    #f9e272 2%,
-    #d4af37 4%,
-    transparent 4.5%
-  );
+  background: linear-gradient(-135deg,
+      #d4af37 0%,
+      #f9e272 2%,
+      #d4af37 4%,
+      transparent 4.5%);
   pointer-events: none;
   z-index: 10;
 }
@@ -2917,22 +2877,18 @@ background: #edf7f7;
   width: 100%;
   height: 100%;
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       transparent 96%,
       #d4af37 96.5%,
       #f9e272 97.5%,
       #d4af37 98.5%,
-      transparent 99%
-    ),
-    linear-gradient(
-      -135deg,
+      transparent 99%),
+    linear-gradient(-135deg,
       transparent 96%,
       #d4af37 96.5%,
       #f9e272 97.5%,
       #d4af37 98.5%,
-      transparent 99%
-    );
+      transparent 99%);
   pointer-events: none;
   z-index: 5;
 }
@@ -3491,12 +3447,10 @@ background: #edf7f7;
 .flipping-shadow-sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0) 40%,
-    rgba(0, 0, 0, 0.2) 100%
-  );
+  background: linear-gradient(to left,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.2) 100%);
   pointer-events: none;
   animation: sweep-shadow 1.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
 }
@@ -3572,11 +3526,9 @@ background: #edf7f7;
   background-color: #0e2929;
   background-image:
     url("https://www.transparenttextures.com/patterns/black-leather.png"),
-    radial-gradient(
-      circle at center,
+    radial-gradient(circle at center,
       rgba(255, 255, 255, 0.05) 0%,
-      transparent 80%
-    );
+      transparent 80%);
   background-size: 250px, auto;
   border-radius: 4px 0 0 4px;
   border-right: 15px solid #081d1d;
@@ -3629,13 +3581,11 @@ background: #edf7f7;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    #d4af37 0%,
-    #f9e272 2%,
-    #d4af37 4%,
-    transparent 4.5%
-  );
+  background: linear-gradient(135deg,
+      #d4af37 0%,
+      #f9e272 2%,
+      #d4af37 4%,
+      transparent 4.5%);
   pointer-events: none;
   z-index: 10;
 }
@@ -4373,6 +4323,7 @@ background: #edf7f7;
 
 /* --- 📱 MOBILE VIEW COMPACT OVERRIDES (<= 480px) --- */
 @media (max-width: 480px) {
+
   /* Remove side padding from content area - sidebar + content fill screen */
   .menu-content-area {
     width: calc(100% - 56px) !important;

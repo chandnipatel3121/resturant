@@ -5,72 +5,84 @@ import "../styles/pages/Gallery.css"
 import { useNav } from "../utils/NavContext"
 import Footer from "../sections/Footer"
 
-// Import assets for categories
+// Import new unique premium assets for the gallery
+import ambienceMain from "../assets/gallery/ambience_main.png"
+import ambienceBranded from "../assets/gallery/ambience_branded.png"
+import chefMain from "../assets/gallery/chef_main.png"
+import signatureMain from "../assets/gallery/signature_main.png"
+import privateDining from "../assets/gallery/private_dining.png"
+import kitchenCooking from "../assets/gallery/kitchen_cooking.png"
+import signatureDessert from "../assets/gallery/signature_dessert.png"
+import signatureAppetizer from "../assets/gallery/signature_appetizer.png"
+import freshIngredients from "../assets/gallery/fresh_ingredients.png"
+import chefPlating from "../assets/gallery/chef_plating.png"
+import diningBooth from "../assets/gallery/dining_booth.png"
+import clayOvenBaking from "../assets/gallery/clay_oven_baking.png"
+import artisanalUtensils from "../assets/gallery/artisanal_utensils.png"
+import gourmetSoup from "../assets/gallery/gourmet_soup.png"
+
+// Import core assets
 import dining from "../assets/dining.jpg"
 import chef1 from "../assets/chef1.jpg"
-import dish1 from "../assets/dish1.jpg"
 import restro3 from "../assets/resturent3.jpg"
-import restro2 from "../assets/resturent2.jpg"
 
-import ambienceImg from "../assets/gallery/ambience.png"
-import privateImg from "../assets/gallery/private.png"
-import barImg from "../assets/gallery/bar.png"
-import chefImg from "../assets/gallery/chef.png"
-import kitchenImg from "../assets/gallery/kitchen.png"
-import signatureImg from "../assets/gallery/signature.png"
+// Import additional dessert assets
+import dessertBerry from "../assets/desert.jpg"
+import chocolateDessert from "../assets/generated_dishes/chocolate_dessert.png"
+import kesarPista from "../assets/dishes/Kesar Pista Ice Cream.jpg"
 
 const categories = [
   {
     id: "01",
     title: "Ambience",
     desc: "Step behind the curtain and explore the grand architecture and vibrant atmosphere of our main dining halls and intimate spaces.",
-    img: ambienceImg,
+    img: ambienceBranded,
     link: "#ambience",
     subImages: [
-      ambienceImg,
-      privateImg,
-      barImg,
-      restro2
+      diningBooth,
+      privateDining,
+      ambienceMain,
+      dining
     ]
   },
   {
     id: "02",
     title: "Craft",
     desc: "Witness the precision and passion of our master chefs as they orchestrate culinary perfection in the heart of the kitchen.",
-    img: chefImg,
+    img: chefMain,
     link: "#craft",
     subImages: [
-      chefImg,
-      kitchenImg,
-      chef1,
-      dish1
+      kitchenCooking,
+      chefPlating,
+      clayOvenBaking,
+      artisanalUtensils
     ]
   },
   {
     id: "03",
     title: "Signatures",
     desc: "A visual tasting menu. Explore our most iconic and meticulously plated signature dishes that define the Anando experience.",
-    img: signatureImg,
+    img: signatureMain,
     link: "#signatures",
     subImages: [
-      signatureImg,
-      dish1,
-      chefImg,
-      restro3
+      signatureDessert,
+      signatureAppetizer,
+      gourmetSoup,
+      freshIngredients
     ]
   }
 ]
 
 const masonryImages = [
-  ambienceImg,
-  signatureImg,
-  barImg,
-  restro2,
-  kitchenImg,
-  dish1,
-  privateImg,
-  chef1,
-  chefImg
+  ambienceBranded,
+  signatureMain,
+  clayOvenBaking,
+  privateDining,
+  kitchenCooking,
+  signatureDessert,
+  chefPlating,
+  diningBooth,
+  chefMain
 ];
 
 // Framer Motion Variants for the sleek mask wipe effect
@@ -137,60 +149,60 @@ const Gallery = () => {
       id: 1,
       text1: "BEHIND",
       text2: "THE CURTAIN",
-      img: restro2,
+      img: freshIngredients,
       bg: "#b4f5f5ff", // Brand light mint-grey background
       color1: "#0F5C5C", // Brand deep Forest Teal text
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
-        restro2,
-        privateImg,
-        kitchenImg,
-        chef1
+        clayOvenBaking,
+        kitchenCooking,
+        artisanalUtensils,
+        chefPlating
       ]
     },
     {
       id: 2,
       text1: "PRIVATE",
       text2: "DINING",
-      img: restro3,
+      img: privateDining,
       bg: "#b2ddc9ff", // Brand light mint variant
       color1: "#0F5C5C", // Brand deep Forest Teal text
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
-        restro3,
-        privateImg,
-        ambienceImg,
-        barImg
+        diningBooth,
+        ambienceMain,
+        ambienceBranded,
+        restro3
       ]
     },
     {
       id: 3,
-      text1: "THE",
-      text2: "BAR",
-      img: dining,
+      text1: "DESSERT",
+      text2: "ARTISTRY",
+      img: signatureDessert,
       bg: "#ebdcc9", // Brand light sand/gold variant
       color1: "#0F5C5C", // Brand deep Forest Teal text
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
-        dining,
-        barImg,
-        signatureImg,
-        dish1
+        signatureDessert,
+        dessertBerry,
+        chocolateDessert,
+        kesarPista
       ]
     },
     {
       id: 4,
       text1: "MASTER",
       text2: "CHEF",
-      img: chef1,
+      img: chefMain,
       bg: "#edf7f7", // Brand light mint-grey background
       color1: "#0F5C5C", // Brand deep Forest Teal text
       color2: "#E0A94B", // Brand Kashmiri gold accent
       subImages: [
-        chef1,
-        chefImg,
-        kitchenImg,
-        signatureImg
+        chefPlating,
+        kitchenCooking,
+        clayOvenBaking,
+        chef1
       ]
     }
   ]

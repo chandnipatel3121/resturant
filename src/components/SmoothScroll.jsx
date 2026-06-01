@@ -32,8 +32,12 @@ const SmoothScroll = ({ children }) => {
     if (!isHomePage || !isDesktop) {
       return () => {
         visibilityObserver.disconnect()
+        // Aggressive cleanup: Kill any active ScrollTriggers globally on navigating away
+        ScrollTrigger.getAll().forEach((t) => t.kill())
       }
     }
+
+    let scrollSnapTrigger = null
 
     // Dynamic targets calculation for custom layouts
     const getScrollTargets = () => {
@@ -64,80 +68,81 @@ const SmoothScroll = ({ children }) => {
       return uniqueTargets
     }
 
-    // Set up GSAP snapping based on calculated targets
-    const ctx = gsap.context(() => {
-      const setupTrigger = () => {
-        const targets = getScrollTargets()
+    const setupTrigger = () => {
+      const targets = getScrollTargets()
 
-        ScrollTrigger.create({
-          start: 0,
-          end: "max",
-          snap: {
-            snapTo: (progress, self) => {
-              const maxScroll = ScrollTrigger.maxScroll(window)
-              if (maxScroll <= 0) return progress
+      scrollSnapTrigger = ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        snap: {
+          snapTo: (progress, self) => {
+            const maxScroll = ScrollTrigger.maxScroll(window)
+            if (maxScroll <= 0) return progress
 
-              const snapProgresses = targets.map((t) => Math.min(Math.max(t / maxScroll, 0), 1))
-              const currentScroll = window.scrollY
-              const currentProgress = currentScroll / maxScroll
+            const snapProgresses = targets.map((t) => Math.min(Math.max(t / maxScroll, 0), 1))
+            const currentScroll = window.scrollY
+            const currentProgress = currentScroll / maxScroll
 
-              // If past the last section's snap target, allow natural scroll into the footer
-              const lastProgress = snapProgresses[snapProgresses.length - 1]
-              if (currentProgress > lastProgress + 0.005) {
-                return progress
-              }
-
-              // Find the index of the currently active snap target
-              let activeIndex = 0
-              let minDiff = Infinity
-              for (let i = 0; i < snapProgresses.length; i++) {
-                const diff = Math.abs(snapProgresses[i] - currentProgress)
-                if (diff < minDiff) {
-                  minDiff = diff
-                  activeIndex = i
-                }
-              }
-
-              // 1. Scrolling Down (self.direction === 1)
-              if (self.direction === 1) {
-                const nextIndex = Math.min(activeIndex + 1, snapProgresses.length - 1)
-                const dist = snapProgresses[nextIndex] - snapProgresses[activeIndex]
-                if (dist > 0) {
-                  // Must scroll past 20% of the section distance to transition
-                  const threshold = snapProgresses[activeIndex] + 0.20 * dist
-                  return progress > threshold ? snapProgresses[nextIndex] : snapProgresses[activeIndex]
-                }
-                return snapProgresses[activeIndex]
-              }
-
-              // 2. Scrolling Up (self.direction === -1)
-              if (self.direction === -1) {
-                const prevIndex = Math.max(activeIndex - 1, 0)
-                const dist = snapProgresses[activeIndex] - snapProgresses[prevIndex]
-                if (dist > 0) {
-                  // Must scroll up past 20% of the section distance to transition
-                  const threshold = snapProgresses[activeIndex] - 0.20 * dist
-                  return progress < threshold ? snapProgresses[prevIndex] : snapProgresses[activeIndex]
-                }
-                return snapProgresses[activeIndex]
-              }
-
+            // If past the last section's snap target, allow natural scroll into the footer
+            const lastProgress = snapProgresses[snapProgresses.length - 1]
+            if (currentProgress > lastProgress + 0.005) {
               return progress
-            },
-            duration: { min: 0.4, max: 0.8 },
-            ease: "power2.out"
-          }
-        })
-      }
+            }
 
-      // Allow DOM to settle before gathering dimensions
-      const timer = setTimeout(setupTrigger, 200)
-      return () => clearTimeout(timer)
-    })
+            // Find the index of the currently active snap target
+            let activeIndex = 0
+            let minDiff = Infinity
+            for (let i = 0; i < snapProgresses.length; i++) {
+              const diff = Math.abs(snapProgresses[i] - currentProgress)
+              if (diff < minDiff) {
+                minDiff = diff
+                activeIndex = i
+              }
+            }
+
+            // 1. Scrolling Down (self.direction === 1)
+            if (self.direction === 1) {
+              const nextIndex = Math.min(activeIndex + 1, snapProgresses.length - 1)
+              const dist = snapProgresses[nextIndex] - snapProgresses[activeIndex]
+              if (dist > 0) {
+                // Must scroll past 20% of the section distance to transition
+                const threshold = snapProgresses[activeIndex] + 0.20 * dist
+                return progress > threshold ? snapProgresses[nextIndex] : snapProgresses[activeIndex]
+              }
+              return snapProgresses[activeIndex]
+            }
+
+            // 2. Scrolling Up (self.direction === -1)
+            if (self.direction === -1) {
+              const prevIndex = Math.max(activeIndex - 1, 0)
+              const dist = snapProgresses[activeIndex] - snapProgresses[prevIndex]
+              if (dist > 0) {
+                // Must scroll up past 20% of the section distance to transition
+                const threshold = snapProgresses[activeIndex] - 0.20 * dist
+                return progress < threshold ? snapProgresses[prevIndex] : snapProgresses[activeIndex]
+              }
+              return snapProgresses[activeIndex]
+            }
+
+            return progress
+          },
+          duration: { min: 0.4, max: 0.8 },
+          ease: "power2.out"
+        }
+      })
+    }
+
+    // Allow DOM to settle before gathering dimensions
+    const timer = setTimeout(setupTrigger, 200)
 
     return () => {
       visibilityObserver.disconnect()
-      ctx.revert()
+      clearTimeout(timer)
+      if (scrollSnapTrigger) {
+        scrollSnapTrigger.kill()
+      }
+      // Aggressive cleanup: Kill any active ScrollTriggers globally on navigating away
+      ScrollTrigger.getAll().forEach((t) => t.kill())
     }
   }, [location.pathname])
 

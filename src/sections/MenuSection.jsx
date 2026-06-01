@@ -34,27 +34,27 @@ import {
 } from "lucide-react"
 
 // ─── Local image imports ───────────────────────────────────────────────────
-import img_masala_dosa        from '../assets/dishes/masaladosa.jpg'
-import img_sada_dosa          from '../assets/dishes/Sada Dosa.jpg'
-import img_mysore_dosa        from '../assets/dishes/maysoremasaladosa.jpg'
-import img_cheese_dosa        from '../assets/dishes/chesedosa.jpg'
-import img_uttapam            from '../assets/dishes/uttapam.jpg'
-import img_veg_pulao          from '../assets/dishes/Vegetable Pulao.jpg'
-import img_street_food        from '../assets/generated_dishes/street_food_chaat.png'
-import img_pizza              from '../assets/generated_dishes/gourmet_pizza.png'
-import img_chinese            from '../assets/generated_dishes/spring_rolls_platter.png'
-import img_paneer             from '../assets/generated_dishes/paneer_main_course.png'
-import img_drink              from '../assets/generated_dishes/refreshing_drink.png'
-import img_dessert            from '../assets/generated_dishes/chocolate_dessert.png'
-import img_platter            from '../assets/generated_dishes/masala_dosa_platter.png'
+import img_masala_dosa from '../assets/dishes/masaladosa.jpg'
+import img_sada_dosa from '../assets/dishes/Sada Dosa.jpg'
+import img_mysore_dosa from '../assets/dishes/maysoremasaladosa.jpg'
+import img_cheese_dosa from '../assets/dishes/chesedosa.jpg'
+import img_uttapam from '../assets/dishes/uttapam.jpg'
+import img_veg_pulao from '../assets/dishes/Vegetable Pulao.jpg'
+import img_street_food from '../assets/generated_dishes/street_food_chaat.png'
+import img_pizza from '../assets/generated_dishes/gourmet_pizza.png'
+import img_chinese from '../assets/generated_dishes/spring_rolls_platter.png'
+import img_paneer from '../assets/generated_dishes/paneer_main_course.png'
+import img_drink from '../assets/generated_dishes/refreshing_drink.png'
+import img_dessert from '../assets/generated_dishes/chocolate_dessert.png'
+import img_platter from '../assets/generated_dishes/masala_dosa_platter.png'
 
 // Newly added premium brand-aligned local assets
-import img_beetroot_salad    from '../assets/beeetrootsalad.jpg'
-import img_falafel            from '../assets/falafel.jpg'
-import img_pav_bhaji          from '../assets/pavbhaji.png'
-import img_shahi_paneer       from '../assets/shahipaneer.png'
-import img_thali              from '../assets/thali.jpg'
-import img_dragon_pot         from '../assets/dragonp.jpg'
+import img_beetroot_salad from '../assets/beeetrootsalad.jpg'
+import img_falafel from '../assets/falafel.jpg'
+import img_pav_bhaji from '../assets/pavbhaji.png'
+import img_shahi_paneer from '../assets/shahipaneer.png'
+import img_thali from '../assets/thali.jpg'
+import img_dragon_pot from '../assets/dragonp.jpg'
 
 import rawMenuData from "../data/menuData.json"
 import patternBg from "../assets/pattern_bg.png"
@@ -827,7 +827,7 @@ const MenuSection = () => {
 
   const mainLayoutRef = useRef(null)
 
-  // Mount/Dismount effect for scroll snap on the Menu page
+  // Mount/Dismount effect to handle sticky header states on scroll
   React.useEffect(() => {
     const getScrollContainer = () =>
       window.innerWidth < 1024
@@ -836,52 +836,10 @@ const MenuSection = () => {
 
     const getScrollTop = () => getScrollContainer()?.scrollTop ?? window.scrollY
 
-    const scrollToTop = () => {
-      const container = getScrollContainer()
-      if (container) {
-        container.scrollTop = 0
-        return
-      }
-      window.scrollTo(0, 0)
-    }
-
-    // Force scroll to top before enabling snap to prevent unwanted jumping
-    scrollToTop()
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true })
-    }
-
-    let active = true
-    let checkCount = 0
-
-    const enableSnap = () => {
-      if (!active) return
-      // Ensure we are fully scrolled to the top before enabling scroll snap,
-      // avoiding layout jumps where the browser snaps to the second section.
-      if (getScrollTop() === 0 || checkCount > 15) {
-        // document.documentElement.classList.add("menu-snap-page")
-      } else {
-        checkCount++
-        scrollToTop()
-        if (window.lenis) {
-          window.lenis.scrollTo(0, { immediate: true })
-        }
-        requestAnimationFrame(enableSnap)
-      }
-    }
-
-    // Delay briefly to allow DOM/route changes to settle, then verify scroll position
-    const timer = setTimeout(() => {
-      requestAnimationFrame(enableSnap)
-    }, 150)
-
-    // Dynamic scroll snapping controller for all viewports (Mobile & Desktop)
     const handleScroll = () => {
       const isDesktop = window.innerWidth >= 1024
       const heroHeight = isDesktop ? 400 : window.innerHeight // Mobile hero is 100dvh
       const currentScroll = getScrollTop()
-
-
 
       // Track sticky state (desktop top is 76, mobile top is 56)
       const navbarHeight = isDesktop ? 76 : 56
@@ -896,11 +854,10 @@ const MenuSection = () => {
     const scrollTarget = scrollContainer || window
     scrollTarget.addEventListener("scroll", handleScroll, { passive: true })
 
+    handleScroll()
+
     return () => {
-      active = false
-      clearTimeout(timer)
       scrollTarget.removeEventListener("scroll", handleScroll)
-      // document.documentElement.classList.remove("menu-snap-page")
     }
   }, [])
 
@@ -915,41 +872,6 @@ const MenuSection = () => {
   }, [activeCuisines, activeCourses, activeMeals, activeDiets, searchQuery])
 
   const showMenuHero = !hasInteracted && !hasActiveFilters
-
-  // 📱 Toggle native CSS scroll snap class on mobile container
-  React.useEffect(() => {
-    const container = document.querySelector(".app-scroll-container")
-    if (!container) return
-
-    if (showMenuHero) {
-      container.classList.add("menu-page-scroll")
-    } else {
-      container.classList.remove("menu-page-scroll")
-    }
-
-    return () => {
-      container.classList.remove("menu-page-scroll")
-    }
-  }, [showMenuHero])
-
-  // Disable scroll snapping completely when any filter is active, preventing scroll snapping glitches!
-  React.useEffect(() => {
-    if (hasActiveFilters) {
-      // document.documentElement.classList.remove("menu-snap-page")
-    } else {
-      // Re-evaluate snap state based on scroll
-      const isDesktop = window.innerWidth >= 1024
-      const heroHeight = isDesktop ? 400 : window.innerHeight
-      const scrollContainer =
-        window.innerWidth < 1024
-          ? document.querySelector(".app-scroll-container")
-          : null
-      const scrollTop = scrollContainer?.scrollTop ?? window.scrollY
-      if (scrollTop <= heroHeight + 50) {
-        // document.documentElement.classList.add("menu-snap-page")
-      }
-    }
-  }, [hasActiveFilters])
 
   // Smart dynamic scroll management to bypass all filter layout jumps (Desktop only)
   React.useEffect(() => {
@@ -981,11 +903,9 @@ const MenuSection = () => {
       }
     }
   }, [
-    hasActiveFilters,
     activeCuisines,
     activeCourses,
     activeMeals,
-    searchQuery,
   ])
 
   // Helper to toggle Cuisine (sidebar) - single selection only, preserves other category filters
@@ -1275,11 +1195,11 @@ const MenuSection = () => {
                   </div>
                   {((cat.name === "All" && activeCuisines.length === 0) ||
                     activeCuisines.includes(cat.name)) && (
-                    <motion.div
-                      layoutId="sidebar-active"
-                      className="sidebar-active-indicator"
-                    />
-                  )}
+                      <motion.div
+                        layoutId="sidebar-active"
+                        className="sidebar-active-indicator"
+                      />
+                    )}
                 </button>
               ))}
             </div>
@@ -1323,12 +1243,11 @@ const MenuSection = () => {
                           <button
                             key={meal}
                             onClick={() => toggleMealFilter(meal)}
-                            className={`meal-pill-modern ${
-                              (meal === "All" && activeMeals.length === 0) ||
-                              activeMeals.includes(meal)
+                            className={`meal-pill-modern ${(meal === "All" && activeMeals.length === 0) ||
+                                activeMeals.includes(meal)
                                 ? "active"
                                 : ""
-                            }`}
+                              }`}
                           >
                             {meal}
                           </button>
@@ -1351,13 +1270,13 @@ const MenuSection = () => {
                         activeCuisines.length > 0 ||
                         activeCourses.length > 0 ||
                         activeMeals.length > 0) && (
-                        <button
-                          onClick={resetAllFilters}
-                          className="text-sm font-medium text-[var(--accent)] hover:underline cursor-pointer border-none bg-transparent p-0 m-0 leading-none"
-                        >
-                          Clear All
-                        </button>
-                      )}
+                          <button
+                            onClick={resetAllFilters}
+                            className="text-sm font-medium text-[var(--accent)] hover:underline cursor-pointer border-none bg-transparent p-0 m-0 leading-none"
+                          >
+                            Clear All
+                          </button>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -1375,12 +1294,11 @@ const MenuSection = () => {
                         <button
                           key={course}
                           onClick={() => toggleCourseFilter(course)}
-                          className={`course-chip ${course.toLowerCase().replace(" ", "-")} ${
-                            (course === "All" && activeCourses.length === 0) ||
-                            activeCourses.includes(course)
+                          className={`course-chip ${course.toLowerCase().replace(" ", "-")} ${(course === "All" && activeCourses.length === 0) ||
+                              activeCourses.includes(course)
                               ? "active"
                               : ""
-                          }`}
+                            }`}
                         >
                           {course}
                         </button>

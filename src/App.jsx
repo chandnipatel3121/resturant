@@ -17,7 +17,7 @@ import ChefPage from "./pages/Chefpage"
 import ContactPage from "./pages/Contact"
 import Gallery from "./pages/Gallery"
 import Reservation from "./pages/Reservation"
-import AdminDashboard from "./admin/AdminDashboard"
+
 import ScrollToTop from "./components/ScrollToTop"
 
 function AppContent() {
@@ -25,7 +25,7 @@ function AppContent() {
   const isHomePage = location.pathname === "/"
   const isChefPage = location.pathname === "/chef"
   const isContactPage = location.pathname === "/contact"
-  const isAdminPage = location.pathname.toLowerCase().startsWith("/admin")
+
   const { showPopup, setShowPopup } = useNav()
 
   useEffect(() => {
@@ -70,15 +70,17 @@ function AppContent() {
       try {
         delete window.scrollY
         delete window.pageYOffset
-      } catch (e) {}
+      } catch (e) { }
     }
   }, [location.pathname])
+
+  const isMenuPage = location.pathname === "/menu"
 
   return (
     <div className={`app-scroll-container ${isHomePage ? "home-page-scroll" : ""} ${isContactPage ? "contact-page-scroll" : ""}`}>
       <ScrollToTop />
       <SmoothScroll>
-        {!isAdminPage && <Navbar />}
+        <Navbar />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -87,11 +89,11 @@ function AppContent() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/reservation" element={<Reservation />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+
           </Routes>
         </main>
       </SmoothScroll>
-      {location.pathname !== "/gallery" && location.pathname !== "/contact" && location.pathname !== "/chef" && !isAdminPage && <Footer />}
+      {location.pathname !== "/gallery" && location.pathname !== "/contact" && location.pathname !== "/chef" && <Footer />}
       <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} />
     </div>
   )
