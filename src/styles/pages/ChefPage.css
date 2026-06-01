@@ -223,18 +223,15 @@ body.journey-page-active {
 .pill-item {
   padding: 0.6rem 1.5rem;
   border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 800;
   letter-spacing: 0.1em;
-  color: rgba(35, 93, 86, 0.65);
+  color: #eaa43b;
+  /* background-color: #eaa43b; */
   text-transform: uppercase;
   cursor: default;
 }
 
-.pill-item.active {
-  background: #eaa43b;
-  color: #fff;
-}
 
 /* Central Image Frame */
 .hero-center-image-frame {
@@ -1080,13 +1077,16 @@ body.journey-page-active {
 .journey-experience::-webkit-scrollbar {
   width: 6px;
 }
+
 .journey-experience::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .journey-experience::-webkit-scrollbar-thumb {
   background: rgba(15, 92, 92, 0.1);
   border-radius: 3px;
 }
+
 .journey-experience::-webkit-scrollbar-thumb:hover {
   background: rgba(15, 92, 92, 0.2);
 }
@@ -1688,7 +1688,8 @@ body.journey-page-active {
     margin-bottom: 0;
   }
 
-  .metric-label, .metric-val {
+  .metric-label,
+  .metric-val {
     font-size: 0.8rem;
   }
 
@@ -1738,25 +1739,31 @@ body.journey-page-active {
   .journey-hero-advanced {
     padding-top: 50px;
   }
+
   .hero-dark-info-card {
     padding: 1.5rem;
     bottom: 2%;
   }
+
   .journey-hero-advanced .dic-title {
     font-size: 2rem !important;
     margin-bottom: 0.75rem !important;
   }
+
   .journey-hero-advanced .dic-desc {
     margin-bottom: 0.75rem !important;
     font-size: 0.85rem;
   }
+
   .journey-hero-advanced .dic-stats {
     margin-bottom: 1rem !important;
   }
+
   .journey-hero-advanced .dic-label {
     margin-bottom: 0.75rem;
     font-size: 1rem;
   }
+
   .dic-primary-btn {
     padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
@@ -1767,30 +1774,38 @@ body.journey-page-active {
     padding-top: 50px;
     padding-bottom: 10px;
   }
+
   .journey-story-accordion .accordion-header {
     margin-bottom: 1rem !important;
   }
+
   .journey-story-accordion .accordion-hero-title {
     font-size: 1.8rem !important;
   }
+
   .accordion-container {
     height: 60dvh;
   }
+
   .ap-content {
     padding: 1.5rem;
   }
+
   .ap-title {
     font-size: 2rem;
     margin-bottom: 0.5rem;
   }
+
   .ap-desc {
     font-size: 0.85rem;
     margin-bottom: 1rem;
   }
+
   .ap-year-bg {
     font-size: 8rem;
     bottom: -10px;
   }
+
   .ap-btn {
     padding: 0.6rem 1rem;
     font-size: 0.7rem;
@@ -1801,30 +1816,38 @@ body.journey-page-active {
     padding-top: 50px;
     padding-bottom: 10px;
   }
+
   .phil-header-split {
     margin-bottom: 1.5rem;
     gap: 1.5rem;
   }
+
   .phil-title-main {
     font-size: 2rem;
   }
+
   .phil-quote-text {
     font-size: 0.9rem;
     line-height: 1.5;
   }
+
   .phil-cards-row {
     gap: 1rem;
   }
+
   .phil-card-advanced {
     padding: 1rem;
   }
+
   .pc-top {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
   }
+
   .pc-content h3 {
     font-size: 1.2rem;
   }
+
   .pc-content p {
     font-size: 0.85rem;
     line-height: 1.4;
@@ -1836,47 +1859,59 @@ body.journey-page-active {
     padding-bottom: 20px !important;
     justify-content: flex-start !important;
   }
+
   .experience-content {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-evenly !important;
     height: 100% !important;
   }
+
   .journey-experience .dic-label {
     font-size: 0.8rem;
     margin-bottom: 0.25rem;
   }
+
   .journey-experience .accordion-header {
     margin-bottom: 0 !important;
   }
+
   .journey-experience .accordion-hero-title {
     font-size: 1.5rem !important;
   }
+
   .experience-grid {
     margin: 0 !important;
     gap: 0.75rem !important;
   }
+
   .exp-img-wrapper {
     height: 100px !important;
   }
+
   .exp-text-content {
     padding: 0.5rem 0.75rem !important;
   }
+
   .exp-text-content h3 {
     font-size: 1rem !important;
     margin-bottom: 0.25rem !important;
   }
+
   .exp-text-content p {
     font-size: 0.75rem !important;
     line-height: 1.2 !important;
   }
+
   .experience-cta {
     margin-top: 0 !important;
   }
+
   .experience-cta p {
     font-size: 1rem !important;
     margin-bottom: 0.5rem !important;
   }
+
   .experience-cta .gold-btn {
     padding: 0.6rem 1.25rem;
     font-size: 0.8rem;

@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   z-index: 9999;
+  border-bottom: 1px solid transparent;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -45,11 +46,12 @@ html:not(.home-page) body:has(.contact-page) .navbar {
 
 .navbar-dark {
   background-color: transparent;
+  border-bottom-color: transparent;
 }
 
 .navbar-light {
   background-color: var(--bg);
-  border-bottom: 1px solid rgba(15, 92, 92, 0.08);
+  border-bottom-color: rgba(15, 92, 92, 0.08);
 }
 
 .nav-container {

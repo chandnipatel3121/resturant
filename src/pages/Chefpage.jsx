@@ -32,7 +32,7 @@ const timelineData = [
     year: "1990",
     title: "Growing Recognition",
     desc: "Known for authentic South Indian delicacies and traditional Indian flavors, the restaurant became a local favorite.",
-    img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?q=80&w=600&auto=format&fit=crop",
   },
   {
     year: "2010",
@@ -87,7 +87,7 @@ const masterChefs = [
     signatureDish: {
       name: "Truffle Saffron Tortellini",
       image:
-        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1546549032-9571cd6b27df?q=80&w=1200&auto=format&fit=crop",
       metrics: [
         { label: "Umami", value: 95, icon: "🍂" },
         { label: "Herbaceous", value: 60, icon: "🌿" },
@@ -251,7 +251,7 @@ const ChefPage = () => {
         const expSection = sectionRefs.current[4]
         if (expSection) {
           const { scrollTop, scrollHeight, clientHeight } = expSection
-          
+
           // Scrolling down: if not at the bottom, scroll natively
           if (e.deltaY > 0) {
             if (scrollTop + clientHeight < scrollHeight - 2) {
@@ -392,7 +392,7 @@ const ChefPage = () => {
               }
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <div className="pill-item active">EST. 1970</div>
+              <div className="pill-item">EST. 1970</div>
               <div className="pill-item">PURE VEGETARIAN</div>
               <div className="pill-item">BHUJ CITY</div>
             </motion.div>

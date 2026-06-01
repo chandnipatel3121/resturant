@@ -110,6 +110,24 @@ const synonyms = {
   [normalizeName("Mysore Sada Dosa")]: normalizeName("maysoremasaladosa"),
   [normalizeName("Vegetable Pulav")]: normalizeName("Vegetable Pulao"),
   [normalizeName("Tomato Uttapam")]: normalizeName("tomatoutapam"),
+  // Spelling discrepancies
+  [normalizeName("Cold Coffee")]: normalizeName("coldcoffe"),
+  [normalizeName("Strawberry Lassi")]: normalizeName("staberylassi"),
+  [normalizeName("Mineral Water")]: normalizeName("minralwater"),
+  [normalizeName("Cheese Grilled Sandwich")]: normalizeName("chesegrilledsandwich"),
+  [normalizeName("Cheese Sandwich")]: normalizeName("chesesandwich"),
+  [normalizeName("Cheese Pizza")]: normalizeName("chesepizza"),
+  [normalizeName("Paneer Mushroom Baby Corn")]: normalizeName("paneer masrom baby corn"),
+  [normalizeName("Paneer Sezwan")]: normalizeName("panersezwan"),
+  [normalizeName("Paneer Manchurian")]: normalizeName("panermanchurian"),
+  [normalizeName("Paneer Chilly")]: normalizeName("pannerchilly"),
+  [normalizeName("Veg Mushroom Baby Corn")]: normalizeName("veg masroom baby corn"),
+  [normalizeName("Veg in Mushroom")]: normalizeName("veginmasroom"),
+  // Ice cream name matches
+  [normalizeName("Raja Rani Cone")]: normalizeName("Raja Rani Cone Ice Cream"),
+  [normalizeName("Chocolate Cone")]: normalizeName("Chocolate Cone Ice Cream"),
+  [normalizeName("Butterscotch Cone")]: normalizeName("Butterscotch Cone Ice Cream"),
+  [normalizeName("Ringo Bingo Cone")]: normalizeName("Ringo Bingo Cone Ice Cream"),
 };
 
 const resolveImage = (dishTitle, fallbackKey) => {
