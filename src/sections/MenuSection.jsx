@@ -32,10 +32,106 @@ import {
   Carrot,
   Globe,
 } from "lucide-react"
-import rawMenuData from "../data/menuData"
+
+// ─── Local image imports ───────────────────────────────────────────────────
+import img_masala_dosa        from '../assets/dishes/masaladosa.jpg'
+import img_sada_dosa          from '../assets/dishes/Sada Dosa.jpg'
+import img_mysore_dosa        from '../assets/dishes/maysoremasaladosa.jpg'
+import img_cheese_dosa        from '../assets/dishes/chesedosa.jpg'
+import img_uttapam            from '../assets/dishes/uttapam.jpg'
+import img_veg_pulao          from '../assets/dishes/Vegetable Pulao.jpg'
+import img_street_food        from '../assets/generated_dishes/street_food_chaat.png'
+import img_pizza              from '../assets/generated_dishes/gourmet_pizza.png'
+import img_chinese            from '../assets/generated_dishes/spring_rolls_platter.png'
+import img_paneer             from '../assets/generated_dishes/paneer_main_course.png'
+import img_drink              from '../assets/generated_dishes/refreshing_drink.png'
+import img_dessert            from '../assets/generated_dishes/chocolate_dessert.png'
+import img_platter            from '../assets/generated_dishes/masala_dosa_platter.png'
+
+// Newly added premium brand-aligned local assets
+import img_beetroot_salad    from '../assets/beeetrootsalad.jpg'
+import img_falafel            from '../assets/falafel.jpg'
+import img_pav_bhaji          from '../assets/pavbhaji.png'
+import img_shahi_paneer       from '../assets/shahipaneer.png'
+import img_thali              from '../assets/thali.jpg'
+import img_dragon_pot         from '../assets/dragonp.jpg'
+
+import rawMenuData from "../data/menuData.json"
 import patternBg from "../assets/pattern_bg.png"
 import anandoLogo from "../assets/logo.png"
 import "../styles/sections/MenuSection.css"
+
+const fallbackMap = {
+  img_masala_dosa,
+  img_sada_dosa,
+  img_mysore_dosa,
+  img_cheese_dosa,
+  img_uttapam,
+  img_veg_pulao,
+  img_street_food,
+  img_pizza,
+  img_chinese,
+  img_paneer,
+  img_drink,
+  img_dessert,
+  img_platter,
+  img_beetroot_salad,
+  img_falafel,
+  img_pav_bhaji,
+  img_shahi_paneer,
+  img_thali,
+  img_dragon_pot
+};
+
+// Dynamically discover all specific dish images in assets/dishes
+const dishGlob = import.meta.glob('../assets/dishes/*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true });
+
+const normalizeName = (str) => {
+  if (!str) return '';
+  return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+};
+
+const globbedDishes = {};
+for (const path in dishGlob) {
+  const filenameWithExt = path.split('/').pop();
+  const filenameWithoutExt = filenameWithExt.substring(0, filenameWithExt.lastIndexOf('.'));
+  const normalized = normalizeName(filenameWithoutExt);
+  if (dishGlob[path] && dishGlob[path].default) {
+    globbedDishes[normalized] = dishGlob[path].default;
+  }
+}
+
+// Synonyms mapping for file names that don't match dish names perfectly
+const synonyms = {
+  [normalizeName("Dahi Wada")]: normalizeName("dahovada"),
+  [normalizeName("Pani Puri")]: normalizeName("faripuri"),
+  [normalizeName("Cheese Dosa")]: normalizeName("chesedosa"),
+  [normalizeName("Mysore Masala Dosa")]: normalizeName("maysoremasaladosa"),
+  [normalizeName("Mysore Sada Dosa")]: normalizeName("maysoremasaladosa"),
+  [normalizeName("Vegetable Pulav")]: normalizeName("Vegetable Pulao"),
+  [normalizeName("Tomato Uttapam")]: normalizeName("tomatoutapam"),
+};
+
+const resolveImage = (dishTitle, fallbackKey) => {
+  const normTitle = normalizeName(dishTitle);
+
+  // 1. Check direct match in assets/dishes (globbed)
+  if (globbedDishes[normTitle]) {
+    return globbedDishes[normTitle];
+  }
+
+  // 2. Check synonym match
+  if (synonyms[normTitle] && globbedDishes[synonyms[normTitle]]) {
+    return globbedDishes[synonyms[normTitle]];
+  }
+
+  // 3. Fallback to mapped placeholder asset
+  if (fallbackKey && fallbackMap[fallbackKey]) {
+    return fallbackMap[fallbackKey];
+  }
+
+  return null;
+};
 
 // Dynamically enrich menuData with realistic ingredients if default placeholders are present
 const getRealisticIngredients = (dish) => {
@@ -101,19 +197,26 @@ const getRealisticIngredients = (dish) => {
 }
 
 const menuData = rawMenuData.map(dish => {
+  const resolvedImage = resolveImage(dish.title, dish.image);
+  const baseDish = {
+    ...dish,
+    image: resolvedImage,
+    images: [resolvedImage, resolvedImage, resolvedImage]
+  };
+
   if (
-    dish.ingredients &&
-    dish.ingredients.length === 3 &&
-    dish.ingredients[0] === "Fresh Ingredients" &&
-    dish.ingredients[1] === "Secret Spices" &&
-    dish.ingredients[2] === "Herbs"
+    baseDish.ingredients &&
+    baseDish.ingredients.length === 3 &&
+    baseDish.ingredients[0] === "Fresh Ingredients" &&
+    baseDish.ingredients[1] === "Secret Spices" &&
+    baseDish.ingredients[2] === "Herbs"
   ) {
     return {
-      ...dish,
-      ingredients: getRealisticIngredients(dish)
+      ...baseDish,
+      ingredients: getRealisticIngredients(baseDish)
     }
   }
-  return dish
+  return baseDish
 })
 
 const DishCard = memo(({ dish, quantity, handleUpdateCart, onOpenDetail }) => {
@@ -978,6 +1081,7 @@ const MenuSection = () => {
     "Soups",
     "Beverages",
     "Chef Specials",
+    "Extras",
   ]
 
   const filteredItems = useMemo(() => {
@@ -988,6 +1092,17 @@ const MenuSection = () => {
 
       const matchesCuisine =
         activeCuisines.length === 0 || activeCuisines.includes(item.cuisine)
+
+      // Handle Extras course exclusion by default
+      const isExtrasFilterActive = activeCourses.includes("Extras")
+      const isExtraItem = item.course === "Extras"
+
+      if (isExtrasFilterActive) {
+        if (!isExtraItem) return false
+      } else {
+        if (isExtraItem) return false
+      }
+
       const matchesCourse =
         activeCourses.length === 0 || activeCourses.includes(item.course)
       const matchesMeal =

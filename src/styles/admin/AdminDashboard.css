@@ -440,11 +440,11 @@
   }
 }
 
-/* 📊 FIVE KPI CARDS ROW */
+/* 📊 SEVEN KPI CARDS ROW */
 .admin-kpis-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
   width: 100%;
 }
 
@@ -535,6 +535,32 @@
   background: rgba(244, 63, 94, 0.08);
   box-shadow: 0 15px 35px rgba(244, 63, 94, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   border-color: rgba(244, 63, 94, 0.4);
+}
+
+.admin-kpi-card.theme-violet {
+  border-top: 3px solid #8B5CF6;
+}
+.admin-kpi-card.theme-violet .admin-kpi-icon-outline {
+  color: #8B5CF6;
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));
+}
+.admin-kpi-card.theme-violet:hover {
+  background: rgba(139, 92, 246, 0.08);
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.admin-kpi-card.theme-cyan {
+  border-top: 3px solid #06B6D4;
+}
+.admin-kpi-card.theme-cyan .admin-kpi-icon-outline {
+  color: #06B6D4;
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.4));
+}
+.admin-kpi-card.theme-cyan:hover {
+  background: rgba(6, 182, 212, 0.08);
+  box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
 }
 
 .admin-kpi-top-row {

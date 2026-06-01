@@ -39,7 +39,7 @@ import {
   LineChart,
   Line
 } from "recharts/umd/Recharts";
-import menuData from "../data/menuData";
+import menuData from "../data/menuData.json";
 import "../styles/admin/AdminDashboard.css";
 
 // Import premium images from project assets
@@ -108,6 +108,113 @@ export default function AdminDashboard() {
       case "Weekly":
       default:
         return "₹1,45,000";
+    }
+  };
+
+  const renderChart = () => {
+    const data = getRevenueData();
+    switch (timeFilter) {
+      case "Daily":
+        return (
+          <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
+            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} />
+            <YAxis axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} tickFormatter={(val) => `₹${val / 1000}K`} />
+            <ChartTooltip
+              contentStyle={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(15, 92, 92, 0.15)',
+                borderRadius: '16px',
+                color: '#0F5C5C',
+                fontFamily: 'inherit',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                boxShadow: '0 20px 40px rgba(15, 92, 92, 0.1)',
+              }}
+              formatter={(value) => [`₹${value.toLocaleString()}`, 'Revenue']}
+            />
+            <Bar dataKey="revenue" fill="#F59E0B" radius={[8, 8, 0, 0]} barSize={32} />
+          </BarChart>
+        );
+      case "Monthly":
+        return (
+          <ComposedChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
+            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} />
+            <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} tickFormatter={(val) => `₹${val / 1000}K`} />
+            <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'rgba(224, 169, 75, 0.7)', fontSize: 11, fontWeight: 500 }} />
+            <ChartTooltip
+              contentStyle={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(15, 92, 92, 0.15)',
+                borderRadius: '16px',
+                color: '#0F5C5C',
+                fontFamily: 'inherit',
+                fontSize: '13px',
+                fontWeight: 'bold',
+              }}
+            />
+            <Bar yAxisId="left" dataKey="revenue" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={40} />
+            <Line yAxisId="right" type="monotone" dataKey="orders" stroke="#E0A94B" strokeWidth={3} dot={{ fill: '#E0A94B', r: 4 }} />
+          </ComposedChart>
+        );
+      case "Yearly":
+        return (
+          <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
+            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} />
+            <YAxis axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} tickFormatter={(val) => val >= 10000000 ? `₹${(val / 10000000).toFixed(1)}Cr` : `₹${val / 100000}L`} />
+            <ChartTooltip
+              contentStyle={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(15, 92, 92, 0.15)',
+                borderRadius: '16px',
+                color: '#0F5C5C',
+                fontFamily: 'inherit',
+                fontSize: '13px',
+                fontWeight: 'bold',
+              }}
+            />
+            <Line type="monotone" dataKey="revenue" stroke="#0F5C5C" strokeWidth={4} dot={{ r: 5 }} activeDot={{ r: 8 }} />
+          </LineChart>
+        );
+      case "Weekly":
+      default:
+        return (
+          <ComposedChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <defs>
+              <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#0F5C5C" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="#0F5C5C" stopOpacity={0.0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
+            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} />
+            <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }} tickFormatter={(val) => `₹${val / 1000}K`} />
+            <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'rgba(224, 169, 75, 0.7)', fontSize: 11, fontWeight: 500 }} />
+            <ChartTooltip
+              contentStyle={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(15, 92, 92, 0.15)',
+                borderRadius: '16px',
+                color: '#0F5C5C',
+                fontFamily: 'inherit',
+                fontSize: '13px',
+                fontWeight: 'bold',
+              }}
+              formatter={(value, name) => {
+                if (name === "revenue") return [`₹${value.toLocaleString()}`, 'Revenue'];
+                return [`${value} Orders`, 'Orders'];
+              }}
+            />
+            <Area yAxisId="left" type="monotone" dataKey="revenue" stroke="#0F5C5C" strokeWidth={3} fill="url(#chartAreaGradient)" />
+            <Line yAxisId="right" type="monotone" dataKey="orders" stroke="#E0A94B" strokeWidth={3} dot={{ stroke: '#E0A94B', strokeWidth: 2, r: 4, fill: '#fff' }} />
+          </ComposedChart>
+        );
     }
   };
 
@@ -297,31 +404,73 @@ export default function AdminDashboard() {
         {/* 📜 SCROLLABLE GRID CONTENT SECTION */}
         <div className="admin-scrollable-content">
 
-          {/* 📊 FIVE KPI CARDS ROW */}
+          {/* 📊 SEVEN KPI CARDS ROW */}
           <div className="admin-kpis-grid">
 
-            {/* Total Menu - Indigo Theme */}
+            {/* 1. Today's Revenue - Amber Theme */}
+            <div className="admin-kpi-card theme-amber">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <TrendingUp size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(245, 158, 11, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="26" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F59E0B">+12%</text>
+                  </svg>
+                </div>
+              </div>
+              <span className="admin-kpi-title">Today's Revenue</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">₹24,500</span>
+              </div>
+              <span className="admin-kpi-subtext">target: ₹30,000</span>
+            </div>
+
+            {/* 2. Weekly Revenue - Cyan Theme */}
+            <div className="admin-kpi-card theme-cyan">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <BarChart3 size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(6, 182, 212, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#06B6D4" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="35" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#06B6D4">+15%</text>
+                  </svg>
+                </div>
+              </div>
+              <span className="admin-kpi-title">Weekly Revenue</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">₹1.82L</span>
+              </div>
+              <span className="admin-kpi-subtext">target: ₹2.00L</span>
+            </div>
+
+            {/* 3. Monthly Revenue - Indigo Theme */}
             <div className="admin-kpi-card theme-indigo">
               <div className="admin-kpi-top-row">
                 <div className="admin-kpi-icon-outline">
-                  <Utensils size={32} strokeWidth={1.5} />
+                  <ShoppingBag size={32} strokeWidth={1.5} />
                 </div>
                 <div className="admin-kpi-progress-ring">
                   <svg width="48" height="48" viewBox="0 0 36 36">
                     <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(99, 102, 241, 0.08)" strokeWidth="2.5" />
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="26" strokeLinecap="round" />
-                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#6366F1">+30%</text>
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="20" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#6366F1">+22%</text>
                   </svg>
                 </div>
               </div>
-              <span className="admin-kpi-title">Total Menu</span>
+              <span className="admin-kpi-title">Monthly Revenue</span>
               <div className="admin-kpi-value-group">
-                <span className="admin-kpi-val-bold">{menuData.length}</span>
+                <span className="admin-kpi-val-bold">₹7.45L</span>
               </div>
-              <span className="admin-kpi-subtext">active dishes this month</span>
+              <span className="admin-kpi-subtext">target: ₹8.00L</span>
             </div>
 
-            {/* Today's Order - Emerald Theme */}
+            {/* 4. Orders Today - Emerald Theme */}
             <div className="admin-kpi-card theme-emerald">
               <div className="admin-kpi-top-row">
                 <div className="admin-kpi-icon-outline">
@@ -335,56 +484,56 @@ export default function AdminDashboard() {
                   </svg>
                 </div>
               </div>
-              <span className="admin-kpi-title">Today's Order</span>
+              <span className="admin-kpi-title">Orders Today</span>
               <div className="admin-kpi-value-group">
                 <span className="admin-kpi-val-bold">142</span>
               </div>
               <span className="admin-kpi-subtext">orders in progress: 12</span>
             </div>
 
-            {/* Total Revenue - Gold/Amber Theme */}
-            <div className="admin-kpi-card theme-amber">
-              <div className="admin-kpi-top-row">
-                <div className="admin-kpi-icon-outline">
-                  <ShoppingBag size={32} strokeWidth={1.5} />
-                </div>
-                <div className="admin-kpi-progress-ring">
-                  <svg width="48" height="48" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(245, 158, 11, 0.08)" strokeWidth="2.5" />
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="30" strokeLinecap="round" />
-                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F59E0B">+15%</text>
-                  </svg>
-                </div>
-              </div>
-              <span className="admin-kpi-title">Total Revenue</span>
-              <div className="admin-kpi-value-group">
-                <span className="admin-kpi-val-bold">₹1.45L</span>
-              </div>
-              <span className="admin-kpi-subtext">earnings target: ₹2.00L</span>
-            </div>
-
-            {/* Today's Reservation - Sky Blue Theme */}
+            {/* 5. Active Tables - Sky Blue Theme */}
             <div className="admin-kpi-card theme-skyblue">
               <div className="admin-kpi-top-row">
                 <div className="admin-kpi-icon-outline">
-                  <Calendar size={32} strokeWidth={1.5} />
+                  <Utensils size={32} strokeWidth={1.5} />
                 </div>
                 <div className="admin-kpi-progress-ring">
                   <svg width="48" height="48" viewBox="0 0 36 36">
                     <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(14, 165, 233, 0.08)" strokeWidth="2.5" />
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#0EA5E9" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="50" strokeLinecap="round" />
-                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#0EA5E9">+62%</text>
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#0EA5E9" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="18" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#0EA5E9">18</text>
                   </svg>
                 </div>
               </div>
-              <span className="admin-kpi-title">Today's Reservation</span>
+              <span className="admin-kpi-title">Active Tables</span>
               <div className="admin-kpi-value-group">
-                <span className="admin-kpi-val-bold">28</span>
+                <span className="admin-kpi-val-bold">18</span>
               </div>
-              <span className="admin-kpi-subtext">tables fully booked: 18</span>
+              <span className="admin-kpi-subtext">out of 24 total tables</span>
             </div>
 
-            {/* Average Rating - Rose Theme */}
+            {/* 6. Average Order Value - Violet Theme */}
+            <div className="admin-kpi-card theme-violet">
+              <div className="admin-kpi-top-row">
+                <div className="admin-kpi-icon-outline">
+                  <Package size={32} strokeWidth={1.5} />
+                </div>
+                <div className="admin-kpi-progress-ring">
+                  <svg width="48" height="48" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(139, 92, 246, 0.08)" strokeWidth="2.5" />
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#8B5CF6" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="30" strokeLinecap="round" />
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#8B5CF6">+8%</text>
+                  </svg>
+                </div>
+              </div>
+              <span className="admin-kpi-title">Avg Order Value</span>
+              <div className="admin-kpi-value-group">
+                <span className="admin-kpi-val-bold">₹1,250</span>
+              </div>
+              <span className="admin-kpi-subtext">vs ₹1,150 last week</span>
+            </div>
+
+            {/* 7. CSAT Score - Rose Theme */}
             <div className="admin-kpi-card theme-rose">
               <div className="admin-kpi-top-row">
                 <div className="admin-kpi-icon-outline">
@@ -394,15 +543,15 @@ export default function AdminDashboard() {
                   <svg width="48" height="48" viewBox="0 0 36 36">
                     <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(244, 63, 94, 0.08)" strokeWidth="2.5" />
                     <circle cx="18" cy="18" r="14" fill="none" stroke="#F43F5E" strokeWidth="2.5" strokeDasharray="88" strokeDashoffset="8" strokeLinecap="round" />
-                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F43F5E">+96%</text>
+                    <text x="18" y="20.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#F43F5E">4.8★</text>
                   </svg>
                 </div>
               </div>
-              <span className="admin-kpi-title">Average Rating</span>
+              <span className="admin-kpi-title">CSAT Score</span>
               <div className="admin-kpi-value-group">
-                <span className="admin-kpi-val-bold">4.8</span>
+                <span className="admin-kpi-val-bold">96%</span>
               </div>
-              <span className="admin-kpi-subtext">based on 221 reviews today</span>
+              <span className="admin-kpi-subtext">based on 221 reviews</span>
             </div>
 
           </div>
@@ -437,74 +586,7 @@ export default function AdminDashboard() {
 
             <div className="admin-chart-container" style={{ width: '100%', height: 220, marginTop: '20px' }}>
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart
-                  data={getRevenueData()}
-                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                >
-                  <defs>
-                    <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#0F5C5C" stopOpacity={0.25} />
-                      <stop offset="100%" stopColor="#0F5C5C" stopOpacity={0.0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(15, 92, 92, 0.15)" />
-                  <XAxis
-                    dataKey="name"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }}
-                  />
-                  <YAxis
-                    yAxisId="left"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: 'rgba(15, 92, 92, 0.6)', fontSize: 11, fontWeight: 500 }}
-                    tickFormatter={(val) => val >= 10000000 ? `₹${(val / 10000000).toFixed(1)}Cr` : val >= 100000 ? `₹${val / 100000}L` : `₹${val / 1000}K`}
-                  />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: 'rgba(224, 169, 75, 0.7)', fontSize: 11, fontWeight: 500 }}
-                    tickFormatter={(val) => `${val}`}
-                  />
-                  <ChartTooltip
-                    contentStyle={{
-                      background: 'rgba(255, 255, 255, 0.9)',
-                      backdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(15, 92, 92, 0.15)',
-                      borderRadius: '16px',
-                      color: '#0F5C5C',
-                      fontFamily: 'inherit',
-                      fontSize: '13px',
-                      fontWeight: 'bold',
-                      boxShadow: '0 20px 40px rgba(15, 92, 92, 0.1)',
-                    }}
-                    formatter={(value, name) => {
-                      if (name === "revenue") return [`₹${value.toLocaleString()}`, 'Revenue'];
-                      return [`${value} Orders`, 'Orders'];
-                    }}
-                    labelStyle={{ color: 'rgba(15, 92, 92, 0.6)', fontSize: '11px', marginBottom: '4px' }}
-                  />
-                  <Area
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#0F5C5C"
-                    strokeWidth={3}
-                    fill="url(#chartAreaGradient)"
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="orders"
-                    stroke="#E0A94B"
-                    strokeWidth={3}
-                    dot={{ stroke: '#E0A94B', strokeWidth: 2, r: 4, fill: '#fff' }}
-                    activeDot={{ r: 6 }}
-                  />
-                </ComposedChart>
+                {renderChart()}
               </ResponsiveContainer>
             </div>
           </div>

@@ -1,29 +1,4 @@
-// Raw menuData matching the physical restaurant menu (84 items)
-
-// ─── Local image imports ───────────────────────────────────────────────────
-import img_masala_dosa        from '../assets/dishes/masaladosa.jpg'
-import img_sada_dosa          from '../assets/dishes/Sada Dosa.jpg'
-import img_mysore_dosa        from '../assets/dishes/maysoremasaladosa.jpg'
-import img_cheese_dosa        from '../assets/dishes/chesedosa.jpg'
-import img_uttapam            from '../assets/dishes/uttapam.jpg'
-import img_veg_pulao          from '../assets/dishes/Vegetable Pulao.jpg'
-import img_street_food        from '../assets/generated_dishes/street_food_chaat.png'
-import img_pizza              from '../assets/generated_dishes/gourmet_pizza.png'
-import img_chinese            from '../assets/generated_dishes/spring_rolls_platter.png'
-import img_paneer             from '../assets/generated_dishes/paneer_main_course.png'
-import img_drink              from '../assets/generated_dishes/refreshing_drink.png'
-import img_dessert            from '../assets/generated_dishes/chocolate_dessert.png'
-import img_platter            from '../assets/generated_dishes/masala_dosa_platter.png'
-
-// Newly added premium brand-aligned local assets
-import img_beetroot_salad    from '../assets/beeetrootsalad.jpg'
-import img_falafel            from '../assets/falafel.jpg'
-import img_pav_bhaji          from '../assets/pavbhaji.png'
-import img_shahi_paneer       from '../assets/shahipaneer.png'
-import img_thali              from '../assets/thali.jpg'
-import img_dragon_pot         from '../assets/dragonp.jpg'
-
-const menuData = [
+[
   {
     "id": 1,
     "title": "Masala Dosa",
@@ -33,15 +8,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_masala_dosa,
-    "images": [img_masala_dosa, img_masala_dosa, img_masala_dosa],
+    "image": "img_masala_dosa",
+    "images": [
+      "img_masala_dosa",
+      "img_masala_dosa",
+      "img_masala_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -54,15 +40,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_sada_dosa,
-    "images": [img_sada_dosa, img_sada_dosa, img_sada_dosa],
+    "image": "img_sada_dosa",
+    "images": [
+      "img_sada_dosa",
+      "img_sada_dosa",
+      "img_sada_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -75,15 +72,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_mysore_dosa,
-    "images": [img_mysore_dosa, img_mysore_dosa, img_mysore_dosa],
+    "image": "img_mysore_dosa",
+    "images": [
+      "img_mysore_dosa",
+      "img_mysore_dosa",
+      "img_mysore_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -96,15 +104,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_mysore_dosa,
-    "images": [img_mysore_dosa, img_mysore_dosa, img_mysore_dosa],
+    "image": "img_mysore_dosa",
+    "images": [
+      "img_mysore_dosa",
+      "img_mysore_dosa",
+      "img_mysore_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -117,15 +136,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_masala_dosa,
-    "images": [img_masala_dosa, img_masala_dosa, img_masala_dosa],
+    "image": "img_masala_dosa",
+    "images": [
+      "img_masala_dosa",
+      "img_masala_dosa",
+      "img_masala_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -138,15 +168,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_sada_dosa,
-    "images": [img_sada_dosa, img_sada_dosa, img_sada_dosa],
+    "image": "img_sada_dosa",
+    "images": [
+      "img_sada_dosa",
+      "img_sada_dosa",
+      "img_sada_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -159,15 +200,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_masala_dosa,
-    "images": [img_masala_dosa, img_masala_dosa, img_masala_dosa],
+    "image": "img_masala_dosa",
+    "images": [
+      "img_masala_dosa",
+      "img_masala_dosa",
+      "img_masala_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -180,15 +232,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_cheese_dosa,
-    "images": [img_cheese_dosa, img_cheese_dosa, img_cheese_dosa],
+    "image": "img_cheese_dosa",
+    "images": [
+      "img_cheese_dosa",
+      "img_cheese_dosa",
+      "img_cheese_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -201,15 +264,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_masala_dosa,
-    "images": [img_masala_dosa, img_masala_dosa, img_masala_dosa],
+    "image": "img_masala_dosa",
+    "images": [
+      "img_masala_dosa",
+      "img_masala_dosa",
+      "img_masala_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -222,15 +296,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_sada_dosa,
-    "images": [img_sada_dosa, img_sada_dosa, img_sada_dosa],
+    "image": "img_sada_dosa",
+    "images": [
+      "img_sada_dosa",
+      "img_sada_dosa",
+      "img_sada_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -243,15 +328,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_mysore_dosa,
-    "images": [img_mysore_dosa, img_mysore_dosa, img_mysore_dosa],
+    "image": "img_mysore_dosa",
+    "images": [
+      "img_mysore_dosa",
+      "img_mysore_dosa",
+      "img_mysore_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -264,15 +360,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_mysore_dosa,
-    "images": [img_mysore_dosa, img_mysore_dosa, img_mysore_dosa],
+    "image": "img_mysore_dosa",
+    "images": [
+      "img_mysore_dosa",
+      "img_mysore_dosa",
+      "img_mysore_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -285,15 +392,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_uttapam,
-    "images": [img_uttapam, img_uttapam, img_uttapam],
+    "image": "img_uttapam",
+    "images": [
+      "img_uttapam",
+      "img_uttapam",
+      "img_uttapam"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -306,15 +424,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_uttapam,
-    "images": [img_uttapam, img_uttapam, img_uttapam],
+    "image": "img_uttapam",
+    "images": [
+      "img_uttapam",
+      "img_uttapam",
+      "img_uttapam"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -327,15 +456,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_uttapam,
-    "images": [img_uttapam, img_uttapam, img_uttapam],
+    "image": "img_uttapam",
+    "images": [
+      "img_uttapam",
+      "img_uttapam",
+      "img_uttapam"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -348,15 +488,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_uttapam,
-    "images": [img_uttapam, img_uttapam, img_uttapam],
+    "image": "img_uttapam",
+    "images": [
+      "img_uttapam",
+      "img_uttapam",
+      "img_uttapam"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -369,15 +520,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_uttapam,
-    "images": [img_uttapam, img_uttapam, img_uttapam],
+    "image": "img_uttapam",
+    "images": [
+      "img_uttapam",
+      "img_uttapam",
+      "img_uttapam"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -390,15 +552,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -411,15 +584,26 @@ const menuData = [
     "cuisine": "South Indian",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#332714",
     "availability": "Available"
   },
@@ -430,17 +614,28 @@ const menuData = [
     "shortDescription": "Extra Cheese add-on.",
     "price": 55,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -451,17 +646,28 @@ const menuData = [
     "shortDescription": "Extra Butter add-on.",
     "price": 40,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -472,17 +678,28 @@ const menuData = [
     "shortDescription": "Extra Cheese for Paper Dosa.",
     "price": 90,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -493,17 +710,28 @@ const menuData = [
     "shortDescription": "Extra Butter for Paper Dosa.",
     "price": 60,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -516,15 +744,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -537,15 +776,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -558,15 +808,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -579,15 +840,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -600,15 +872,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -621,15 +904,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pav_bhaji,
-    "images": [img_pav_bhaji, img_pav_bhaji, img_pav_bhaji],
+    "image": "img_pav_bhaji",
+    "images": [
+      "img_pav_bhaji",
+      "img_pav_bhaji",
+      "img_pav_bhaji"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -642,15 +936,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -663,15 +968,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_veg_pulao,
-    "images": [img_veg_pulao, img_veg_pulao, img_veg_pulao],
+    "image": "img_veg_pulao",
+    "images": [
+      "img_veg_pulao",
+      "img_veg_pulao",
+      "img_veg_pulao"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -684,15 +1000,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -705,15 +1032,26 @@ const menuData = [
     "cuisine": "Fast Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -726,15 +1064,26 @@ const menuData = [
     "cuisine": "Fast Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -747,15 +1096,26 @@ const menuData = [
     "cuisine": "Fast Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -768,15 +1128,26 @@ const menuData = [
     "cuisine": "Fast Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -789,15 +1160,26 @@ const menuData = [
     "cuisine": "Fast Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#3b2512",
     "availability": "Available"
   },
@@ -810,15 +1192,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -831,15 +1224,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -852,15 +1256,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -873,15 +1288,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -894,15 +1320,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -915,15 +1352,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -936,15 +1384,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -957,15 +1416,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -978,15 +1448,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -999,15 +1480,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -1020,15 +1512,26 @@ const menuData = [
     "cuisine": "Pizza & Sandwich",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_pizza,
-    "images": [img_pizza, img_pizza, img_pizza],
+    "image": "img_pizza",
+    "images": [
+      "img_pizza",
+      "img_pizza",
+      "img_pizza"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1c2e35",
     "availability": "Available"
   },
@@ -1041,57 +1544,90 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
   {
     "id": 50,
-    "title": "Veg Hot Garlic",
-    "description": "Vegetables & Veg. dumplings in hot and spicy garlic sauce.",
-    "shortDescription": "Veg dumplings in hot and spicy garlic sauce.",
+    "title": "Veg Hot Garlic Manchurian",
+    "description": "veg. hot garlic manchurian is made with fresh vegetables and Manchurian sauce.It is a popular Indo-Chinese dish that is loved by people of all ages.",
+    "shortDescription": "veg. hot garlic manchurian is made with fresh vegetables and Manchurian sauce.",
     "price": 230,
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
   {
     "id": 51,
-    "title": "Veg Chilli",
-    "description": "Vegetables & Veg. dumplings in garlic, ginger and chilli sauce.",
-    "shortDescription": "Veg dumplings in garlic, ginger and chilli sauce.",
+    "title": "Veg Chilli Manchurian",
+    "description": "veg. chilli manchurian is made with fresh vegetables and Manchurian sauce.It is a popular Indo-Chinese dish that is loved by people of all ages.",
+    "shortDescription": "veg. chilli manchurian is made with fresh vegetables and Manchurian sauce.",
     "price": 230,
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1104,15 +1640,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1125,15 +1672,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1146,15 +1704,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1167,15 +1736,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1188,15 +1768,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1209,15 +1800,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1230,15 +1832,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1251,15 +1864,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1272,15 +1896,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1293,15 +1928,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1314,15 +1960,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1335,15 +1992,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1356,15 +2024,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1377,15 +2056,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1398,15 +2088,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1419,15 +2120,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1440,15 +2152,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1461,15 +2184,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1482,15 +2216,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1503,15 +2248,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 3,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#541212",
     "availability": "Available"
   },
@@ -1524,15 +2280,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_platter,
-    "images": [img_platter, img_platter, img_platter],
+    "image": "img_platter",
+    "images": [
+      "img_platter",
+      "img_platter",
+      "img_platter"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 2,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e382b",
     "availability": "Available"
   },
@@ -1545,15 +2312,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Chef Specials",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_platter,
-    "images": [img_platter, img_platter, img_platter],
+    "image": "img_platter",
+    "images": [
+      "img_platter",
+      "img_platter",
+      "img_platter"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 2,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e382b",
     "availability": "Available"
   },
@@ -1566,15 +2344,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1587,15 +2376,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1608,15 +2408,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1629,15 +2440,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1650,15 +2472,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1671,15 +2504,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 2,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1692,15 +2536,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1713,15 +2568,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1734,15 +2600,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1755,15 +2632,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -1776,15 +2664,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 10,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -1797,15 +2696,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1818,15 +2728,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1839,15 +2760,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1860,15 +2792,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_cheese_dosa,
-    "images": [img_cheese_dosa, img_cheese_dosa, img_cheese_dosa],
+    "image": "img_cheese_dosa",
+    "images": [
+      "img_cheese_dosa",
+      "img_cheese_dosa",
+      "img_cheese_dosa"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1881,15 +2824,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_cheese_dosa,
-    "images": [img_cheese_dosa, img_cheese_dosa, img_cheese_dosa],
+    "image": "img_cheese_dosa",
+    "images": [
+      "img_cheese_dosa",
+      "img_cheese_dosa",
+      "img_cheese_dosa"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1902,15 +2856,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_pav_bhaji,
-    "images": [img_pav_bhaji, img_pav_bhaji, img_pav_bhaji],
+    "image": "img_pav_bhaji",
+    "images": [
+      "img_pav_bhaji",
+      "img_pav_bhaji",
+      "img_pav_bhaji"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1923,15 +2888,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_street_food,
-    "images": [img_street_food, img_street_food, img_street_food],
+    "image": "img_street_food",
+    "images": [
+      "img_street_food",
+      "img_street_food",
+      "img_street_food"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1942,17 +2918,28 @@ const menuData = [
     "shortDescription": "Coconut and mint chutney portion for parcel.",
     "price": 35,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1963,17 +2950,28 @@ const menuData = [
     "shortDescription": "Hot lentil sambhar portion for parcel.",
     "price": 35,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -1984,17 +2982,28 @@ const menuData = [
     "shortDescription": "Single butter-roasted soft pav bun.",
     "price": 20,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -2005,17 +3014,28 @@ const menuData = [
     "shortDescription": "Single large deep-fried puffed bhatura bread.",
     "price": 42,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 1,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -2026,17 +3046,28 @@ const menuData = [
     "shortDescription": "Extra spicy Schezwan sauce dip.",
     "price": 45,
     "cuisine": "Fusion Food",
-    "course": "Main Course",
+    "course": "Extras",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_paneer,
-    "images": [img_paneer, img_paneer, img_paneer],
+    "image": "img_paneer",
+    "images": [
+      "img_paneer",
+      "img_paneer",
+      "img_paneer"
+    ],
     "spiceLevel": 3,
     "prepTime": 5,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients","Secret Spices","Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2a2a2a",
     "availability": "Available"
   },
@@ -2049,15 +3080,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2070,15 +3112,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#301e1e",
     "availability": "Available"
   },
@@ -2091,15 +3144,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2112,15 +3176,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2133,15 +3208,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#301e1e",
     "availability": "Available"
   },
@@ -2154,15 +3240,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2175,15 +3272,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 2,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2196,15 +3304,26 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_chinese,
-    "images": [img_chinese, img_chinese, img_chinese],
+    "image": "img_chinese",
+    "images": [
+      "img_chinese",
+      "img_chinese",
+      "img_chinese"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#1e302f",
     "availability": "Available"
   },
@@ -2217,15 +3336,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -2238,15 +3368,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -2259,15 +3400,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -2280,15 +3432,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Beverages",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_drink,
-    "images": [img_drink, img_drink, img_drink],
+    "image": "img_drink",
+    "images": [
+      "img_drink",
+      "img_drink",
+      "img_drink"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#142933",
     "availability": "Available"
   },
@@ -2301,15 +3464,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2322,15 +3496,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2343,15 +3528,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2364,15 +3560,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2385,15 +3592,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2406,15 +3624,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2427,15 +3656,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2448,15 +3688,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2469,15 +3720,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2490,15 +3752,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2511,15 +3784,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2532,15 +3816,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2553,15 +3848,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2574,15 +3880,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2595,15 +3912,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2616,15 +3944,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2637,15 +3976,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Desserts",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "",
-    "image": img_dessert,
-    "images": [img_dessert, img_dessert, img_dessert],
+    "image": "img_dessert",
+    "images": [
+      "img_dessert",
+      "img_dessert",
+      "img_dessert"
+    ],
     "spiceLevel": 1,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Ingredients", "Secret Spices", "Herbs"],
+    "ingredients": [
+      "Fresh Ingredients",
+      "Secret Spices",
+      "Herbs"
+    ],
     "cardBg": "#2f1a30",
     "availability": "Available"
   },
@@ -2658,15 +4008,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Must Try",
-    "image": img_thali,
-    "images": [img_thali, img_thali, img_thali],
+    "image": "img_thali",
+    "images": [
+      "img_thali",
+      "img_thali",
+      "img_thali"
+    ],
     "spiceLevel": 1,
     "prepTime": 25,
     "serves": 2,
     "origin": "Anando Kitchens",
-    "ingredients": ["Local Ghee", "Fresh Buttermilk", "Organic Spices"],
+    "ingredients": [
+      "Local Ghee",
+      "Fresh Buttermilk",
+      "Organic Spices"
+    ],
     "cardBg": "#362415",
     "availability": "Available"
   },
@@ -2679,15 +4040,26 @@ const menuData = [
     "cuisine": "Snacks",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Healthy Choice",
-    "image": img_beetroot_salad,
-    "images": [img_beetroot_salad, img_beetroot_salad, img_beetroot_salad],
+    "image": "img_beetroot_salad",
+    "images": [
+      "img_beetroot_salad",
+      "img_beetroot_salad",
+      "img_beetroot_salad"
+    ],
     "spiceLevel": 1,
     "prepTime": 12,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Roasted Beetroots", "Greek Feta", "English Walnuts"],
+    "ingredients": [
+      "Roasted Beetroots",
+      "Greek Feta",
+      "English Walnuts"
+    ],
     "cardBg": "#2c1c2e",
     "availability": "Available"
   },
@@ -2700,15 +4072,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Starters",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": null,
-    "image": img_falafel,
-    "images": [img_falafel, img_falafel, img_falafel],
+    "image": "img_falafel",
+    "images": [
+      "img_falafel",
+      "img_falafel",
+      "img_falafel"
+    ],
     "spiceLevel": 1,
     "prepTime": 15,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Organic Chickpeas", "Tahini Paste", "Mediterranean Herbs"],
+    "ingredients": [
+      "Organic Chickpeas",
+      "Tahini Paste",
+      "Mediterranean Herbs"
+    ],
     "cardBg": "#1c2e1f",
     "availability": "Available"
   },
@@ -2721,15 +4104,26 @@ const menuData = [
     "cuisine": "Fusion Food",
     "course": "Main Course",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Chef Specials",
-    "image": img_shahi_paneer,
-    "images": [img_shahi_paneer, img_shahi_paneer, img_shahi_paneer],
+    "image": "img_shahi_paneer",
+    "images": [
+      "img_shahi_paneer",
+      "img_shahi_paneer",
+      "img_shahi_paneer"
+    ],
     "spiceLevel": 2,
     "prepTime": 20,
     "serves": 1,
     "origin": "Anando Kitchens",
-    "ingredients": ["Fresh Cottage Cheese", "Cashew Gravy", "Kashmiri Saffron"],
+    "ingredients": [
+      "Fresh Cottage Cheese",
+      "Cashew Gravy",
+      "Kashmiri Saffron"
+    ],
     "cardBg": "#3b2a1a",
     "availability": "Available"
   },
@@ -2742,18 +4136,27 @@ const menuData = [
     "cuisine": "Chinese",
     "course": "Soups",
     "diet": "Veg",
-    "mealTime": ["Lunch", "Dinner"],
+    "mealTime": [
+      "Lunch",
+      "Dinner"
+    ],
     "badge": "Spicy Elite",
-    "image": img_dragon_pot,
-    "images": [img_dragon_pot, img_dragon_pot, img_dragon_pot],
+    "image": "img_dragon_pot",
+    "images": [
+      "img_dragon_pot",
+      "img_dragon_pot",
+      "img_dragon_pot"
+    ],
     "spiceLevel": 3,
     "prepTime": 18,
     "serves": 2,
     "origin": "Anando Kitchens",
-    "ingredients": ["Szechuan Chilies", "Exotic Mushrooms", "Fresh Tofu"],
+    "ingredients": [
+      "Szechuan Chilies",
+      "Exotic Mushrooms",
+      "Fresh Tofu"
+    ],
     "cardBg": "#3a1515",
     "availability": "Available"
   }
-];
-
-export default menuData;
+]
